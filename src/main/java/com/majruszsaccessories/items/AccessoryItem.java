@@ -21,6 +21,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import top.theillusivec4.curios.api.CuriosApi;
 
 import javax.annotation.Nullable;
 import java.util.HashSet;
@@ -88,10 +89,7 @@ public class AccessoryItem extends Item {
 
 	/** Returns current effectiveness from item stack. */
 	public static double getEffectiveness( ItemStack itemStack ) {
-		if( !( itemStack.getItem() instanceof AccessoryItem ) )
-			return 0.0;
-
-		return itemStack.getOrCreateTagElement( EFFECTIVENESS_TAG )
+		return !( itemStack.getItem() instanceof AccessoryItem ) ? 0.0 : itemStack.getOrCreateTagElement( EFFECTIVENESS_TAG )
 			.getDouble( EFFECTIVENESS_VALUE_TAG );
 	}
 
@@ -127,19 +125,30 @@ public class AccessoryItem extends Item {
 	}
 
 	/** Checks whether player have this item in inventory. */
-	protected boolean hasAny( PlayerEntity player, AccessoryItem item ) {
+	protected boolean hasAny( PlayerEntity player ) {
+		if( Integration.isCuriosInstalled() )
+			return CuriosApi.getCuriosHelper()
+				.findEquippedCurio( this, player )
+				.isPresent();
+
 		Set< Item > items = new HashSet<>();
-		items.add( item );
+		items.add( this );
 
 		return player.inventory.hasAnyOf( items );
 	}
 
-	/** Returns highest inventory item effectiveness. */
-	protected double getHighestEffectiveness( PlayerEntity player, AccessoryItem item ) {
+	/** Returns highest effectiveness bonus in the inventory of this item. (with curios it only returns value from pocket slot) */
+	protected double getHighestEffectiveness( PlayerEntity player ) {
+		if( Integration.isCuriosInstalled() )
+			return CuriosApi.getCuriosHelper()
+				.findEquippedCurio( this, player )
+				.map( accessoryItemStruct->AccessoryItem.getEffectiveness( accessoryItemStruct.right ) )
+				.orElse( 0.0 );
+
 		double bonus = this.minimumEffectiveness.get();
 		for( ItemStack itemStack : player.inventory.items )
-			if( item.equals( itemStack.getItem() ) && item.getEffectiveness( itemStack ) > bonus )
-				bonus = item.getEffectiveness( itemStack );
+			if( this.equals( itemStack.getItem() ) && getEffectiveness( itemStack ) > bonus )
+				bonus = getEffectiveness( itemStack );
 
 		return bonus;
 	}

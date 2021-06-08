@@ -8,17 +8,14 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.InterModComms;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypeMessage;
-import top.theillusivec4.curios.api.type.util.IIconHelper;
 
 /** Class that registers all entities, items etc. */
 public class RegistryHandler {
@@ -31,7 +28,7 @@ public class RegistryHandler {
 
 		registerEverything( modEventBus );
 
-		DistExecutor.unsafeRunWhenOn( Dist.CLIENT, () -> () -> modEventBus.addListener( RegistryHandler::onTextureStitch ) );
+		DistExecutor.unsafeRunWhenOn( Dist.CLIENT, ()->()->modEventBus.addListener( RegistryHandler::onTextureStitch ) );
 		modEventBus.addListener( RegistryHandler::onEnqueueIMC );
 	}
 
@@ -64,8 +61,5 @@ public class RegistryHandler {
 		final AtlasTexture map = event.getMap();
 		if( PlayerContainer.BLOCK_ATLAS.equals( map.location() ) )
 			event.addSprite( ACCESSORY_SLOT_TEXTURE );
-
-		// IIconHelper iconHelper = CuriosApi.getIconHelper();
-		// iconHelper.addIcon( "pocket", ACCESSORY_SLOT_TEXTURE );
 	}
 }

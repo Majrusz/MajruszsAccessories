@@ -1,6 +1,7 @@
 package com.majruszsaccessories.items;
 
 import com.majruszsaccessories.Instances;
+import com.mlib.MajruszLibrary;
 import com.mlib.attributes.AttributeHandler;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -8,7 +9,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 /** Emblem that increases luck for the player that is currently fishing. */
 @Mod.EventBusSubscriber
@@ -30,16 +30,19 @@ public class FishermanEmblemItem extends AccessoryItem {
 	public static void increaseLuck( TickEvent.PlayerTickEvent event ) {
 		PlayerEntity player = event.player;
 
+		MajruszLibrary.LOGGER.info( Instances.FISHERMAN_EMBLEM_ITEM.hasAny( player ) );
+		MajruszLibrary.LOGGER.info( Instances.FISHERMAN_EMBLEM_ITEM.getHighestEffectiveness( player ) );
 		LUCK_ATTRIBUTE.setValueAndApply( player, Instances.FISHERMAN_EMBLEM_ITEM.getEmblemLuckBonus( player ) );
 	}
 
 	/** Returns current luck bonus. (whether player has emblem and is fishing or not) */
 	public int getEmblemLuckBonus( PlayerEntity player ) {
-		return player.fishing != null && hasAny( player, this ) ? getLuckBonus( player ) : 0;
+		return 1;
+		//return player.fishing != null && hasAny( player, this ) ? getLuckBonus( player ) : 0;
 	}
 
 	/** Returns total luck bonus. */
 	public int getLuckBonus( PlayerEntity player ) {
-		return 3;//( int )Math.round( this.luck.getCurrentGameStateValue() * ( 1.0 + getHighestEffectiveness( player, this ) ) );
+		return 3;//( int )Math.round( this.luck.getCurrentGameStateValue() * ( 1.0 + getHighestEffectivenessInInventory( player, this ) ) );
 	}
 }
