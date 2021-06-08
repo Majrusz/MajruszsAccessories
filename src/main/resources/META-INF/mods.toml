@@ -1,18 +1,18 @@
 modLoader="javafml"
 loaderVersion="[36,)"
 license="MIT License"
-#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/"
+issueTrackerURL="https://github.com/Majrusz/MajruszsAccessories/issues"
 
 [[mods]]
     modId="majruszs_accessories"
     version="0.1.0"
     displayName="Majrusz's Accessories"
-    #updateJSONURL="https://change.me.example.invalid/updates.json"
+    updateJSONURL="https://raw.githubusercontent.com/Majrusz/MajruszsAccessories/1.16.5/update.json"
     #displayURL="https://change.me.to.your.mods.homepage.example.invalid/"
     logoFile="examplemod.png"
     credits="Thanks for all your support!"
     authors="Majrusz"
-    description='''OKOK'''
+    description='''Minecraft mod that adds new special accessories that make certain aspects of the game more enjoyable.'''
 
 [[dependencies.majruszs_accessories]]
     modId="forge"
