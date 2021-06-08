@@ -1,0 +1,43 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+license="MIT License"
+#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/"
+
+[[mods]]
+    modId="majruszs_accessories"
+    version="0.1.0"
+    displayName="Majrusz's Accessories"
+    #updateJSONURL="https://change.me.example.invalid/updates.json"
+    #displayURL="https://change.me.to.your.mods.homepage.example.invalid/"
+    logoFile="examplemod.png"
+    credits="Thanks for all your support!"
+    authors="Majrusz"
+    description='''OKOK'''
+
+[[dependencies.majruszs_accessories]]
+    modId="forge"
+    mandatory=true
+    versionRange="[36,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.majruszs_accessories]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.5,1.17)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.majruszs_accessories]]
+    modId="majrusz_library"
+    mandatory=true
+    versionRange="[1.7.0,2.0.0)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.majruszs_accessories]]
+    modId="curios"
+    mandatory=false
+    versionRange="[4.0.5.1,)"
+    ordering="AFTER"
+    side="BOTH"
