@@ -1,12 +1,11 @@
 package com.majruszsaccessories;
 
-import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.items.AccessoryItemGroup;
 import com.majruszsaccessories.items.FishermanEmblemItem;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.item.Items;
 import net.minecraftforge.fml.ModLoadingContext;
 
+/** Class that stores all instances of accessory items etc. */
 public class Instances {
 	public static final ItemGroup ITEM_GROUP;
 
