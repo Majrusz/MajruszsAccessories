@@ -10,10 +10,12 @@ import com.mlib.config.DoubleConfig;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.*;
@@ -81,6 +83,19 @@ public class AccessoryItem extends Item {
 			MajruszsAccessories.addAdvancedTooltips( tooltip, flag, " ", INVENTORY_TOOLTIP_TRANSLATION_KEY );
 	}
 
+	/** Adds 3 variants with different effectiveness bonuses to creative mode tab. */
+	@Override
+	public void fillItemCategory( ItemGroup itemGroup, NonNullList< ItemStack > itemStacks ) {
+		if( !allowdedIn( itemGroup ) )
+			return;
+
+		double max = this.maximumEffectiveness.get(), min = this.minimumEffectiveness.get();
+		double range = max - min;
+
+		for( int i = 0; i < 3; ++i )
+			itemStacks.add( setEffectiveness( new ItemStack( this ), Math.round( 100.0 * ( min + range * ( i + 1 ) * 0.25 ) ) / 100.0 ) );
+	}
+
 	/** Checks whether item stack has effectiveness tag. */
 	public static boolean hasEffectivenessTag( ItemStack itemStack ) {
 		return itemStack.getOrCreateTagElement( EFFECTIVENESS_TAG )
@@ -120,8 +135,15 @@ public class AccessoryItem extends Item {
 		); // random value from range [-1.0; 1.0] with mean ~= 0.0 and standard deviation ~= 0.3333..
 		double gaussianRandomShifted = ( gaussianRandom + 1.0 ) / 2.0; // random value from range [0.0; 1.0] with mean ~= 0.5 and standard deviation ~= 0.1666..
 		double randomValue = gaussianRandomShifted * ( this.maximumEffectiveness.get() - this.minimumEffectiveness.get() ) + this.minimumEffectiveness.get(); // random value from range set in config [-min; max]
+		setEffectiveness( itemStack, Math.round( randomValue * 100.0 ) / 100.0 );
+	}
+
+	/** Sets effectiveness bonus to given item stack if possible. */
+	public ItemStack setEffectiveness( ItemStack itemStack, double effectiveness ) {
 		CompoundNBT nbt = itemStack.getOrCreateTagElement( EFFECTIVENESS_TAG );
-		nbt.putDouble( EFFECTIVENESS_VALUE_TAG, Math.round( randomValue * 100.0 ) / 100.0 );
+		nbt.putDouble( EFFECTIVENESS_VALUE_TAG, MathHelper.clamp( effectiveness, this.minimumEffectiveness.get(), this.maximumEffectiveness.get() ) );
+
+		return itemStack;
 	}
 
 	/** Checks whether player have this item in inventory. */
