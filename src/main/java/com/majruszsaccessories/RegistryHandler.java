@@ -3,7 +3,9 @@ package com.majruszsaccessories;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.item.Item;
+import net.minecraft.loot.LootConditionType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -35,6 +37,10 @@ public class RegistryHandler {
 	/** Registers all items. */
 	private static void registerItems( final IEventBus modEventBus ) {
 		ITEMS.register( "fisherman_emblem", ()->Instances.FISHERMAN_EMBLEM_ITEM );
+		ITEMS.register( "lucky_rock", ()->Instances.LUCKY_ROCK_ITEM );
+		ITEMS.register( "giant_seed", ()->Instances.GIANT_SEED_ITEM );
+		ITEMS.register( "idol_of_fertility", ()->Instances.IDOL_OF_FERTILITY_ITEM );
+		ITEMS.register( "taming_certificate", ()->Instances.TAMING_CERTIFICATE_ITEM );
 		ITEMS.register( modEventBus );
 	}
 
