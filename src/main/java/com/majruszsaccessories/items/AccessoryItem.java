@@ -179,4 +179,12 @@ public class AccessoryItem extends Item {
 	protected void spawnParticles( Vector3d position, ServerWorld world, double offset ) {
 		world.sendParticles( ParticleTypes.HAPPY_VILLAGER, position.x, position.y, position.z, 5, offset, offset, offset, 0.1 );
 	}
+
+	/** Returns item stack of Accessory Item with random effectiveness bonus. */
+	protected ItemStack getRandomInstance() {
+		ItemStack itemStack = new ItemStack( this );
+		setRandomEffectiveness( itemStack );
+
+		return itemStack;
+	}
 }
