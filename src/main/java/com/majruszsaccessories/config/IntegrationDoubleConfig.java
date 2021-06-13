@@ -19,7 +19,7 @@ public class IntegrationDoubleConfig implements IConfig {
 				maximumValue
 			);
 		else
-			this.doubleConfig = new DoubleConfig( name, comment, false, defaultValueNormal, minimumValue, maximumValue );
+			this.doubleConfig = new DoubleConfig( Integration.splitWords( name ), comment, false, defaultValueNormal, minimumValue, maximumValue );
 	}
 
 	@Override

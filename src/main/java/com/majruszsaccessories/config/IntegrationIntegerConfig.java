@@ -19,7 +19,7 @@ public class IntegrationIntegerConfig implements IConfig {
 				maximumValue
 			);
 		else
-			this.integerConfig = new IntegerConfig( name, comment, false, defaultValueNormal, minimumValue, maximumValue );
+			this.integerConfig = new IntegerConfig( Integration.splitWords( name ), comment, false, defaultValueNormal, minimumValue, maximumValue );
 	}
 
 	@Override
