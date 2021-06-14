@@ -14,6 +14,7 @@ public class Instances {
 	public static final GiantSeedItem GIANT_SEED_ITEM;
 	public static final IdolOfFertilityItem IDOL_OF_FERTILITY_ITEM;
 	public static final TamingCertificateItem TAMING_CERTIFICATE_ITEM;
+	public static final SecretIngredientItem SECRET_INGREDIENT_ITEM;
 
 	static {
 		ITEM_GROUP = new AccessoryItemGroup( "majruszs_accessories_tab" );
@@ -24,6 +25,7 @@ public class Instances {
 		GIANT_SEED_ITEM = new GiantSeedItem();
 		IDOL_OF_FERTILITY_ITEM = new IdolOfFertilityItem();
 		TAMING_CERTIFICATE_ITEM = new TamingCertificateItem();
+		SECRET_INGREDIENT_ITEM = new SecretIngredientItem();
 
 		MajruszsAccessories.CONFIG_HANDLER.register( ModLoadingContext.get() );
 	}

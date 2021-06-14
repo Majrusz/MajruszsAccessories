@@ -39,6 +39,7 @@ public class RegistryHandler {
 		ITEMS.register( "giant_seed", ()->Instances.GIANT_SEED_ITEM );
 		ITEMS.register( "idol_of_fertility", ()->Instances.IDOL_OF_FERTILITY_ITEM );
 		ITEMS.register( "taming_certificate", ()->Instances.TAMING_CERTIFICATE_ITEM );
+		ITEMS.register( "secret_ingredient", ()->Instances.SECRET_INGREDIENT_ITEM );
 		ITEMS.register( modEventBus );
 	}
 

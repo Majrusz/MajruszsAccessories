@@ -15,6 +15,10 @@
   "item.majruszs_accessories.taming_certificate.damage": "Damage",
   "item.majruszs_accessories.taming_certificate.jump_strength": "Jump strength",
   "item.majruszs_accessories.taming_certificate.speed": "Speed",
+  "item.majruszs_accessories.secret_ingredient": "Secret Ingredient",
+  "item.majruszs_accessories.secret_ingredient.item_tooltip": "Makes all potions stronger and last longer.",
+  "item.majruszs_accessories.secret_ingredient.hint": "Right click on the brewing stand to enhance all potions.",
+  "item.majruszs_accessories.secret_ingredient.enhanced": "Enhanced",
   "majruszs_accessories.items.accessory_item": "Works anywhere in the inventory.",
   "majruszs_accessories.items.effectiveness": "effectiveness",
   "curios.identifier.pocket": "Pocket"
