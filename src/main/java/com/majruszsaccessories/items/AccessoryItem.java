@@ -42,9 +42,9 @@ public class AccessoryItem extends Item {
 	protected final AvailabilityConfig effectiveness;
 	protected final DoubleConfig minimumEffectiveness;
 	protected final DoubleConfig maximumEffectiveness;
-	private final String translationKey;
+	private final String tooltipTranslationKey, hintTranslationKey;
 
-	public AccessoryItem( String configName, String translationKeyID ) {
+	public AccessoryItem( String configName, String translationKeyID, boolean withExtraHint ) {
 		super( ( new Properties() ).stacksTo( 1 )
 			.rarity( Rarity.RARE )
 			.tab( Instances.ITEM_GROUP ) );
@@ -62,14 +62,19 @@ public class AccessoryItem extends Item {
 		this.group = ACCESSORIES_GROUP.addGroup( new ConfigGroup( configName.replace( " ", "" ), groupComment ) );
 		this.group.addConfigs( this.effectiveness, this.minimumEffectiveness, this.maximumEffectiveness );
 
-		this.translationKey = "item.majruszs_accessories." + translationKeyID + ".item_tooltip";
+		this.tooltipTranslationKey = "item.majruszs_accessories." + translationKeyID + ".item_tooltip";
+		this.hintTranslationKey = withExtraHint ? ( "item.majruszs_accessories." + translationKeyID + ".hint" ) : null;
+	}
+
+	public AccessoryItem( String configName, String translationKeyID ) {
+		this( configName, translationKeyID, false );
 	}
 
 	/** Adds tooltip with information what this accessory does and its effectiveness level. */
 	@Override
 	@OnlyIn( Dist.CLIENT )
 	public void appendHoverText( ItemStack itemStack, @Nullable World world, List< ITextComponent > tooltip, ITooltipFlag flag ) {
-		tooltip.add( new TranslationTextComponent( this.translationKey ).withStyle( TextFormatting.GOLD ) );
+		tooltip.add( new TranslationTextComponent( this.tooltipTranslationKey ).withStyle( TextFormatting.GOLD ) );
 		if( isEffectivenessEnabled() && getEffectiveness( itemStack ) != 0.0 ) {
 			IFormattableTextComponent text = new StringTextComponent( getEffectiveness( itemStack ) > 0.0 ? "+" : "" );
 			text.append( "" + ( int )( getEffectiveness( itemStack ) * 100 ) + "% " );
@@ -81,6 +86,9 @@ public class AccessoryItem extends Item {
 
 		if( !Integration.isCuriosInstalled() )
 			MajruszsAccessories.addAdvancedTooltips( tooltip, flag, " ", INVENTORY_TOOLTIP_TRANSLATION_KEY );
+
+		if( this.hintTranslationKey != null )
+			MajruszsAccessories.addAdvancedTooltip( tooltip, flag, this.hintTranslationKey );
 	}
 
 	/** Adds 3 variants with different effectiveness bonuses to creative mode tab. */

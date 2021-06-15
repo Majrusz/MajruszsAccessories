@@ -35,7 +35,6 @@ import java.util.List;
 /** Certificate that increases attributes of tamed animals and prints detailed information about certain tamed animals on right mouse click. */
 @Mod.EventBusSubscriber
 public class TamingCertificateItem extends AccessoryItem {
-	private static final String HINT_TRANSLATION_KEY = "item.majruszs_difficulty.taming_certificate.hint";
 	private static final String HEALTH_TRANSLATION_KEY = "item.majruszs_difficulty.taming_certificate.health";
 	private static final String DAMAGE_TRANSLATION_KEY = "item.majruszs_difficulty.taming_certificate.damage";
 	private static final String JUMP_TRANSLATION_KEY = "item.majruszs_difficulty.taming_certificate.jump_strength";
@@ -46,7 +45,7 @@ public class TamingCertificateItem extends AccessoryItem {
 	protected final IntegrationDoubleConfig horseBonusesMultiplier;
 
 	public TamingCertificateItem() {
-		super( "Certificate Of Taming", "taming_certificate" );
+		super( "Certificate Of Taming", "taming_certificate", true );
 
 		String dropComment = "Chance for Certificate of Taming to drop from taming animals.";
 		this.dropChance = new DoubleConfig( "drop_chance", dropComment, false, 0.01, 0.0, 1.0 );
@@ -61,15 +60,6 @@ public class TamingCertificateItem extends AccessoryItem {
 		this.horseBonusesMultiplier = new IntegrationDoubleConfig( "HorseBonusesMultiplier", horseComment, 0.15, 0.2, 0.25, 0.0, 10.0 );
 
 		this.group.addConfigs( this.dropChance, this.healthMultiplier, this.damageMultiplier, this.horseBonusesMultiplier );
-	}
-
-	/** Adding tooltip for what this Certificate of Taming does. */
-	@Override
-	@OnlyIn( Dist.CLIENT )
-	public void appendHoverText( ItemStack itemStack, @Nullable World world, List< ITextComponent > tooltip, ITooltipFlag flag ) {
-		super.appendHoverText( itemStack, world, tooltip, flag );
-
-		MajruszsAccessories.addAdvancedTooltip( tooltip, flag, HINT_TRANSLATION_KEY );
 	}
 
 	@SubscribeEvent
