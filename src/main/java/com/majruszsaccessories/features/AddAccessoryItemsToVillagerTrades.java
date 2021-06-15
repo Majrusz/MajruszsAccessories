@@ -27,7 +27,7 @@ public class AddAccessoryItemsToVillagerTrades {
 		TRADE_REGISTRIES.add( new TradeRegistry( VillagerProfession.FISHERMAN, Instances.FISHERMAN_EMBLEM_ITEM, 2 ) );
 		TRADE_REGISTRIES.add( new TradeRegistry( VillagerProfession.MASON, Instances.LUCKY_ROCK_ITEM, 2 ) );
 		TRADE_REGISTRIES.add( new TradeRegistry( VillagerProfession.SHEPHERD, Instances.TAMING_CERTIFICATE_ITEM, 2 ) );
-		TRADE_REGISTRIES.add( new TradeRegistry( VillagerProfession.CLERIC, Instances.SECRET_INGREDIENT_ITEM, 2 ) );
+		TRADE_REGISTRIES.add( new TradeRegistry( VillagerProfession.CLERIC, Instances.SECRET_INGREDIENT_ITEM, 2, 7 ) );
 	}
 
 	@SubscribeEvent
@@ -41,11 +41,17 @@ public class AddAccessoryItemsToVillagerTrades {
 		private final VillagerProfession profession;
 		private final AccessoryItem item;
 		private final int tradeTier;
+		private final int amountOfEmeralds;
 
-		public TradeRegistry( VillagerProfession profession, AccessoryItem accessoryItem, int tradeTier ) {
+		public TradeRegistry( VillagerProfession profession, AccessoryItem accessoryItem, int tradeTier, int amountOfEmeralds ) {
 			this.profession = profession;
 			this.item = accessoryItem;
 			this.tradeTier = tradeTier;
+			this.amountOfEmeralds = amountOfEmeralds;
+		}
+
+		public TradeRegistry( VillagerProfession profession, AccessoryItem accessoryItem, int tradeTier ) {
+			this( profession, accessoryItem, tradeTier, 17 );
 		}
 
 		/** Adds new accessory item trade if profession is valid. */
@@ -55,21 +61,23 @@ public class AddAccessoryItemsToVillagerTrades {
 
 			Int2ObjectMap< List< ITrade > > tradeLevels = event.getTrades();
 			List< ITrade > trades = tradeLevels.get( this.tradeTier );
-			trades.add( new AccessoryItemTrade( this.item ) );
+			trades.add( new AccessoryItemTrade( this.item, this.amountOfEmeralds ) );
 		}
 	}
 
 	/** Villager trade with accessory item only. */
 	static class AccessoryItemTrade implements ITrade {
 		private final AccessoryItem tradeItem;
+		private final int amountOfEmeralds;
 
-		public AccessoryItemTrade( AccessoryItem tradeItem ) {
+		public AccessoryItemTrade( AccessoryItem tradeItem, int amountOfEmeralds ) {
 			this.tradeItem = tradeItem;
+			this.amountOfEmeralds = amountOfEmeralds;
 		}
 
 		@Override
 		public MerchantOffer getOffer( Entity trader, Random rand ) {
-			return new AccessoryItemOffer( this.tradeItem );
+			return new AccessoryItemOffer( this.tradeItem, this.amountOfEmeralds );
 		}
 	}
 
@@ -77,8 +85,8 @@ public class AddAccessoryItemsToVillagerTrades {
 	static class AccessoryItemOffer extends MerchantOffer {
 		protected AccessoryItem accessoryItem;
 
-		public AccessoryItemOffer( AccessoryItem accessoryItem ) {
-			super( new ItemStack( accessoryItem, 1 ), new ItemStack( Items.EMERALD, 17 ), 2, 40, 0.05f );
+		public AccessoryItemOffer( AccessoryItem accessoryItem, int amountOfEmeralds ) {
+			super( new ItemStack( accessoryItem, 1 ), new ItemStack( Items.EMERALD, amountOfEmeralds ), 2, 40, 0.05f );
 
 			this.accessoryItem = accessoryItem;
 		}
