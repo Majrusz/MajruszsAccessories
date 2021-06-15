@@ -4,6 +4,7 @@ import com.majruszs_difficulty.events.TreasureBagOpenedEvent;
 import com.majruszsaccessories.Instances;
 import com.majruszsaccessories.Integration;
 import com.majruszsaccessories.config.IntegrationIntegerConfig;
+import com.mlib.MajruszLibrary;
 import com.mlib.Random;
 import com.mlib.attributes.AttributeHandler;
 import com.mlib.config.DoubleConfig;
@@ -16,6 +17,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.ItemFishedEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -60,9 +62,13 @@ public class FishermanEmblemItem extends AccessoryItem {
 	}
 
 	/** Adds Fisherman Emblem to Fisherman Treasure Bag. (if Majrusz's Progressive Difficulty is installed) */
-	public static void addToTreasureBag( TreasureBagOpenedEvent event ) {
-		if( event.treasureBagItem.equals( com.majruszs_difficulty.Instances.FISHING_TREASURE_BAG ) && Random.tryChance( 0.075 ) )
-			event.generatedLoot.add( Instances.FISHERMAN_EMBLEM_ITEM.getRandomInstance() );
+	public static void addToTreasureBag( Event event ) {
+		if( !( event instanceof TreasureBagOpenedEvent ) )
+			return;
+
+		TreasureBagOpenedEvent bagOpenedEvent = ( TreasureBagOpenedEvent )event;
+		if( bagOpenedEvent.treasureBagItem.equals( com.majruszs_difficulty.Instances.FISHING_TREASURE_BAG ) && Random.tryChance( 0.075 ) )
+			bagOpenedEvent.generatedLoot.add( Instances.FISHERMAN_EMBLEM_ITEM.getRandomInstance() );
 	}
 
 	/** Returns current luck bonus. (whether player has emblem and is fishing or not) */
