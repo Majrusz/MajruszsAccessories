@@ -6,7 +6,6 @@ accessories that make certain aspects of the game more enjoyable.
 
 ## Where is Majrusz Library available?
 - [Curse Forge](https://www.curseforge.com/minecraft/mc-mods/majrusz-accessories)
-- [Planet Minecraft](https://www.planetminecraft.com/mod/majrusz-accessories/)
 
 ## Current Library Releases (Source Code)
 - [v0.1.0 for Minecraft 1.16.5](https://github.com/Majrusz/MajruszAccessories/tree/1.16.5)
