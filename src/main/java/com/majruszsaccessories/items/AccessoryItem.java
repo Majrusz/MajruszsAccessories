@@ -34,7 +34,7 @@ import static com.majruszsaccessories.MajruszsAccessories.ACCESSORIES_GROUP;
 
 /** Class with common code for all Accessory items. */
 public class AccessoryItem extends Item {
-	private static final String INVENTORY_TOOLTIP_TRANSLATION_KEY = "majruszs_accessories.items.inventory_item";
+	private static final String INVENTORY_TOOLTIP_TRANSLATION_KEY = "majruszs_accessories.items.accessory_item";
 	private static final String EFFECTIVENESS_TRANSLATION_KEY = "majruszs_accessories.items.effectiveness";
 	private static final String EFFECTIVENESS_TAG = "Effectiveness";
 	private static final String EFFECTIVENESS_VALUE_TAG = "Value";
