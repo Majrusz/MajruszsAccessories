@@ -3,8 +3,6 @@ package com.majruszsaccessories.items;
 import com.majruszsaccessories.Instances;
 import com.majruszsaccessories.config.IntegrationDoubleConfig;
 import com.majruszsaccessories.config.IntegrationIntegerConfig;
-import com.mlib.MajruszLibrary;
-import com.mlib.config.DoubleConfig;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -16,6 +14,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -29,9 +29,9 @@ import java.util.List;
 public class SecretIngredientItem extends AccessoryItem {
 	private static final String POTION_TAG = "MajruszsAccessoriesPotion";
 	private static final String ENHANCED_TRANSLATION_KEY = "item.majruszs_accessories.secret_ingredient.enhanced";
+	private static final String NOTIFICATION_TRANSLATION_KEY = "item.majruszs_accessories.secret_ingredient.notification";
 	protected final IntegrationDoubleConfig durationBonus;
 	protected final IntegrationIntegerConfig amplifierBonus;
-	protected final DoubleConfig dropChance;
 
 	public SecretIngredientItem() {
 		super( "Secret Ingredient", "secret_ingredient", true );
@@ -42,10 +42,7 @@ public class SecretIngredientItem extends AccessoryItem {
 		String amplifierComment = "Amplifier bonus for all created potions.";
 		this.amplifierBonus = new IntegrationIntegerConfig( "AmplifierBonus", amplifierComment, 1, 1, 2, 0, 10 );
 
-		String dropComment = "Chance for Secret Ingredient to drop from brewing potions.";
-		this.dropChance = new DoubleConfig( "drop_chance", dropComment, false, 0.001, 0.0, 1.0 );
-
-		this.group.addConfigs( this.durationBonus, this.amplifierBonus, this.dropChance );
+		this.group.addConfigs( this.durationBonus, this.amplifierBonus );
 	}
 
 	@SubscribeEvent
@@ -61,39 +58,10 @@ public class SecretIngredientItem extends AccessoryItem {
 			BrewingStandTileEntity brewingStand = ( BrewingStandTileEntity )tileEntity;
 			if( secretIngredientItem.upgradePotions( brewingStand, itemStack ) ) {
 				event.setCanceled( true );
-				event.setCancellationResult( ActionResultType.FAIL );
-				MajruszLibrary.LOGGER.info( "CANCELLED" );
+				event.setCancellationResult( ActionResultType.SUCCESS );
+				player.displayClientMessage( new TranslationTextComponent( NOTIFICATION_TRANSLATION_KEY ).withStyle( TextFormatting.BOLD ), true );
 			}
 		}
-		/*PlayerEntity player = event.getItem( 0 ).getEntityRepresentation().position()
-		MajruszLibrary.LOGGER.info( event.getStack() );
-		if( !( player.getCommandSenderWorld() instanceof ServerWorld ) )
-			return;
-		PotionItem
-
-		ServerWorld world = ( ServerWorld )player.getCommandSenderWorld();
-		if( Random.tryChance( strangePotionItem.dropChance.get() ) )
-			ItemHelper.giveItemStackToPlayer( strangePotionItem.getRandomInstance(), player, world );
-
-		if( strangePotionItem.hasAny( player ) ) {
-			ItemStack potion = event.getStack();
-			List< EffectInstance > effectInstanceList = PotionUtils.getMobEffects( potion ), buffedEffectInstanceList = new ArrayList<>();
-			if( effectInstanceList.size() == 0 )
-				return;
-
-			for( EffectInstance effectInstance : effectInstanceList ) {
-				int buffedDuration = ( int )( effectInstance.getDuration() * strangePotionItem.getDurationMultiplier( player ) );
-				int buffedAmplifier = effectInstance.getAmplifier() + strangePotionItem.getAmplifierBonus( player );
-				buffedEffectInstanceList.add( new EffectInstance( effectInstance.getEffect(), buffedDuration, buffedAmplifier ) );
-			}
-
-			ItemStack buffedPotion = potion.copy();
-			PotionUtils.setPotion( buffedPotion, Potions.EMPTY );
-			PotionUtils.setCustomEffects( buffedPotion, buffedEffectInstanceList );
-
-			MajruszLibrary.LOGGER.info( "2" + potion + buffedPotion );
-			ItemHelper.giveItemStackToPlayer( buffedPotion, player, world );
-		}*/
 	}
 
 	/** Upgrades all potions in brewing stand if possible. */
@@ -129,7 +97,7 @@ public class SecretIngredientItem extends AccessoryItem {
 	/** Returns copy of potion with special tag and new effects. */
 	protected ItemStack createBuffedPotion( ItemStack potionStack, List< EffectInstance > buffedEffectInstanceList ) {
 		ItemStack buffedPotionStack = potionStack.copy();
-		PotionUtils.setPotion( buffedPotionStack, Potions.EMPTY );
+		PotionUtils.setPotion( buffedPotionStack, Potions.AWKWARD );
 		PotionUtils.setCustomEffects( buffedPotionStack, buffedEffectInstanceList );
 		setBuffedName( buffedPotionStack, potionStack );
 		addPotionTag( buffedPotionStack );
