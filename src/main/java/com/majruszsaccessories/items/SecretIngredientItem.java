@@ -37,7 +37,7 @@ public class SecretIngredientItem extends AccessoryItem {
 		super( "Secret Ingredient", "secret_ingredient", true );
 
 		String durationComment = "Duration bonus for all created potions.";
-		this.durationBonus = new IntegrationDoubleConfig( "DurationBonus", durationComment, 0.2, 0.25, 0.3, 0.0, 5.0 );
+		this.durationBonus = new IntegrationDoubleConfig( "DurationBonus", durationComment, 0.1, 0.15, 0.2, 0.0, 5.0 );
 
 		String amplifierComment = "Amplifier bonus for all created potions.";
 		this.amplifierBonus = new IntegrationIntegerConfig( "AmplifierBonus", amplifierComment, 1, 1, 2, 0, 10 );
@@ -157,7 +157,7 @@ public class SecretIngredientItem extends AccessoryItem {
 		ITextComponent hoverText = potion.getHoverName();
 		CompoundNBT nbt = buffedPotion.getOrCreateTagElement( "display" );
 		nbt.putString( "Name",
-			"[{\"translate\":\"" + ENHANCED_TRANSLATION_KEY + "\",\"italic\":false}, {\"translate\":\"" + hoverText.getString() + "\",\"italic\":false}]"
+			"[{\"translate\":\"" + ENHANCED_TRANSLATION_KEY + "\",\"italic\":false}, {\"text\":\" \"}, {\"translate\":\"" + hoverText.getString() + "\",\"italic\":false}]"
 		);
 
 		buffedPotion.addTagElement( "display", nbt );
