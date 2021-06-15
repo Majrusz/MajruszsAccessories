@@ -84,11 +84,12 @@ public class AccessoryItem extends Item {
 			tooltip.add( text );
 		}
 
+		if( this.hintTranslationKey != null )
+			MajruszsAccessories.addAdvancedTooltip( tooltip, flag, this.hintTranslationKey );
+
 		if( !Integration.isCuriosInstalled() )
 			MajruszsAccessories.addAdvancedTooltips( tooltip, flag, " ", INVENTORY_TOOLTIP_TRANSLATION_KEY );
 
-		if( this.hintTranslationKey != null )
-			MajruszsAccessories.addAdvancedTooltip( tooltip, flag, this.hintTranslationKey );
 	}
 
 	/** Adds 3 variants with different effectiveness bonuses to creative mode tab. */

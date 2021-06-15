@@ -19,6 +19,7 @@
   "item.majruszs_accessories.secret_ingredient.item_tooltip": "Makes all potions stronger and last longer.",
   "item.majruszs_accessories.secret_ingredient.hint": "Right click on the brewing stand to enhance all potions.",
   "item.majruszs_accessories.secret_ingredient.enhanced": "Enhanced",
+  "item.majruszs_accessories.secret_ingredient.notification": "The amplifier and duration of all potions have been improved.",
   "majruszs_accessories.items.accessory_item": "Works anywhere in the inventory.",
   "majruszs_accessories.items.effectiveness": "effectiveness",
   "curios.identifier.pocket": "Pocket"
