@@ -78,7 +78,7 @@ public class AddAccessoryItemsToVillagerTrades {
 		protected AccessoryItem accessoryItem;
 
 		public AccessoryItemOffer( AccessoryItem accessoryItem ) {
-			super( new ItemStack( accessoryItem, 1 ), new ItemStack( Items.EMERALD, 17 ), 3, 40, 0.05f );
+			super( new ItemStack( accessoryItem, 1 ), new ItemStack( Items.EMERALD, 17 ), 2, 40, 0.05f );
 
 			this.accessoryItem = accessoryItem;
 		}
