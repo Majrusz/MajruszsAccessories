@@ -18,7 +18,7 @@ import java.util.List;
 public class MajruszsAccessories {
 	public static final String MOD_ID = "majruszs_accessories";
 	public static final String NAME = "Majrusz's Accessories";
-	public static final String VERSION = "0.1.0";
+	public static final String VERSION = "0.1.1";
 	public static final ConfigHandler CONFIG_HANDLER = new ConfigHandler( ModConfig.Type.COMMON, "majruszs-accessories-common.toml" );
 	public static final ConfigGroup ACCESSORIES_GROUP = CONFIG_HANDLER.addConfigGroup( new ConfigGroup( "Accessories", "" ) );
 
