@@ -38,7 +38,7 @@ issueTrackerURL="https://github.com/Majrusz/MajruszsAccessories/issues"
 [[dependencies.majruszs_accessories]]
     modId="curios"
     mandatory=false
-    versionRange="[4.0.5.1,)"
+    versionRange="[1.16.5-4.0.5.1,)"
     ordering="AFTER"
     side="BOTH"
 
