@@ -7,6 +7,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -35,12 +37,14 @@ public class MajruszsAccessories {
 	}
 
 	/** Adds tooltip to list if advanced tooltips are enabled. */
+	@OnlyIn( Dist.CLIENT )
 	public static void addAdvancedTooltip( List< ITextComponent > tooltip, ITooltipFlag flag, String translationKey ) {
 		if( flag.isAdvanced() )
 			tooltip.add( new TranslationTextComponent( translationKey ).withStyle( TextFormatting.GRAY ) );
 	}
 
 	/** Adds multiple tooltips to list if advanced tooltips are enabled. */
+	@OnlyIn( Dist.CLIENT )
 	public static void addAdvancedTooltips( List< ITextComponent > tooltip, ITooltipFlag flag, String... translationKeys ) {
 		for( String translationKey : translationKeys )
 			addAdvancedTooltip( tooltip, flag, translationKey );
