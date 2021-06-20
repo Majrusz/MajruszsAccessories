@@ -10,6 +10,7 @@ public class AccessoryItemGroup extends ItemGroup {
 		super( label );
 	}
 
+	/** Returns item stack that is a group icon. */
 	@Override
 	public ItemStack makeIcon() {
 		return new ItemStack( Instances.FISHERMAN_EMBLEM_ITEM );
