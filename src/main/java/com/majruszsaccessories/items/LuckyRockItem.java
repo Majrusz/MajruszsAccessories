@@ -10,8 +10,8 @@ import com.mlib.config.DoubleConfig;
 import com.mlib.events.AnyLootModificationEvent;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.PickaxeItem;
 import net.minecraft.loot.LootContext;
 import net.minecraft.loot.LootParameterSets;
 import net.minecraft.loot.LootParameters;
@@ -76,8 +76,7 @@ public class LuckyRockItem extends AccessoryItem {
 			return;
 
 		boolean isRock = event.blockState.getMaterial() == Material.STONE;
-		boolean wasMinedWithPickaxe = event.tool.getItem() instanceof PickaxeItem;
-		if( !( isRock && wasMinedWithPickaxe ) )
+		if( !( isRock && isPickaxe( event.tool.getItem() ) ) )
 			return;
 
 		LuckyRockItem luckyRock = Instances.LUCKY_ROCK_ITEM;
@@ -95,6 +94,17 @@ public class LuckyRockItem extends AccessoryItem {
 
 			event.generatedLoot.add( itemStack );
 		}
+	}
+
+	/** Checks whether given item is a pickaxe. (or something from other mods that is variant of pickaxe) */
+	private static boolean isPickaxe( Item item ) {
+		if( item.getRegistryName() == null )
+			return false;
+
+		String registryName = item.getRegistryName()
+			.toString();
+
+		return registryName.contains( "pickaxe" ) || registryName.contains( "hammer" );
 	}
 
 	/** Returns current chance for extra loot from mining. */
