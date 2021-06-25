@@ -21,7 +21,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 20,
+          "weight": 15,
           "name": "minecraft:lapis_lazuli",
           "functions": [
             {
@@ -67,6 +67,31 @@
         {
           "type": "minecraft:item",
           "weight": 10,
+          "name": "minecraft:emerald"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 10,
+          "name": "minecraft:diamond"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 10,
+          "name": "minecraft:redstone",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 3.0,
+                "max": 8.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 5,
           "name": "minecraft:bone",
           "functions": [
             {
@@ -78,16 +103,6 @@
               }
             }
           ]
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 10,
-          "name": "minecraft:emerald"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 10,
-          "name": "minecraft:diamond"
         }
       ]
     }
