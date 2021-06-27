@@ -8,7 +8,7 @@ accessories that make certain aspects of the game more enjoyable.
 - [Curse Forge](https://www.curseforge.com/minecraft/mc-mods/majrusz-accessories)
 
 ## Current Library Releases (Source Code)
-- [v0.1.3 for Minecraft 1.16.5](https://github.com/Majrusz/MajruszAccessories/tree/1.16.5)
+- [v0.1.4 for Minecraft 1.16.5](https://github.com/Majrusz/MajruszAccessories/tree/1.16.5)
 
 ## Technologies
 - Java 8
