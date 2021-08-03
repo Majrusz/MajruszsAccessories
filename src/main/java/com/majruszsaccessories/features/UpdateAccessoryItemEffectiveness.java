@@ -2,7 +2,7 @@ package com.majruszsaccessories.features;
 
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.events.AnyLootModificationEvent;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;

@@ -3,12 +3,12 @@ package com.majruszsaccessories.features;
 import com.majruszsaccessories.Instances;
 import com.majruszsaccessories.items.AccessoryItem;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.merchant.villager.VillagerProfession;
-import net.minecraft.entity.merchant.villager.VillagerTrades.ITrade;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.MerchantOffer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -21,6 +21,7 @@ import java.util.Random;
 @Mod.EventBusSubscriber
 public class AddAccessoryItemsToVillagerTrades {
 	private static final List< TradeRegistry > TRADE_REGISTRIES = new ArrayList<>();
+
 	static {
 		TRADE_REGISTRIES.add( new TradeRegistry( VillagerProfession.BUTCHER, Instances.IDOL_OF_FERTILITY_ITEM, 2 ) );
 		TRADE_REGISTRIES.add( new TradeRegistry( VillagerProfession.FARMER, Instances.GIANT_SEED_ITEM, 5 ) );
@@ -59,14 +60,14 @@ public class AddAccessoryItemsToVillagerTrades {
 			if( !this.profession.equals( event.getType() ) )
 				return;
 
-			Int2ObjectMap< List< ITrade > > tradeLevels = event.getTrades();
-			List< ITrade > trades = tradeLevels.get( this.tradeTier );
+			Int2ObjectMap< List< VillagerTrades.ItemListing > > tradeLevels = event.getTrades();
+			List< VillagerTrades.ItemListing > trades = tradeLevels.get( this.tradeTier );
 			trades.add( new AccessoryItemTrade( this.item, this.amountOfEmeralds ) );
 		}
 	}
 
 	/** Villager trade with accessory item only. */
-	static class AccessoryItemTrade implements ITrade {
+	static class AccessoryItemTrade implements VillagerTrades.ItemListing {
 		private final AccessoryItem tradeItem;
 		private final int amountOfEmeralds;
 

@@ -3,20 +3,20 @@ package com.majruszsaccessories.items;
 import com.majruszsaccessories.Instances;
 import com.majruszsaccessories.config.IntegrationDoubleConfig;
 import com.majruszsaccessories.config.IntegrationIntegerConfig;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.PotionUtils;
-import net.minecraft.potion.Potions;
-import net.minecraft.tileentity.BrewingStandTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BrewingStandBlockEntity;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -48,28 +48,28 @@ public class SecretIngredientItem extends AccessoryItem {
 	@SubscribeEvent
 	public static void onBrewedPotion( PlayerInteractEvent.RightClickBlock event ) {
 		SecretIngredientItem secretIngredientItem = Instances.SECRET_INGREDIENT_ITEM;
-		PlayerEntity player = event.getPlayer();
-		World world = player.getCommandSenderWorld();
-		BlockRayTraceResult rayTraceResult = event.getHitVec();
-		TileEntity tileEntity = world.getBlockEntity( rayTraceResult.getBlockPos() );
+		Player player = event.getPlayer();
+		Level world = player.getCommandSenderWorld();
+		BlockHitResult rayTraceResult = event.getHitVec();
+		BlockEntity tileEntity = world.getBlockEntity( rayTraceResult.getBlockPos() );
 		ItemStack itemStack = event.getItemStack();
 
-		if( secretIngredientItem.equals( itemStack.getItem() ) && tileEntity instanceof BrewingStandTileEntity ) {
-			BrewingStandTileEntity brewingStand = ( BrewingStandTileEntity )tileEntity;
+		if( secretIngredientItem.equals( itemStack.getItem() ) && tileEntity instanceof BrewingStandBlockEntity ) {
+			BrewingStandBlockEntity brewingStand = ( BrewingStandBlockEntity )tileEntity;
 			if( secretIngredientItem.upgradePotions( brewingStand, itemStack ) ) {
 				event.setCanceled( true );
-				event.setCancellationResult( ActionResultType.SUCCESS );
-				player.displayClientMessage( new TranslationTextComponent( NOTIFICATION_TRANSLATION_KEY ).withStyle( TextFormatting.BOLD ), true );
+				event.setCancellationResult( InteractionResult.SUCCESS );
+				player.displayClientMessage( new TranslatableComponent( NOTIFICATION_TRANSLATION_KEY ).withStyle( ChatFormatting.BOLD ), true );
 			}
 		}
 	}
 
 	/** Upgrades all potions in brewing stand if possible. */
-	public boolean upgradePotions( BrewingStandTileEntity brewingStand, ItemStack secretIngredientStack ) {
+	public boolean upgradePotions( BrewingStandBlockEntity brewingStand, ItemStack secretIngredientStack ) {
 		boolean upgradedAny = false;
 		for( int i = 0; i < 3; ++i ) {
 			ItemStack potionStack = brewingStand.getItem( i );
-			List< EffectInstance > effectInstanceList = PotionUtils.getMobEffects( potionStack );
+			List< MobEffectInstance > effectInstanceList = PotionUtils.getMobEffects( potionStack );
 			if( effectInstanceList.size() == 0 || hasPotionTag( potionStack ) )
 				continue;
 
@@ -83,22 +83,22 @@ public class SecretIngredientItem extends AccessoryItem {
 	}
 
 	/** Returns list of effects with increased duration and amplifier. */
-	protected List< EffectInstance > getBuffedEffects( List< EffectInstance > effectInstanceList, ItemStack secretIngredientStack ) {
-		List< EffectInstance > buffedEffectInstanceList = new ArrayList<>();
-		for( EffectInstance effectInstance : effectInstanceList ) {
+	protected List< MobEffectInstance > getBuffedEffects( List< MobEffectInstance > effectInstanceList, ItemStack secretIngredientStack ) {
+		List< MobEffectInstance > buffedMobEffectInstanceList = new ArrayList<>();
+		for( MobEffectInstance effectInstance : effectInstanceList ) {
 			int buffedDuration = ( int )( effectInstance.getDuration() * ( 1.0 + getDurationMultiplier( secretIngredientStack ) ) );
 			int buffedAmplifier = effectInstance.getAmplifier() + getAmplifierBonus( secretIngredientStack );
-			buffedEffectInstanceList.add( new EffectInstance( effectInstance.getEffect(), buffedDuration, buffedAmplifier ) );
+			buffedMobEffectInstanceList.add( new MobEffectInstance( effectInstance.getEffect(), buffedDuration, buffedAmplifier ) );
 		}
 
-		return buffedEffectInstanceList;
+		return buffedMobEffectInstanceList;
 	}
 
 	/** Returns copy of potion with special tag and new effects. */
-	protected ItemStack createBuffedPotion( ItemStack potionStack, List< EffectInstance > buffedEffectInstanceList ) {
+	protected ItemStack createBuffedPotion( ItemStack potionStack, List< MobEffectInstance > buffedMobEffectInstanceList ) {
 		ItemStack buffedPotionStack = potionStack.copy();
 		PotionUtils.setPotion( buffedPotionStack, Potions.AWKWARD );
-		PotionUtils.setCustomEffects( buffedPotionStack, buffedEffectInstanceList );
+		PotionUtils.setCustomEffects( buffedPotionStack, buffedMobEffectInstanceList );
 		setBuffedName( buffedPotionStack, potionStack );
 		addPotionTag( buffedPotionStack );
 
@@ -107,7 +107,7 @@ public class SecretIngredientItem extends AccessoryItem {
 
 	/** Adds special potion tag to given item stack. */
 	protected void addPotionTag( ItemStack potionStack ) {
-		CompoundNBT nbt = potionStack.getOrCreateTag();
+		CompoundTag nbt = potionStack.getOrCreateTag();
 		nbt.putBoolean( POTION_TAG, true );
 
 		potionStack.setTag( nbt );
@@ -115,15 +115,15 @@ public class SecretIngredientItem extends AccessoryItem {
 
 	/** Checks whether item stack has a special potion tag. */
 	protected boolean hasPotionTag( ItemStack potionStack ) {
-		CompoundNBT nbt = potionStack.getOrCreateTag();
+		CompoundTag nbt = potionStack.getOrCreateTag();
 
 		return nbt.getBoolean( POTION_TAG );
 	}
 
 	/** Creates special name for buffed potion. */
 	protected void setBuffedName( ItemStack buffedPotion, ItemStack potion ) {
-		ITextComponent hoverText = potion.getHoverName();
-		CompoundNBT nbt = buffedPotion.getOrCreateTagElement( "display" );
+		Component hoverText = potion.getHoverName();
+		CompoundTag nbt = buffedPotion.getOrCreateTagElement( "display" );
 		nbt.putString( "Name",
 			"[{\"translate\":\"" + ENHANCED_TRANSLATION_KEY + "\",\"italic\":false}, {\"text\":\" \"}, {\"translate\":\"" + hoverText.getString() + "\",\"italic\":false}]"
 		);

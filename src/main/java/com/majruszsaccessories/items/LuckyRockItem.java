@@ -4,25 +4,25 @@ import com.majruszsaccessories.Instances;
 import com.majruszsaccessories.Integration;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.config.IntegrationDoubleConfig;
+import com.mlib.LevelHelper;
 import com.mlib.Random;
-import com.mlib.WorldHelper;
 import com.mlib.config.DoubleConfig;
 import com.mlib.events.AnyLootModificationEvent;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.LootParameterSets;
-import net.minecraft.loot.LootParameters;
-import net.minecraft.loot.LootTable;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
+import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
 
 import java.util.List;
 
@@ -62,17 +62,17 @@ public class LuckyRockItem extends AccessoryItem {
 	}
 
 	/** Generating loot context. (who has Lucky Rock, where is, etc.) */
-	protected static LootContext generateLootContext( PlayerEntity player ) {
-		LootContext.Builder lootContextBuilder = new LootContext.Builder( ( ServerWorld )player.getCommandSenderWorld() );
-		lootContextBuilder.withParameter( LootParameters.ORIGIN, player.position() );
-		lootContextBuilder.withParameter( LootParameters.THIS_ENTITY, player );
+	protected static LootContext generateLootContext( Player player ) {
+		LootContext.Builder lootContextBuilder = new LootContext.Builder( ( ServerLevel )player.getCommandSenderWorld() );
+		lootContextBuilder.withParameter( LootContextParams.ORIGIN, player.position() );
+		lootContextBuilder.withParameter( LootContextParams.THIS_ENTITY, player );
 
-		return lootContextBuilder.create( LootParameterSets.GIFT );
+		return lootContextBuilder.create( LootContextParamSets.GIFT );
 	}
 
 	@SubscribeEvent
 	public static void onGeneratingLoot( AnyLootModificationEvent event ) {
-		if( event.origin == null || event.blockState == null || event.tool == null || !( event.entity instanceof PlayerEntity ) || !( event.entity.getCommandSenderWorld() instanceof ServerWorld ) )
+		if( event.origin == null || event.blockState == null || event.tool == null || !( event.entity instanceof Player ) || !( event.entity.getCommandSenderWorld() instanceof ServerLevel ) )
 			return;
 
 		boolean isRock = event.blockState.getMaterial() == Material.STONE;
@@ -80,12 +80,12 @@ public class LuckyRockItem extends AccessoryItem {
 			return;
 
 		LuckyRockItem luckyRock = Instances.LUCKY_ROCK_ITEM;
-		PlayerEntity player = ( PlayerEntity )event.entity;
-		ServerWorld world = ( ServerWorld )player.getCommandSenderWorld();
+		Player player = ( Player )event.entity;
+		ServerLevel world = ( ServerLevel )player.getCommandSenderWorld();
 
 		if( luckyRock.hasAny( player ) && Random.tryChance( luckyRock.getExtraLootChance( player ) ) ) {
 			event.generatedLoot.addAll( luckyRock.generateLoot( player ) );
-			luckyRock.spawnParticles( event.origin, world, 0.375 );
+			luckyRock.sendParticless( event.origin, world, 0.375 );
 		}
 
 		if( Random.tryChance( luckyRock.getDropChance() ) ) {
@@ -108,8 +108,8 @@ public class LuckyRockItem extends AccessoryItem {
 	}
 
 	/** Returns current chance for extra loot from mining. */
-	public double getExtraLootChance( PlayerEntity player ) {
-		return MathHelper.clamp( this.chance.getValue() * ( 1.0 + getHighestEffectiveness( player ) ), 0.0, 1.0 );
+	public double getExtraLootChance( Player player ) {
+		return Mth.clamp( this.chance.getValue() * ( 1.0 + getHighestEffectiveness( player ) ), 0.0, 1.0 );
 	}
 
 	/** Returns a chance for Lucky Rock to drop. */
@@ -118,7 +118,7 @@ public class LuckyRockItem extends AccessoryItem {
 	}
 
 	/** Generating random loot from Lucky Rock's loot table. */
-	public List< ItemStack > generateLoot( PlayerEntity player ) {
+	public List< ItemStack > generateLoot( Player player ) {
 		LootTable lootTable = getLootTable( player );
 		List< ItemStack > generatedLoot = lootTable.getRandomItems( generateLootContext( player ) );
 		addIntegrationLoot( generatedLoot, player );
@@ -127,25 +127,25 @@ public class LuckyRockItem extends AccessoryItem {
 	}
 
 	/** Returning loot table for Lucky Rock. (possible loot) */
-	protected LootTable getLootTable( PlayerEntity player ) {
+	protected LootTable getLootTable( Player player ) {
 		return ServerLifecycleHooks.getCurrentServer()
 			.getLootTables()
 			.get( getLootTableLocation( player ) );
 	}
 
 	/** Returns loot table location depending on player's dimension. */
-	private ResourceLocation getLootTableLocation( PlayerEntity player ) {
-		if( WorldHelper.isEntityIn( player, World.NETHER ) )
+	private ResourceLocation getLootTableLocation( Player player ) {
+		if( LevelHelper.isEntityIn( player, Level.NETHER ) )
 			return LOOT_TABLE_THE_NETHER_LOCATION;
-		else if( WorldHelper.isEntityIn( player, World.END ) )
+		else if( LevelHelper.isEntityIn( player, Level.END ) )
 			return LOOT_TABLE_THE_END_LOCATION;
 
 		return LOOT_TABLE_LOCATION;
 	}
 
 	/** Adds extra loot with random chance to generated loot if Majrusz's Progressive Difficulty mod is installed. */
-	private void addIntegrationLoot( List< ItemStack > generatedLoot, PlayerEntity player ) {
-		if( !( Integration.isProgressiveDifficultyInstalled() && WorldHelper.isEntityIn( player, World.END ) ) )
+	private void addIntegrationLoot( List< ItemStack > generatedLoot, Player player ) {
+		if( !( Integration.isProgressiveDifficultyInstalled() && LevelHelper.isEntityIn( player, Level.END ) ) )
 			return;
 
 		if( Random.tryChance( this.endShardChance.get() ) )

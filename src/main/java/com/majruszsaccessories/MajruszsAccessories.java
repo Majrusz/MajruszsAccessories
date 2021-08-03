@@ -2,11 +2,11 @@ package com.majruszsaccessories;
 
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.ConfigHandler;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -20,7 +20,7 @@ import java.util.List;
 public class MajruszsAccessories {
 	public static final String MOD_ID = "majruszs_accessories";
 	public static final String NAME = "Majrusz's Accessories";
-	public static final String VERSION = "0.1.4";
+	public static final String VERSION = "0.2.0";
 	public static final ConfigHandler CONFIG_HANDLER = new ConfigHandler( ModConfig.Type.COMMON, "majruszs-accessories-common.toml" );
 	public static final ConfigGroup ACCESSORIES_GROUP = CONFIG_HANDLER.addConfigGroup( new ConfigGroup( "Accessories", "" ) );
 
@@ -38,14 +38,14 @@ public class MajruszsAccessories {
 
 	/** Adds tooltip to list if advanced tooltips are enabled. */
 	@OnlyIn( Dist.CLIENT )
-	public static void addAdvancedTooltip( List< ITextComponent > tooltip, ITooltipFlag flag, String translationKey ) {
+	public static void addAdvancedTooltip( List< Component > tooltip, TooltipFlag flag, String translationKey ) {
 		if( flag.isAdvanced() )
-			tooltip.add( new TranslationTextComponent( translationKey ).withStyle( TextFormatting.GRAY ) );
+			tooltip.add( new TranslatableComponent( translationKey ).withStyle( ChatFormatting.GRAY ) );
 	}
 
 	/** Adds multiple tooltips to list if advanced tooltips are enabled. */
 	@OnlyIn( Dist.CLIENT )
-	public static void addAdvancedTooltips( List< ITextComponent > tooltip, ITooltipFlag flag, String... translationKeys ) {
+	public static void addAdvancedTooltips( List< Component > tooltip, TooltipFlag flag, String... translationKeys ) {
 		for( String translationKey : translationKeys )
 			addAdvancedTooltip( tooltip, flag, translationKey );
 	}

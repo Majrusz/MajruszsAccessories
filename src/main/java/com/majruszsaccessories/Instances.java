@@ -1,15 +1,15 @@
 package com.majruszsaccessories;
 
 import com.majruszsaccessories.items.*;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.fml.ModLoadingContext;
 
 /** Class that stores all instances of accessory items etc. */
 public class Instances {
-	public static final ItemGroup ITEM_GROUP;
+	public static final CreativeModeTab ITEM_GROUP;
 
 	// Items
-	public static final FishermanEmblemItem FISHERMAN_EMBLEM_ITEM;
+	public static final com.majruszsaccessories.items.FishermanEmblemItem FISHERMAN_EMBLEM_ITEM;
 	public static final LuckyRockItem LUCKY_ROCK_ITEM;
 	public static final GiantSeedItem GIANT_SEED_ITEM;
 	public static final IdolOfFertilityItem IDOL_OF_FERTILITY_ITEM;

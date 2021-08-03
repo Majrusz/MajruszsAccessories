@@ -5,10 +5,10 @@ import com.majruszsaccessories.config.IntegrationDoubleConfig;
 import com.mlib.Random;
 import com.mlib.config.DoubleConfig;
 import com.mlib.events.HarvestCropEvent;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.util.Mth;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -36,9 +36,9 @@ public class GiantSeedItem extends AccessoryItem {
 	@SubscribeEvent
 	public static void handleHarvesting( HarvestCropEvent event ) {
 		GiantSeedItem giantSeed = Instances.GIANT_SEED_ITEM;
-		PlayerEntity player = event.getPlayer();
+		Player player = event.getPlayer();
 
-		if( !( player.getCommandSenderWorld() instanceof ServerWorld && event.crops.isMaxAge( event.blockState ) ) )
+		if( !( player.getCommandSenderWorld() instanceof ServerLevel && event.crops.isMaxAge( event.blockState ) ) )
 			return;
 
 		if( Random.tryChance( giantSeed.getDropChance() ) ) {
@@ -53,13 +53,13 @@ public class GiantSeedItem extends AccessoryItem {
 			extraItems.removeIf( itemStack->itemStack.getItem() instanceof GiantSeedItem );
 
 			event.generatedLoot.addAll( extraItems );
-			giantSeed.spawnParticles( event.origin, ( ServerWorld )player.getCommandSenderWorld(), 0.25 );
+			giantSeed.sendParticless( event.origin, ( ServerLevel )player.getCommandSenderWorld(), 0.25 );
 		}
 	}
 
 	/** Returns current chance for double crops. */
-	public double getDoubleLootChance( PlayerEntity player ) {
-		return MathHelper.clamp( this.chance.getValue() * ( 1.0 + getHighestEffectiveness( player ) ), 0.0, 1.0 );
+	public double getDoubleLootChance( Player player ) {
+		return Mth.clamp( this.chance.getValue() * ( 1.0 + getHighestEffectiveness( player ) ), 0.0, 1.0 );
 	}
 
 	/** Returns a chance for Giant Seed to drop. */

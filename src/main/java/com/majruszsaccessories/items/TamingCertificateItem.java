@@ -1,44 +1,35 @@
 package com.majruszsaccessories.items;
 
 import com.majruszsaccessories.Instances;
-import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.config.IntegrationDoubleConfig;
 import com.mlib.Random;
 import com.mlib.attributes.AttributeHandler;
 import com.mlib.config.DoubleConfig;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.horse.HorseEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.horse.Horse;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.AnimalTameEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import javax.annotation.Nullable;
-import java.util.List;
-
 /** Certificate that increases attributes of tamed animals and prints detailed information about certain tamed animals on right mouse click. */
 @Mod.EventBusSubscriber
 public class TamingCertificateItem extends AccessoryItem {
-	private static final String HEALTH_TRANSLATION_KEY = "item.majruszs_difficulty.taming_certificate.health";
-	private static final String DAMAGE_TRANSLATION_KEY = "item.majruszs_difficulty.taming_certificate.damage";
-	private static final String JUMP_TRANSLATION_KEY = "item.majruszs_difficulty.taming_certificate.jump_strength";
-	private static final String SPEED_TRANSLATION_KEY = "item.majruszs_difficulty.taming_certificate.speed";
+	private static final String HEALTH_TRANSLATION_KEY = "item.majruszsaccessories.taming_certificate.health";
+	private static final String DAMAGE_TRANSLATION_KEY = "item.majruszsaccessories.taming_certificate.damage";
+	private static final String JUMP_TRANSLATION_KEY = "item.majruszsaccessories.taming_certificate.jump_strength";
+	private static final String SPEED_TRANSLATION_KEY = "item.majruszsaccessories.taming_certificate.speed";
 	protected final DoubleConfig dropChance;
 	protected final IntegrationDoubleConfig healthMultiplier;
 	protected final IntegrationDoubleConfig damageMultiplier;
@@ -65,13 +56,13 @@ public class TamingCertificateItem extends AccessoryItem {
 	@SubscribeEvent
 	public static void onTaming( AnimalTameEvent event ) {
 		TamingCertificateItem certificate = Instances.TAMING_CERTIFICATE_ITEM;
-		PlayerEntity player = event.getTamer();
-		AnimalEntity animal = event.getAnimal();
+		Player player = event.getTamer();
+		Animal animal = event.getAnimal();
 
-		if( !( player.getCommandSenderWorld() instanceof ServerWorld ) )
+		if( !( player.getCommandSenderWorld() instanceof ServerLevel ) )
 			return;
 
-		ServerWorld world = ( ServerWorld )player.getCommandSenderWorld();
+		ServerLevel world = ( ServerLevel )player.getCommandSenderWorld();
 		if( Random.tryChance( certificate.getDropChance() ) ) {
 			ItemStack itemStack = new ItemStack( certificate, 1 );
 			certificate.setRandomEffectiveness( itemStack );
@@ -80,44 +71,44 @@ public class TamingCertificateItem extends AccessoryItem {
 		}
 
 		if( certificate.applyBonuses( player, animal ) )
-			certificate.spawnParticles( animal.position(), world, 0.4 );
+			certificate.sendParticless( animal.position(), world, 0.4 );
 	}
 
 	/** Prints information about animal on right-click. */
 	@SubscribeEvent
 	public static void onRightClick( PlayerInteractEvent.EntityInteract event ) {
-		if( !( event.getTarget() instanceof AnimalEntity ) || !( event.getPlayer()
-			.getCommandSenderWorld() instanceof ServerWorld
+		if( !( event.getTarget() instanceof Animal ) || !( event.getPlayer()
+			.getCommandSenderWorld() instanceof ServerLevel
 		) )
 			return;
 
-		PlayerEntity player = event.getPlayer();
-		AnimalEntity animal = ( AnimalEntity )event.getTarget();
+		Player player = event.getPlayer();
+		Animal animal = ( Animal )event.getTarget();
 		ItemStack itemStack = event.getItemStack();
 		if( !( itemStack.getItem() instanceof TamingCertificateItem ) )
 			return;
 
-		IFormattableTextComponent message = new StringTextComponent(
+		MutableComponent message = new TextComponent(
 			getTranslatedAnimalInformation( animal, Attributes.MAX_HEALTH, 0, false, HEALTH_TRANSLATION_KEY ) );
 
 		if( AttributeHandler.hasAttribute( animal, Attributes.ATTACK_DAMAGE ) )
 			message.append( getTranslatedAnimalInformation( animal, Attributes.ATTACK_DAMAGE, 0, true, DAMAGE_TRANSLATION_KEY ) );
-		if( animal instanceof HorseEntity ) {
+		if( animal instanceof Horse ) {
 			message.append( getTranslatedAnimalInformation( animal, Attributes.JUMP_STRENGTH, 2, true, JUMP_TRANSLATION_KEY ) );
 			message.append( getTranslatedAnimalInformation( animal, Attributes.MOVEMENT_SPEED, 2, true, SPEED_TRANSLATION_KEY ) );
 		}
 		player.displayClientMessage( message, true );
 
-		event.setCancellationResult( ActionResultType.SUCCESS );
+		event.setCancellationResult( InteractionResult.SUCCESS );
 		event.setCanceled( true );
 	}
 
 	/** Returns formatted text with information about given attribute. */
-	private static String getTranslatedAnimalInformation( AnimalEntity animal, Attribute attribute, int doublePrecision, boolean withComma,
+	private static String getTranslatedAnimalInformation( Animal animal, Attribute attribute, int doublePrecision, boolean withComma,
 		String translationKey
 	) {
 		String information = withComma ? ", " : "";
-		IFormattableTextComponent translatedText = new TranslationTextComponent( translationKey );
+		MutableComponent translatedText = new TranslatableComponent( translationKey );
 		information += translatedText.getString() + ": ";
 		information += String.format( "%." + doublePrecision + "f", animal.getAttributeValue( attribute ) );
 
@@ -129,7 +120,7 @@ public class TamingCertificateItem extends AccessoryItem {
 
 	 @return Returns whether player has Certificate of Taming and bonuses were applied.
 	 */
-	public boolean applyBonuses( PlayerEntity player, AnimalEntity animal ) {
+	public boolean applyBonuses( Player player, Animal animal ) {
 		if( !hasAny( player ) )
 			return false;
 
@@ -137,7 +128,7 @@ public class TamingCertificateItem extends AccessoryItem {
 		if( AttributeHandler.hasAttribute( animal, Attributes.ATTACK_DAMAGE ) )
 			AttributeHandlers.DAMAGE.setValueAndApply( animal, getDamageMultiplier( player ) );
 
-		if( animal instanceof HorseEntity ) {
+		if( animal instanceof Horse ) {
 			AttributeHandlers.JUMP_HEIGHT.setValueAndApply( animal, getHorseBonusesMultiplier( player ) );
 			AttributeHandlers.SPEED.setValueAndApply( animal, getHorseBonusesMultiplier( player ) );
 		}
@@ -148,17 +139,17 @@ public class TamingCertificateItem extends AccessoryItem {
 	}
 
 	/** Returns health multiplier depending on the strongest Certificate of Taming player has. */
-	public double getHealthMultiplier( PlayerEntity player ) {
+	public double getHealthMultiplier( Player player ) {
 		return getMultiplier( player, this.healthMultiplier );
 	}
 
 	/** Returns damage multiplier depending on the strongest Certificate of Taming player has. */
-	public double getDamageMultiplier( PlayerEntity player ) {
+	public double getDamageMultiplier( Player player ) {
 		return getMultiplier( player, this.damageMultiplier );
 	}
 
 	/** Returns jump height and speed multiplier depending on the strongest Certificate of Taming player has. */
-	public double getHorseBonusesMultiplier( PlayerEntity player ) {
+	public double getHorseBonusesMultiplier( Player player ) {
 		return getMultiplier( player, this.horseBonusesMultiplier );
 	}
 
@@ -168,7 +159,7 @@ public class TamingCertificateItem extends AccessoryItem {
 	}
 
 	/** Returns multiplier depending on the strongest Certificate of Taming player has. */
-	private double getMultiplier( PlayerEntity player, IntegrationDoubleConfig multiplier ) {
+	private double getMultiplier( Player player, IntegrationDoubleConfig multiplier ) {
 		return multiplier.getValue() * ( 1.0 + getHighestEffectiveness( player ) );
 	}
 

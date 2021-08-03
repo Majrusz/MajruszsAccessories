@@ -1,11 +1,11 @@
 package com.majruszsaccessories.items;
 
 import com.majruszsaccessories.Instances;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 
 /** Custom creative mode item tab for accessories. */
-public class AccessoryItemGroup extends ItemGroup {
+public class AccessoryItemGroup extends CreativeModeTab {
 	public AccessoryItemGroup( String label ) {
 		super( label );
 	}

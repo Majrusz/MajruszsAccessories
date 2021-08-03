@@ -1,9 +1,9 @@
 package com.majruszsaccessories;
 
-import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.inventory.container.PlayerContainer;
-import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -63,8 +63,8 @@ public class RegistryHandler {
 	/** Adds custom textures to the game. (curios slot) */
 	@OnlyIn( Dist.CLIENT )
 	private static void onTextureStitch( TextureStitchEvent.Pre event ) {
-		final AtlasTexture map = event.getMap();
-		if( PlayerContainer.BLOCK_ATLAS.equals( map.location() ) )
+		final TextureAtlas map = event.getMap();
+		if( InventoryMenu.BLOCK_ATLAS.equals( map.location() ) )
 			event.addSprite( ACCESSORY_SLOT_TEXTURE );
 	}
 }

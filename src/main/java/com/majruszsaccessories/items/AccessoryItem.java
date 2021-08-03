@@ -7,25 +7,25 @@ import com.mlib.MajruszLibrary;
 import com.mlib.config.AvailabilityConfig;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Rarity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.text.*;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.NonNullList;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import top.theillusivec4.curios.api.CuriosApi;
 
 import javax.annotation.Nullable;
+import java.awt.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -70,31 +70,9 @@ public class AccessoryItem extends Item {
 		this( configName, translationKeyID, false );
 	}
 
-	/** Adds tooltip with information what this accessory does and its effectiveness level. */
-	@Override
-	@OnlyIn( Dist.CLIENT )
-	public void appendHoverText( ItemStack itemStack, @Nullable World world, List< ITextComponent > tooltip, ITooltipFlag flag ) {
-		tooltip.add( new TranslationTextComponent( this.tooltipTranslationKey ).withStyle( TextFormatting.GOLD ) );
-		if( isEffectivenessEnabled() && getEffectiveness( itemStack ) != 0.0 ) {
-			IFormattableTextComponent text = new StringTextComponent( getEffectiveness( itemStack ) > 0.0 ? "+" : "" );
-			text.append( "" + ( int )( getEffectiveness( itemStack ) * 100 ) + "% " );
-			text.append( new TranslationTextComponent( EFFECTIVENESS_TRANSLATION_KEY ) );
-			text.withStyle( getEffectivenessColor( itemStack ) );
-
-			tooltip.add( text );
-		}
-
-		if( this.hintTranslationKey != null )
-			MajruszsAccessories.addAdvancedTooltip( tooltip, flag, this.hintTranslationKey );
-
-		if( !Integration.isCuriosInstalled() )
-			MajruszsAccessories.addAdvancedTooltips( tooltip, flag, " ", INVENTORY_TOOLTIP_TRANSLATION_KEY );
-
-	}
-
 	/** Adds 3 variants with different effectiveness bonuses to creative mode tab. */
 	@Override
-	public void fillItemCategory( ItemGroup itemGroup, NonNullList< ItemStack > itemStacks ) {
+	public void fillItemCategory( CreativeModeTab itemGroup, NonNullList< ItemStack > itemStacks ) {
 		if( !allowdedIn( itemGroup ) )
 			return;
 
@@ -117,16 +95,38 @@ public class AccessoryItem extends Item {
 			.getDouble( EFFECTIVENESS_VALUE_TAG );
 	}
 
+	/** Adds tooltip with information what this accessory does and its effectiveness level. */
+	@Override
+	@OnlyIn( Dist.CLIENT )
+	public void appendHoverText( ItemStack itemStack, @Nullable Level level, List< Component > tooltip, TooltipFlag flag ) {
+		tooltip.add( new TranslatableComponent( this.tooltipTranslationKey ).withStyle( ChatFormatting.GOLD ) );
+		if( isEffectivenessEnabled() && getEffectiveness( itemStack ) != 0.0 ) {
+			MutableComponent text = new net.minecraft.network.chat.TextComponent( getEffectiveness( itemStack ) > 0.0 ? "+" : "" );
+			text.append( "" + ( int )( getEffectiveness( itemStack ) * 100 ) + "% " );
+			text.append( new TranslatableComponent( EFFECTIVENESS_TRANSLATION_KEY ) );
+			text.withStyle( getEffectivenessColor( itemStack ) );
+
+			tooltip.add( text );
+		}
+
+		if( this.hintTranslationKey != null )
+			MajruszsAccessories.addAdvancedTooltip( tooltip, flag, this.hintTranslationKey );
+
+		if( !Integration.isCuriosInstalled() )
+			MajruszsAccessories.addAdvancedTooltips( tooltip, flag, " ", INVENTORY_TOOLTIP_TRANSLATION_KEY );
+
+	}
+
 	/** Returns color depending on current effectiveness value. */
 	@OnlyIn( Dist.CLIENT )
-	public TextFormatting getEffectivenessColor( ItemStack itemStack ) {
+	public ChatFormatting getEffectivenessColor( ItemStack itemStack ) {
 		double value = getEffectiveness( itemStack );
 		if( value == this.maximumEffectiveness.get() )
-			return TextFormatting.GOLD;
+			return ChatFormatting.GOLD;
 		else if( value < 0.0 )
-			return TextFormatting.RED;
+			return ChatFormatting.RED;
 		else
-			return TextFormatting.GREEN;
+			return ChatFormatting.GREEN;
 	}
 
 	/** Returns whether effectiveness mechanic is enabled and is valid. */
@@ -139,7 +139,7 @@ public class AccessoryItem extends Item {
 		if( !isEffectivenessEnabled() )
 			return;
 
-		double gaussianRandom = MathHelper.clamp( MajruszLibrary.RANDOM.nextGaussian() / 3.0, -1.0,
+		double gaussianRandom = Mth.clamp( MajruszLibrary.RANDOM.nextGaussian() / 3.0, -1.0,
 			1.0
 		); // random value from range [-1.0; 1.0] with mean ~= 0.0 and standard deviation ~= 0.3333..
 		double gaussianRandomShifted = ( gaussianRandom + 1.0 ) / 2.0; // random value from range [0.0; 1.0] with mean ~= 0.5 and standard deviation ~= 0.1666..
@@ -149,14 +149,14 @@ public class AccessoryItem extends Item {
 
 	/** Sets effectiveness bonus to given item stack if possible. */
 	public ItemStack setEffectiveness( ItemStack itemStack, double effectiveness ) {
-		CompoundNBT nbt = itemStack.getOrCreateTagElement( EFFECTIVENESS_TAG );
-		nbt.putDouble( EFFECTIVENESS_VALUE_TAG, MathHelper.clamp( effectiveness, this.minimumEffectiveness.get(), this.maximumEffectiveness.get() ) );
+		CompoundTag nbt = itemStack.getOrCreateTagElement( EFFECTIVENESS_TAG );
+		nbt.putDouble( EFFECTIVENESS_VALUE_TAG, Mth.clamp( effectiveness, this.minimumEffectiveness.get(), this.maximumEffectiveness.get() ) );
 
 		return itemStack;
 	}
 
 	/** Checks whether player have this item in inventory. */
-	protected boolean hasAny( PlayerEntity player ) {
+	protected boolean hasAny( Player player ) {
 		if( Integration.isCuriosInstalled() )
 			return CuriosApi.getCuriosHelper()
 				.findEquippedCurio( this, player )
@@ -165,11 +165,12 @@ public class AccessoryItem extends Item {
 		Set< Item > items = new HashSet<>();
 		items.add( this );
 
-		return player.inventory.hasAnyOf( items );
+		return player.getInventory()
+			.hasAnyOf( items );
 	}
 
 	/** Returns highest effectiveness bonus in the inventory of this item. (with curios it only returns value from pocket slot) */
-	protected double getHighestEffectiveness( PlayerEntity player ) {
+	protected double getHighestEffectiveness( Player player ) {
 		if( Integration.isCuriosInstalled() )
 			return CuriosApi.getCuriosHelper()
 				.findEquippedCurio( this, player )
@@ -177,7 +178,7 @@ public class AccessoryItem extends Item {
 				.orElse( 0.0 );
 
 		double bonus = this.minimumEffectiveness.get();
-		for( ItemStack itemStack : player.inventory.items )
+		for( ItemStack itemStack : player.getInventory().items )
 			if( this.equals( itemStack.getItem() ) && getEffectiveness( itemStack ) > bonus )
 				bonus = getEffectiveness( itemStack );
 
@@ -185,7 +186,7 @@ public class AccessoryItem extends Item {
 	}
 
 	/** Spawns special particles at given position. */
-	protected void spawnParticles( Vector3d position, ServerWorld world, double offset ) {
+	protected void sendParticless( Vec3 position, ServerLevel world, double offset ) {
 		world.sendParticles( ParticleTypes.HAPPY_VILLAGER, position.x, position.y, position.z, 5, offset, offset, offset, 0.1 );
 	}
 
