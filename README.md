@@ -9,7 +9,7 @@ accessories that make certain aspects of the game more enjoyable.
 
 ## Current Library Releases (Source Code)
 - [v0.2.0 for Minecraft 1.17.1](https://github.com/Majrusz/MajruszAccessories/tree/1.17.1)
-- [v0.1.4 for Minecraft 1.16.5](https://github.com/Majrusz/MajruszAccessories/tree/1.16.5) ***(not supported anymore)***
+- [v0.1.4 for Minecraft 1.16.5](https://github.com/Majrusz/MajruszAccessories/tree/1.16.5) *(not supported anymore)*
 
 ## Technologies
 - Java 8
