@@ -31,7 +31,7 @@ issueTrackerURL="https://github.com/Majrusz/MajruszsAccessories/issues"
 [[dependencies.majruszs_difficulty]]
     modId="majrusz_library"
     mandatory=true
-    versionRange="[2.1.0,3.0.0)"
+    versionRange="[2.2.0,3.0.0)"
     ordering="NONE"
     side="BOTH"
 
