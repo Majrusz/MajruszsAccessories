@@ -20,6 +20,8 @@
   "item.majruszs_accessories.secret_ingredient.hint": "Kliknij prawym przyciskiem na statyw alchemiczny, aby wzmocnić mikstury.",
   "item.majruszs_accessories.secret_ingredient.enhanced": "Wzmocniona",
   "item.majruszs_accessories.secret_ingredient.notification": "Poziom i czas mikstur zostały wzmocnione.",
+  "item.majruszs_accessories.magma_stone": "Kamień magmowy",
+  "item.majruszs_accessories.magma_stone.item_tooltip": "Powoduje, że zawsze podpalasz przeciwników i automatycznie przetapiasz bloki.",
   "majruszs_accessories.items.accessory_item": "Działa z dowolnego miejsca w ekwipunku.",
   "majruszs_accessories.items.effectiveness": "do wydajności",
   "curios.identifier.pocket": "Kieszeń"

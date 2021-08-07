@@ -20,6 +20,8 @@
   "item.majruszs_accessories.secret_ingredient.hint": "Right click on the brewing stand to enhance all potions.",
   "item.majruszs_accessories.secret_ingredient.enhanced": "Enhanced",
   "item.majruszs_accessories.secret_ingredient.notification": "The amplifier and duration of all potions have been improved.",
+  "item.majruszs_accessories.magma_stone": "Magma Stone",
+  "item.majruszs_accessories.magma_stone.item_tooltip": "Makes you always set mobs on fire and automatically smelt blocks.",
   "majruszs_accessories.items.accessory_item": "Works anywhere in the inventory.",
   "majruszs_accessories.items.effectiveness": "effectiveness",
   "curios.identifier.pocket": "Pocket"
