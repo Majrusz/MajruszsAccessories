@@ -29,6 +29,7 @@ public class AddAccessoryItemsToVillagerTrades {
 		TRADE_REGISTRIES.add( new TradeRegistry( VillagerProfession.MASON, Instances.LUCKY_ROCK_ITEM, 2 ) );
 		TRADE_REGISTRIES.add( new TradeRegistry( VillagerProfession.SHEPHERD, Instances.TAMING_CERTIFICATE_ITEM, 2 ) );
 		TRADE_REGISTRIES.add( new TradeRegistry( VillagerProfession.CLERIC, Instances.SECRET_INGREDIENT_ITEM, 2, 7 ) );
+		TRADE_REGISTRIES.add( new TradeRegistry( VillagerProfession.CLERIC, Instances.MAGMA_STONE_ITEM, 3 ) );
 	}
 
 	@SubscribeEvent
