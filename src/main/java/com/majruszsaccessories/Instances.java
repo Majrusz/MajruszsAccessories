@@ -15,6 +15,7 @@ public class Instances {
 	public static final IdolOfFertilityItem IDOL_OF_FERTILITY_ITEM;
 	public static final TamingCertificateItem TAMING_CERTIFICATE_ITEM;
 	public static final SecretIngredientItem SECRET_INGREDIENT_ITEM;
+	public static final MagmaStoneItem MAGMA_STONE_ITEM;
 
 	static {
 		ITEM_GROUP = new AccessoryItemGroup( "majruszs_accessories_tab" );
@@ -26,6 +27,7 @@ public class Instances {
 		IDOL_OF_FERTILITY_ITEM = new IdolOfFertilityItem();
 		TAMING_CERTIFICATE_ITEM = new TamingCertificateItem();
 		SECRET_INGREDIENT_ITEM = new SecretIngredientItem();
+		MAGMA_STONE_ITEM = new MagmaStoneItem();
 
 		MajruszsAccessories.CONFIG_HANDLER.register( ModLoadingContext.get() );
 	}
