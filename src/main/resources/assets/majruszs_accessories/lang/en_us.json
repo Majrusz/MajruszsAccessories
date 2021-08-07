@@ -24,5 +24,17 @@
   "item.majruszs_accessories.magma_stone.item_tooltip": "Makes you always set mobs on fire and automatically smelt blocks.",
   "majruszs_accessories.items.accessory_item": "Works anywhere in the inventory.",
   "majruszs_accessories.items.effectiveness": "effectiveness",
+  "advancements.majruszs_accessories.fisherman_emblem.title": "Professional Fisherman",
+  "advancements.majruszs_accessories.fisherman_emblem.description": "Acquire a Fisherman Emblem",
+  "advancements.majruszs_accessories.giant_seed.title": "Definitely an Overgrown Seed",
+  "advancements.majruszs_accessories.giant_seed.description": "Acquire a Giant Seed",
+  "advancements.majruszs_accessories.lucky_rock.title": "This Is My Favorite Rock!",
+  "advancements.majruszs_accessories.lucky_rock.description": "Acquire a Lucky Rock",
+  "advancements.majruszs_accessories.idol_of_fertility.title": "Week of Animals - Double Growth for Animals",
+  "advancements.majruszs_accessories.idol_of_fertility.description": "Acquire an Idol of Fertility",
+  "advancements.majruszs_accessories.taming_certificate.title": "Master of Taming",
+  "advancements.majruszs_accessories.taming_certificate.description": "Acquire a Certificate of Taming",
+  "advancements.majruszs_accessories.magma_stone.title": "Ahhh That's Hot!",
+  "advancements.majruszs_accessories.magma_stone.description": "Acquire a Magma Stone",
   "curios.identifier.pocket": "Pocket"
 }

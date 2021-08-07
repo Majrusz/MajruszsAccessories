@@ -24,5 +24,17 @@
   "item.majruszs_accessories.magma_stone.item_tooltip": "Powoduje, że zawsze podpalasz przeciwników i automatycznie przetapiasz bloki.",
   "majruszs_accessories.items.accessory_item": "Działa z dowolnego miejsca w ekwipunku.",
   "majruszs_accessories.items.effectiveness": "do wydajności",
+  "advancements.majruszs_accessories.fisherman_emblem.title": "Rybak na medal",
+  "advancements.majruszs_accessories.fisherman_emblem.description": "Zdobądź emblemat rybaka",
+  "advancements.majruszs_accessories.giant_seed.title": "Mocno przerośnięte nasiono",
+  "advancements.majruszs_accessories.giant_seed.description": "Zdobądź gigantyczne nasiono",
+  "advancements.majruszs_accessories.lucky_rock.title": "To mój ulubiony kamień!",
+  "advancements.majruszs_accessories.lucky_rock.description": "Zdobądź szczęśliwy kamień",
+  "advancements.majruszs_accessories.idol_of_fertility.title": "Tydzień zwierząt - Przyrost populacji zwierząt jest podwojony",
+  "advancements.majruszs_accessories.idol_of_fertility.description": "Zdobądź bożka płodności",
+  "advancements.majruszs_accessories.taming_certificate.title": "Mistrz ujarzmiania",
+  "advancements.majruszs_accessories.taming_certificate.description": "Zdobądź certyfikat z oswajania",
+  "advancements.majruszs_accessories.magma_stone.title": "Ależ to gorące!",
+  "advancements.majruszs_accessories.magma_stone.description": "Zdobądź kamień magmowy",
   "curios.identifier.pocket": "Kieszeń"
 }
