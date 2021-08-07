@@ -5,6 +5,7 @@ import com.majruszsaccessories.config.IntegrationDoubleConfig;
 import com.mlib.Random;
 import com.mlib.attributes.AttributeHandler;
 import com.mlib.config.DoubleConfig;
+import com.mlib.particles.ParticleHelper;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -62,16 +63,16 @@ public class TamingCertificateItem extends AccessoryItem {
 		if( !( player.getCommandSenderWorld() instanceof ServerLevel ) )
 			return;
 
-		ServerLevel world = ( ServerLevel )player.getCommandSenderWorld();
+		ServerLevel level = ( ServerLevel )player.getCommandSenderWorld();
 		if( Random.tryChance( certificate.getDropChance() ) ) {
 			ItemStack itemStack = new ItemStack( certificate, 1 );
 			certificate.setRandomEffectiveness( itemStack );
 
-			world.addFreshEntity( new ItemEntity( world, animal.getX(), animal.getY(), animal.getZ(), itemStack ) );
+			level.addFreshEntity( new ItemEntity( level, animal.getX(), animal.getY(), animal.getZ(), itemStack ) );
 		}
 
 		if( certificate.applyBonuses( player, animal ) )
-			certificate.sendParticless( animal.position(), world, 0.4 );
+			ParticleHelper.spawnAwardParticles( level, animal.position(), 5, 0.375 );
 	}
 
 	/** Prints information about animal on right-click. */

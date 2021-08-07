@@ -22,10 +22,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.DeferredRegister;
 import top.theillusivec4.curios.api.CuriosApi;
 
 import javax.annotation.Nullable;
-import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -34,6 +35,7 @@ import static com.majruszsaccessories.MajruszsAccessories.ACCESSORIES_GROUP;
 
 /** Class with common code for all Accessory items. */
 public class AccessoryItem extends Item {
+	private static final List< AccessoryItem > ACCESSORY_ITEMS = new ArrayList<>();
 	private static final String INVENTORY_TOOLTIP_TRANSLATION_KEY = "majruszs_accessories.items.accessory_item";
 	private static final String EFFECTIVENESS_TRANSLATION_KEY = "majruszs_accessories.items.effectiveness";
 	private static final String EFFECTIVENESS_TAG = "Effectiveness";
@@ -42,9 +44,9 @@ public class AccessoryItem extends Item {
 	protected final AvailabilityConfig effectiveness;
 	protected final DoubleConfig minimumEffectiveness;
 	protected final DoubleConfig maximumEffectiveness;
-	private final String tooltipTranslationKey, hintTranslationKey;
+	private final String registryKey, tooltipTranslationKey, hintTranslationKey;
 
-	public AccessoryItem( String configName, String translationKeyID, boolean withExtraHint ) {
+	public AccessoryItem( String configName, String registryKey, boolean withExtraHint ) {
 		super( ( new Properties() ).stacksTo( 1 )
 			.rarity( Rarity.RARE )
 			.tab( Instances.ITEM_GROUP ) );
@@ -62,37 +64,23 @@ public class AccessoryItem extends Item {
 		this.group = ACCESSORIES_GROUP.addGroup( new ConfigGroup( configName.replace( " ", "" ), groupComment ) );
 		this.group.addConfigs( this.effectiveness, this.minimumEffectiveness, this.maximumEffectiveness );
 
-		this.tooltipTranslationKey = "item.majruszs_accessories." + translationKeyID + ".item_tooltip";
-		this.hintTranslationKey = withExtraHint ? ( "item.majruszs_accessories." + translationKeyID + ".hint" ) : null;
+		this.registryKey = registryKey;
+		this.tooltipTranslationKey = "item.majruszs_accessories." + registryKey + ".item_tooltip";
+		this.hintTranslationKey = withExtraHint ? ( "item.majruszs_accessories." + registryKey + ".hint" ) : null;
+
+		ACCESSORY_ITEMS.add( this );
 	}
 
-	public AccessoryItem( String configName, String translationKeyID ) {
-		this( configName, translationKeyID, false );
+	public AccessoryItem( String configName, String registryKey ) {
+		this( configName, registryKey, false );
 	}
 
-	/** Adds 3 variants with different effectiveness bonuses to creative mode tab. */
-	@Override
-	public void fillItemCategory( CreativeModeTab itemGroup, NonNullList< ItemStack > itemStacks ) {
-		if( !allowdedIn( itemGroup ) )
-			return;
+	/** Registers all accessory items in the game. */
+	public static void registerAll( DeferredRegister< Item > deferredRegister ) {
+		new Instances(); // this line only forces Instances to load first
 
-		double max = this.maximumEffectiveness.get(), min = this.minimumEffectiveness.get();
-		double range = max - min;
-
-		for( int i = 0; i < 3; ++i )
-			itemStacks.add( setEffectiveness( new ItemStack( this ), Math.round( 100.0 * ( min + range * ( i + 1 ) * 0.25 ) ) / 100.0 ) );
-	}
-
-	/** Checks whether item stack has effectiveness tag. */
-	public static boolean hasEffectivenessTag( ItemStack itemStack ) {
-		return itemStack.getOrCreateTagElement( EFFECTIVENESS_TAG )
-			.contains( EFFECTIVENESS_VALUE_TAG );
-	}
-
-	/** Returns current effectiveness from item stack. */
-	public static double getEffectiveness( ItemStack itemStack ) {
-		return !( itemStack.getItem() instanceof AccessoryItem ) ? 0.0 : itemStack.getOrCreateTagElement( EFFECTIVENESS_TAG )
-			.getDouble( EFFECTIVENESS_VALUE_TAG );
+		for( AccessoryItem item : ACCESSORY_ITEMS )
+			deferredRegister.register( item.registryKey, ()->item );
 	}
 
 	/** Adds tooltip with information what this accessory does and its effectiveness level. */
@@ -114,7 +102,30 @@ public class AccessoryItem extends Item {
 
 		if( !Integration.isCuriosInstalled() )
 			MajruszsAccessories.addAdvancedTooltips( tooltip, flag, " ", INVENTORY_TOOLTIP_TRANSLATION_KEY );
+	}
 
+	/** Adds 3 variants with different effectiveness bonuses to creative mode tab. */
+	@Override
+	public void fillItemCategory( CreativeModeTab itemGroup, NonNullList< ItemStack > itemStacks ) {
+		if( !allowdedIn( itemGroup ) )
+			return;
+
+		double max = this.maximumEffectiveness.get(), min = this.minimumEffectiveness.get();
+		double range = max - min;
+		for( int i = 0; i < 3; ++i )
+			itemStacks.add( setEffectiveness( new ItemStack( this ), Math.round( 100.0 * ( min + range * ( i + 1 ) * 0.25 ) ) / 100.0 ) );
+	}
+
+	/** Checks whether item stack has effectiveness tag. */
+	public static boolean hasEffectivenessTag( ItemStack itemStack ) {
+		return itemStack.getOrCreateTagElement( EFFECTIVENESS_TAG )
+			.contains( EFFECTIVENESS_VALUE_TAG );
+	}
+
+	/** Returns current effectiveness from item stack. */
+	public static double getEffectiveness( ItemStack itemStack ) {
+		return !( itemStack.getItem() instanceof AccessoryItem ) ? 0.0 : itemStack.getOrCreateTagElement( EFFECTIVENESS_TAG )
+			.getDouble( EFFECTIVENESS_VALUE_TAG );
 	}
 
 	/** Returns color depending on current effectiveness value. */
@@ -183,11 +194,6 @@ public class AccessoryItem extends Item {
 				bonus = getEffectiveness( itemStack );
 
 		return bonus;
-	}
-
-	/** Spawns special particles at given position. */
-	protected void sendParticless( Vec3 position, ServerLevel world, double offset ) {
-		world.sendParticles( ParticleTypes.HAPPY_VILLAGER, position.x, position.y, position.z, 5, offset, offset, offset, 0.1 );
 	}
 
 	/** Returns item stack of Accessory Item with random effectiveness bonus. */

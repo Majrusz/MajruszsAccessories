@@ -1,5 +1,6 @@
 package com.majruszsaccessories;
 
+import com.majruszsaccessories.items.AccessoryItem;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
@@ -34,12 +35,8 @@ public class RegistryHandler {
 
 	/** Registers all items. */
 	private static void registerItems( final IEventBus modEventBus ) {
-		ITEMS.register( "fisherman_emblem", ()->Instances.FISHERMAN_EMBLEM_ITEM );
-		ITEMS.register( "lucky_rock", ()->Instances.LUCKY_ROCK_ITEM );
-		ITEMS.register( "giant_seed", ()->Instances.GIANT_SEED_ITEM );
-		ITEMS.register( "idol_of_fertility", ()->Instances.IDOL_OF_FERTILITY_ITEM );
-		ITEMS.register( "taming_certificate", ()->Instances.TAMING_CERTIFICATE_ITEM );
-		ITEMS.register( "secret_ingredient", ()->Instances.SECRET_INGREDIENT_ITEM );
+		AccessoryItem.registerAll( ITEMS );
+
 		ITEMS.register( modEventBus );
 	}
 

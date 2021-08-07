@@ -4,6 +4,7 @@ import com.majruszsaccessories.Instances;
 import com.majruszsaccessories.config.IntegrationDoubleConfig;
 import com.mlib.Random;
 import com.mlib.config.DoubleConfig;
+import com.mlib.particles.ParticleHelper;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.AgeableMob;
@@ -65,21 +66,21 @@ public class IdolOfFertilityItem extends AccessoryItem {
 	}
 
 	/** Tries to spawn another child. */
-	public void tryToSpawnAnotherChild( Player player, ServerLevel world, @Nullable Animal parent1, @Nullable Animal parent2 ) {
+	public void tryToSpawnAnotherChild( Player player, ServerLevel level, @Nullable Animal parent1, @Nullable Animal parent2 ) {
 		if( !Random.tryChance( getTwinsChance( player ) ) )
 			return;
 
 		if( parent1 == null || parent2 == null )
 			return;
 
-		AgeableMob child2 = parent1.getBreedOffspring( world, parent2 );
+		AgeableMob child2 = parent1.getBreedOffspring( level, parent2 );
 		if( child2 == null )
 			return;
 
 		child2.setBaby( true );
 		child2.absMoveTo( parent1.getX(), parent1.getY(), parent1.getZ(), 0.0f, 0.0f );
-		world.addFreshEntity( child2 ); // adds child to the world
-		sendParticless( parent1.position(), world, 0.25 );
+		level.addFreshEntity( child2 ); // adds child to the world
+		ParticleHelper.spawnAwardParticles( level, parent1.position(), 5, 0.25 );
 	}
 
 	/** Returns current chance of having twins from breeding. */

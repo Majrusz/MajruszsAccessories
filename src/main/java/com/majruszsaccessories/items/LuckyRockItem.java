@@ -8,6 +8,7 @@ import com.mlib.LevelHelper;
 import com.mlib.Random;
 import com.mlib.config.DoubleConfig;
 import com.mlib.events.AnyLootModificationEvent;
+import com.mlib.particles.ParticleHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -81,11 +82,11 @@ public class LuckyRockItem extends AccessoryItem {
 
 		LuckyRockItem luckyRock = Instances.LUCKY_ROCK_ITEM;
 		Player player = ( Player )event.entity;
-		ServerLevel world = ( ServerLevel )player.getCommandSenderWorld();
+		ServerLevel level = ( ServerLevel )player.getCommandSenderWorld();
 
 		if( luckyRock.hasAny( player ) && Random.tryChance( luckyRock.getExtraLootChance( player ) ) ) {
 			event.generatedLoot.addAll( luckyRock.generateLoot( player ) );
-			luckyRock.sendParticless( event.origin, world, 0.375 );
+			ParticleHelper.spawnAwardParticles( level, event.origin, 5, 0.375 );
 		}
 
 		if( Random.tryChance( luckyRock.getDropChance() ) ) {

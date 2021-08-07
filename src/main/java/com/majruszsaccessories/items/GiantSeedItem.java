@@ -5,6 +5,7 @@ import com.majruszsaccessories.config.IntegrationDoubleConfig;
 import com.mlib.Random;
 import com.mlib.config.DoubleConfig;
 import com.mlib.events.HarvestCropEvent;
+import com.mlib.particles.ParticleHelper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.util.Mth;
@@ -53,7 +54,7 @@ public class GiantSeedItem extends AccessoryItem {
 			extraItems.removeIf( itemStack->itemStack.getItem() instanceof GiantSeedItem );
 
 			event.generatedLoot.addAll( extraItems );
-			giantSeed.sendParticless( event.origin, ( ServerLevel )player.getCommandSenderWorld(), 0.25 );
+			ParticleHelper.spawnAwardParticles( ( ServerLevel )player.level, event.origin, 5, 0.25 );
 		}
 	}
 
