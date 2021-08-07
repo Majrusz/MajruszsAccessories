@@ -9,17 +9,14 @@ import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.DeferredRegister;
@@ -75,14 +72,6 @@ public class AccessoryItem extends Item {
 		this( configName, registryKey, false );
 	}
 
-	/** Registers all accessory items in the game. */
-	public static void registerAll( DeferredRegister< Item > deferredRegister ) {
-		new Instances(); // this line only forces Instances to load first
-
-		for( AccessoryItem item : ACCESSORY_ITEMS )
-			deferredRegister.register( item.registryKey, ()->item );
-	}
-
 	/** Adds tooltip with information what this accessory does and its effectiveness level. */
 	@Override
 	@OnlyIn( Dist.CLIENT )
@@ -114,6 +103,14 @@ public class AccessoryItem extends Item {
 		double range = max - min;
 		for( int i = 0; i < 3; ++i )
 			itemStacks.add( setEffectiveness( new ItemStack( this ), Math.round( 100.0 * ( min + range * ( i + 1 ) * 0.25 ) ) / 100.0 ) );
+	}
+
+	/** Registers all accessory items in the game. */
+	public static void registerAll( DeferredRegister< Item > deferredRegister ) {
+		new Instances(); // this line only forces Instances to load first
+
+		for( AccessoryItem item : ACCESSORY_ITEMS )
+			deferredRegister.register( item.registryKey, ()->item );
 	}
 
 	/** Checks whether item stack has effectiveness tag. */
