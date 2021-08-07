@@ -1,0 +1,36 @@
+{
+  "parent": "minecraft:husbandry/fishy_business",
+  "display": {
+    "icon": {
+      "item": "majruszs_accessories:fisherman_emblem"
+    },
+    "title": {
+      "translate": "advancements.majruszs_accessories.fisherman_emblem.title"
+    },
+    "description": {
+      "translate": "advancements.majruszs_accessories.fisherman_emblem.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true,
+    "rewards": {
+      "experience": 100
+    }
+  },
+  "criteria": {
+    "picked_up_accessory": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          "majruszs_accessories:fisherman_emblem"
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "picked_up_accessory"
+    ]
+  ]
+}

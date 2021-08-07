@@ -1,0 +1,36 @@
+{
+  "parent": "minecraft:nether/root",
+  "display": {
+    "icon": {
+      "item": "majruszs_accessories:magma_stone"
+    },
+    "title": {
+      "translate": "advancements.majruszs_accessories.magma_stone.title"
+    },
+    "description": {
+      "translate": "advancements.majruszs_accessories.magma_stone.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true,
+    "rewards": {
+      "experience": 100
+    }
+  },
+  "criteria": {
+    "picked_up_accessory": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          "majruszs_accessories:magma_stone"
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "picked_up_accessory"
+    ]
+  ]
+}

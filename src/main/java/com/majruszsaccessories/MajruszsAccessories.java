@@ -25,8 +25,8 @@ public class MajruszsAccessories {
 	public static final ConfigGroup ACCESSORIES_GROUP = CONFIG_HANDLER.addConfigGroup( new ConfigGroup( "Accessories", "" ) );
 
 	public MajruszsAccessories() {
-		RegistryHandler.initialize();
 		Integration.initialize();
+		RegistryHandler.initialize();
 
 		MinecraftForge.EVENT_BUS.register( this );
 	}

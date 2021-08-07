@@ -1,0 +1,36 @@
+{
+  "parent": "minecraft:husbandry/plant_seed",
+  "display": {
+    "icon": {
+      "item": "majruszs_accessories:giant_seed"
+    },
+    "title": {
+      "translate": "advancements.majruszs_accessories.giant_seed.title"
+    },
+    "description": {
+      "translate": "advancements.majruszs_accessories.giant_seed.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true,
+    "rewards": {
+      "experience": 100
+    }
+  },
+  "criteria": {
+    "picked_up_accessory": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          "majruszs_accessories:giant_seed"
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "picked_up_accessory"
+    ]
+  ]
+}
