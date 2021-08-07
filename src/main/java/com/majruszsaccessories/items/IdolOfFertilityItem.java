@@ -56,7 +56,7 @@ public class IdolOfFertilityItem extends AccessoryItem {
 
 	/** Tries to drop the Idol of Fertility. */
 	public void tryToDrop( Mob parent, ServerLevel world ) {
-		if( !Random.tryChance( getDropChance() ) )
+		if( !Random.tryChance( this.dropChance.get() ) )
 			return;
 
 		ItemStack itemStack = new ItemStack( this, 1 );
@@ -86,10 +86,5 @@ public class IdolOfFertilityItem extends AccessoryItem {
 	/** Returns current chance of having twins from breeding. */
 	public double getTwinsChance( Player player ) {
 		return Mth.clamp( this.extraAnimalChance.getValue() * ( 1.0 + getHighestEffectiveness( player ) ), 0.0, 1.0 );
-	}
-
-	/** Returns a chance for Idol of Fertility to drop. */
-	public double getDropChance() {
-		return this.dropChance.get();
 	}
 }

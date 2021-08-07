@@ -89,12 +89,8 @@ public class LuckyRockItem extends AccessoryItem {
 			ParticleHelper.spawnAwardParticles( level, event.origin, 5, 0.375 );
 		}
 
-		if( Random.tryChance( luckyRock.getDropChance() ) ) {
-			ItemStack itemStack = new ItemStack( luckyRock, 1 );
-			luckyRock.setRandomEffectiveness( itemStack );
-
-			event.generatedLoot.add( itemStack );
-		}
+		if( Random.tryChance( luckyRock.dropChance.get() ) )
+			event.generatedLoot.add( luckyRock.getRandomInstance() );
 	}
 
 	/** Checks whether given item is a pickaxe. (or something from other mods that is variant of pickaxe) */
@@ -111,11 +107,6 @@ public class LuckyRockItem extends AccessoryItem {
 	/** Returns current chance for extra loot from mining. */
 	public double getExtraLootChance( Player player ) {
 		return Mth.clamp( this.chance.getValue() * ( 1.0 + getHighestEffectiveness( player ) ), 0.0, 1.0 );
-	}
-
-	/** Returns a chance for Lucky Rock to drop. */
-	public double getDropChance() {
-		return this.dropChance.get();
 	}
 
 	/** Generating random loot from Lucky Rock's loot table. */

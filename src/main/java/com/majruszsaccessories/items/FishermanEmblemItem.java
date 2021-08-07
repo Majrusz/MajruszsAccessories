@@ -4,16 +4,16 @@ import com.majruszs_difficulty.events.TreasureBagOpenedEvent;
 import com.majruszsaccessories.Instances;
 import com.majruszsaccessories.Integration;
 import com.majruszsaccessories.config.IntegrationIntegerConfig;
+import com.mlib.LevelHelper;
 import com.mlib.Random;
 import com.mlib.attributes.AttributeHandler;
 import com.mlib.config.DoubleConfig;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.ItemFishedEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -53,11 +53,11 @@ public class FishermanEmblemItem extends AccessoryItem {
 	@SubscribeEvent
 	public static void onFishing( ItemFishedEvent event ) {
 		Player player = event.getPlayer();
-		if( !( player.getCommandSenderWorld() instanceof ServerLevel ) || Integration.isProgressiveDifficultyInstalled() || player.fishing == null )
+		if( !( player.level instanceof ServerLevel ) || Integration.isProgressiveDifficultyInstalled() || player.fishing == null )
 			return;
 
 		if( Random.tryChance( Instances.FISHERMAN_EMBLEM_ITEM.dropChance.get() ) )
-			spawnEmblem( ( ServerLevel )player.getCommandSenderWorld(), player.fishing, player );
+			spawnEmblem( ( ServerLevel )player.level, player.fishing, player );
 	}
 
 	/** Adds Fisherman Emblem to Fisherman Treasure Bag. (if Majrusz's Progressive Difficulty is installed) */
@@ -71,18 +71,9 @@ public class FishermanEmblemItem extends AccessoryItem {
 	}
 
 	/** Spawns Fisherman Emblem in game world. */
-	private static void spawnEmblem( ServerLevel world, FishingHook fishingHook, Player player ) {
-		double x = fishingHook.getX(), y = fishingHook.getY(), z = fishingHook.getZ();
-		Vec3 position = Random.getRandomVector3d( x - 0.25, x + 0.25, y + 0.125, y + 0.5, z - 0.25, z + 0.25 );
-		ItemEntity itemEntity = new ItemEntity( world, position.x, position.y, position.z, Instances.FISHERMAN_EMBLEM_ITEM.getRandomInstance() );
-
-		Vec3 delta = player.position()
-			.subtract( position );
-		itemEntity.lerpMotion( 0.1 * delta.x,
-			0.1 * delta.x + Math.pow( Math.pow( delta.x, 2 ) + Math.pow( delta.y, 2 ) + Math.pow( delta.z, 2 ), 0.25 ) * 0.08, 0.1 * delta.z
-		);
-
-		world.addFreshEntity( itemEntity );
+	private static void spawnEmblem( ServerLevel level, FishingHook fishingHook, Player player ) {
+		ItemStack fishermanEmblem = Instances.FISHERMAN_EMBLEM_ITEM.getRandomInstance();
+		LevelHelper.spawnItemEntityFlyingTowardsDirection( fishermanEmblem, level, fishingHook.position(), player.position() );
 	}
 
 	/** Returns current luck bonus. (whether player has emblem and is fishing or not) */

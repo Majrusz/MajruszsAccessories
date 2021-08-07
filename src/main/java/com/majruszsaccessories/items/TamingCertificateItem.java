@@ -59,17 +59,12 @@ public class TamingCertificateItem extends AccessoryItem {
 		TamingCertificateItem certificate = Instances.TAMING_CERTIFICATE_ITEM;
 		Player player = event.getTamer();
 		Animal animal = event.getAnimal();
-
 		if( !( player.getCommandSenderWorld() instanceof ServerLevel ) )
 			return;
 
 		ServerLevel level = ( ServerLevel )player.getCommandSenderWorld();
-		if( Random.tryChance( certificate.getDropChance() ) ) {
-			ItemStack itemStack = new ItemStack( certificate, 1 );
-			certificate.setRandomEffectiveness( itemStack );
-
-			level.addFreshEntity( new ItemEntity( level, animal.getX(), animal.getY(), animal.getZ(), itemStack ) );
-		}
+		if( Random.tryChance( certificate.getDropChance() ) )
+			level.addFreshEntity( new ItemEntity( level, animal.getX(), animal.getY(), animal.getZ(), certificate.getRandomInstance() ) );
 
 		if( certificate.applyBonuses( player, animal ) )
 			ParticleHelper.spawnAwardParticles( level, animal.position(), 5, 0.375 );

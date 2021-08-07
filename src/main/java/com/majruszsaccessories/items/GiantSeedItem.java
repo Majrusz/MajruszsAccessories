@@ -39,32 +39,22 @@ public class GiantSeedItem extends AccessoryItem {
 		GiantSeedItem giantSeed = Instances.GIANT_SEED_ITEM;
 		Player player = event.getPlayer();
 
-		if( !( player.getCommandSenderWorld() instanceof ServerLevel && event.crops.isMaxAge( event.blockState ) ) )
+		if( !( player.level instanceof ServerLevel && event.crops.isMaxAge( event.blockState ) ) )
 			return;
-
-		if( Random.tryChance( giantSeed.getDropChance() ) ) {
-			ItemStack itemStack = new ItemStack( giantSeed, 1 );
-			giantSeed.setRandomEffectiveness( itemStack );
-
-			event.generatedLoot.add( itemStack );
-		}
 
 		if( giantSeed.hasAny( player ) && Random.tryChance( giantSeed.getDoubleLootChance( player ) ) ) {
 			List< ItemStack > extraItems = new ArrayList<>( event.generatedLoot );
-			extraItems.removeIf( itemStack->itemStack.getItem() instanceof GiantSeedItem );
 
 			event.generatedLoot.addAll( extraItems );
 			ParticleHelper.spawnAwardParticles( ( ServerLevel )player.level, event.origin, 5, 0.25 );
 		}
+
+		if( Random.tryChance( giantSeed.dropChance.get() ) )
+			event.generatedLoot.add( giantSeed.getRandomInstance() );
 	}
 
 	/** Returns current chance for double crops. */
 	public double getDoubleLootChance( Player player ) {
 		return Mth.clamp( this.chance.getValue() * ( 1.0 + getHighestEffectiveness( player ) ), 0.0, 1.0 );
-	}
-
-	/** Returns a chance for Giant Seed to drop. */
-	public double getDropChance() {
-		return this.dropChance.get();
 	}
 }

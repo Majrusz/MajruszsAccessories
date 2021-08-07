@@ -70,7 +70,7 @@ public class MagmaStoneItem extends AccessoryItem {
 			return;
 
 		MagmaStoneItem magmaStone = Instances.MAGMA_STONE_ITEM;
-		if( Random.tryChance( magmaStone.getDropChance() ) ) {
+		if( Random.tryChance( magmaStone.dropChance.get() ) ) {
 			event.generatedLoot.add( magmaStone.getRandomInstance() );
 			ParticleHelper.spawnAwardParticles( ( ServerLevel )event.entity.level, event.entity.position(), 10, 0.25 );
 		}
@@ -79,10 +79,5 @@ public class MagmaStoneItem extends AccessoryItem {
 	/** Returns final duration of fire. */
 	protected double getDuration( Player player ) {
 		return ( int )Math.round( this.fireDuration.getValue() * ( 1.0 + getHighestEffectiveness( player ) ) );
-	}
-
-	/** Returns a chance for Magma Stone to drop from Magma Cube. */
-	public double getDropChance() {
-		return this.dropChance.get();
 	}
 }
