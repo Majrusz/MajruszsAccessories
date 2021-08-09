@@ -73,9 +73,7 @@ public class TamingCertificateItem extends AccessoryItem {
 	/** Prints information about animal on right-click. */
 	@SubscribeEvent
 	public static void onRightClick( PlayerInteractEvent.EntityInteract event ) {
-		if( !( event.getTarget() instanceof Animal ) || !( event.getPlayer()
-			.getCommandSenderWorld() instanceof ServerLevel
-		) )
+		if( !( event.getTarget() instanceof Animal ) || !( event.getPlayer().level instanceof ServerLevel ) )
 			return;
 
 		Player player = event.getPlayer();
