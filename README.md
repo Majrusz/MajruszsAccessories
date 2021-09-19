@@ -1,6 +1,6 @@
 ![Mod logo](https://github.com/Majrusz/MajruszsAccessories/blob/1.16.5/accessories_main.png?raw=true)
 
-## What is Majrusz's Accessories? [![](http://cf.way2muchnoise.eu/full_majrusz-accessories_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/majrusz-library)
+## What is Majrusz's Accessories? [![](http://cf.way2muchnoise.eu/full_majruszs-accessories_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/majruszs-accessories)
 **Majrusz's Accessories** is a Minecraft Forge modification that adds new special
 accessories that make certain aspects of the game more enjoyable.
 
