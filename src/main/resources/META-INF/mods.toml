@@ -5,7 +5,7 @@ issueTrackerURL="https://github.com/Majrusz/MajruszsAccessories/issues"
 
 [[mods]]
     modId="majruszs_accessories"
-    version="0.3.0"
+    version="0.3.1"
     displayName="Majrusz's Accessories"
     updateJSONURL="https://raw.githubusercontent.com/Majrusz/MajruszsAccessories/1.17.1/update.json"
     displayURL="https://www.curseforge.com/minecraft/mc-mods/majruszs-accessories"
