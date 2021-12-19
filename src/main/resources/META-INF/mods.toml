@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[37,)"
+loaderVersion="[39,)"
 license="MIT License"
 issueTrackerURL="https://github.com/Majrusz/MajruszsAccessories/issues"
 
@@ -7,7 +7,7 @@ issueTrackerURL="https://github.com/Majrusz/MajruszsAccessories/issues"
     modId="majruszs_accessories"
     version="0.4.0"
     displayName="Majrusz's Accessories"
-    updateJSONURL="https://raw.githubusercontent.com/Majrusz/MajruszsAccessories/1.17.1/update.json"
+    updateJSONURL="https://raw.githubusercontent.com/Majrusz/MajruszsAccessories/1.18.1/update.json"
     displayURL="https://www.curseforge.com/minecraft/mc-mods/majruszs-accessories"
     logoFile="logo.png"
     credits="Thanks for all your support!"
@@ -17,7 +17,7 @@ issueTrackerURL="https://github.com/Majrusz/MajruszsAccessories/issues"
 [[dependencies.majruszs_difficulty]]
     modId="forge"
     mandatory=true
-    versionRange="[37,)"
+    versionRange="[39,)"
     ordering="NONE"
     side="BOTH"
 
