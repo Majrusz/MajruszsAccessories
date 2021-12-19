@@ -60,7 +60,7 @@ public class RegistryHandler {
 	/** Adds custom textures to the game. (curios slot) */
 	@OnlyIn( Dist.CLIENT )
 	private static void onTextureStitch( TextureStitchEvent.Pre event ) {
-		final TextureAtlas map = event.getMap();
+		final TextureAtlas map = event.getAtlas();
 		if( InventoryMenu.BLOCK_ATLAS.equals( map.location() ) )
 			event.addSprite( ACCESSORY_SLOT_TEXTURE );
 	}
