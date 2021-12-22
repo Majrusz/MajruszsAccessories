@@ -12,7 +12,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '0.4.0'
+version = '0.4.1'
 group = 'com.majruszsaccessories' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'majruszsaccessories-1.18.1'
 
