@@ -1,26 +1,32 @@
 buildscript {
     repositories {
-        // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
         maven { url = 'https://maven.minecraftforge.net' }
+        maven { url = 'https://repo.spongepowered.org/maven' }
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.+', changing: true
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
+apply plugin: 'org.spongepowered.mixin'
 
-version = '0.4.1'
+version = '0.5.0'
 group = 'com.majruszsaccessories' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'majruszsaccessories-1.18.1'
+archivesBaseName = 'majruszsaccessories-1.19'
 
 // Mojang ships Java 16 to end users in 1.17+ instead of Java 8 in 1.16 or lower, so your mod should target Java 16.
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+compileJava {
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+}
 
 minecraft {
-    mappings channel: 'official', version: '1.18.1'
+    mappings channel: 'official', version: '1.19'
+
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg') // Currently, this location cannot be changed from the default.
 
     runs {
@@ -75,11 +81,11 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.1-39.0.5'
-    implementation fg.deobf( 'com.mlib:majrusz-library-1.18.1:2.7.0' )
-    implementation fg.deobf( 'com.mlib:majruszs-difficulty-1.18.1:1.4.0' )
-    runtimeOnly fg.deobf( "top.theillusivec4.curios:curios-forge:1.18.1-5.0.3.0" )
-    compileOnly fg.deobf( "top.theillusivec4.curios:curios-forge:1.18.1-5.0.3.0:api" )
+    minecraft 'net.minecraftforge:forge:1.19-41.1.0'
+    implementation fg.deobf( 'com.mlib:majrusz-library-1.19:2.13.0-unfinished' )
+    implementation fg.deobf( 'com.mlib:majruszs-difficulty-1.19:1.5.8-unfinished' )
+    runtimeOnly fg.deobf( "top.theillusivec4.curios:curios-forge:1.19-5.1.0.4" )
+    compileOnly fg.deobf( "top.theillusivec4.curios:curios-forge:1.19-5.1.0.4:api" )
 }
 
 jar {
@@ -109,4 +115,8 @@ publishing {
             url "file://${project.projectDir}/mcmodsrepo"
         }
     }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
 }
