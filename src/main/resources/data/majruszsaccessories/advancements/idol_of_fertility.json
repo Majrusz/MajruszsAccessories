@@ -2,13 +2,13 @@
   "parent": "minecraft:husbandry/breed_an_animal",
   "display": {
     "icon": {
-      "item": "majruszs_accessories:idol_of_fertility"
+      "item": "majruszsaccessories:idol_of_fertility"
     },
     "title": {
-      "translate": "advancements.majruszs_accessories.idol_of_fertility.title"
+      "translate": "advancements.majruszsaccessories.idol_of_fertility.title"
     },
     "description": {
-      "translate": "advancements.majruszs_accessories.idol_of_fertility.description"
+      "translate": "advancements.majruszsaccessories.idol_of_fertility.description"
     },
     "frame": "goal",
     "show_toast": true,
@@ -25,7 +25,7 @@
         "items": [
           {
             "items": [
-              "majruszs_accessories:idol_of_fertility"
+              "majruszsaccessories:idol_of_fertility"
             ]
           }
         ]

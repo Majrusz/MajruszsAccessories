@@ -2,13 +2,13 @@
   "parent": "minecraft:husbandry/plant_seed",
   "display": {
     "icon": {
-      "item": "majruszs_accessories:giant_seed"
+      "item": "majruszsaccessories:giant_seed"
     },
     "title": {
-      "translate": "advancements.majruszs_accessories.giant_seed.title"
+      "translate": "advancements.majruszsaccessories.giant_seed.title"
     },
     "description": {
-      "translate": "advancements.majruszs_accessories.giant_seed.description"
+      "translate": "advancements.majruszsaccessories.giant_seed.description"
     },
     "frame": "goal",
     "show_toast": true,
@@ -25,7 +25,7 @@
         "items": [
           {
             "items": [
-              "majruszs_accessories:giant_seed"
+              "majruszsaccessories:giant_seed"
             ]
           }
         ]

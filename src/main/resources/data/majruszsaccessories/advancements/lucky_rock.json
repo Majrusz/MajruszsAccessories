@@ -2,13 +2,13 @@
   "parent": "minecraft:story/mine_stone",
   "display": {
     "icon": {
-      "item": "majruszs_accessories:lucky_rock"
+      "item": "majruszsaccessories:lucky_rock"
     },
     "title": {
-      "translate": "advancements.majruszs_accessories.lucky_rock.title"
+      "translate": "advancements.majruszsaccessories.lucky_rock.title"
     },
     "description": {
-      "translate": "advancements.majruszs_accessories.lucky_rock.description"
+      "translate": "advancements.majruszsaccessories.lucky_rock.description"
     },
     "frame": "goal",
     "show_toast": true,
@@ -25,7 +25,7 @@
         "items": [
           {
             "items": [
-              "majruszs_accessories:lucky_rock"
+              "majruszsaccessories:lucky_rock"
             ]
           }
         ]

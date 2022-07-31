@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "majruszs_accessories:item/giant_seed"
+    "layer0": "majruszsaccessories:item/giant_seed"
   }
 }

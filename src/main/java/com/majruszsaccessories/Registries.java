@@ -43,7 +43,7 @@ public class Registries {
 	public static final RegistryObject< AnglerEmblemItem > ANGLER_EMBLEM = ITEMS.register( "angler_emblem", AnglerEmblemItem::new );
 
 	// Misc
-	public static final CreativeModeTab ITEM_GROUP = new ItemCreativeModeTab( "majruszs_accessories_tab", ANGLER_EMBLEM );
+	public static final CreativeModeTab ITEM_GROUP = new ItemCreativeModeTab( "majruszsaccessories_tab", ANGLER_EMBLEM );
 	public static final ResourceLocation ACCESSORY_SLOT_TEXTURE = Registries.getLocation( "item/empty_accessory_slot" );
 
 	public static void initialize() {

@@ -2,13 +2,13 @@
   "parent": "minecraft:husbandry/fishy_business",
   "display": {
     "icon": {
-      "item": "majruszs_accessories:fisherman_emblem"
+      "item": "majruszsaccessories:angler_emblem"
     },
     "title": {
-      "translate": "advancements.majruszs_accessories.fisherman_emblem.title"
+      "translate": "advancements.majruszsaccessories.angler_emblem.title"
     },
     "description": {
-      "translate": "advancements.majruszs_accessories.fisherman_emblem.description"
+      "translate": "advancements.majruszsaccessories.angler_emblem.description"
     },
     "frame": "goal",
     "show_toast": true,
@@ -22,7 +22,7 @@
         "items": [
           {
             "items": [
-              "majruszs_accessories:fisherman_emblem"
+              "majruszsaccessories:angler_emblem"
             ]
           }
         ]
