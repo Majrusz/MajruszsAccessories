@@ -2,7 +2,14 @@ package com.majruszsaccessories;
 
 import com.majruszsaccessories.items.AccessoryItem;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotResult;
+import top.theillusivec4.curios.api.type.capability.ICurio;
+
+import javax.annotation.Nullable;
+import java.util.Optional;
 
 public class AccessoryHandler {
 	public static final float MIN_BONUS = -0.6f, MAX_BONUS = 0.6f;
@@ -34,6 +41,27 @@ public class AccessoryHandler {
 
 	public static float ratioToBonus( float ratio ) {
 		return Mth.lerp( ratio, MIN_BONUS, MAX_BONUS );
+	}
+
+	public boolean hasAccessory( Player player ) {
+		return getAccessory( player ) != null;
+	}
+
+	@Nullable
+	public ItemStack getAccessory( Player player ) {
+		if( Integration.isCuriosInstalled() ) {
+			Optional< SlotResult > slotResult = CuriosApi.getCuriosHelper().findFirstCurio( player, this.item );
+			if( slotResult.isPresent() ) {
+				return slotResult.get().stack();
+			}
+		} else {
+			ItemStack itemStack = player.getOffhandItem();
+			if( itemStack.getItem() instanceof AccessoryItem ) {
+				return itemStack;
+			}
+		}
+
+		return null;
 	}
 
 	public void setBonus( float ratio ) {
