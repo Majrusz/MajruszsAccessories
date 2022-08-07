@@ -1,12 +1,6 @@
 {
   "replace": false,
   "values": [
-    "majruszsaccessories:angler_emblem",
-    "majruszsaccessories:lucky_rock",
-    "majruszsaccessories:giant_seed",
-    "majruszsaccessories:idol_of_fertility",
-    "majruszsaccessories:taming_certificate",
-    "majruszsaccessories:secret_ingredient",
-    "majruszsaccessories:magma_stone"
+    "majruszsaccessories:angler_emblem"
   ]
 }

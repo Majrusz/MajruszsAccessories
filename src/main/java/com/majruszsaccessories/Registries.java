@@ -1,8 +1,8 @@
 package com.majruszsaccessories;
 
 import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
+import com.majruszsaccessories.gamemodifiers.list.TooltipUpdater;
 import com.majruszsaccessories.items.AnglerEmblemItem;
-import com.majruszsdifficulty.items.CustomItemGroup;
 import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.items.ItemCreativeModeTab;
 import com.mlib.registries.DeferredRegisterHelper;
@@ -25,6 +25,8 @@ import net.minecraftforge.registries.RegistryObject;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 import static com.majruszsaccessories.MajruszsAccessories.CONFIG_HANDLER;
@@ -45,6 +47,13 @@ public class Registries {
 	// Misc
 	public static final CreativeModeTab ITEM_GROUP = new ItemCreativeModeTab( "majruszsaccessories_tab", ANGLER_EMBLEM );
 	public static final ResourceLocation ACCESSORY_SLOT_TEXTURE = Registries.getLocation( "item/empty_accessory_slot" );
+
+	// Game Modifiers
+	public static final List< GameModifier > GAME_MODIFIERS = new ArrayList<>();
+
+	static {
+		GAME_MODIFIERS.add( new TooltipUpdater() );
+	}
 
 	public static void initialize() {
 		FMLJavaModLoadingContext loadingContext = FMLJavaModLoadingContext.get();
