@@ -1,6 +1,5 @@
 package com.majruszsaccessories;
 
-import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
 import com.majruszsaccessories.gamemodifiers.list.TooltipUpdater;
 import com.majruszsaccessories.items.AnglerEmblemItem;
 import com.mlib.gamemodifiers.GameModifier;
@@ -33,16 +32,15 @@ import static com.majruszsaccessories.MajruszsAccessories.CONFIG_HANDLER;
 
 public class Registries {
 	private static final DeferredRegisterHelper HELPER = new DeferredRegisterHelper( MajruszsAccessories.MOD_ID );
-
 	static {
-		CONFIG_HANDLER.addGroup( GameModifier.addNewGroup( AccessoryModifier.DEFAULT ) );
+		CONFIG_HANDLER.addGroup( GameModifier.addNewGroup( Modifiers.DEFAULT_GROUP ) );
 	}
 
 	// Groups
 	static final DeferredRegister< Item > ITEMS = HELPER.create( ForgeRegistries.Keys.ITEMS );
 
 	// Items
-	public static final RegistryObject< AnglerEmblemItem > ANGLER_EMBLEM = ITEMS.register( "angler_emblem", AnglerEmblemItem::new );
+	public static final RegistryObject< AnglerEmblemItem > ANGLER_EMBLEM = ITEMS.register( "angler_emblem", AnglerEmblemItem.create() );
 
 	// Misc
 	public static final CreativeModeTab ITEM_GROUP = new ItemCreativeModeTab( "majruszsaccessories_tab", ANGLER_EMBLEM );
@@ -87,5 +85,9 @@ public class Registries {
 		if( InventoryMenu.BLOCK_ATLAS.equals( event.getAtlas().location() ) ) {
 			event.addSprite( ACCESSORY_SLOT_TEXTURE );
 		}
+	}
+
+	public static class Modifiers {
+		public static final String DEFAULT_GROUP = Registries.getLocationString( "default" );
 	}
 }

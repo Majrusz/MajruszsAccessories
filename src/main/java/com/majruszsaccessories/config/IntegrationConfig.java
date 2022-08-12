@@ -1,19 +1,27 @@
 package com.majruszsaccessories.config;
 
-import com.mlib.config.UserConfig;
+import com.mlib.config.IConfigurable;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 import java.util.function.Supplier;
 
-public abstract class IntegrationConfig< Type > extends UserConfig implements Supplier< Type > {
-	final UserConfig config;
+public abstract class IntegrationConfig< Type > implements IConfigurable, Supplier< Type > {
+	final IConfigurable config;
 	final Supplier< Type > supplier;
 
-	public < ConfigType extends UserConfig & Supplier< Type > > IntegrationConfig( ConfigType config ) {
-		super( "", "" );
-
+	public < ConfigType extends IConfigurable & Supplier< Type > > IntegrationConfig( ConfigType config ) {
 		this.config = config;
 		this.supplier = config;
+	}
+
+	@Override
+	public String getName() {
+		return this.config.getName();
+	}
+
+	@Override
+	public String getComment() {
+		return this.config.getComment();
 	}
 
 	@Override

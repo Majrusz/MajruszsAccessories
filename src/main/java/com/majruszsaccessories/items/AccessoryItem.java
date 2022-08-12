@@ -9,7 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 
 public class AccessoryItem extends Item {
-	public AccessoryItem( String configName, String registryKey ) {
+	public AccessoryItem() {
 		super( new Properties().stacksTo( 1 ).rarity( Rarity.RARE ).tab( Registries.ITEM_GROUP ) );
 	}
 

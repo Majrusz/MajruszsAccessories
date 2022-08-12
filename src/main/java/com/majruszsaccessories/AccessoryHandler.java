@@ -1,12 +1,12 @@
 package com.majruszsaccessories;
 
 import com.majruszsaccessories.items.AccessoryItem;
+import net.minecraft.ChatFormatting;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
-import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -64,6 +64,10 @@ public class AccessoryHandler {
 		return null;
 	}
 
+	public boolean hasBonusTag() {
+		return this.itemStack.getTagElement( Tags.BONUS ) != null;
+	}
+
 	public void setBonus( float ratio ) {
 		assert 0.0 <= ratio && ratio <= 1.0;
 
@@ -74,8 +78,15 @@ public class AccessoryHandler {
 		return this.itemStack.getOrCreateTagElement( Tags.BONUS ).getFloat( Tags.VALUE );
 	}
 
-	public boolean hasBonusTag() {
-		return this.itemStack.getTagElement( Tags.BONUS ) != null;
+	public ChatFormatting getBonusFormatting() {
+		float bonus = getBonus();
+		if( bonus == AccessoryHandler.MAX_BONUS ) {
+			return ChatFormatting.GOLD;
+		} else if( bonus > 0.0f ) {
+			return ChatFormatting.GREEN;
+		} else {
+			return ChatFormatting.RED;
+		}
 	}
 
 	static final class Tags {

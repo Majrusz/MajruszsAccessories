@@ -2,8 +2,10 @@ package com.majruszsaccessories.gamemodifiers.list;
 
 import com.majruszsaccessories.AccessoryHandler;
 import com.majruszsaccessories.Integration;
+import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
 import com.majruszsaccessories.items.AccessoryItem;
+import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.gamemodifiers.contexts.OnItemTooltipContext;
 import com.mlib.gamemodifiers.data.OnItemTooltipData;
 import net.minecraft.ChatFormatting;
@@ -15,9 +17,9 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TooltipUpdater extends AccessoryModifier {
+public class TooltipUpdater extends GameModifier {
 	public TooltipUpdater() {
-		super( AccessoryModifier.DEFAULT, "TooltipUpdater", "" );
+		super( Registries.Modifiers.DEFAULT_GROUP, "TooltipUpdater", "" );
 
 		OnItemTooltipContext onTooltip = new OnItemTooltipContext( this::addTooltip );
 		onTooltip.addCondition( data->data.itemStack.getItem() instanceof AccessoryItem );
@@ -42,18 +44,9 @@ public class TooltipUpdater extends AccessoryModifier {
 		}
 
 		components.add( Component.translatable( Tooltips.BONUS, String.format( "%s%.0f%%", bonus > 0.0f ? "+" : "", bonus * 100.0 ) )
-			.withStyle( getBonusFormatting( bonus ) ) );
+			.withStyle( handler.getBonusFormatting() ) );
 	}
 
-	private ChatFormatting getBonusFormatting( float bonus ) {
-		if( bonus == AccessoryHandler.MAX_BONUS ) {
-			return ChatFormatting.GOLD;
-		} else if( bonus > 0.0f ) {
-			return ChatFormatting.GREEN;
-		} else {
-			return ChatFormatting.RED;
-		}
-	}
 
 	private void addUseInfo( List< MutableComponent > components, OnItemTooltipData data ) {
 		if( Integration.isCuriosInstalled() ) {
