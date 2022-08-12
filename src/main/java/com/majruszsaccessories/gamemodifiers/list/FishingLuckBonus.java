@@ -13,6 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 
 import java.util.List;
@@ -40,8 +41,8 @@ public class FishingLuckBonus extends AccessoryModifier {
 
 	private void updateLuck( OnPlayerTickData data ) {
 		AccessoryHandler handler = AccessoryHandler.tryToCreate( data.player, this.item.get() );
-		MajruszLibrary.log( "%d", this.getLuckBonus( handler ) );
-		LUCK.setValueAndApply( data.player, this.getLuckBonus( handler ) );
+		int luckBonus = data.player.fishing != null ? this.getLuckBonus( handler ) : 0;
+		LUCK.setValueAndApply( data.player, luckBonus );
 	}
 
 	private int getLuckBonus( AccessoryHandler handler ) {
