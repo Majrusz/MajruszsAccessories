@@ -1,14 +1,16 @@
 package com.majruszsaccessories;
 
 import com.majruszsaccessories.items.AccessoryItem;
+import com.mlib.gamemodifiers.GameModifier;
 import net.minecraft.ChatFormatting;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Optional;
 
 public class AccessoryHandler {
@@ -21,6 +23,13 @@ public class AccessoryHandler {
 
 		this.itemStack = itemStack;
 		this.item = ( AccessoryItem )itemStack.getItem();
+	}
+
+	@Nullable
+	public static AccessoryHandler tryToCreate( LivingEntity entity, AccessoryItem item ) {
+		ItemStack itemStack = findAccessory( entity, item );
+
+		return itemStack != null ? new AccessoryHandler( itemStack ) : null;
 	}
 
 	public static void setup( ItemStack itemStack, float ratio ) {
@@ -43,25 +52,34 @@ public class AccessoryHandler {
 		return Mth.lerp( ratio, MIN_BONUS, MAX_BONUS );
 	}
 
-	public boolean hasAccessory( Player player ) {
-		return getAccessory( player ) != null;
+	public static boolean hasAccessory( LivingEntity entity, AccessoryItem item ) {
+		return findAccessory( entity, item ) != null;
 	}
 
 	@Nullable
-	public ItemStack getAccessory( Player player ) {
+	public static ItemStack findAccessory( LivingEntity entity, AccessoryItem item ) {
 		if( Integration.isCuriosInstalled() ) {
-			Optional< SlotResult > slotResult = CuriosApi.getCuriosHelper().findFirstCurio( player, this.item );
+			Optional< SlotResult > slotResult = CuriosApi.getCuriosHelper().findFirstCurio( entity, item );
 			if( slotResult.isPresent() ) {
 				return slotResult.get().stack();
 			}
 		} else {
-			ItemStack itemStack = player.getOffhandItem();
+			ItemStack itemStack = entity.getOffhandItem();
 			if( itemStack.getItem() instanceof AccessoryItem ) {
 				return itemStack;
 			}
 		}
 
 		return null;
+	}
+
+	public boolean hasAccessory( LivingEntity entity ) {
+		return hasAccessory( entity, this.item );
+	}
+
+	@Nullable
+	public ItemStack findAccessory( LivingEntity entity ) {
+		return findAccessory( entity, this.item );
 	}
 
 	public boolean hasBonusTag() {
@@ -76,6 +94,10 @@ public class AccessoryHandler {
 
 	public float getBonus() {
 		return this.itemStack.getOrCreateTagElement( Tags.BONUS ).getFloat( Tags.VALUE );
+	}
+
+	public List< GameModifier > getModifiers() {
+		return this.item.getHolder().getModifiers();
 	}
 
 	public ChatFormatting getBonusFormatting() {

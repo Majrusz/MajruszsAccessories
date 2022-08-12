@@ -6,6 +6,7 @@ import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.gamemodifiers.GameModifier;
+import com.mlib.gamemodifiers.GameModifiersHolder;
 import com.mlib.gamemodifiers.contexts.OnItemTooltipContext;
 import com.mlib.gamemodifiers.data.OnItemTooltipData;
 import net.minecraft.ChatFormatting;
@@ -32,6 +33,7 @@ public class TooltipUpdater extends GameModifier {
 
 		addBonusInfo( components, data );
 		addUseInfo( components, data );
+		addModifierInfo( components, data );
 
 		data.tooltip.addAll( 1, components );
 	}
@@ -47,7 +49,6 @@ public class TooltipUpdater extends GameModifier {
 			.withStyle( handler.getBonusFormatting() ) );
 	}
 
-
 	private void addUseInfo( List< MutableComponent > components, OnItemTooltipData data ) {
 		if( Integration.isCuriosInstalled() ) {
 			return;
@@ -59,11 +60,20 @@ public class TooltipUpdater extends GameModifier {
 	private ChatFormatting getUseFormatting( OnItemTooltipData data ) {
 		AccessoryHandler handler = new AccessoryHandler( data.itemStack );
 		@Nullable Player player = data.event.getEntity();
-		if( player != null && handler.getAccessory( player ) == data.itemStack ) {
+		if( player != null && handler.findAccessory( player ) == data.itemStack ) {
 			return ChatFormatting.GOLD;
 		} else {
 			return ChatFormatting.DARK_GRAY;
 		}
+	}
+
+	private void addModifierInfo( List< MutableComponent > components, OnItemTooltipData data ) {
+		AccessoryHandler handler = new AccessoryHandler( data.itemStack );
+		handler.getModifiers().forEach( modifier->{
+			if( modifier instanceof AccessoryModifier accessoryModifier ) {
+				accessoryModifier.addTooltip( components, handler );
+			}
+		} );
 	}
 
 	static final class Tooltips {
