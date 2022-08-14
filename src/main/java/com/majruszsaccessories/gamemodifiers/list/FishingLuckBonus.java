@@ -9,8 +9,6 @@ import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.contexts.OnPlayerTickContext;
 import com.mlib.gamemodifiers.data.OnPlayerTickData;
 import com.mlib.text.FormattedTranslatable;
-import com.mlib.text.TextHelper;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -36,36 +34,32 @@ public class FishingLuckBonus extends AccessoryModifier {
 
 	@Override
 	public void addTooltip( List< Component > components, AccessoryHandler handler ) {
-		int bonus = this.getLuckBonus( handler );
-
-		FormattedTranslatable component = new FormattedTranslatable( BONUS_KEY, ChatFormatting.GRAY );
-		component.addParameter( String.format( "%d", bonus ), bonus != this.luck.get() ? handler.getBonusFormatting() : ChatFormatting.GRAY )
-			.insertInto( components );
+		FormattedTranslatable component = new FormattedTranslatable( BONUS_KEY, DEFAULT_FORMAT );
+		component.addParameter( this.getBonus( this::getDefaultLuck, this::getLuck, handler ) ).insertInto( components );
 	}
 
 	@Override
 	public void addDetailedTooltip( List< Component > components, AccessoryHandler handler ) {
-		int defaultBonus = this.luck.get();
-		int bonus = this.getLuckBonus( handler );
-		if( bonus == defaultBonus ) {
+		if( this.getDefaultLuck() == this.getLuck( handler ) ) {
 			this.addTooltip( components, handler );
 			return;
 		}
 
-		FormattedTranslatable formula = new FormattedTranslatable( FORMULA_KEY, ChatFormatting.GRAY );
-		formula.addParameter( String.format( "%d", defaultBonus ) )
-			.addParameter( TextHelper.signed( bonus - defaultBonus ), handler.getBonusFormatting() );
-		FormattedTranslatable component = new FormattedTranslatable( BONUS_KEY, ChatFormatting.GRAY );
-		component.addParameter( formula.create() ).insertInto( components );
+		FormattedTranslatable component = new FormattedTranslatable( BONUS_KEY, DEFAULT_FORMAT );
+		component.addParameter( this.getFormula( this::getDefaultLuck, this::getLuck, handler ) ).insertInto( components );
 	}
 
 	private void updateLuck( OnPlayerTickData data ) {
 		AccessoryHandler handler = AccessoryHandler.tryToCreate( data.player, this.item.get() );
-		int luckBonus = data.player.fishing != null ? this.getLuckBonus( handler ) : 0;
+		int luckBonus = data.player.fishing != null ? this.getLuck( handler ) : 0;
 		LUCK.setValueAndApply( data.player, luckBonus );
 	}
 
-	private int getLuckBonus( AccessoryHandler handler ) {
-		return handler != null ? Math.round( ( 1.0f + handler.getBonus() ) * this.luck.get() ) : 0;
+	private int getDefaultLuck() {
+		return this.luck.get();
+	}
+
+	private int getLuck( AccessoryHandler handler ) {
+		return handler != null ? Math.round( ( 1.0f + handler.getBonus() ) * this.getDefaultLuck() ) : 0;
 	}
 }
