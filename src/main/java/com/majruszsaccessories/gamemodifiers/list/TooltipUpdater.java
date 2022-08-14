@@ -5,18 +5,20 @@ import com.majruszsaccessories.Integration;
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
 import com.majruszsaccessories.items.AccessoryItem;
+import com.mlib.client.ClientHelper;
 import com.mlib.gamemodifiers.GameModifier;
-import com.mlib.gamemodifiers.GameModifiersHolder;
 import com.mlib.gamemodifiers.contexts.OnItemTooltipContext;
 import com.mlib.gamemodifiers.data.OnItemTooltipData;
+import com.mlib.text.FormattedTranslatable;
+import com.mlib.text.TextHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Player;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 public class TooltipUpdater extends GameModifier {
 	public TooltipUpdater() {
@@ -29,7 +31,7 @@ public class TooltipUpdater extends GameModifier {
 	}
 
 	private void addTooltip( OnItemTooltipData data ) {
-		List< MutableComponent > components = new ArrayList<>();
+		List< Component > components = new ArrayList<>();
 
 		addBonusInfo( components, data );
 		addUseInfo( components, data );
@@ -38,23 +40,24 @@ public class TooltipUpdater extends GameModifier {
 		data.tooltip.addAll( 1, components );
 	}
 
-	private void addBonusInfo( List< MutableComponent > components, OnItemTooltipData data ) {
+	private void addBonusInfo( List< Component > components, OnItemTooltipData data ) {
 		AccessoryHandler handler = new AccessoryHandler( data.itemStack );
 		float bonus = handler.getBonus();
 		if( bonus == 0.0f ) {
 			return;
 		}
 
-		components.add( Component.translatable( Tooltips.BONUS, String.format( "%s%.0f%%", bonus > 0.0f ? "+" : "", bonus * 100.0 ) )
-			.withStyle( handler.getBonusFormatting() ) );
+		FormattedTranslatable component = new FormattedTranslatable( Tooltips.BONUS, handler.getBonusFormatting() );
+		component.addParameter( TextHelper.signedPercent( bonus ) ).insertInto( components );
 	}
 
-	private void addUseInfo( List< MutableComponent > components, OnItemTooltipData data ) {
+	private void addUseInfo( List< Component > components, OnItemTooltipData data ) {
 		if( Integration.isCuriosInstalled() ) {
 			return;
 		}
 
-		components.add( Component.translatable( Tooltips.INVENTORY ).withStyle( getUseFormatting( data ) ) );
+		FormattedTranslatable component = new FormattedTranslatable( Tooltips.INVENTORY, getUseFormatting( data ) );
+		component.insertInto( components );
 	}
 
 	private ChatFormatting getUseFormatting( OnItemTooltipData data ) {
@@ -67,11 +70,12 @@ public class TooltipUpdater extends GameModifier {
 		}
 	}
 
-	private void addModifierInfo( List< MutableComponent > components, OnItemTooltipData data ) {
+	private void addModifierInfo( List< Component > components, OnItemTooltipData data ) {
 		AccessoryHandler handler = new AccessoryHandler( data.itemStack );
 		handler.getModifiers().forEach( modifier->{
 			if( modifier instanceof AccessoryModifier accessoryModifier ) {
-				accessoryModifier.addTooltip( components, handler );
+				BiConsumer< List< Component >, AccessoryHandler > consumer = ClientHelper.isShiftDown() ? accessoryModifier::addDetailedTooltip : accessoryModifier::addTooltip;
+				consumer.accept( components, handler );
 			}
 		} );
 	}

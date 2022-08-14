@@ -3,17 +3,17 @@ package com.majruszsaccessories.gamemodifiers.list;
 import com.majruszsaccessories.AccessoryHandler;
 import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
 import com.majruszsaccessories.items.AccessoryItem;
-import com.mlib.MajruszLibrary;
 import com.mlib.attributes.AttributeHandler;
 import com.mlib.config.IntegerConfig;
 import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.contexts.OnPlayerTickContext;
 import com.mlib.gamemodifiers.data.OnPlayerTickData;
+import com.mlib.text.FormattedTranslatable;
+import com.mlib.text.TextHelper;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 
 import java.util.List;
@@ -35,8 +35,28 @@ public class FishingLuckBonus extends AccessoryModifier {
 	}
 
 	@Override
-	public void addTooltip( List< MutableComponent > components, AccessoryHandler handler ) {
-		components.add( Component.translatable( BONUS_KEY, this.getLuckBonus( handler ) ) );
+	public void addTooltip( List< Component > components, AccessoryHandler handler ) {
+		int bonus = this.getLuckBonus( handler );
+
+		FormattedTranslatable component = new FormattedTranslatable( BONUS_KEY, ChatFormatting.GRAY );
+		component.addParameter( String.format( "%d", bonus ), bonus != this.luck.get() ? handler.getBonusFormatting() : ChatFormatting.GRAY )
+			.insertInto( components );
+	}
+
+	@Override
+	public void addDetailedTooltip( List< Component > components, AccessoryHandler handler ) {
+		int defaultBonus = this.luck.get();
+		int bonus = this.getLuckBonus( handler );
+		if( bonus == defaultBonus ) {
+			this.addTooltip( components, handler );
+			return;
+		}
+
+		FormattedTranslatable formula = new FormattedTranslatable( FORMULA_KEY, ChatFormatting.GRAY );
+		formula.addParameter( String.format( "%d", defaultBonus ) )
+			.addParameter( TextHelper.signed( bonus - defaultBonus ), handler.getBonusFormatting() );
+		FormattedTranslatable component = new FormattedTranslatable( BONUS_KEY, ChatFormatting.GRAY );
+		component.addParameter( formula.create() ).insertInto( components );
 	}
 
 	private void updateLuck( OnPlayerTickData data ) {
