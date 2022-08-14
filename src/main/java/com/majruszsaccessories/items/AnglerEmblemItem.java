@@ -1,7 +1,6 @@
 package com.majruszsaccessories.items;
 
 import com.majruszsaccessories.Registries;
-import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
 import com.majruszsaccessories.gamemodifiers.list.FishingLuckBonus;
 import com.mlib.config.ConfigGroup;
 import com.mlib.gamemodifiers.GameModifier;
