@@ -6,13 +6,28 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "weight": 70,
+          "weight": 65,
           "name": "minecraft:ender_pearl"
         },
         {
           "type": "minecraft:item",
           "weight": 30,
           "name": "minecraft:ender_eye"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 5,
+          "name": "minecraft:popped_chorus_fruit",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 3.0,
+                "max": 7.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ]
         }
       ]
     }
