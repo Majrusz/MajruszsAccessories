@@ -26,20 +26,4 @@ public class Integration {
 	public static boolean isProgressiveDifficultyInstalled() {
 		return IS_PROGRESSIVE_DIFFICULTY_INSTALLED;
 	}
-
-	/**
-	 Splits words in string, adds underscore between them and converts to lower case.
-	 For example: "AbcDefGhi" -> "abc_def_ghi"
-	 */
-	public static String splitWords( String name ) {
-		String lowerCaseName = name.toLowerCase();
-		StringBuilder output = new StringBuilder();
-		for( int i = 0; i < name.length(); ++i ) {
-			output.append( lowerCaseName.charAt( i ) );
-			if( i + 1 < name.length() && lowerCaseName.charAt( i ) == name.charAt( i ) && lowerCaseName.charAt( i + 1 ) != name.charAt( i + 1 ) )
-				output.append( "_" );
-		}
-
-		return output.toString();
-	}
 }
