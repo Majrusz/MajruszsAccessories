@@ -26,10 +26,10 @@ public class FishingLuckBonus extends AccessoryModifier {
 		super( item, configKey, "", "" );
 
 		OnPlayerTickContext onTick = new OnPlayerTickContext( this::updateLuck );
-		onTick.addCondition( new Condition.Cooldown( 4, Dist.DEDICATED_SERVER, false ) );
+		onTick.addCondition( new Condition.Cooldown( 4, Dist.DEDICATED_SERVER, false ) )
+			.addConfig( this.luck );
 
 		this.addContext( onTick );
-		this.addConfig( this.luck );
 	}
 
 	@Override

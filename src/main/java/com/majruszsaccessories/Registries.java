@@ -2,6 +2,7 @@ package com.majruszsaccessories;
 
 import com.majruszsaccessories.gamemodifiers.list.TooltipUpdater;
 import com.majruszsaccessories.items.AnglerEmblemItem;
+import com.majruszsaccessories.items.LuckyRockItem;
 import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.items.ItemCreativeModeTab;
 import com.mlib.registries.DeferredRegisterHelper;
@@ -41,6 +42,7 @@ public class Registries {
 
 	// Items
 	public static final RegistryObject< AnglerEmblemItem > ANGLER_EMBLEM = ITEMS.register( "angler_emblem", AnglerEmblemItem.create() );
+	public static final RegistryObject< LuckyRockItem > LUCKY_ROCK = ITEMS.register( "lucky_rock", LuckyRockItem.create() );
 
 	// Misc
 	public static final CreativeModeTab ITEM_GROUP = new ItemCreativeModeTab( "majruszsaccessories_tab", ANGLER_EMBLEM );
