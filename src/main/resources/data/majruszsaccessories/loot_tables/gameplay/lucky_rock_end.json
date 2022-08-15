@@ -1,4 +1,5 @@
 {
+  "mlib": "majruszsaccessories:gameplay/lucky_rock_end",
   "type": "minecraft:gift",
   "pools": [
     {
@@ -16,7 +17,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
+          "weight": 4,
           "name": "minecraft:popped_chorus_fruit",
           "functions": [
             {

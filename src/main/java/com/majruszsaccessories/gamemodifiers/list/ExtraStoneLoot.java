@@ -30,9 +30,9 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class ExtraStoneLoot extends AccessoryModifier {
-	static final ResourceLocation LOOT_OVERWORLD = Registries.getLocation( "gameplay/lucky_rock" );
-	static final ResourceLocation LOOT_THE_NETHER = Registries.getLocation( "gameplay/lucky_rock_the_nether" );
-	static final ResourceLocation LOOT_THE_END = Registries.getLocation( "gameplay/lucky_rock_the_end" );
+	public static final ResourceLocation LOOT_OVERWORLD = Registries.getLocation( "gameplay/lucky_rock_overworld" );
+	public static final ResourceLocation LOOT_THE_NETHER = Registries.getLocation( "gameplay/lucky_rock_nether" );
+	public static final ResourceLocation LOOT_THE_END = Registries.getLocation( "gameplay/lucky_rock_end" );
 	static final String BONUS_KEY = "majruszsaccessories.bonuses.extra_stone_loot";
 	final DoubleConfig chance = new DoubleConfig( "chance", "Chance to drop extra items when mining stone.", false, 0.03, 0.0, 1.0 );
 
