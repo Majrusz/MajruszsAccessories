@@ -1,6 +1,7 @@
 package com.majruszsaccessories;
 
 import com.majruszsaccessories.items.AccessoryItem;
+import com.mlib.MajruszLibrary;
 import com.mlib.gamemodifiers.GameModifier;
 import net.minecraft.ChatFormatting;
 import net.minecraft.util.Mth;
@@ -41,6 +42,10 @@ public class AccessoryHandler {
 		handler.setBonus( ratio );
 	}
 
+	public static void setup( ItemStack itemStack ) {
+		setup( itemStack, randomRatio() );
+	}
+
 	public static ItemStack construct( AccessoryItem item, float ratio ) {
 		ItemStack itemStack = new ItemStack( item );
 		setup( itemStack, ratio );
@@ -48,8 +53,19 @@ public class AccessoryHandler {
 		return itemStack;
 	}
 
+	public static ItemStack construct( AccessoryItem item ) {
+		return construct( item, randomRatio() );
+	}
+
+	public static float randomRatio() {
+		// random value from range [-1.0; 1.0] with mean ~= 0.0 and standard deviation ~= 0.3333..
+		float gaussianRandom = ( float )Mth.clamp( MajruszLibrary.RANDOM.nextGaussian() / 3.0f, -1.0f, 1.0f );
+
+		return ( gaussianRandom + 1.0f ) / 2.0f; // random value from range [0.0; 1.0] with mean ~= 0.5 and standard deviation ~= 0.1666..
+	}
+
 	public static float ratioToBonus( float ratio ) {
-		return Mth.lerp( ratio, MIN_BONUS, MAX_BONUS );
+		return Math.round( 100.0f * Mth.lerp( ratio, MIN_BONUS, MAX_BONUS ) ) / 100.0f;
 	}
 
 	public static boolean hasAccessory( LivingEntity entity, AccessoryItem item ) {

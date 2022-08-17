@@ -34,7 +34,7 @@ public class ExtraStoneLoot extends AccessoryModifier {
 	public static final ResourceLocation LOOT_THE_NETHER = Registries.getLocation( "gameplay/lucky_rock_nether" );
 	public static final ResourceLocation LOOT_THE_END = Registries.getLocation( "gameplay/lucky_rock_end" );
 	static final String BONUS_KEY = "majruszsaccessories.bonuses.extra_stone_loot";
-	final DoubleConfig chance = new DoubleConfig( "chance", "Chance to drop extra items when mining stone.", false, 0.03, 0.0, 1.0 );
+	final DoubleConfig chance = new DoubleConfig( "extra_loot_chance", "Chance to drop extra items when mining stone.", false, 0.03, 0.0, 1.0 );
 
 	public ExtraStoneLoot( Supplier< ? extends AccessoryItem > item, String configKey ) {
 		super( item, configKey, "", "" );
@@ -42,7 +42,6 @@ public class ExtraStoneLoot extends AccessoryModifier {
 		OnLootContext onLoot = new OnLootContext( this::addExtraLoot );
 		onLoot.addCondition( new Condition.IsServer() )
 			.addCondition( data->data.blockState != null && data.blockState.getMaterial() == Material.STONE )
-			.addCondition( data->data.tool != null && this.isPickaxe( data.tool ) )
 			.addCondition( OnLootContext.HAS_ENTITY )
 			.addCondition( OnLootContext.HAS_ORIGIN )
 			.addConfig( this.chance );
@@ -83,12 +82,6 @@ public class ExtraStoneLoot extends AccessoryModifier {
 
 	private float getChance( AccessoryHandler handler ) {
 		return handler != null ? ( 1.0f + handler.getBonus() ) * this.getDefaultChance() : 0.0f;
-	}
-
-	private boolean isPickaxe( ItemStack itemStack ) {
-		String registry = Utility.getRegistryString( itemStack );
-
-		return registry.contains( "pickaxe" ) || registry.contains( "hammer" ) || itemStack.getItem() instanceof PickaxeItem;
 	}
 
 	private static List< ItemStack > generateLoot( LivingEntity entity ) {
