@@ -1,5 +1,6 @@
 package com.majruszsaccessories;
 
+import com.majruszsaccessories.gamemodifiers.list.AccessoryObserver;
 import com.majruszsaccessories.gamemodifiers.list.TooltipUpdater;
 import com.majruszsaccessories.items.AnglerEmblemItem;
 import com.majruszsaccessories.items.LuckyRockItem;
@@ -52,6 +53,7 @@ public class Registries {
 	public static final List< GameModifier > GAME_MODIFIERS = new ArrayList<>();
 
 	static {
+		GAME_MODIFIERS.add( new AccessoryObserver() );
 		GAME_MODIFIERS.add( new TooltipUpdater() );
 	}
 
