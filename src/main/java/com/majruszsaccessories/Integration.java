@@ -1,8 +1,5 @@
 package com.majruszsaccessories;
 
-import com.majruszsaccessories.items.AnglerEmblemItem;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
 
 public class Integration {
@@ -13,10 +10,6 @@ public class Integration {
 
 		IS_CURIOS_INSTALLED = modList.isLoaded( "curios" );
 		IS_PROGRESSIVE_DIFFICULTY_INSTALLED = modList.isLoaded( "majruszsdifficulty" );
-
-		IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
-		// if( Integration.isProgressiveDifficultyInstalled() )
-		//	forgeEventBus.addListener( AnglerEmblemItem::addToTreasureBag );
 	}
 
 	public static boolean isCuriosInstalled() {
