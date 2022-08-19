@@ -9,6 +9,8 @@ import com.mlib.effects.ParticleHandler;
 import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.contexts.OnBabySpawnContext;
 import com.mlib.gamemodifiers.data.OnBabySpawnData;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.animal.Animal;
 
 import java.util.function.Supplier;
 
@@ -19,18 +21,31 @@ public class SpawnTwins extends AccessoryModifier {
 		super( item, configKey, "", "" );
 
 		OnBabySpawnContext onLoot = new OnBabySpawnContext( this::spawnTwins );
-		onLoot.addCondition( new Condition.IsServer() ).addConfig( this.chance );
+		onLoot.addCondition( new Condition.IsServer() )
+			.addCondition( data->data.parentA instanceof Animal )
+			.addCondition( data->data.parentB instanceof Animal )
+			.addConfig( this.chance );
 
 		this.addContext( onLoot );
 		this.addTooltip( this.chance, "majruszsaccessories.bonuses.spawn_twins" );
 	}
 
 	private void spawnTwins( OnBabySpawnData data ) {
-		AccessoryHandler handler = AccessoryHandler.tryToCreate( data.entity, this.item.get() );
+		assert data.level != null;
+		AccessoryHandler handler = AccessoryHandler.tryToCreate( data.player, this.item.get() );
 		if( handler == null || !Random.tryChance( this.chance.getValue( handler ) ) ) {
 			return;
 		}
 
-		ParticleHandler.AWARD.spawn( data.level, data.child.position(), 8 );
+		Animal parentA = ( Animal )data.parentA, parentB = ( Animal )data.parentB;
+		AgeableMob child = parentA.getBreedOffspring( data.level, parentB );
+		if( child == null ) {
+			return;
+		}
+
+		child.setBaby( true );
+		child.absMoveTo( parentA.getX(), parentA.getY(), parentA.getZ(), 0.0f, 0.0f );
+		data.level.addFreshEntity( child );
+		ParticleHandler.AWARD.spawn( data.level, child.position(), 8 );
 	}
 }

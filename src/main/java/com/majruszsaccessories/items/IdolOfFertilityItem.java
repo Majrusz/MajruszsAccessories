@@ -45,7 +45,7 @@ public class IdolOfFertilityItem extends AccessoryItem {
 		private void spawnTotem( OnBabySpawnData data ) {
 			assert data.level != null;
 			ItemStack itemStack = AccessoryHandler.construct( this.item.get() );
-			LevelHelper.spawnItemEntityFlyingTowardsDirection( itemStack, data.level, data.child.position(), data.child.position().add( 0.0, 2.0, 0.0 ) );
+			LevelHelper.spawnItemEntityFlyingTowardsDirection( itemStack, data.level, data.parentA.position(), data.parentB.position().add( 0.0, 2.0, 0.0 ) );
 		}
 	}
 }
