@@ -27,6 +27,7 @@
   "majruszsaccessories.items.formula": "%1$s%2$s",
   "majruszsaccessories.bonuses.fishing_luck": "Increases luck by %1$s when fishing.",
   "majruszsaccessories.bonuses.extra_stone_loot": "Gives a %1$s chance for extra loot when mining.",
+  "majruszsaccessories.bonuses.spawn_twins": "Gives a %1$s chance of twins when breeding animals.",
   "advancements.majruszsaccessories.angler_emblem.title": "Professional Angler",
   "advancements.majruszsaccessories.angler_emblem.description": "Acquire an Angler Emblem",
   "advancements.majruszsaccessories.giant_seed.title": "Definitely an Overgrown Seed",
