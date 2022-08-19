@@ -74,7 +74,7 @@ public class TooltipUpdater extends GameModifier {
 		AccessoryHandler handler = new AccessoryHandler( data.itemStack );
 		handler.getModifiers().forEach( modifier->{
 			if( modifier instanceof AccessoryModifier accessoryModifier ) {
-				BiConsumer< List< Component >, AccessoryHandler > consumer = ClientHelper.isShiftDown() ? accessoryModifier::addDetailedTooltip : accessoryModifier::addTooltip;
+				BiConsumer< List< Component >, AccessoryHandler > consumer = ClientHelper.isShiftDown() ? accessoryModifier::buildDetailedTooltip : accessoryModifier::buildTooltip;
 				consumer.accept( components, handler );
 			}
 		} );
