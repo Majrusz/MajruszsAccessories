@@ -2,6 +2,7 @@ package com.majruszsaccessories.items;
 
 import com.majruszsaccessories.AccessoryHandler;
 import com.majruszsaccessories.Registries;
+import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
 import com.majruszsaccessories.gamemodifiers.list.SpawnTwins;
 import com.mlib.config.ConfigGroup;
 import com.mlib.gamemodifiers.Condition;
@@ -28,12 +29,9 @@ public class IdolOfFertilityItem extends AccessoryItem {
 		return holder::getRegistry;
 	}
 
-	static class AddDropChance extends GameModifier {
-		final Supplier< ? extends AccessoryItem > item;
-
+	static class AddDropChance extends AccessoryModifier {
 		public AddDropChance( Supplier< ? extends AccessoryItem > item, String configKey ) {
-			super( configKey, "", "" );
-			this.item = item;
+			super( item, configKey, "", "" );
 
 			OnBabySpawnContext onBabySpawn = new OnBabySpawnContext( this::spawnTotem );
 			onBabySpawn.addCondition( new Condition.IsServer() )

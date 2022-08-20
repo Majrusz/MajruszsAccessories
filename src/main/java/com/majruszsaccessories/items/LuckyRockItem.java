@@ -3,6 +3,7 @@ package com.majruszsaccessories.items;
 import com.majruszsaccessories.AccessoryHandler;
 import com.majruszsaccessories.Integration;
 import com.majruszsaccessories.Registries;
+import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
 import com.majruszsaccessories.gamemodifiers.list.ExtraStoneLoot;
 import com.mlib.config.ConfigGroup;
 import com.mlib.gamemodifiers.Condition;
@@ -31,9 +32,9 @@ public class LuckyRockItem extends AccessoryItem {
 		return holder::getRegistry;
 	}
 
-	static class AddEnderiumShards extends GameModifier {
+	static class AddEnderiumShards extends AccessoryModifier {
 		public AddEnderiumShards( Supplier< ? extends AccessoryItem > item, String configKey ) {
-			super( configKey, "", "" );
+			super( item, configKey, "", "" );
 
 			OnLootTableCustomLoadContext onLoad = new OnLootTableCustomLoadContext( this::addLoot );
 			onLoad.addCondition( data->ExtraStoneLoot.LOOT_THE_END.equals( data.name ) )
@@ -47,12 +48,9 @@ public class LuckyRockItem extends AccessoryItem {
 		}
 	}
 
-	static class AddDropChance extends GameModifier {
-		final Supplier< ? extends AccessoryItem > item;
-
+	static class AddDropChance extends AccessoryModifier {
 		public AddDropChance( Supplier< ? extends AccessoryItem > item, String configKey ) {
-			super( configKey, "", "" );
-			this.item = item;
+			super( item, configKey, "", "" );
 
 			OnLootContext onLoot = new OnLootContext( this::addExtraLoot );
 			onLoot.addCondition( new Condition.IsServer() )

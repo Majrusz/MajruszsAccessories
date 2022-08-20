@@ -4,7 +4,6 @@ import com.majruszsaccessories.AccessoryHandler;
 import com.majruszsaccessories.gamemodifiers.configs.IAccessoryConfig;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.gamemodifiers.GameModifier;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 public abstract class AccessoryModifier extends GameModifier {
-	protected static final ChatFormatting DEFAULT_FORMAT = ChatFormatting.GRAY;
 	protected final Supplier< ? extends AccessoryItem > item;
 	protected final List< BiConsumer< List< Component >, AccessoryHandler > > tooltip = new ArrayList<>();
 	protected final List< BiConsumer< List< Component >, AccessoryHandler > > detailedTooltip = new ArrayList<>();

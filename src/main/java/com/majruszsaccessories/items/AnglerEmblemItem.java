@@ -3,6 +3,7 @@ package com.majruszsaccessories.items;
 import com.majruszsaccessories.AccessoryHandler;
 import com.majruszsaccessories.Integration;
 import com.majruszsaccessories.Registries;
+import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
 import com.majruszsaccessories.gamemodifiers.list.FishingLuckBonus;
 import com.majruszsdifficulty.items.TreasureBagItem;
 import com.mlib.config.ConfigGroup;
@@ -33,12 +34,9 @@ public class AnglerEmblemItem extends AccessoryItem {
 		return holder::getRegistry;
 	}
 
-	static class AddDropChance extends GameModifier {
-		final Supplier< ? extends AccessoryItem > item;
-
+	static class AddDropChance extends AccessoryModifier {
 		public AddDropChance( Supplier< ? extends AccessoryItem > item, String configKey ) {
-			super( configKey, "", "" );
-			this.item = item;
+			super( item, configKey, "", "" );
 
 			if( Integration.isProgressiveDifficultyInstalled() ) {
 				OnLootTableCustomLoadContext onLoad = new OnLootTableCustomLoadContext( this::addToTreasureBag );
