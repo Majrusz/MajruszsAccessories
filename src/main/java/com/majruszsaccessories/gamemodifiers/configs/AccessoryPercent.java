@@ -1,6 +1,7 @@
 package com.majruszsaccessories.gamemodifiers.configs;
 
 import com.majruszsaccessories.AccessoryHandler;
+import com.mlib.Random;
 import com.mlib.config.DoubleConfig;
 import com.mlib.text.FormattedTranslatable;
 import com.mlib.text.TextHelper;
@@ -21,6 +22,10 @@ public class AccessoryPercent extends DoubleConfig implements IAccessoryConfig {
 
 	public AccessoryPercent( String name, String comment, boolean worldRestartRequired, double defaultValue, double min, double max ) {
 		this( name, comment, worldRestartRequired, defaultValue, min, max, 1.0 );
+	}
+
+	public boolean tryChance( AccessoryHandler handler ) {
+		return Random.tryChance( this.getValue( handler ) );
 	}
 
 	public float getDefaultValue() {

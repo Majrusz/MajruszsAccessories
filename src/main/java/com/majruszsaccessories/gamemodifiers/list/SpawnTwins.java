@@ -33,7 +33,7 @@ public class SpawnTwins extends AccessoryModifier {
 	private void spawnTwins( OnBabySpawnData data ) {
 		assert data.level != null;
 		AccessoryHandler handler = AccessoryHandler.tryToCreate( data.player, this.item.get() );
-		if( handler == null || !Random.tryChance( this.chance.getValue( handler ) ) ) {
+		if( handler == null || !this.chance.tryChance( handler ) ) {
 			return;
 		}
 

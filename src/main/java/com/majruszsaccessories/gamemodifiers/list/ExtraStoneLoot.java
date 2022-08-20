@@ -47,7 +47,7 @@ public class ExtraStoneLoot extends AccessoryModifier {
 
 	private void addExtraLoot( OnLootData data ) {
 		AccessoryHandler handler = AccessoryHandler.tryToCreate( ( LivingEntity )data.entity, this.item.get() );
-		if( handler == null || !Random.tryChance( this.chance.getValue( handler ) ) ) {
+		if( handler == null || !this.chance.tryChance( handler ) ) {
 			return;
 		}
 
