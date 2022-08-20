@@ -5,6 +5,7 @@ import com.majruszsaccessories.gamemodifiers.list.TooltipUpdater;
 import com.majruszsaccessories.items.AnglerEmblemItem;
 import com.majruszsaccessories.items.IdolOfFertilityItem;
 import com.majruszsaccessories.items.LuckyRockItem;
+import com.majruszsaccessories.items.SecretIngredientItem;
 import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.items.ItemCreativeModeTab;
 import com.mlib.registries.DeferredRegisterHelper;
@@ -44,8 +45,9 @@ public class Registries {
 
 	// Items
 	public static final RegistryObject< AnglerEmblemItem > ANGLER_EMBLEM = ITEMS.register( "angler_emblem", AnglerEmblemItem.create() );
-	public static final RegistryObject< LuckyRockItem > LUCKY_ROCK = ITEMS.register( "lucky_rock", LuckyRockItem.create() );
 	public static final RegistryObject< IdolOfFertilityItem > IDOL_OF_FERTILITY = ITEMS.register( "idol_of_fertility", IdolOfFertilityItem.create() );
+	public static final RegistryObject< LuckyRockItem > LUCKY_ROCK = ITEMS.register( "lucky_rock", LuckyRockItem.create() );
+	public static final RegistryObject< SecretIngredientItem > SECRET_INGREDIENT = ITEMS.register( "secret_ingredient", SecretIngredientItem.create() );
 
 	// Misc
 	public static final CreativeModeTab ITEM_GROUP = new ItemCreativeModeTab( "majruszsaccessories_tab", ANGLER_EMBLEM );

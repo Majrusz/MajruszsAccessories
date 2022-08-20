@@ -7,6 +7,7 @@ import com.mlib.text.FormattedTranslatable;
 import com.mlib.text.TextHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.util.Mth;
 
 import java.util.List;
 import java.util.function.Function;
@@ -33,7 +34,11 @@ public class AccessoryPercent extends DoubleConfig implements IAccessoryConfig {
 	}
 
 	public float getValue( AccessoryHandler handler ) {
-		return handler != null ? ( 1.0f + this.multiplier * handler.getBonus() ) * this.getDefaultValue() : 0.0f;
+		if( handler != null ) {
+			return ( float )Mth.clamp( ( 1.0f + this.multiplier * handler.getBonus() ) * this.getDefaultValue(), this.min, this.max );
+		}
+
+		return 0.0f;
 	}
 
 	public void addTooltip( String key, List< Component > components, AccessoryHandler handler ) {

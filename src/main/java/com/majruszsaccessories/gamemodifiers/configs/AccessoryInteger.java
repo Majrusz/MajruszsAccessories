@@ -6,6 +6,7 @@ import com.mlib.text.FormattedTranslatable;
 import com.mlib.text.TextHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.util.Mth;
 
 import java.util.List;
 import java.util.function.Function;
@@ -28,7 +29,11 @@ public class AccessoryInteger extends IntegerConfig implements IAccessoryConfig 
 	}
 
 	public int getValue( AccessoryHandler handler ) {
-		return handler != null ? Math.round( ( 1.0f + this.multiplier * handler.getBonus() ) * this.getDefaultValue() ) : 0;
+		if( handler != null ) {
+			return Mth.clamp( Math.round( ( 1.0f + this.multiplier * handler.getBonus() ) * this.getDefaultValue() ), this.min, this.max );
+		}
+
+		return 0;
 	}
 
 	@Override
