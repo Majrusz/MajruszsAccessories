@@ -32,7 +32,7 @@ public class SecretIngredientItem extends AccessoryItem {
 
 			OnLootContext onLoot = new OnLootContext( this::addToGeneratedLoot );
 			onLoot.addCondition( new Condition.IsServer() )
-				.addCondition( new Condition.Chance( 0.01, "drop_chance", "Chance for Secret Ingredient to drop from Witch." ) )
+				.addCondition( new Condition.Chance( 0.025, "drop_chance", "Chance for Secret Ingredient to drop from Witch." ) )
 				.addCondition( OnLootContext.HAS_LAST_DAMAGE_PLAYER )
 				.addCondition( data->data.entity instanceof Witch );
 

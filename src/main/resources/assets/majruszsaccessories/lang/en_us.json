@@ -28,7 +28,7 @@
   "majruszsaccessories.bonuses.fishing_luck": "Increases luck by %1$s when fishing.",
   "majruszsaccessories.bonuses.extra_stone_loot": "Gives %1$s chance for extra loot when mining.",
   "majruszsaccessories.bonuses.spawn_twins": "Gives %1$s chance of twins when breeding animals.",
-  "majruszsaccessories.bonuses.potion_amplifier": "Gives additional %1$s level(s) of created potions.",
+  "majruszsaccessories.bonuses.potion_amplifier": "Makes created potions %1$s level(s) stronger.",
   "majruszsaccessories.bonuses.potion_duration": "Decreases duration of created potions by %1$s.",
   "majruszsaccessories.bonuses.potion_name": "Distilled Potion",
   "advancements.majruszsaccessories.angler_emblem.title": "Professional Angler",
