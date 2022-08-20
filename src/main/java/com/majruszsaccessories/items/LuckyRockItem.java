@@ -52,7 +52,7 @@ public class LuckyRockItem extends AccessoryItem {
 		public AddDropChance( Supplier< ? extends AccessoryItem > item, String configKey ) {
 			super( item, configKey, "", "" );
 
-			OnLootContext onLoot = new OnLootContext( this::addExtraLoot );
+			OnLootContext onLoot = new OnLootContext( this::addToGeneratedLoot );
 			onLoot.addCondition( new Condition.IsServer() )
 				.addCondition( new Condition.Chance( 0.0002, "drop_chance", "Chance for Lucky Rock to drop when mining stone." ) )
 				.addCondition( data->data.blockState != null && data.blockState.getMaterial() == Material.STONE )
@@ -60,10 +60,6 @@ public class LuckyRockItem extends AccessoryItem {
 				.addCondition( OnLootContext.HAS_ORIGIN );
 
 			this.addContext( onLoot );
-		}
-
-		private void addExtraLoot( OnLootData data ) {
-			data.generatedLoot.add( AccessoryHandler.construct( this.item.get() ) );
 		}
 	}
 }

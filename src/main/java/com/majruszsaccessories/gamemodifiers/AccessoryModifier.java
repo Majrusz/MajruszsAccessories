@@ -4,6 +4,7 @@ import com.majruszsaccessories.AccessoryHandler;
 import com.majruszsaccessories.gamemodifiers.configs.IAccessoryConfig;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.gamemodifiers.GameModifier;
+import com.mlib.gamemodifiers.data.OnLootData;
 import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
@@ -34,5 +35,9 @@ public abstract class AccessoryModifier extends GameModifier {
 
 	public void buildDetailedTooltip( List< Component > components, AccessoryHandler handler ) {
 		this.detailedTooltip.forEach( consumer->consumer.accept( components, handler ) );
+	}
+
+	protected void addToGeneratedLoot( OnLootData data ) {
+		data.generatedLoot.add( AccessoryHandler.construct( this.item.get() ) );
 	}
 }
