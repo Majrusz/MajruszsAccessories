@@ -1,7 +1,7 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "majruszsaccessories:item/nature_essence",
+    "layer0": "majruszsaccessories:item/natures_essence",
     "layer1": "majruszsaccessories:item/essence_sparks"
   }
 }
