@@ -10,12 +10,12 @@ import java.util.function.Supplier;
 
 import static com.majruszsaccessories.MajruszsAccessories.CONFIG_HANDLER;
 
-public class NatureEssenceItem extends AccessoryItem {
-	static final String ID = Registries.getLocationString( "nature_essence" );
-	static final ConfigGroup GROUP = CONFIG_HANDLER.addGroup( GameModifier.addNewGroup( ID, "NatureEssence", "" ) );
+public class NaturesEssenceItem extends AccessoryItem {
+	static final String ID = Registries.getLocationString( "natures_essence" );
+	static final ConfigGroup GROUP = CONFIG_HANDLER.addGroup( GameModifier.addNewGroup( ID, "NaturesEssence", "" ) );
 
-	public static Supplier< NatureEssenceItem > create() {
-		GameModifiersHolder< NatureEssenceItem > holder = new GameModifiersHolder<>( ID, NatureEssenceItem::new );
+	public static Supplier< NaturesEssenceItem > create() {
+		GameModifiersHolder< NaturesEssenceItem > holder = new GameModifiersHolder<>( ID, NaturesEssenceItem::new );
 		holder.addModifier( EnhancePotions::new );
 		holder.addModifier( EnhanceTamedAnimal::new );
 		holder.addModifier( ExtraStoneLoot::new );

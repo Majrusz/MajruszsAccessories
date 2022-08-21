@@ -6,7 +6,7 @@
   "item.majruszsaccessories.idol_of_fertility": "Idol of Fertility",
   "item.majruszsaccessories.certificate_of_taming": "Certificate of Taming",
   "item.majruszsaccessories.secret_ingredient": "Secret Ingredient",
-  "item.majruszsaccessories.nature_essence": "Nature's Essence",
+  "item.majruszsaccessories.natures_essence": "Nature's Essence",
   "majruszsaccessories.items.accessory_item": "Works when held in the other hand.",
   "majruszsaccessories.items.bonus": "%1$s efficiency bonus",
   "majruszsaccessories.items.formula": "%1$s%2$s",
@@ -32,7 +32,7 @@
   "advancements.majruszsaccessories.taming_certificate.description": "Acquire a Certificate of Taming",
   "advancements.majruszsaccessories.secret_ingredient.title": "A Pinch of Love",
   "advancements.majruszsaccessories.secret_ingredient.description": "Acquire a Secret Ingredient",
-  "advancements.majruszsaccessories.nature_essence.title": "Living In Harmony With Nature",
-  "advancements.majruszsaccessories.nature_essence.description": "Acquire a Nature's Essence",
+  "advancements.majruszsaccessories.natures_essence.title": "Living In Harmony With Nature",
+  "advancements.majruszsaccessories.natures_essence.description": "Acquire a Nature's Essence",
   "curios.identifier.pocket": "Pocket"
 }
