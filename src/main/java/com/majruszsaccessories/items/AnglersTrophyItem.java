@@ -22,12 +22,12 @@ import java.util.function.Supplier;
 
 import static com.majruszsaccessories.MajruszsAccessories.CONFIG_HANDLER;
 
-public class AnglersEmblemItem extends AccessoryItem {
-	static final String ID = Registries.getLocationString( "anglers_emblem" );
-	static final ConfigGroup GROUP = CONFIG_HANDLER.addGroup( GameModifier.addNewGroup( ID, "AnglerEmblem", "" ) );
+public class AnglersTrophyItem extends AccessoryItem {
+	static final String ID = Registries.getLocationString( "anglers_trophy" );
+	static final ConfigGroup GROUP = CONFIG_HANDLER.addGroup( GameModifier.addNewGroup( ID, "AnglerTrophy", "" ) );
 
-	public static Supplier< AnglersEmblemItem > create() {
-		GameModifiersHolder< AnglersEmblemItem > holder = new GameModifiersHolder<>( ID, AnglersEmblemItem::new );
+	public static Supplier< AnglersTrophyItem > create() {
+		GameModifiersHolder< AnglersTrophyItem > holder = new GameModifiersHolder<>( ID, AnglersTrophyItem::new );
 		holder.addModifier( FishingLuckBonus::new );
 		holder.addModifier( AddDropChance::new );
 
@@ -45,7 +45,7 @@ public class AnglersEmblemItem extends AccessoryItem {
 				this.addContext( onLoad );
 			} else {
 				OnItemFishedContext onFished = new OnItemFishedContext( this::onFished );
-				onFished.addCondition( new Condition.Chance( 0.00375, "drop_chance", "Chance to drop Angler Emblem from fishing." ) );
+				onFished.addCondition( new Condition.Chance( 0.00375, "drop_chance", "Chance to drop Angler's Trophy from fishing." ) );
 
 				this.addContext( onFished );
 			}

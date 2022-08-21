@@ -41,7 +41,7 @@ public class Registries {
 	static final DeferredRegister< Item > ITEMS = HELPER.create( ForgeRegistries.Keys.ITEMS );
 
 	// Items
-	public static final RegistryObject< AnglersEmblemItem > ANGLERS_EMBLEM = ITEMS.register( "anglers_emblem", AnglersEmblemItem.create() );
+	public static final RegistryObject< AnglersTrophyItem > ANGLERS_TROPHY = ITEMS.register( "anglers_trophy", AnglersTrophyItem.create() );
 	public static final RegistryObject< CertificateOfTamingItem > CERTIFICATE_OF_TAMING = ITEMS.register( "certificate_of_taming", CertificateOfTamingItem.create() );
 	public static final RegistryObject< IdolOfFertilityItem > IDOL_OF_FERTILITY = ITEMS.register( "idol_of_fertility", IdolOfFertilityItem.create() );
 	public static final RegistryObject< LuckyRockItem > LUCKY_ROCK = ITEMS.register( "lucky_rock", LuckyRockItem.create() );
@@ -50,7 +50,7 @@ public class Registries {
 	public static final RegistryObject< SecretIngredientItem > SECRET_INGREDIENT = ITEMS.register( "secret_ingredient", SecretIngredientItem.create() );
 
 	// Misc
-	public static final CreativeModeTab ITEM_GROUP = new ItemCreativeModeTab( "majruszsaccessories_tab", ANGLERS_EMBLEM );
+	public static final CreativeModeTab ITEM_GROUP = new ItemCreativeModeTab( "majruszsaccessories_tab", ANGLERS_TROPHY );
 	public static final ResourceLocation ACCESSORY_SLOT_TEXTURE = Registries.getLocation( "item/empty_accessory_slot" );
 
 	// Game Modifiers
