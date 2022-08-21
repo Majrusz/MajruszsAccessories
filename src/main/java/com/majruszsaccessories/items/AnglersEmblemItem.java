@@ -22,12 +22,12 @@ import java.util.function.Supplier;
 
 import static com.majruszsaccessories.MajruszsAccessories.CONFIG_HANDLER;
 
-public class AnglerEmblemItem extends AccessoryItem {
-	static final String ID = Registries.getLocationString( "angler_emblem" );
+public class AnglersEmblemItem extends AccessoryItem {
+	static final String ID = Registries.getLocationString( "anglers_emblem" );
 	static final ConfigGroup GROUP = CONFIG_HANDLER.addGroup( GameModifier.addNewGroup( ID, "AnglerEmblem", "" ) );
 
-	public static Supplier< AnglerEmblemItem > create() {
-		GameModifiersHolder< AnglerEmblemItem > holder = new GameModifiersHolder<>( ID, AnglerEmblemItem::new );
+	public static Supplier< AnglersEmblemItem > create() {
+		GameModifiersHolder< AnglersEmblemItem > holder = new GameModifiersHolder<>( ID, AnglersEmblemItem::new );
 		holder.addModifier( FishingLuckBonus::new );
 		holder.addModifier( AddDropChance::new );
 
