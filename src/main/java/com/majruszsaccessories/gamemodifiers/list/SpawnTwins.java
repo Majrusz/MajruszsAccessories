@@ -46,6 +46,6 @@ public class SpawnTwins extends AccessoryModifier {
 		child.setBaby( true );
 		child.absMoveTo( parentA.getX(), parentA.getY(), parentA.getZ(), 0.0f, 0.0f );
 		data.level.addFreshEntity( child );
-		ParticleHandler.AWARD_BIG.spawn( data.level, child.position().add( 0.0, 0.5, 0.0 ), 8 );
+		ParticleHandler.AWARD.spawn( data.level, child.position().add( 0.0, 0.5, 0.0 ), 8, 2.0 );
 	}
 }
