@@ -6,6 +6,7 @@
   "item.majruszsaccessories.idol_of_fertility": "Idol of Fertility",
   "item.majruszsaccessories.certificate_of_taming": "Certificate of Taming",
   "item.majruszsaccessories.secret_ingredient": "Secret Ingredient",
+  "item.majruszsaccessories.nature_essence": "Nature's Essence",
   "majruszsaccessories.items.accessory_item": "Works when held in the other hand.",
   "majruszsaccessories.items.bonus": "%1$s efficiency bonus",
   "majruszsaccessories.items.formula": "%1$s%2$s",
@@ -19,7 +20,7 @@
   "majruszsaccessories.bonuses.animal_damage": "Increases tamed wolf's damage by %1$s.",
   "majruszsaccessories.bonuses.animal_speed": "Increases tamed horse's movement speed by %1$s.",
   "majruszsaccessories.bonuses.animal_jump_height": "Increases tamed horse's jump height by %1$s.",
-  "advancements.majruszsaccessories.angler_emblem.title": "Professional Angler",
+  "advancements.majruszsaccessories.angler_emblem.title": "Fishing Addiction",
   "advancements.majruszsaccessories.angler_emblem.description": "Acquire an Angler Emblem",
   "advancements.majruszsaccessories.giant_seed.title": "Definitely an Overgrown Seed",
   "advancements.majruszsaccessories.giant_seed.description": "Acquire a Giant Seed",
@@ -31,7 +32,7 @@
   "advancements.majruszsaccessories.taming_certificate.description": "Acquire a Certificate of Taming",
   "advancements.majruszsaccessories.secret_ingredient.title": "A Pinch of Love",
   "advancements.majruszsaccessories.secret_ingredient.description": "Acquire a Secret Ingredient",
-  "advancements.majruszsaccessories.magma_stone.title": "Ahhh That's Hot!",
-  "advancements.majruszsaccessories.magma_stone.description": "Acquire a Magma Stone",
+  "advancements.majruszsaccessories.nature_essence.title": "Living In Harmony With Nature",
+  "advancements.majruszsaccessories.nature_essence.description": "Acquire a Nature's Essence",
   "curios.identifier.pocket": "Pocket"
 }

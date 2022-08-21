@@ -45,6 +45,7 @@ public class Registries {
 	public static final RegistryObject< CertificateOfTamingItem > CERTIFICATE_OF_TAMING = ITEMS.register( "certificate_of_taming", CertificateOfTamingItem.create() );
 	public static final RegistryObject< IdolOfFertilityItem > IDOL_OF_FERTILITY = ITEMS.register( "idol_of_fertility", IdolOfFertilityItem.create() );
 	public static final RegistryObject< LuckyRockItem > LUCKY_ROCK = ITEMS.register( "lucky_rock", LuckyRockItem.create() );
+	public static final RegistryObject< NatureEssenceItem > NATURE_ESSENCE = ITEMS.register( "nature_essence", NatureEssenceItem.create() );
 	public static final RegistryObject< SecretIngredientItem > SECRET_INGREDIENT = ITEMS.register( "secret_ingredient", SecretIngredientItem.create() );
 
 	// Misc
