@@ -21,6 +21,8 @@
   "majruszsaccessories.bonuses.animal_damage": "Increases tamed wolf's damage by %1$s.",
   "majruszsaccessories.bonuses.animal_speed": "Increases tamed horse's movement speed by %1$s.",
   "majruszsaccessories.bonuses.animal_jump_height": "Increases tamed horse's jump height by %1$s.",
+  "majruszsaccessories.bonuses.starvation_immunity": "Makes you immune to starvation damage.",
+  "majruszsaccessories.bonuses.better_chest_loot": "All structure chests contain up to %1$s more loot the further you are from home.",
   "advancements.majruszsaccessories.anglers_emblem.title": "Fishing Addiction",
   "advancements.majruszsaccessories.anglers_emblem.description": "Acquire an Angler Emblem",
   "advancements.majruszsaccessories.giant_seed.title": "Definitely an Overgrown Seed",

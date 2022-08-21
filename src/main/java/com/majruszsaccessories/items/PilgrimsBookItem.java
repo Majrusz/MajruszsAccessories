@@ -1,7 +1,7 @@
 package com.majruszsaccessories.items;
 
 import com.majruszsaccessories.Registries;
-import com.majruszsaccessories.gamemodifiers.list.*;
+import com.majruszsaccessories.gamemodifiers.list.PilgrimsFavor;
 import com.mlib.config.ConfigGroup;
 import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.gamemodifiers.GameModifiersHolder;
@@ -16,6 +16,7 @@ public class PilgrimsBookItem extends AccessoryItem {
 
 	public static Supplier< PilgrimsBookItem > create() {
 		GameModifiersHolder< PilgrimsBookItem > holder = new GameModifiersHolder<>( ID, PilgrimsBookItem::new );
+		holder.addModifier( PilgrimsFavor::new );
 
 		return holder::getRegistry;
 	}

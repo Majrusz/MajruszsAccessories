@@ -5,7 +5,9 @@ import com.majruszsaccessories.gamemodifiers.configs.IAccessoryConfig;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.gamemodifiers.data.OnLootData;
+import com.mlib.text.FormattedTranslatable;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,14 @@ public abstract class AccessoryModifier extends GameModifier {
 	public AccessoryModifier( Supplier< ? extends AccessoryItem > item, String configKey, String configName, String configComment ) {
 		super( configKey, configName, configComment );
 		this.item = item;
+	}
+
+	public AccessoryModifier addTooltip( String key ) {
+		MutableComponent tooltip = new FormattedTranslatable( key ).create().withStyle( IAccessoryConfig.DEFAULT_FORMAT );
+		this.tooltip.add( ( components, handler )->components.add( tooltip ) );
+		this.detailedTooltip.add( ( components, handler )->components.add( tooltip ) );
+
+		return this;
 	}
 
 	public AccessoryModifier addTooltip( IAccessoryConfig config, String key ) {
