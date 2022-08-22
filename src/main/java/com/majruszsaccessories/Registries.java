@@ -41,12 +41,12 @@ public class Registries {
 	static final DeferredRegister< Item > ITEMS = HELPER.create( ForgeRegistries.Keys.ITEMS );
 
 	// Items
+	public static final RegistryObject< AdventurersGuideItem > ADVENTURERS_GUIDE = ITEMS.register( "adventurers_guide", AdventurersGuideItem.create() );
 	public static final RegistryObject< AnglersTrophyItem > ANGLERS_TROPHY = ITEMS.register( "anglers_trophy", AnglersTrophyItem.create() );
 	public static final RegistryObject< CertificateOfTamingItem > CERTIFICATE_OF_TAMING = ITEMS.register( "certificate_of_taming", CertificateOfTamingItem.create() );
 	public static final RegistryObject< IdolOfFertilityItem > IDOL_OF_FERTILITY = ITEMS.register( "idol_of_fertility", IdolOfFertilityItem.create() );
 	public static final RegistryObject< LuckyRockItem > LUCKY_ROCK = ITEMS.register( "lucky_rock", LuckyRockItem.create() );
 	public static final RegistryObject< NaturesEssenceItem > NATURES_ESSENCE = ITEMS.register( "natures_essence", NaturesEssenceItem.create() );
-	public static final RegistryObject< PilgrimsBookItem > PILGRIMS_BOOK = ITEMS.register( "pilgrims_book", PilgrimsBookItem.create() );
 	public static final RegistryObject< SecretIngredientItem > SECRET_INGREDIENT = ITEMS.register( "secret_ingredient", SecretIngredientItem.create() );
 
 	// Misc
