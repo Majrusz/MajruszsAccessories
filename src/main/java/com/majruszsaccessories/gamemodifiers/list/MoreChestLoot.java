@@ -13,6 +13,6 @@ public class MoreChestLoot extends AccessoryModifier {
 		super( item, configKey, "", "" );
 
 		this.addConfig( this.sizeMultiplier );
-		this.addTooltip( this.sizeMultiplier, "majruszsaccessories.bonuses.better_chest_loot" );
+		this.addTooltip( this.sizeMultiplier, "majruszsaccessories.bonuses.more_chest_loot" );
 	}
 }
