@@ -24,7 +24,8 @@ public class DoubleCrops extends AccessoryModifier {
 		onLoot.addCondition( new Condition.IsServer() )
 			.addCondition( OnLootContext.HAS_ORIGIN )
 			.addCondition( data->data.blockState != null && BlockHelper.isCropAtMaxAge( data.blockState ) )
-			.addCondition( data->data.entity instanceof LivingEntity );
+			.addCondition( data->data.entity instanceof LivingEntity )
+			.addConfig( this.chance );
 
 		this.addTooltip( this.chance, "majruszsaccessories.bonuses.double_crops" );
 	}
