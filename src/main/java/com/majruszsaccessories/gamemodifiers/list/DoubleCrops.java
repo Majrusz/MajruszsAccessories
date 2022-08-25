@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.function.Supplier;
 
 public class DoubleCrops extends AccessoryModifier {
-	final AccessoryPercent chance = new AccessoryPercent( "double_crops_chance", "Chance to double crops when harvesting.", false, 0.35, 0.0, 1.0 );
+	final AccessoryPercent chance = new AccessoryPercent( "double_crops_chance", "Chance to double crops when harvesting.", false, 0.25, 0.0, 1.0 );
 
 	public DoubleCrops( Supplier< ? extends AccessoryItem > item, String configKey ) {
 		super( item, configKey, "", "" );
