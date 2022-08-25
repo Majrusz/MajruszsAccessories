@@ -34,7 +34,7 @@ public class ExtraStoneLoot extends AccessoryModifier {
 	public ExtraStoneLoot( Supplier< ? extends AccessoryItem > item, String configKey ) {
 		super( item, configKey, "", "" );
 
-		OnLootContext onLoot = new OnLootContext( this::addExtraLoot );
+		OnLootContext onLoot = new OnLootContext( this.toAccessoryConsumer( this::addExtraLoot, this.chance ) );
 		onLoot.addCondition( new Condition.IsServer() )
 			.addCondition( data->data.blockState != null && data.blockState.getMaterial() == Material.STONE )
 			.addCondition( OnLootContext.HAS_ENTITY )
@@ -45,12 +45,7 @@ public class ExtraStoneLoot extends AccessoryModifier {
 		this.addTooltip( this.chance, "majruszsaccessories.bonuses.extra_stone_loot" );
 	}
 
-	private void addExtraLoot( OnLootData data ) {
-		AccessoryHandler handler = AccessoryHandler.tryToCreate( ( LivingEntity )data.entity, this.item.get() );
-		if( handler == null || !this.chance.tryChance( handler ) ) {
-			return;
-		}
-
+	private void addExtraLoot( OnLootData data, AccessoryHandler handler ) {
 		data.generatedLoot.addAll( generateLoot( ( LivingEntity )data.entity ) );
 		ParticleHandler.AWARD.spawn( data.level, data.origin, 5 );
 	}

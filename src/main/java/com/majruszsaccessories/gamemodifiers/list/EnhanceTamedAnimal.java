@@ -26,7 +26,7 @@ public class EnhanceTamedAnimal extends AccessoryModifier {
 	public EnhanceTamedAnimal( Supplier< ? extends AccessoryItem > item, String configKey ) {
 		super( item, configKey, "", "" );
 
-		OnAnimalTameContext onTame = new OnAnimalTameContext( this::enhanceAnimal );
+		OnAnimalTameContext onTame = new OnAnimalTameContext( this.toAccessoryConsumer( this::enhanceAnimal ) );
 		onTame.addConfig( this.bonus );
 
 		this.addContext( onTame );
@@ -36,12 +36,7 @@ public class EnhanceTamedAnimal extends AccessoryModifier {
 		this.addTooltip( this.bonus, "majruszsaccessories.bonuses.animal_jump_height" );
 	}
 
-	private void enhanceAnimal( OnAnimalTameData data ) {
-		AccessoryHandler handler = AccessoryHandler.tryToCreate( data.tamer, this.item.get() );
-		if( handler == null ) {
-			return;
-		}
-
+	private void enhanceAnimal( OnAnimalTameData data, AccessoryHandler handler ) {
 		float bonus = this.bonus.getValue( handler );
 		HEALTH.setValueAndApply( data.animal, bonus );
 		if( AttributeHandler.hasAttribute( data.animal, Attributes.ATTACK_DAMAGE ) ) {

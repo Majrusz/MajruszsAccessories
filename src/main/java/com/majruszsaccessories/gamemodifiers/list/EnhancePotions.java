@@ -26,7 +26,7 @@ public class EnhancePotions extends AccessoryModifier {
 	public EnhancePotions( Supplier< ? extends AccessoryItem > item, String configKey ) {
 		super( item, configKey, "", "" );
 
-		OnPotionBrewedContext onPotionBrewed = new OnPotionBrewedContext( this::enhancePotion );
+		OnPotionBrewedContext onPotionBrewed = new OnPotionBrewedContext( this.toAccessoryConsumer( this::enhancePotion ) );
 		onPotionBrewed.addCondition( data->PotionUtils.getMobEffects( data.itemStack ).size() > 0 ).addCondition( data->!data.itemStack.getOrCreateTag()
 			.contains( TAG_CUSTOM_POTION_EFFECTS ) ).addConfigs( this.duration, this.amplifier );
 
@@ -35,12 +35,7 @@ public class EnhancePotions extends AccessoryModifier {
 		this.addTooltip( this.duration, "majruszsaccessories.bonuses.potion_duration" );
 	}
 
-	private void enhancePotion( OnPotionBrewedData data ) {
-		AccessoryHandler handler = AccessoryHandler.tryToCreate( data.player, this.item.get() );
-		if( handler == null ) {
-			return;
-		}
-
+	private void enhancePotion( OnPotionBrewedData data, AccessoryHandler handler ) {
 		List< MobEffectInstance > effects = PotionUtils.getMobEffects( data.itemStack );
 		List< MobEffectInstance > enhancedEffects = this.getEnhancedEffects( handler, effects );
 		PotionUtils.setCustomEffects( data.itemStack, enhancedEffects );

@@ -20,7 +20,7 @@ public class SpawnTwins extends AccessoryModifier {
 	public SpawnTwins( Supplier< ? extends AccessoryItem > item, String configKey ) {
 		super( item, configKey, "", "" );
 
-		OnBabySpawnContext onLoot = new OnBabySpawnContext( this::spawnTwins );
+		OnBabySpawnContext onLoot = new OnBabySpawnContext( this.toAccessoryConsumer( this::spawnTwins, this.chance ) );
 		onLoot.addCondition( new Condition.IsServer() )
 			.addCondition( data->data.parentA instanceof Animal )
 			.addCondition( data->data.parentB instanceof Animal )
@@ -30,13 +30,8 @@ public class SpawnTwins extends AccessoryModifier {
 		this.addTooltip( this.chance, "majruszsaccessories.bonuses.spawn_twins" );
 	}
 
-	private void spawnTwins( OnBabySpawnData data ) {
+	private void spawnTwins( OnBabySpawnData data, AccessoryHandler handler ) {
 		assert data.level != null;
-		AccessoryHandler handler = AccessoryHandler.tryToCreate( data.player, this.item.get() );
-		if( handler == null || !this.chance.tryChance( handler ) ) {
-			return;
-		}
-
 		Animal parentA = ( Animal )data.parentA, parentB = ( Animal )data.parentB;
 		AgeableMob child = parentA.getBreedOffspring( data.level, parentB );
 		if( child == null ) {
