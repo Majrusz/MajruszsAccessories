@@ -27,8 +27,8 @@ public class DoubleCrops extends AccessoryModifier {
 			.addCondition( data->data.entity instanceof LivingEntity )
 			.addConfig( this.chance );
 
-		this.addTooltip( this.chance, "majruszsaccessories.bonuses.double_crops" );
 		this.addContext( onLoot );
+		this.addTooltip( this.chance, "majruszsaccessories.bonuses.double_crops" );
 	}
 
 	private void doubleLoot( OnLootData data, AccessoryHandler handler ) {
