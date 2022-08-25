@@ -1,8 +1,11 @@
 package com.majruszsaccessories.gamemodifiers;
 
 import com.majruszsaccessories.AccessoryHandler;
+import com.majruszsaccessories.gamemodifiers.configs.AccessoryPercent;
 import com.majruszsaccessories.gamemodifiers.configs.IAccessoryConfig;
 import com.majruszsaccessories.items.AccessoryItem;
+import com.mlib.Random;
+import com.mlib.gamemodifiers.ContextData;
 import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.gamemodifiers.data.OnLootData;
 import com.mlib.text.FormattedTranslatable;
@@ -12,6 +15,7 @@ import net.minecraft.network.chat.MutableComponent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public abstract class AccessoryModifier extends GameModifier {
@@ -49,5 +53,20 @@ public abstract class AccessoryModifier extends GameModifier {
 
 	protected void addToGeneratedLoot( OnLootData data ) {
 		data.generatedLoot.add( AccessoryHandler.construct( this.item.get() ) );
+	}
+
+	protected < DataType extends ContextData > Consumer< DataType > toAccessoryConsumer( BiConsumer< DataType, AccessoryHandler > consumer, AccessoryPercent... chances ) {
+		return data->{
+			for( AccessoryPercent chance : chances ) {
+				if( !Random.tryChance( chance ) ) {
+					return;
+				}
+			}
+
+			AccessoryHandler handler = AccessoryHandler.tryToCreate( data.entity, this.item.get() );
+			if( handler != null ) {
+				consumer.accept( data, handler );
+			}
+		};
 	}
 }
