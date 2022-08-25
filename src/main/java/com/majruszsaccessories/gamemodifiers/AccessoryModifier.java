@@ -57,16 +57,18 @@ public abstract class AccessoryModifier extends GameModifier {
 
 	protected < DataType extends ContextData > Consumer< DataType > toAccessoryConsumer( BiConsumer< DataType, AccessoryHandler > consumer, AccessoryPercent... chances ) {
 		return data->{
+			AccessoryHandler handler = AccessoryHandler.tryToCreate( data.entity, this.item.get() );
+			if( handler == null ) {
+				return;
+			}
+
 			for( AccessoryPercent chance : chances ) {
-				if( !Random.tryChance( chance ) ) {
+				if( !Random.tryChance( chance.getValue( handler ) ) ) {
 					return;
 				}
 			}
 
-			AccessoryHandler handler = AccessoryHandler.tryToCreate( data.entity, this.item.get() );
-			if( handler != null ) {
-				consumer.accept( data, handler );
-			}
+			consumer.accept( data, handler );
 		};
 	}
 }
