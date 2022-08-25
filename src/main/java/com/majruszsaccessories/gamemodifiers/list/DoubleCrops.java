@@ -28,6 +28,7 @@ public class DoubleCrops extends AccessoryModifier {
 			.addConfig( this.chance );
 
 		this.addTooltip( this.chance, "majruszsaccessories.bonuses.double_crops" );
+		this.addContext( onLoot );
 	}
 
 	private void doubleLoot( OnLootData data, AccessoryHandler handler ) {
