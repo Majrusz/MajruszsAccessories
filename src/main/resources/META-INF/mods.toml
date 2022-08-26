@@ -12,7 +12,7 @@ issueTrackerURL="https://github.com/Majrusz/MajruszsAccessories/issues"
     logoFile="logo.png"
     credits="Thanks for all your support and downloads!"
     authors="Majrusz"
-    description='''Mod that adds new special accessories that make certain aspects of the game more enjoyable.'''
+    description='''Mod that adds new special accessories to make certain aspects of the game more enjoyable.'''
 
 [[dependencies.majruszsaccessories]]
     modId="forge"
