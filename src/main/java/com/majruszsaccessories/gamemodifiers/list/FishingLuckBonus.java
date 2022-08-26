@@ -10,6 +10,7 @@ import com.mlib.gamemodifiers.contexts.OnPlayerTickContext;
 import com.mlib.gamemodifiers.data.OnPlayerTickData;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 
 import java.util.function.Supplier;
@@ -21,15 +22,23 @@ public class FishingLuckBonus extends AccessoryModifier {
 	public FishingLuckBonus( Supplier< ? extends AccessoryItem > item, String configKey ) {
 		super( item, configKey, "", "" );
 
-		OnPlayerTickContext onTick = new OnPlayerTickContext( this.toAccessoryConsumer( this::updateLuck ) );
+		OnPlayerTickContext onTick = new OnPlayerTickContext( this::updateLuck );
 		onTick.addCondition( new Condition.Cooldown( 4, Dist.DEDICATED_SERVER, false ) ).addConfig( this.luck );
 
 		this.addContext( onTick );
 		this.addTooltip( this.luck, "majruszsaccessories.bonuses.fishing_luck" );
 	}
 
-	private void updateLuck( OnPlayerTickData data, AccessoryHandler handler ) {
-		int luckBonus = data.player.fishing != null ? this.luck.getValue( handler ) : 0;
-		LUCK_ATTRIBUTE.setValueAndApply( data.player, luckBonus );
+	private void updateLuck( OnPlayerTickData data ) {
+		LUCK_ATTRIBUTE.setValueAndApply( data.player, this.getLuck( data.player ) );
+	}
+
+	private int getLuck( Player player ) {
+		if( player.fishing == null ) {
+			return 0;
+		}
+
+		AccessoryHandler handler = AccessoryHandler.tryToCreate( player, this.item.get() );
+		return handler != null ? this.luck.getValue( handler ) : 0;
 	}
 }
