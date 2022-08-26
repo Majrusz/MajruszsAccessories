@@ -41,9 +41,7 @@ public class CertificateOfTamingItem extends AccessoryItem {
 		}
 
 		private void spawnCertificate( OnAnimalTameData data ) {
-			assert data.level != null;
-			ItemStack itemStack = AccessoryHandler.construct( this.item.get() );
-			LevelHelper.spawnItemEntityFlyingTowardsDirection( itemStack, data.level, data.animal.position(), data.tamer.position().add( 0.0, 2.0, 0.0 ) );
+			this.spawnFlyingItem( data.level, data.animal.position(), data.tamer.position() );
 		}
 	}
 }

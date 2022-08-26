@@ -57,9 +57,7 @@ public class AnglersTrophyItem extends AccessoryItem {
 		}
 
 		private void onFished( OnItemFishedData data ) {
-			assert data.level != null;
-			ItemStack anglerEmblem = AccessoryHandler.construct( this.item.get() );
-			LevelHelper.spawnItemEntityFlyingTowardsDirection( anglerEmblem, data.level, data.hook.position(), data.player.position() );
+			this.spawnFlyingItem( data.level, data.hook.position(), data.player.position() );
 		}
 	}
 }

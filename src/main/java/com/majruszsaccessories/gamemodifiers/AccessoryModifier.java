@@ -8,7 +8,11 @@ import com.mlib.Random;
 import com.mlib.gamemodifiers.ContextData;
 import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.gamemodifiers.data.OnLootData;
+import com.mlib.levels.LevelHelper;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +57,16 @@ public abstract class AccessoryModifier extends GameModifier {
 		}
 	}
 
+	protected ItemStack constructItemStack() {
+		return AccessoryHandler.construct( this.item.get() );
+	}
+
 	protected void addToGeneratedLoot( OnLootData data ) {
-		data.generatedLoot.add( AccessoryHandler.construct( this.item.get() ) );
+		data.generatedLoot.add( this.constructItemStack() );
+	}
+
+	protected void spawnFlyingItem( Level level, Vec3 from, Vec3 to ) {
+		LevelHelper.spawnItemEntityFlyingTowardsDirection( this.constructItemStack(), level, from, to );
 	}
 
 	protected < DataType extends ContextData > Consumer< DataType > toAccessoryConsumer( BiConsumer< DataType, AccessoryHandler > consumer,
