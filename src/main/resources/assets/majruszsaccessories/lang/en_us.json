@@ -21,7 +21,7 @@
   "majruszsaccessories.bonuses.animal_damage": "Increases tamed wolf's damage by %1$s.",
   "majruszsaccessories.bonuses.animal_speed": "Increases tamed horse's movement speed by %1$s.",
   "majruszsaccessories.bonuses.animal_jump_height": "Increases tamed horse's jump height by %1$s.",
-  "majruszsaccessories.bonuses.more_chest_loot": "All structure chests contain more loot the further you are from home, up to %1$s.",
+  "majruszsaccessories.bonuses.more_chest_loot": "All structure chests contain %1$s more loot for every block the further you are from home, up to %2$s.",
   "majruszsaccessories.bonuses.double_crops": "Gives %1$s chance to double crops when harvesting.",
   "advancements.majruszsaccessories.anglers_trophy.title": "Fishing Addiction",
   "advancements.majruszsaccessories.anglers_trophy.description": "Acquire an Angler Trophy",
