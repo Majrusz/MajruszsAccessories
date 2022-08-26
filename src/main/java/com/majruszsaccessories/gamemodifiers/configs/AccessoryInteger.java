@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class AccessoryInteger extends IntegerConfig implements IAccessoryConfig {
+public class AccessoryInteger extends IntegerConfig implements IAccessoryTooltip {
 	final int multiplier;
 
 	public AccessoryInteger( String name, String comment, boolean worldRestartRequired, int defaultValue, int min, int max, int multiplier ) {
@@ -38,22 +38,24 @@ public class AccessoryInteger extends IntegerConfig implements IAccessoryConfig 
 
 	@Override
 	public void addTooltip( String key, List< Component > components, AccessoryHandler handler ) {
-		FormattedTranslatable component = new FormattedTranslatable( key, DEFAULT_FORMAT );
-		component.addParameter( this.getBonus( this::getDefaultValue, this::getValue, handler ) ).insertInto( components );
+		IAccessoryTooltip.construct( key, DEFAULT_FORMAT )
+			.addParameter( this.getBonus( this::getDefaultValue, this::getValue, handler ) )
+			.insertInto( components );
 	}
 
 	@Override
 	public void addDetailedTooltip( String key, List< Component > components, AccessoryHandler handler ) {
-		if( this.getDefaultValue() == this.getValue( handler ) ) {
-			this.addTooltip( key, components, handler );
-			return;
-		}
-
-		FormattedTranslatable component = new FormattedTranslatable( key, DEFAULT_FORMAT );
-		component.addParameter( this.getFormula( this::getDefaultValue, this::getValue, handler ) ).insertInto( components );
+		IAccessoryTooltip.construct( key, DEFAULT_FORMAT )
+			.addParameter( this.getFormula( this::getDefaultValue, this::getValue, handler ) )
+			.insertInto( components );
 	}
 
-	private MutableComponent getBonus( Supplier< Integer > defaultBonus, Function< AccessoryHandler, Integer > bonus, AccessoryHandler handler ) {
+	@Override
+	public boolean areTooltipsIdentical( AccessoryHandler handler ) {
+		return this.getDefaultValue() == this.getValue( handler );
+	}
+
+	protected MutableComponent getBonus( Supplier< Integer > defaultBonus, Function< AccessoryHandler, Integer > bonus, AccessoryHandler handler ) {
 		MutableComponent component = Component.literal( String.format( "%d", bonus.apply( handler ) ) );
 		int diff = bonus.apply( handler ) - defaultBonus.get();
 		component.withStyle( diff != 0 ? handler.getBonusFormatting() : DEFAULT_FORMAT );
@@ -61,7 +63,7 @@ public class AccessoryInteger extends IntegerConfig implements IAccessoryConfig 
 		return component;
 	}
 
-	private MutableComponent getFormula( Supplier< Integer > defaultBonus, Function< AccessoryHandler, Integer > bonus, AccessoryHandler handler ) {
+	protected MutableComponent getFormula( Supplier< Integer > defaultBonus, Function< AccessoryHandler, Integer > bonus, AccessoryHandler handler ) {
 		FormattedTranslatable component = new FormattedTranslatable( FORMULA_KEY, DEFAULT_FORMAT );
 		component.addParameter( defaultBonus.get().toString() );
 		int diff = bonus.apply( handler ) - defaultBonus.get();
