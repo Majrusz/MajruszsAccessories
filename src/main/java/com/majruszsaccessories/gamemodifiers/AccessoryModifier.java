@@ -80,7 +80,7 @@ public abstract class AccessoryModifier extends GameModifier {
 		final static IAccessoryTooltip DEFAULT_TOOLTIP = new IAccessoryTooltip() {
 			@Override
 			public void addTooltip( String key, List< Component > components, AccessoryHandler handler ) {
-				IAccessoryTooltip.construct( key, IAccessoryTooltip.DEFAULT_FORMAT ).insertInto( components );
+				IAccessoryTooltip.build( key, IAccessoryTooltip.DEFAULT_FORMAT ).insertInto( components );
 			}
 		};
 

@@ -1,7 +1,6 @@
 package com.majruszsaccessories.gamemodifiers.configs;
 
 import com.majruszsaccessories.AccessoryHandler;
-import com.mlib.Random;
 import com.mlib.config.DoubleConfig;
 import com.mlib.text.FormattedTranslatable;
 import com.mlib.text.TextHelper;
@@ -39,19 +38,16 @@ public class AccessoryPercent extends DoubleConfig implements IAccessoryTooltip 
 
 	@Override
 	public void addTooltip( String key, List< Component > components, AccessoryHandler handler ) {
-		FormattedTranslatable component = new FormattedTranslatable( key, DEFAULT_FORMAT );
-		component.addParameter( this.getPercentBonus( this::getDefaultValue, this::getValue, handler ) ).insertInto( components );
+		IAccessoryTooltip.build( key, DEFAULT_FORMAT )
+			.addParameter( this.getPercentBonus( this::getDefaultValue, this::getValue, handler ) )
+			.insertInto( components );
 	}
 
 	@Override
 	public void addDetailedTooltip( String key, List< Component > components, AccessoryHandler handler ) {
-		if( Math.abs( this.getDefaultValue() - this.getValue( handler ) ) < 0.001 ) {
-			this.addTooltip( key, components, handler );
-			return;
-		}
-
-		FormattedTranslatable component = new FormattedTranslatable( key, DEFAULT_FORMAT );
-		component.addParameter( this.getPercentFormula( this::getDefaultValue, this::getValue, handler ) ).insertInto( components );
+		IAccessoryTooltip.build( key, DEFAULT_FORMAT )
+			.addParameter( this.getPercentFormula( this::getDefaultValue, this::getValue, handler ) )
+			.insertInto( components );
 	}
 
 	@Override

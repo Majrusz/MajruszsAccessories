@@ -38,14 +38,14 @@ public class AccessoryInteger extends IntegerConfig implements IAccessoryTooltip
 
 	@Override
 	public void addTooltip( String key, List< Component > components, AccessoryHandler handler ) {
-		IAccessoryTooltip.construct( key, DEFAULT_FORMAT )
+		IAccessoryTooltip.build( key, DEFAULT_FORMAT )
 			.addParameter( this.getBonus( this::getDefaultValue, this::getValue, handler ) )
 			.insertInto( components );
 	}
 
 	@Override
 	public void addDetailedTooltip( String key, List< Component > components, AccessoryHandler handler ) {
-		IAccessoryTooltip.construct( key, DEFAULT_FORMAT )
+		IAccessoryTooltip.build( key, DEFAULT_FORMAT )
 			.addParameter( this.getFormula( this::getDefaultValue, this::getValue, handler ) )
 			.insertInto( components );
 	}

@@ -21,7 +21,7 @@ public interface IAccessoryTooltip {
 		return true;
 	}
 
-	static FormattedTranslatable construct( String id, ChatFormatting... defaultFormat ) {
+	static FormattedTranslatable build( String id, ChatFormatting... defaultFormat ) {
 		return new FormattedTranslatable( id, defaultFormat );
 	}
 }
