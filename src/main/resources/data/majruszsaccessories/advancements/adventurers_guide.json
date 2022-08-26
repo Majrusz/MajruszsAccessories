@@ -1,14 +1,14 @@
 {
-  "parent": "minecraft:husbandry/plant_seed",
+  "parent": "minecraft:adventure/root",
   "display": {
     "icon": {
-      "item": "majruszsaccessories:giant_seed"
+      "item": "majruszsaccessories:adventurers_guide"
     },
     "title": {
-      "translate": "advancements.majruszsaccessories.giant_seed.title"
+      "translate": "advancements.majruszsaccessories.adventurers_guide.title"
     },
     "description": {
-      "translate": "advancements.majruszsaccessories.giant_seed.description"
+      "translate": "advancements.majruszsaccessories.adventurers_guide.description"
     },
     "frame": "goal",
     "show_toast": true,
@@ -25,7 +25,7 @@
         "items": [
           {
             "items": [
-              "majruszsaccessories:giant_seed"
+              "majruszsaccessories:adventurers_guide"
             ]
           }
         ]

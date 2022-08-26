@@ -1,14 +1,14 @@
 {
-  "parent": "minecraft:husbandry/tame_an_animal",
+  "parent": "minecraft:husbandry/plant_seed",
   "display": {
     "icon": {
-      "item": "majruszsaccessories:taming_certificate"
+      "item": "majruszsaccessories:tamed_potato_beetle"
     },
     "title": {
-      "translate": "advancements.majruszsaccessories.taming_certificate.title"
+      "translate": "advancements.majruszsaccessories.tamed_potato_beetle.title"
     },
     "description": {
-      "translate": "advancements.majruszsaccessories.taming_certificate.description"
+      "translate": "advancements.majruszsaccessories.tamed_potato_beetle.description"
     },
     "frame": "goal",
     "show_toast": true,
@@ -25,7 +25,7 @@
         "items": [
           {
             "items": [
-              "majruszsaccessories:taming_certificate"
+              "majruszsaccessories:tamed_potato_beetle"
             ]
           }
         ]

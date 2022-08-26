@@ -15,6 +15,9 @@
     "announce_to_chat": true,
     "hidden": true
   },
+  "rewards": {
+    "experience": 100
+  },
   "criteria": {
     "picked_up_accessory": {
       "trigger": "minecraft:inventory_changed",
