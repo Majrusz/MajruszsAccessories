@@ -12,11 +12,13 @@ import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.contexts.OnLootContext;
 import com.mlib.gamemodifiers.data.OnLootData;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class MoreChestLoot extends AccessoryModifier {
@@ -52,22 +54,25 @@ public class MoreChestLoot extends AccessoryModifier {
 
 		@Override
 		public void addTooltip( String key, List< Component > components, AccessoryHandler handler ) {
-			int blocksPerPercent = Math.round( BLOCKS_DISTANCE / ( this.getDefaultValue() * 100.0f ) );
-			IAccessoryTooltip.build( key, DEFAULT_FORMAT )
-				.addParameter( this.getPercentBonus( ()->0.01f, _handler->( 1.0f + handler.getBonus() )/100.0f, handler ) )
-				.addParameter( Component.literal( "" + blocksPerPercent ).withStyle( DEFAULT_FORMAT ) )
-				.addParameter( this.getPercentBonus( this::getDefaultValue, this::getValue, handler ) )
-				.insertInto( components );
+			this.addTooltip( this::getPercentBonus, key, components, handler );
 		}
 
 		@Override
 		public void addDetailedTooltip( String key, List< Component > components, AccessoryHandler handler ) {
+			this.addTooltip( this::getPercentFormula, key, components, handler );
+		}
+
+		private void addTooltip( ComponentBuilder builder, String key, List< Component > components, AccessoryHandler handler ) {
 			int blocksPerPercent = Math.round( BLOCKS_DISTANCE / ( this.getDefaultValue() * 100.0f ) );
 			IAccessoryTooltip.build( key, DEFAULT_FORMAT )
-				.addParameter( this.getPercentFormula( ()->0.01f, _handler->( 1.0f + handler.getBonus() )/100.0f, handler ) )
+				.addParameter( builder.apply( ()->0.01f, _handler->( 1.0f + handler.getBonus() )/100.0f, handler ) )
 				.addParameter( Component.literal( "" + blocksPerPercent ).withStyle( DEFAULT_FORMAT ) )
-				.addParameter( this.getPercentFormula( this::getDefaultValue, this::getValue, handler ) )
+				.addParameter( builder.apply( this::getDefaultValue, this::getValue, handler ) )
 				.insertInto( components );
+		}
+
+		interface ComponentBuilder {
+			MutableComponent apply( Supplier< Float > defaultBonus, Function< AccessoryHandler, Float > bonus, AccessoryHandler handler );
 		}
 	}
 }
