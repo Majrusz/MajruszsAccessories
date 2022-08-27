@@ -14,7 +14,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 
-version = '0.5.0'
+version = '1.0.0'
 group = 'com.majruszsaccessories' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'majruszsaccessories-1.19.1'
 
