@@ -3,6 +3,7 @@ package com.majruszsaccessories;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.MajruszLibrary;
 import com.mlib.gamemodifiers.GameModifier;
+import com.mlib.gamemodifiers.GameModifiersHolder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
@@ -112,8 +113,8 @@ public class AccessoryHandler {
 		return this.itemStack.getOrCreateTagElement( Tags.BONUS ).getFloat( Tags.VALUE );
 	}
 
-	public List< GameModifier > getModifiers() {
-		return this.item.getHolder().getModifiers();
+	public GameModifiersHolder< ? > getHolder() {
+		return this.item.getHolder();
 	}
 
 	public ChatFormatting getBonusFormatting() {
