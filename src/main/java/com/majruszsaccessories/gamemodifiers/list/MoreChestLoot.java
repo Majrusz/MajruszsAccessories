@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -32,15 +33,21 @@ public class MoreChestLoot extends AccessoryModifier {
 	public MoreChestLoot( Supplier< ? extends AccessoryItem > item, String configKey ) {
 		super( item, configKey, "", "" );
 
-		OnLoot.Context onLoot = new OnLoot.Context( this.toAccessoryConsumer( this::increaseLoot ) );
-		onLoot.addCondition( new Condition.IsServer() )
-			.addCondition( OnLoot.HAS_ORIGIN )
-			.addCondition( data->BlockHelper.getBlockEntity( data.level, data.origin ) instanceof RandomizableContainerBlockEntity )
-			.addCondition( data->data.entity instanceof ServerPlayer )
-			.addConfig( this.sizeMultiplier );
+		OnLoot.Context onLoot = MoreChestLoot.lootContext( this.toAccessoryConsumer( this::increaseLoot ) );
+		onLoot.addConfig( this.sizeMultiplier );
 
 		this.addContext( onLoot );
 		this.addTooltip( this.sizeMultiplier, "majruszsaccessories.bonuses.more_chest_loot" );
+	}
+
+	public static OnLoot.Context lootContext( Consumer< OnLoot.Data > consumer ) {
+		OnLoot.Context onLoot = new OnLoot.Context( consumer );
+		onLoot.addCondition( new Condition.IsServer() )
+			.addCondition( OnLoot.HAS_ORIGIN )
+			.addCondition( data->BlockHelper.getBlockEntity( data.level, data.origin ) instanceof RandomizableContainerBlockEntity )
+			.addCondition( data->data.entity instanceof ServerPlayer );
+
+		return onLoot;
 	}
 
 	private void increaseLoot( OnLoot.Data data, AccessoryHandler handler ) {
