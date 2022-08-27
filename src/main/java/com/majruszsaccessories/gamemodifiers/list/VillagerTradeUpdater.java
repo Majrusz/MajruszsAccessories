@@ -42,7 +42,7 @@ public class VillagerTradeUpdater extends GameModifier {
 
 		@Override
 		public boolean satisfiedBy( ItemStack itemStack1, ItemStack itemStack2 ) {
-			return itemStack1.is( this.item ) || itemStack2.is( this.item );
+			return itemStack1.is( this.item ) && itemStack2.isEmpty();
 		}
 	}
 }
