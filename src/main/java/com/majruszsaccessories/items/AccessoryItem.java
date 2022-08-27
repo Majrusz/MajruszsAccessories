@@ -10,7 +10,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
+
 public class AccessoryItem extends Item implements IRegistrable {
+	public static final List< GameModifiersHolder< ? extends AccessoryItem > > ACCESSORIES = new ArrayList<>();
 	GameModifiersHolder< ? > holder = null;
 
 	public AccessoryItem() {
@@ -36,5 +41,12 @@ public class AccessoryItem extends Item implements IRegistrable {
 	@Override
 	public GameModifiersHolder< ? > getHolder() {
 		return this.holder;
+	}
+
+	protected static < Type extends AccessoryItem > GameModifiersHolder< Type > newHolder( String configKey, Supplier< Type > supplier ) {
+		GameModifiersHolder< Type > holder = new GameModifiersHolder<>( configKey, supplier );
+		ACCESSORIES.add( holder );
+
+		return holder;
 	}
 }

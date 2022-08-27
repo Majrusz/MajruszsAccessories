@@ -2,6 +2,7 @@ package com.majruszsaccessories;
 
 import com.majruszsaccessories.gamemodifiers.list.AccessoryObserver;
 import com.majruszsaccessories.gamemodifiers.list.TooltipUpdater;
+import com.majruszsaccessories.gamemodifiers.list.VillagerTradeUpdater;
 import com.majruszsaccessories.items.*;
 import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.items.ItemCreativeModeTab;
@@ -59,6 +60,7 @@ public class Registries {
 	static {
 		GAME_MODIFIERS.add( new AccessoryObserver() );
 		GAME_MODIFIERS.add( new TooltipUpdater() );
+		GAME_MODIFIERS.add( new VillagerTradeUpdater() );
 	}
 
 	public static void initialize() {

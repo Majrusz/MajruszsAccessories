@@ -2,6 +2,7 @@ package com.majruszsaccessories.items;
 
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
+import com.majruszsaccessories.gamemodifiers.list.BaseOffer;
 import com.majruszsaccessories.gamemodifiers.list.DoubleCrops;
 import com.mlib.blocks.BlockHelper;
 import com.mlib.config.ConfigGroup;
@@ -10,6 +11,7 @@ import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.gamemodifiers.GameModifiersHolder;
 import com.mlib.gamemodifiers.contexts.OnLootContext;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.npc.VillagerProfession;
 
 import java.util.function.Supplier;
 
@@ -20,9 +22,10 @@ public class TamedPotatoBeetleItem extends AccessoryItem {
 	static final ConfigGroup GROUP = CONFIG_HANDLER.addGroup( GameModifier.addNewGroup( ID, "TamedPotatoBeetle", "" ) );
 
 	public static Supplier< TamedPotatoBeetleItem > create() {
-		GameModifiersHolder< TamedPotatoBeetleItem > holder = new GameModifiersHolder<>( ID, TamedPotatoBeetleItem::new );
+		GameModifiersHolder< TamedPotatoBeetleItem > holder = AccessoryItem.newHolder( ID, TamedPotatoBeetleItem::new );
 		holder.addModifier( DoubleCrops::new );
 		holder.addModifier( AddDropChance::new );
+		holder.addModifier( TradeOffer::new );
 
 		return holder::getRegistry;
 	}
@@ -39,6 +42,12 @@ public class TamedPotatoBeetleItem extends AccessoryItem {
 				.addCondition( data->data.entity instanceof LivingEntity );
 
 			this.addContext( onLoot );
+		}
+	}
+
+	static class TradeOffer extends BaseOffer {
+		public TradeOffer( Supplier< ? extends AccessoryItem > item, String configKey ) {
+			super( item, configKey, VillagerProfession.FARMER, 5 );
 		}
 	}
 }
