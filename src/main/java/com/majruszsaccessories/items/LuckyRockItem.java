@@ -4,6 +4,7 @@ import com.majruszsaccessories.AccessoryHandler;
 import com.majruszsaccessories.Integration;
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
+import com.majruszsaccessories.gamemodifiers.list.BaseOffer;
 import com.majruszsaccessories.gamemodifiers.list.ExtraStoneLoot;
 import com.mlib.config.ConfigGroup;
 import com.mlib.gamemodifiers.Condition;
@@ -13,6 +14,7 @@ import com.mlib.gamemodifiers.contexts.OnLootContext;
 import com.mlib.gamemodifiers.contexts.OnLootTableCustomLoadContext;
 import com.mlib.gamemodifiers.data.OnLootData;
 import com.mlib.gamemodifiers.data.OnLootTableCustomLoadData;
+import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.material.Material;
 
 import java.util.function.Supplier;
@@ -24,10 +26,11 @@ public class LuckyRockItem extends AccessoryItem {
 	static final ConfigGroup GROUP = CONFIG_HANDLER.addGroup( GameModifier.addNewGroup( ID, "LuckyRock", "" ) );
 
 	public static Supplier< LuckyRockItem > create() {
-		GameModifiersHolder< LuckyRockItem > holder = new GameModifiersHolder<>( ID, LuckyRockItem::new );
+		GameModifiersHolder< LuckyRockItem > holder = AccessoryItem.newHolder( ID, LuckyRockItem::new );
 		holder.addModifier( ExtraStoneLoot::new );
 		holder.addModifier( AddEnderiumShards::new ); // adds Enderium Shards (from Majrusz's Progressive Difficulty) to loot table
 		holder.addModifier( AddDropChance::new );
+		holder.addModifier( TradeOffer::new );
 
 		return holder::getRegistry;
 	}
@@ -60,6 +63,12 @@ public class LuckyRockItem extends AccessoryItem {
 				.addCondition( OnLootContext.HAS_ORIGIN );
 
 			this.addContext( onLoot );
+		}
+	}
+
+	static class TradeOffer extends BaseOffer {
+		public TradeOffer( Supplier< ? extends AccessoryItem > item, String configKey ) {
+			super( item, configKey, VillagerProfession.MASON, 5 );
 		}
 	}
 }

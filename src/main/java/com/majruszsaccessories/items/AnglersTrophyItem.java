@@ -4,6 +4,7 @@ import com.majruszsaccessories.AccessoryHandler;
 import com.majruszsaccessories.Integration;
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
+import com.majruszsaccessories.gamemodifiers.list.BaseOffer;
 import com.majruszsaccessories.gamemodifiers.list.FishingLuckBonus;
 import com.majruszsdifficulty.items.TreasureBagItem;
 import com.mlib.config.ConfigGroup;
@@ -15,6 +16,7 @@ import com.mlib.gamemodifiers.contexts.OnLootTableCustomLoadContext;
 import com.mlib.gamemodifiers.data.OnItemFishedData;
 import com.mlib.gamemodifiers.data.OnLootTableCustomLoadData;
 import com.mlib.levels.LevelHelper;
+import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 
@@ -27,9 +29,10 @@ public class AnglersTrophyItem extends AccessoryItem {
 	static final ConfigGroup GROUP = CONFIG_HANDLER.addGroup( GameModifier.addNewGroup( ID, "AnglerTrophy", "" ) );
 
 	public static Supplier< AnglersTrophyItem > create() {
-		GameModifiersHolder< AnglersTrophyItem > holder = new GameModifiersHolder<>( ID, AnglersTrophyItem::new );
+		GameModifiersHolder< AnglersTrophyItem > holder = AccessoryItem.newHolder( ID, AnglersTrophyItem::new );
 		holder.addModifier( FishingLuckBonus::new );
 		holder.addModifier( AddDropChance::new );
+		holder.addModifier( TradeOffer::new );
 
 		return holder::getRegistry;
 	}
@@ -58,6 +61,12 @@ public class AnglersTrophyItem extends AccessoryItem {
 
 		private void onFished( OnItemFishedData data ) {
 			this.spawnFlyingItem( data.level, data.hook.position(), data.player.position() );
+		}
+	}
+
+	static class TradeOffer extends BaseOffer {
+		public TradeOffer( Supplier< ? extends AccessoryItem > item, String configKey ) {
+			super( item, configKey, VillagerProfession.FISHERMAN, 5 );
 		}
 	}
 }
