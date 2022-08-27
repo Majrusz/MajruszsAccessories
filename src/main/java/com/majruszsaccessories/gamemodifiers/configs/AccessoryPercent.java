@@ -53,13 +53,13 @@ public class AccessoryPercent extends DoubleConfig implements IAccessoryTooltip 
 
 	@Override
 	public boolean areTooltipsIdentical( AccessoryHandler handler ) {
-		return Math.abs( this.getDefaultValue() - this.getValue( handler ) ) < 0.001;
+		return Math.abs( this.getDefaultValue() - this.getValue( handler ) ) < 0.0001f;
 	}
 
 	protected MutableComponent getPercentBonus( Supplier< Float > defaultBonus, Function< AccessoryHandler, Float > bonus, AccessoryHandler handler ) {
 		MutableComponent component = Component.literal( TextHelper.percent( bonus.apply( handler ) ) );
 		float diff = bonus.apply( handler ) - defaultBonus.get();
-		component.withStyle( Math.abs( diff ) >= 0.001f ? handler.getBonusFormatting() : DEFAULT_FORMAT );
+		component.withStyle( Math.abs( diff ) >= 0.0001f ? handler.getBonusFormatting() : DEFAULT_FORMAT );
 
 		return component;
 	}
@@ -68,7 +68,7 @@ public class AccessoryPercent extends DoubleConfig implements IAccessoryTooltip 
 		FormattedTranslatable component = new FormattedTranslatable( FORMULA_KEY, DEFAULT_FORMAT );
 		component.addParameter( TextHelper.percent( defaultBonus.get() ) );
 		float diff = bonus.apply( handler ) - defaultBonus.get();
-		if( Math.abs( diff ) >= 0.001f ) {
+		if( Math.abs( diff ) >= 0.0001f ) {
 			component.addParameter( TextHelper.signedPercent( diff ), handler.getBonusFormatting() );
 		}
 
