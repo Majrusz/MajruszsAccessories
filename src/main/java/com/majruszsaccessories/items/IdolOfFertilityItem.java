@@ -1,6 +1,5 @@
 package com.majruszsaccessories.items;
 
-import com.majruszsaccessories.AccessoryHandler;
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
 import com.majruszsaccessories.gamemodifiers.list.BaseOffer;
@@ -9,11 +8,8 @@ import com.mlib.config.ConfigGroup;
 import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.gamemodifiers.GameModifiersHolder;
-import com.mlib.gamemodifiers.contexts.OnBabySpawnContext;
-import com.mlib.gamemodifiers.data.OnBabySpawnData;
-import com.mlib.levels.LevelHelper;
+import com.mlib.gamemodifiers.contexts.OnBabySpawn;
 import net.minecraft.world.entity.npc.VillagerProfession;
-import net.minecraft.world.item.ItemStack;
 
 import java.util.function.Supplier;
 
@@ -36,14 +32,14 @@ public class IdolOfFertilityItem extends AccessoryItem {
 		public AddDropChance( Supplier< ? extends AccessoryItem > item, String configKey ) {
 			super( item, configKey, "", "" );
 
-			OnBabySpawnContext onBabySpawn = new OnBabySpawnContext( this::spawnTotem );
+			OnBabySpawn.Context onBabySpawn = new OnBabySpawn.Context( this::spawnTotem );
 			onBabySpawn.addCondition( new Condition.IsServer() )
 				.addCondition( new Condition.Chance( 0.0005, "drop_chance", "Chance for Idol of Fertility to drop when breeding animals." ) );
 
 			this.addContext( onBabySpawn );
 		}
 
-		private void spawnTotem( OnBabySpawnData data ) {
+		private void spawnTotem( OnBabySpawn.Data data ) {
 			this.spawnFlyingItem( data.level, data.parentA.position(), data.parentB.position() );
 		}
 	}

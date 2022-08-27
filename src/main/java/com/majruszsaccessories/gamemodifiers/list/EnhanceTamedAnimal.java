@@ -6,10 +6,7 @@ import com.majruszsaccessories.gamemodifiers.configs.AccessoryPercent;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.attributes.AttributeHandler;
 import com.mlib.effects.ParticleHandler;
-import com.mlib.gamemodifiers.Condition;
-import com.mlib.gamemodifiers.contexts.OnAnimalTameContext;
-import com.mlib.gamemodifiers.data.OnAnimalTameData;
-import net.minecraft.server.level.ServerLevel;
+import com.mlib.gamemodifiers.contexts.OnAnimalTame;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.horse.Horse;
@@ -26,7 +23,7 @@ public class EnhanceTamedAnimal extends AccessoryModifier {
 	public EnhanceTamedAnimal( Supplier< ? extends AccessoryItem > item, String configKey ) {
 		super( item, configKey, "", "" );
 
-		OnAnimalTameContext onTame = new OnAnimalTameContext( this.toAccessoryConsumer( this::enhanceAnimal ) );
+		OnAnimalTame.Context onTame = new OnAnimalTame.Context( this.toAccessoryConsumer( this::enhanceAnimal ) );
 		onTame.addConfig( this.bonus );
 
 		this.addContext( onTame );
@@ -36,7 +33,7 @@ public class EnhanceTamedAnimal extends AccessoryModifier {
 		this.addTooltip( this.bonus, "majruszsaccessories.bonuses.animal_jump_height" );
 	}
 
-	private void enhanceAnimal( OnAnimalTameData data, AccessoryHandler handler ) {
+	private void enhanceAnimal( OnAnimalTame.Data data, AccessoryHandler handler ) {
 		float bonus = this.bonus.getValue( handler );
 		HEALTH.setValueAndApply( data.animal, bonus );
 		if( AttributeHandler.hasAttribute( data.animal, Attributes.ATTACK_DAMAGE ) ) {

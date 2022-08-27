@@ -6,8 +6,7 @@ import com.majruszsaccessories.gamemodifiers.configs.AccessoryInteger;
 import com.majruszsaccessories.gamemodifiers.configs.AccessoryPercent;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.Utility;
-import com.mlib.gamemodifiers.contexts.OnPotionBrewedContext;
-import com.mlib.gamemodifiers.data.OnPotionBrewedData;
+import com.mlib.gamemodifiers.contexts.OnPotionBrewed;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionUtils;
@@ -26,7 +25,7 @@ public class EnhancePotions extends AccessoryModifier {
 	public EnhancePotions( Supplier< ? extends AccessoryItem > item, String configKey ) {
 		super( item, configKey, "", "" );
 
-		OnPotionBrewedContext onPotionBrewed = new OnPotionBrewedContext( this.toAccessoryConsumer( this::enhancePotion ) );
+		OnPotionBrewed.Context onPotionBrewed = new OnPotionBrewed.Context( this.toAccessoryConsumer( this::enhancePotion ) );
 		onPotionBrewed.addCondition( data->PotionUtils.getMobEffects( data.itemStack ).size() > 0 ).addCondition( data->!data.itemStack.getOrCreateTag()
 			.contains( TAG_CUSTOM_POTION_EFFECTS ) ).addConfigs( this.duration, this.amplifier );
 
@@ -35,7 +34,7 @@ public class EnhancePotions extends AccessoryModifier {
 		this.addTooltip( this.duration, "majruszsaccessories.bonuses.potion_duration" );
 	}
 
-	private void enhancePotion( OnPotionBrewedData data, AccessoryHandler handler ) {
+	private void enhancePotion( OnPotionBrewed.Data data, AccessoryHandler handler ) {
 		List< MobEffectInstance > effects = PotionUtils.getMobEffects( data.itemStack );
 		List< MobEffectInstance > enhancedEffects = this.getEnhancedEffects( handler, effects );
 		PotionUtils.setCustomEffects( data.itemStack, enhancedEffects );

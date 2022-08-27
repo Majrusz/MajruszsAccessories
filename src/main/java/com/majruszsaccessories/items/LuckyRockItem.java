@@ -1,6 +1,5 @@
 package com.majruszsaccessories.items;
 
-import com.majruszsaccessories.AccessoryHandler;
 import com.majruszsaccessories.Integration;
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
@@ -10,10 +9,8 @@ import com.mlib.config.ConfigGroup;
 import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.gamemodifiers.GameModifiersHolder;
-import com.mlib.gamemodifiers.contexts.OnLootContext;
-import com.mlib.gamemodifiers.contexts.OnLootTableCustomLoadContext;
-import com.mlib.gamemodifiers.data.OnLootData;
-import com.mlib.gamemodifiers.data.OnLootTableCustomLoadData;
+import com.mlib.gamemodifiers.contexts.OnLoot;
+import com.mlib.gamemodifiers.contexts.OnLootTableCustomLoad;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.material.Material;
 
@@ -39,14 +36,14 @@ public class LuckyRockItem extends AccessoryItem {
 		public AddEnderiumShards( Supplier< ? extends AccessoryItem > item, String configKey ) {
 			super( item, configKey, "", "" );
 
-			OnLootTableCustomLoadContext onLoad = new OnLootTableCustomLoadContext( this::addLoot );
+			OnLootTableCustomLoad.Context onLoad = new OnLootTableCustomLoad.Context( this::addLoot );
 			onLoad.addCondition( data->ExtraStoneLoot.LOOT_THE_END.equals( data.name ) )
 				.addCondition( data->Integration.isProgressiveDifficultyInstalled() );
 
 			this.addContext( onLoad );
 		}
 
-		private void addLoot( OnLootTableCustomLoadData data ) {
+		private void addLoot( OnLootTableCustomLoad.Data data ) {
 			data.addEntry( 0, com.majruszsdifficulty.Registries.ENDERIUM_SHARD.get(), 1, 0 );
 		}
 	}
@@ -55,12 +52,12 @@ public class LuckyRockItem extends AccessoryItem {
 		public AddDropChance( Supplier< ? extends AccessoryItem > item, String configKey ) {
 			super( item, configKey, "", "" );
 
-			OnLootContext onLoot = new OnLootContext( this::addToGeneratedLoot );
+			OnLoot.Context onLoot = new OnLoot.Context( this::addToGeneratedLoot );
 			onLoot.addCondition( new Condition.IsServer() )
 				.addCondition( new Condition.Chance( 0.0002, "drop_chance", "Chance for Lucky Rock to drop when mining stone." ) )
 				.addCondition( data->data.blockState != null && data.blockState.getMaterial() == Material.STONE )
-				.addCondition( OnLootContext.HAS_ENTITY )
-				.addCondition( OnLootContext.HAS_ORIGIN );
+				.addCondition( OnLoot.HAS_ENTITY )
+				.addCondition( OnLoot.HAS_ORIGIN );
 
 			this.addContext( onLoot );
 		}

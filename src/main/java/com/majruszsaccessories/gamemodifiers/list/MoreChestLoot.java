@@ -2,15 +2,14 @@ package com.majruszsaccessories.gamemodifiers.list;
 
 import com.majruszsaccessories.AccessoryHandler;
 import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
-import com.majruszsaccessories.gamemodifiers.configs.AccessoryPercent;
 import com.majruszsaccessories.gamemodifiers.IAccessoryTooltip;
+import com.majruszsaccessories.gamemodifiers.configs.AccessoryPercent;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.Random;
 import com.mlib.blocks.BlockHelper;
 import com.mlib.effects.ParticleHandler;
 import com.mlib.gamemodifiers.Condition;
-import com.mlib.gamemodifiers.contexts.OnLootContext;
-import com.mlib.gamemodifiers.data.OnLootData;
+import com.mlib.gamemodifiers.contexts.OnLoot;
 import com.mlib.levels.LevelHelper;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.network.chat.Component;
@@ -33,9 +32,9 @@ public class MoreChestLoot extends AccessoryModifier {
 	public MoreChestLoot( Supplier< ? extends AccessoryItem > item, String configKey ) {
 		super( item, configKey, "", "" );
 
-		OnLootContext onLoot = new OnLootContext( this.toAccessoryConsumer( this::increaseLoot ) );
+		OnLoot.Context onLoot = new OnLoot.Context( this.toAccessoryConsumer( this::increaseLoot ) );
 		onLoot.addCondition( new Condition.IsServer() )
-			.addCondition( OnLootContext.HAS_ORIGIN )
+			.addCondition( OnLoot.HAS_ORIGIN )
 			.addCondition( data->BlockHelper.getBlockEntity( data.level, data.origin ) instanceof RandomizableContainerBlockEntity )
 			.addCondition( data->data.entity instanceof ServerPlayer )
 			.addConfig( this.sizeMultiplier );
@@ -44,7 +43,7 @@ public class MoreChestLoot extends AccessoryModifier {
 		this.addTooltip( this.sizeMultiplier, "majruszsaccessories.bonuses.more_chest_loot" );
 	}
 
-	private void increaseLoot( OnLootData data, AccessoryHandler handler ) {
+	private void increaseLoot( OnLoot.Data data, AccessoryHandler handler ) {
 		boolean hasIncreasedLoot = false;
 		float sizeMultiplier = this.getFinalSizeMultiplier( ( ServerPlayer )data.entity, handler );
 		for( ItemStack itemStack : data.generatedLoot ) {

@@ -8,7 +8,7 @@ import com.mlib.config.ConfigGroup;
 import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.gamemodifiers.GameModifiersHolder;
-import com.mlib.gamemodifiers.contexts.OnLootContext;
+import com.mlib.gamemodifiers.contexts.OnLoot;
 import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.entity.npc.VillagerProfession;
 
@@ -33,10 +33,10 @@ public class SecretIngredientItem extends AccessoryItem {
 		public AddDropChance( Supplier< ? extends AccessoryItem > item, String configKey ) {
 			super( item, configKey, "", "" );
 
-			OnLootContext onLoot = new OnLootContext( this::addToGeneratedLoot );
+			OnLoot.Context onLoot = new OnLoot.Context( this::addToGeneratedLoot );
 			onLoot.addCondition( new Condition.IsServer() )
 				.addCondition( new Condition.Chance( 0.025, "drop_chance", "Chance for Secret Ingredient to drop from Witch." ) )
-				.addCondition( OnLootContext.HAS_LAST_DAMAGE_PLAYER )
+				.addCondition( OnLoot.HAS_LAST_DAMAGE_PLAYER )
 				.addCondition( data->data.entity instanceof Witch );
 
 			this.addContext( onLoot );

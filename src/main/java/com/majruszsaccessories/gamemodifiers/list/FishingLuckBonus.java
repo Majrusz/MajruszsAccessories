@@ -6,8 +6,7 @@ import com.majruszsaccessories.gamemodifiers.configs.AccessoryInteger;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.attributes.AttributeHandler;
 import com.mlib.gamemodifiers.Condition;
-import com.mlib.gamemodifiers.contexts.OnPlayerTickContext;
-import com.mlib.gamemodifiers.data.OnPlayerTickData;
+import com.mlib.gamemodifiers.contexts.OnPlayerTick;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
@@ -22,14 +21,14 @@ public class FishingLuckBonus extends AccessoryModifier {
 	public FishingLuckBonus( Supplier< ? extends AccessoryItem > item, String configKey ) {
 		super( item, configKey, "", "" );
 
-		OnPlayerTickContext onTick = new OnPlayerTickContext( this::updateLuck );
+		OnPlayerTick.Context onTick = new OnPlayerTick.Context( this::updateLuck );
 		onTick.addCondition( new Condition.Cooldown( 4, Dist.DEDICATED_SERVER, false ) ).addConfig( this.luck );
 
 		this.addContext( onTick );
 		this.addTooltip( this.luck, "majruszsaccessories.bonuses.fishing_luck" );
 	}
 
-	private void updateLuck( OnPlayerTickData data ) {
+	private void updateLuck( OnPlayerTick.Data data ) {
 		LUCK_ATTRIBUTE.setValueAndApply( data.player, this.getLuck( data.player ) );
 	}
 

@@ -7,8 +7,7 @@ import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.client.ClientHelper;
 import com.mlib.gamemodifiers.GameModifier;
-import com.mlib.gamemodifiers.contexts.OnItemTooltipContext;
-import com.mlib.gamemodifiers.data.OnItemTooltipData;
+import com.mlib.gamemodifiers.contexts.OnItemTooltip;
 import com.mlib.text.FormattedTranslatable;
 import com.mlib.text.TextHelper;
 import net.minecraft.ChatFormatting;
@@ -24,13 +23,13 @@ public class TooltipUpdater extends GameModifier {
 	public TooltipUpdater() {
 		super( Registries.Modifiers.DEFAULT_GROUP, "TooltipUpdater", "" );
 
-		OnItemTooltipContext onTooltip = new OnItemTooltipContext( this::addTooltip );
+		OnItemTooltip.Context onTooltip = new OnItemTooltip.Context( this::addTooltip );
 		onTooltip.addCondition( data->data.itemStack.getItem() instanceof AccessoryItem );
 
 		this.addContext( onTooltip );
 	}
 
-	private void addTooltip( OnItemTooltipData data ) {
+	private void addTooltip( OnItemTooltip.Data data ) {
 		List< Component > components = new ArrayList<>();
 
 		addBonusInfo( components, data );
@@ -40,7 +39,7 @@ public class TooltipUpdater extends GameModifier {
 		data.tooltip.addAll( 1, components );
 	}
 
-	private void addBonusInfo( List< Component > components, OnItemTooltipData data ) {
+	private void addBonusInfo( List< Component > components, OnItemTooltip.Data data ) {
 		AccessoryHandler handler = new AccessoryHandler( data.itemStack );
 		float bonus = handler.getBonus();
 		if( bonus == 0.0f ) {
@@ -51,7 +50,7 @@ public class TooltipUpdater extends GameModifier {
 		component.addParameter( TextHelper.signedPercent( bonus ) ).insertInto( components );
 	}
 
-	private void addUseInfo( List< Component > components, OnItemTooltipData data ) {
+	private void addUseInfo( List< Component > components, OnItemTooltip.Data data ) {
 		if( Integration.isCuriosInstalled() ) {
 			return;
 		}
@@ -60,7 +59,7 @@ public class TooltipUpdater extends GameModifier {
 		component.insertInto( components );
 	}
 
-	private ChatFormatting getUseFormatting( OnItemTooltipData data ) {
+	private ChatFormatting getUseFormatting( OnItemTooltip.Data data ) {
 		AccessoryHandler handler = new AccessoryHandler( data.itemStack );
 		@Nullable Player player = data.event.getEntity();
 		if( player != null && handler.findAccessory( player ) == data.itemStack ) {
@@ -70,7 +69,7 @@ public class TooltipUpdater extends GameModifier {
 		}
 	}
 
-	private void addModifierInfo( List< Component > components, OnItemTooltipData data ) {
+	private void addModifierInfo( List< Component > components, OnItemTooltip.Data data ) {
 		AccessoryHandler handler = new AccessoryHandler( data.itemStack );
 		handler.getHolder().forEach( AccessoryModifier.class, modifier->{
 			BiConsumer< List< Component >, AccessoryHandler > consumer = ClientHelper.isShiftDown() ? modifier::buildDetailedTooltip : modifier::buildTooltip;

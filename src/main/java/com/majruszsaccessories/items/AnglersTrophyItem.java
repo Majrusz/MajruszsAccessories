@@ -1,6 +1,5 @@
 package com.majruszsaccessories.items;
 
-import com.majruszsaccessories.AccessoryHandler;
 import com.majruszsaccessories.Integration;
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
@@ -12,12 +11,9 @@ import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.gamemodifiers.GameModifiersHolder;
 import com.mlib.gamemodifiers.contexts.OnItemFishedContext;
-import com.mlib.gamemodifiers.contexts.OnLootTableCustomLoadContext;
+import com.mlib.gamemodifiers.contexts.OnLootTableCustomLoad;
 import com.mlib.gamemodifiers.data.OnItemFishedData;
-import com.mlib.gamemodifiers.data.OnLootTableCustomLoadData;
-import com.mlib.levels.LevelHelper;
 import net.minecraft.world.entity.npc.VillagerProfession;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 
 import java.util.function.Supplier;
@@ -42,7 +38,7 @@ public class AnglersTrophyItem extends AccessoryItem {
 			super( item, configKey, "", "" );
 
 			if( Integration.isProgressiveDifficultyInstalled() ) {
-				OnLootTableCustomLoadContext onLoad = new OnLootTableCustomLoadContext( this::addToTreasureBag );
+				OnLootTableCustomLoad.Context onLoad = new OnLootTableCustomLoad.Context( this::addToTreasureBag );
 				onLoad.addCondition( data->TreasureBagItem.Fishing.LOCATION.equals( data.name ) );
 
 				this.addContext( onLoad );
@@ -54,7 +50,7 @@ public class AnglersTrophyItem extends AccessoryItem {
 			}
 		}
 
-		private void addToTreasureBag( OnLootTableCustomLoadData data ) {
+		private void addToTreasureBag( OnLootTableCustomLoad.Data data ) {
 			int poolId = data.addPool();
 			data.addEntry( poolId, this.item.get(), 1, 4, LootItemRandomChanceCondition.randomChance( 0.075f ) );
 		}

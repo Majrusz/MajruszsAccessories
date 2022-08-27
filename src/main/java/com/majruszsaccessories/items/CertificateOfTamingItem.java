@@ -1,6 +1,5 @@
 package com.majruszsaccessories.items;
 
-import com.majruszsaccessories.AccessoryHandler;
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
 import com.majruszsaccessories.gamemodifiers.list.BaseOffer;
@@ -9,11 +8,8 @@ import com.mlib.config.ConfigGroup;
 import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.gamemodifiers.GameModifiersHolder;
-import com.mlib.gamemodifiers.contexts.OnAnimalTameContext;
-import com.mlib.gamemodifiers.data.OnAnimalTameData;
-import com.mlib.levels.LevelHelper;
+import com.mlib.gamemodifiers.contexts.OnAnimalTame;
 import net.minecraft.world.entity.npc.VillagerProfession;
-import net.minecraft.world.item.ItemStack;
 
 import java.util.function.Supplier;
 
@@ -36,14 +32,14 @@ public class CertificateOfTamingItem extends AccessoryItem {
 		public AddDropChance( Supplier< ? extends AccessoryItem > item, String configKey ) {
 			super( item, configKey, "", "" );
 
-			OnAnimalTameContext onLoot = new OnAnimalTameContext( this::spawnCertificate );
+			OnAnimalTame.Context onLoot = new OnAnimalTame.Context( this::spawnCertificate );
 			onLoot.addCondition( new Condition.IsServer() )
 				.addCondition( new Condition.Chance( 0.01, "drop_chance", "Chance for Certificate of Taming to drop when taming animals." ) );
 
 			this.addContext( onLoot );
 		}
 
-		private void spawnCertificate( OnAnimalTameData data ) {
+		private void spawnCertificate( OnAnimalTame.Data data ) {
 			this.spawnFlyingItem( data.level, data.animal.position(), data.tamer.position() );
 		}
 	}

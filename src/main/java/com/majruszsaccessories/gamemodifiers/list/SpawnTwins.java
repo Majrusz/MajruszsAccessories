@@ -4,11 +4,9 @@ import com.majruszsaccessories.AccessoryHandler;
 import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
 import com.majruszsaccessories.gamemodifiers.configs.AccessoryPercent;
 import com.majruszsaccessories.items.AccessoryItem;
-import com.mlib.Random;
 import com.mlib.effects.ParticleHandler;
 import com.mlib.gamemodifiers.Condition;
-import com.mlib.gamemodifiers.contexts.OnBabySpawnContext;
-import com.mlib.gamemodifiers.data.OnBabySpawnData;
+import com.mlib.gamemodifiers.contexts.OnBabySpawn;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.animal.Animal;
 
@@ -20,7 +18,7 @@ public class SpawnTwins extends AccessoryModifier {
 	public SpawnTwins( Supplier< ? extends AccessoryItem > item, String configKey ) {
 		super( item, configKey, "", "" );
 
-		OnBabySpawnContext onLoot = new OnBabySpawnContext( this.toAccessoryConsumer( this::spawnTwins, this.chance ) );
+		OnBabySpawn.Context onLoot = new OnBabySpawn.Context( this.toAccessoryConsumer( this::spawnTwins, this.chance ) );
 		onLoot.addCondition( new Condition.IsServer() )
 			.addCondition( data->data.parentA instanceof Animal )
 			.addCondition( data->data.parentB instanceof Animal )
@@ -30,7 +28,7 @@ public class SpawnTwins extends AccessoryModifier {
 		this.addTooltip( this.chance, "majruszsaccessories.bonuses.spawn_twins" );
 	}
 
-	private void spawnTwins( OnBabySpawnData data, AccessoryHandler handler ) {
+	private void spawnTwins( OnBabySpawn.Data data, AccessoryHandler handler ) {
 		assert data.level != null;
 		Animal parentA = ( Animal )data.parentA, parentB = ( Animal )data.parentB;
 		AgeableMob child = parentA.getBreedOffspring( data.level, parentB );

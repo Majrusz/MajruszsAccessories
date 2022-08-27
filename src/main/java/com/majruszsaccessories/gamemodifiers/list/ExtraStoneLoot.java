@@ -5,11 +5,9 @@ import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
 import com.majruszsaccessories.gamemodifiers.configs.AccessoryPercent;
 import com.majruszsaccessories.items.AccessoryItem;
-import com.mlib.Random;
 import com.mlib.effects.ParticleHandler;
 import com.mlib.gamemodifiers.Condition;
-import com.mlib.gamemodifiers.contexts.OnLootContext;
-import com.mlib.gamemodifiers.data.OnLootData;
+import com.mlib.gamemodifiers.contexts.OnLoot;
 import com.mlib.levels.LevelHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -34,18 +32,18 @@ public class ExtraStoneLoot extends AccessoryModifier {
 	public ExtraStoneLoot( Supplier< ? extends AccessoryItem > item, String configKey ) {
 		super( item, configKey, "", "" );
 
-		OnLootContext onLoot = new OnLootContext( this.toAccessoryConsumer( this::addExtraLoot, this.chance ) );
+		OnLoot.Context onLoot = new OnLoot.Context( this.toAccessoryConsumer( this::addExtraLoot, this.chance ) );
 		onLoot.addCondition( new Condition.IsServer() )
 			.addCondition( data->data.blockState != null && data.blockState.getMaterial() == Material.STONE )
-			.addCondition( OnLootContext.HAS_ENTITY )
-			.addCondition( OnLootContext.HAS_ORIGIN )
+			.addCondition( OnLoot.HAS_ENTITY )
+			.addCondition( OnLoot.HAS_ORIGIN )
 			.addConfig( this.chance );
 
 		this.addContext( onLoot );
 		this.addTooltip( this.chance, "majruszsaccessories.bonuses.extra_stone_loot" );
 	}
 
-	private void addExtraLoot( OnLootData data, AccessoryHandler handler ) {
+	private void addExtraLoot( OnLoot.Data data, AccessoryHandler handler ) {
 		data.generatedLoot.addAll( generateLoot( ( LivingEntity )data.entity ) );
 		ParticleHandler.AWARD.spawn( data.level, data.origin, 5 );
 	}

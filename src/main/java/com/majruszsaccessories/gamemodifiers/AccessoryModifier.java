@@ -6,7 +6,7 @@ import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.Random;
 import com.mlib.gamemodifiers.ContextData;
 import com.mlib.gamemodifiers.GameModifier;
-import com.mlib.gamemodifiers.data.OnLootData;
+import com.mlib.gamemodifiers.contexts.OnLoot;
 import com.mlib.levels.LevelHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -60,7 +60,7 @@ public abstract class AccessoryModifier extends GameModifier {
 		return AccessoryHandler.construct( this.item.get() );
 	}
 
-	protected void addToGeneratedLoot( OnLootData data ) {
+	protected void addToGeneratedLoot( OnLoot.Data data ) {
 		data.generatedLoot.add( this.constructItemStack() );
 	}
 
