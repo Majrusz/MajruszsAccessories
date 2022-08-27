@@ -10,9 +10,8 @@ import com.mlib.config.ConfigGroup;
 import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.gamemodifiers.GameModifiersHolder;
-import com.mlib.gamemodifiers.contexts.OnItemFishedContext;
+import com.mlib.gamemodifiers.contexts.OnItemFished;
 import com.mlib.gamemodifiers.contexts.OnLootTableCustomLoad;
-import com.mlib.gamemodifiers.data.OnItemFishedData;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 
@@ -43,7 +42,7 @@ public class AnglersTrophyItem extends AccessoryItem {
 
 				this.addContext( onLoad );
 			} else {
-				OnItemFishedContext onFished = new OnItemFishedContext( this::onFished );
+				OnItemFished.Context onFished = new OnItemFished.Context( this::onFished );
 				onFished.addCondition( new Condition.Chance( 0.00375, "drop_chance", "Chance to drop Angler's Trophy from fishing." ) );
 
 				this.addContext( onFished );
@@ -55,7 +54,7 @@ public class AnglersTrophyItem extends AccessoryItem {
 			data.addEntry( poolId, this.item.get(), 1, 4, LootItemRandomChanceCondition.randomChance( 0.075f ) );
 		}
 
-		private void onFished( OnItemFishedData data ) {
+		private void onFished( OnItemFished.Data data ) {
 			this.spawnFlyingItem( data.level, data.hook.position(), data.player.position() );
 		}
 	}
