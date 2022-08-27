@@ -21,6 +21,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraftforge.server.ServerLifecycleHooks;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class ExtraStoneLoot extends AccessoryModifier {
@@ -32,15 +33,21 @@ public class ExtraStoneLoot extends AccessoryModifier {
 	public ExtraStoneLoot( Supplier< ? extends AccessoryItem > item, String configKey ) {
 		super( item, configKey, "", "" );
 
-		OnLoot.Context onLoot = new OnLoot.Context( this.toAccessoryConsumer( this::addExtraLoot, this.chance ) );
-		onLoot.addCondition( new Condition.IsServer() )
-			.addCondition( data->data.blockState != null && data.blockState.getMaterial() == Material.STONE )
-			.addCondition( OnLoot.HAS_ENTITY )
-			.addCondition( OnLoot.HAS_ORIGIN )
-			.addConfig( this.chance );
+		OnLoot.Context onLoot = ExtraStoneLoot.lootContext( this.toAccessoryConsumer( this::addExtraLoot, this.chance ) );
+		onLoot.addConfig( this.chance );
 
 		this.addContext( onLoot );
 		this.addTooltip( this.chance, "majruszsaccessories.bonuses.extra_stone_loot" );
+	}
+
+	public static OnLoot.Context lootContext( Consumer< OnLoot.Data > consumer ) {
+		OnLoot.Context onLoot = new OnLoot.Context( consumer );
+		onLoot.addCondition( new Condition.IsServer() )
+			.addCondition( data->data.blockState != null && data.blockState.getMaterial() == Material.STONE )
+			.addCondition( OnLoot.HAS_ENTITY )
+			.addCondition( OnLoot.HAS_ORIGIN );
+
+		return onLoot;
 	}
 
 	private void addExtraLoot( OnLoot.Data data, AccessoryHandler handler ) {

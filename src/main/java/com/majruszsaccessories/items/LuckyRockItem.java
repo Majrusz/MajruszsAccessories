@@ -12,7 +12,6 @@ import com.mlib.gamemodifiers.GameModifiersHolder;
 import com.mlib.gamemodifiers.contexts.OnLoot;
 import com.mlib.gamemodifiers.contexts.OnLootTableCustomLoad;
 import net.minecraft.world.entity.npc.VillagerProfession;
-import net.minecraft.world.level.material.Material;
 
 import java.util.function.Supplier;
 
@@ -52,12 +51,8 @@ public class LuckyRockItem extends AccessoryItem {
 		public AddDropChance( Supplier< ? extends AccessoryItem > item, String configKey ) {
 			super( item, configKey, "", "" );
 
-			OnLoot.Context onLoot = new OnLoot.Context( this::addToGeneratedLoot );
-			onLoot.addCondition( new Condition.IsServer() )
-				.addCondition( new Condition.Chance( 0.0002, "drop_chance", "Chance for Lucky Rock to drop when mining stone." ) )
-				.addCondition( data->data.blockState != null && data.blockState.getMaterial() == Material.STONE )
-				.addCondition( OnLoot.HAS_ENTITY )
-				.addCondition( OnLoot.HAS_ORIGIN );
+			OnLoot.Context onLoot = ExtraStoneLoot.lootContext( this::addToGeneratedLoot );
+			onLoot.addCondition( new Condition.Chance( 0.0002, "drop_chance", "Chance for Lucky Rock to drop when mining stone." ) );
 
 			this.addContext( onLoot );
 		}

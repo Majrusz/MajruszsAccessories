@@ -32,11 +32,10 @@ public class CertificateOfTamingItem extends AccessoryItem {
 		public AddDropChance( Supplier< ? extends AccessoryItem > item, String configKey ) {
 			super( item, configKey, "", "" );
 
-			OnAnimalTame.Context onLoot = new OnAnimalTame.Context( this::spawnCertificate );
-			onLoot.addCondition( new Condition.IsServer() )
-				.addCondition( new Condition.Chance( 0.01, "drop_chance", "Chance for Certificate of Taming to drop when taming animals." ) );
+			OnAnimalTame.Context onAnimalTame = new OnAnimalTame.Context( this::spawnCertificate );
+			onAnimalTame.addCondition( new Condition.Chance( 0.01, "drop_chance", "Chance for Certificate of Taming to drop when taming animals." ) );
 
-			this.addContext( onLoot );
+			this.addContext( onAnimalTame );
 		}
 
 		private void spawnCertificate( OnAnimalTame.Data data ) {

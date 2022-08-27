@@ -4,13 +4,11 @@ import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
 import com.majruszsaccessories.gamemodifiers.list.BaseOffer;
 import com.majruszsaccessories.gamemodifiers.list.DoubleCrops;
-import com.mlib.blocks.BlockHelper;
 import com.mlib.config.ConfigGroup;
 import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.gamemodifiers.GameModifiersHolder;
 import com.mlib.gamemodifiers.contexts.OnLoot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.npc.VillagerProfession;
 
 import java.util.function.Supplier;
@@ -34,12 +32,8 @@ public class TamedPotatoBeetleItem extends AccessoryItem {
 		public AddDropChance( Supplier< ? extends AccessoryItem > item, String configKey ) {
 			super( item, configKey, "", "" );
 
-			OnLoot.Context onLoot = new OnLoot.Context( this::addToGeneratedLoot );
-			onLoot.addCondition( new Condition.IsServer() )
-				.addCondition( new Condition.Chance( 0.002, "drop_chance", "Chance for Tamed Potato Beetle to drop from crops." ) )
-				.addCondition( OnLoot.HAS_ORIGIN )
-				.addCondition( data->data.blockState != null && BlockHelper.isCropAtMaxAge( data.blockState ) )
-				.addCondition( data->data.entity instanceof LivingEntity );
+			OnLoot.Context onLoot = DoubleCrops.lootContext( this::addToGeneratedLoot );
+			onLoot.addCondition( new Condition.Chance( 0.002, "drop_chance", "Chance for Tamed Potato Beetle to drop from crops." ) );
 
 			this.addContext( onLoot );
 		}

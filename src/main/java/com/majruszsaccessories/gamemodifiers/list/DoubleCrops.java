@@ -11,6 +11,7 @@ import com.mlib.gamemodifiers.contexts.OnLoot;
 import net.minecraft.world.entity.LivingEntity;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class DoubleCrops extends AccessoryModifier {
@@ -19,15 +20,21 @@ public class DoubleCrops extends AccessoryModifier {
 	public DoubleCrops( Supplier< ? extends AccessoryItem > item, String configKey ) {
 		super( item, configKey, "", "" );
 
-		OnLoot.Context onLoot = new OnLoot.Context( this.toAccessoryConsumer( this::doubleLoot, this.chance ) );
-		onLoot.addCondition( new Condition.IsServer() )
-			.addCondition( OnLoot.HAS_ORIGIN )
-			.addCondition( data->data.blockState != null && BlockHelper.isCropAtMaxAge( data.blockState ) )
-			.addCondition( data->data.entity instanceof LivingEntity )
-			.addConfig( this.chance );
+		OnLoot.Context onLoot = DoubleCrops.lootContext( this.toAccessoryConsumer( this::doubleLoot, this.chance ) );
+		onLoot.addConfig( this.chance );
 
 		this.addContext( onLoot );
 		this.addTooltip( this.chance, "majruszsaccessories.bonuses.double_crops" );
+	}
+
+	public static OnLoot.Context lootContext( Consumer< OnLoot.Data > consumer ) {
+		OnLoot.Context onLoot = new OnLoot.Context( consumer );
+		onLoot.addCondition( new Condition.IsServer() )
+			.addCondition( OnLoot.HAS_ORIGIN )
+			.addCondition( data->data.blockState != null && BlockHelper.isCropAtMaxAge( data.blockState ) )
+			.addCondition( data->data.entity instanceof LivingEntity );
+
+		return onLoot;
 	}
 
 	private void doubleLoot( OnLoot.Data data, AccessoryHandler handler ) {

@@ -23,10 +23,10 @@ public class EnhanceTamedAnimal extends AccessoryModifier {
 	public EnhanceTamedAnimal( Supplier< ? extends AccessoryItem > item, String configKey ) {
 		super( item, configKey, "", "" );
 
-		OnAnimalTame.Context onTame = new OnAnimalTame.Context( this.toAccessoryConsumer( this::enhanceAnimal ) );
-		onTame.addConfig( this.bonus );
+		OnAnimalTame.Context onAnimalTame = new OnAnimalTame.Context( this.toAccessoryConsumer( this::enhanceAnimal ) );
+		onAnimalTame.addConfig( this.bonus );
 
-		this.addContext( onTame );
+		this.addContext( onAnimalTame );
 		this.addTooltip( this.bonus, "majruszsaccessories.bonuses.animal_health" );
 		this.addTooltip( this.bonus, "majruszsaccessories.bonuses.animal_damage" );
 		this.addTooltip( this.bonus, "majruszsaccessories.bonuses.animal_speed" );

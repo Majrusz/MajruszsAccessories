@@ -10,6 +10,7 @@ import com.mlib.gamemodifiers.contexts.OnBabySpawn;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.animal.Animal;
 
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class SpawnTwins extends AccessoryModifier {
@@ -18,14 +19,20 @@ public class SpawnTwins extends AccessoryModifier {
 	public SpawnTwins( Supplier< ? extends AccessoryItem > item, String configKey ) {
 		super( item, configKey, "", "" );
 
-		OnBabySpawn.Context onLoot = new OnBabySpawn.Context( this.toAccessoryConsumer( this::spawnTwins, this.chance ) );
-		onLoot.addCondition( new Condition.IsServer() )
-			.addCondition( data->data.parentA instanceof Animal )
-			.addCondition( data->data.parentB instanceof Animal )
-			.addConfig( this.chance );
+		OnBabySpawn.Context onBabySpawn = SpawnTwins.babySpawnContext( this.toAccessoryConsumer( this::spawnTwins, this.chance ) );
+		onBabySpawn.addConfig( this.chance );
 
-		this.addContext( onLoot );
+		this.addContext( onBabySpawn );
 		this.addTooltip( this.chance, "majruszsaccessories.bonuses.spawn_twins" );
+	}
+
+	public static OnBabySpawn.Context babySpawnContext( Consumer< OnBabySpawn.Data > consumer ) {
+		OnBabySpawn.Context onBabySpawn = new OnBabySpawn.Context( consumer );
+		onBabySpawn.addCondition( new Condition.IsServer() )
+			.addCondition( data->data.parentA instanceof Animal )
+			.addCondition( data->data.parentB instanceof Animal );
+
+		return onBabySpawn;
 	}
 
 	private void spawnTwins( OnBabySpawn.Data data, AccessoryHandler handler ) {

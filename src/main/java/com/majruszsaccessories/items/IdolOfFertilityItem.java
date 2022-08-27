@@ -32,9 +32,8 @@ public class IdolOfFertilityItem extends AccessoryItem {
 		public AddDropChance( Supplier< ? extends AccessoryItem > item, String configKey ) {
 			super( item, configKey, "", "" );
 
-			OnBabySpawn.Context onBabySpawn = new OnBabySpawn.Context( this::spawnTotem );
-			onBabySpawn.addCondition( new Condition.IsServer() )
-				.addCondition( new Condition.Chance( 0.0005, "drop_chance", "Chance for Idol of Fertility to drop when breeding animals." ) );
+			OnBabySpawn.Context onBabySpawn = SpawnTwins.babySpawnContext( this::spawnTotem );
+			onBabySpawn.addCondition( new Condition.Chance( 0.005, "drop_chance", "Chance for Idol of Fertility to drop when breeding animals." ) );
 
 			this.addContext( onBabySpawn );
 		}
