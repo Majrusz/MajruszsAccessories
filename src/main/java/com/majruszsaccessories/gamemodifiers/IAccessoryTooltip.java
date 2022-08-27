@@ -1,4 +1,4 @@
-package com.majruszsaccessories.gamemodifiers.configs;
+package com.majruszsaccessories.gamemodifiers;
 
 import com.majruszsaccessories.AccessoryHandler;
 import com.mlib.text.FormattedTranslatable;

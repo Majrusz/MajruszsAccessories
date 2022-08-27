@@ -1,6 +1,7 @@
 package com.majruszsaccessories.gamemodifiers.configs;
 
 import com.majruszsaccessories.AccessoryHandler;
+import com.majruszsaccessories.gamemodifiers.IAccessoryTooltip;
 import com.mlib.config.IntegerConfig;
 import com.mlib.text.FormattedTranslatable;
 import com.mlib.text.TextHelper;

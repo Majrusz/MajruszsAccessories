@@ -3,7 +3,7 @@ package com.majruszsaccessories.gamemodifiers.list;
 import com.majruszsaccessories.AccessoryHandler;
 import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
 import com.majruszsaccessories.gamemodifiers.configs.AccessoryPercent;
-import com.majruszsaccessories.gamemodifiers.configs.IAccessoryTooltip;
+import com.majruszsaccessories.gamemodifiers.IAccessoryTooltip;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.Random;
 import com.mlib.blocks.BlockHelper;
