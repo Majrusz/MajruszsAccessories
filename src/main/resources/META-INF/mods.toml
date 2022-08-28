@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[42,)"
+loaderVersion="[43,)"
 license="MIT License"
 issueTrackerURL="https://github.com/Majrusz/MajruszsAccessories/issues"
 
@@ -17,14 +17,14 @@ issueTrackerURL="https://github.com/Majrusz/MajruszsAccessories/issues"
 [[dependencies.majruszsaccessories]]
     modId="forge"
     mandatory=true
-    versionRange="[42,)"
+    versionRange="[43.1.0,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.majruszsaccessories]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.1,1.20)"
+    versionRange="[1.19.2,1.20)"
     ordering="NONE"
     side="BOTH"
 
@@ -38,7 +38,7 @@ issueTrackerURL="https://github.com/Majrusz/MajruszsAccessories/issues"
 [[dependencies.majruszsaccessories]]
     modId="curios"
     mandatory=false
-    versionRange="[1.19.1-5.1.0.5,)"
+    versionRange="[1.19.2-5.1.1.0,)"
     ordering="AFTER"
     side="BOTH"
 
