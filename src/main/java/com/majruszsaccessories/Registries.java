@@ -30,12 +30,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static com.majruszsaccessories.MajruszsAccessories.CONFIG_HANDLER;
+import static com.majruszsaccessories.MajruszsAccessories.SERVER_CONFIG;
 
 public class Registries {
 	private static final DeferredRegisterHelper HELPER = new DeferredRegisterHelper( MajruszsAccessories.MOD_ID );
 	static {
-		CONFIG_HANDLER.addGroup( GameModifier.addNewGroup( Modifiers.DEFAULT_GROUP ) );
+		SERVER_CONFIG.addGroup( GameModifier.addNewGroup( Modifiers.DEFAULT_GROUP ) );
 	}
 
 	// Groups
@@ -70,7 +70,7 @@ public class Registries {
 		HELPER.registerAll();
 		DistExecutor.unsafeRunWhenOn( Dist.CLIENT, ()->()->modEventBus.addListener( Registries::onTextureStitch ) );
 		modEventBus.addListener( Registries::onEnqueueIMC );
-		CONFIG_HANDLER.register( ModLoadingContext.get() );
+		SERVER_CONFIG.register( ModLoadingContext.get() );
 	}
 
 	public static ResourceLocation getLocation( String register ) {

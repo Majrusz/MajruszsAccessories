@@ -13,11 +13,11 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 
 import java.util.function.Supplier;
 
-import static com.majruszsaccessories.MajruszsAccessories.CONFIG_HANDLER;
+import static com.majruszsaccessories.MajruszsAccessories.SERVER_CONFIG;
 
 public class IdolOfFertilityItem extends AccessoryItem {
 	static final String ID = Registries.getLocationString( "idol_of_fertility" );
-	static final ConfigGroup GROUP = CONFIG_HANDLER.addGroup( GameModifier.addNewGroup( ID, "IdolOfFertility", "" ) );
+	static final ConfigGroup GROUP = SERVER_CONFIG.addGroup( GameModifier.addNewGroup( ID, "IdolOfFertility", "" ) );
 
 	public static Supplier< IdolOfFertilityItem > create() {
 		GameModifiersHolder< IdolOfFertilityItem > holder = AccessoryItem.newHolder( ID, IdolOfFertilityItem::new );

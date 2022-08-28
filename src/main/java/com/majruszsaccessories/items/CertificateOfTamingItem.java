@@ -13,11 +13,11 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 
 import java.util.function.Supplier;
 
-import static com.majruszsaccessories.MajruszsAccessories.CONFIG_HANDLER;
+import static com.majruszsaccessories.MajruszsAccessories.SERVER_CONFIG;
 
 public class CertificateOfTamingItem extends AccessoryItem {
 	static final String ID = Registries.getLocationString( "certificate_of_taming" );
-	static final ConfigGroup GROUP = CONFIG_HANDLER.addGroup( GameModifier.addNewGroup( ID, "CertificateOfTaming", "" ) );
+	static final ConfigGroup GROUP = SERVER_CONFIG.addGroup( GameModifier.addNewGroup( ID, "CertificateOfTaming", "" ) );
 
 	public static Supplier< CertificateOfTamingItem > create() {
 		GameModifiersHolder< CertificateOfTamingItem > holder = AccessoryItem.newHolder( ID, CertificateOfTamingItem::new );

@@ -14,11 +14,11 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 
 import java.util.function.Supplier;
 
-import static com.majruszsaccessories.MajruszsAccessories.CONFIG_HANDLER;
+import static com.majruszsaccessories.MajruszsAccessories.SERVER_CONFIG;
 
 public class SecretIngredientItem extends AccessoryItem {
 	static final String ID = Registries.getLocationString( "secret_ingredient" );
-	static final ConfigGroup GROUP = CONFIG_HANDLER.addGroup( GameModifier.addNewGroup( ID, "SecretIngredient", "" ) );
+	static final ConfigGroup GROUP = SERVER_CONFIG.addGroup( GameModifier.addNewGroup( ID, "SecretIngredient", "" ) );
 
 	public static Supplier< SecretIngredientItem > create() {
 		GameModifiersHolder< SecretIngredientItem > holder = AccessoryItem.newHolder( ID, SecretIngredientItem::new );

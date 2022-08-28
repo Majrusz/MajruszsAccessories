@@ -9,7 +9,7 @@ import net.minecraftforge.fml.config.ModConfig;
 public class MajruszsAccessories {
 	public static final String MOD_ID = "majruszsaccessories";
 	public static final String NAME = "Majrusz's Accessories";
-	public static final ConfigHandler CONFIG_HANDLER = new ConfigHandler( ModConfig.Type.COMMON, "common.toml", MOD_ID );
+	public static final ConfigHandler SERVER_CONFIG = new ConfigHandler( ModConfig.Type.SERVER );
 
 	public MajruszsAccessories() {
 		Integration.initialize();

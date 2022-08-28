@@ -17,11 +17,11 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCon
 
 import java.util.function.Supplier;
 
-import static com.majruszsaccessories.MajruszsAccessories.CONFIG_HANDLER;
+import static com.majruszsaccessories.MajruszsAccessories.SERVER_CONFIG;
 
 public class AnglersTrophyItem extends AccessoryItem {
 	static final String ID = Registries.getLocationString( "anglers_trophy" );
-	static final ConfigGroup GROUP = CONFIG_HANDLER.addGroup( GameModifier.addNewGroup( ID, "AnglerTrophy", "" ) );
+	static final ConfigGroup GROUP = SERVER_CONFIG.addGroup( GameModifier.addNewGroup( ID, "AnglerTrophy", "" ) );
 
 	public static Supplier< AnglersTrophyItem > create() {
 		GameModifiersHolder< AnglersTrophyItem > holder = AccessoryItem.newHolder( ID, AnglersTrophyItem::new );

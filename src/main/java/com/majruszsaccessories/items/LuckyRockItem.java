@@ -15,11 +15,11 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 
 import java.util.function.Supplier;
 
-import static com.majruszsaccessories.MajruszsAccessories.CONFIG_HANDLER;
+import static com.majruszsaccessories.MajruszsAccessories.SERVER_CONFIG;
 
 public class LuckyRockItem extends AccessoryItem {
 	static final String ID = Registries.getLocationString( "lucky_rock" );
-	static final ConfigGroup GROUP = CONFIG_HANDLER.addGroup( GameModifier.addNewGroup( ID, "LuckyRock", "" ) );
+	static final ConfigGroup GROUP = SERVER_CONFIG.addGroup( GameModifier.addNewGroup( ID, "LuckyRock", "" ) );
 
 	public static Supplier< LuckyRockItem > create() {
 		GameModifiersHolder< LuckyRockItem > holder = AccessoryItem.newHolder( ID, LuckyRockItem::new );

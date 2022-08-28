@@ -13,11 +13,11 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 
 import java.util.function.Supplier;
 
-import static com.majruszsaccessories.MajruszsAccessories.CONFIG_HANDLER;
+import static com.majruszsaccessories.MajruszsAccessories.SERVER_CONFIG;
 
 public class TamedPotatoBeetleItem extends AccessoryItem {
 	static final String ID = Registries.getLocationString( "tamed_potato_beetle" );
-	static final ConfigGroup GROUP = CONFIG_HANDLER.addGroup( GameModifier.addNewGroup( ID, "TamedPotatoBeetle", "" ) );
+	static final ConfigGroup GROUP = SERVER_CONFIG.addGroup( GameModifier.addNewGroup( ID, "TamedPotatoBeetle", "" ) );
 
 	public static Supplier< TamedPotatoBeetleItem > create() {
 		GameModifiersHolder< TamedPotatoBeetleItem > holder = AccessoryItem.newHolder( ID, TamedPotatoBeetleItem::new );
