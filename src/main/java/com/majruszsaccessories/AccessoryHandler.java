@@ -82,7 +82,7 @@ public class AccessoryHandler {
 			}
 		} else {
 			ItemStack itemStack = entity.getOffhandItem();
-			if( itemStack.getItem() instanceof AccessoryItem ) {
+			if( itemStack.is( item ) ) {
 				return itemStack;
 			}
 		}
