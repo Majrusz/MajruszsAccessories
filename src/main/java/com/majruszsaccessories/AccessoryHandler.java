@@ -8,6 +8,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
@@ -34,22 +35,22 @@ public class AccessoryHandler {
 		return itemStack != null ? new AccessoryHandler( itemStack ) : null;
 	}
 
-	public static ItemStack setup( ItemStack itemStack, float bonus ) {
+	public static AccessoryHandler setup( ItemStack itemStack, float bonus ) {
 		AccessoryHandler handler = new AccessoryHandler( itemStack );
 		if( !handler.hasBonusTag() ) {
 			handler.setBonus( bonus );
 		}
 
-		return itemStack;
+		return handler;
 	}
 
-	public static ItemStack setup( ItemStack itemStack, float minBonus, float maxBonus ) {
+	public static AccessoryHandler setup( ItemStack itemStack, float minBonus, float maxBonus ) {
 		AccessoryHandler handler = new AccessoryHandler( itemStack );
 		if( !handler.hasBonusTag() ) {
 			handler.setBonusRange( minBonus, maxBonus );
 		}
 
-		return itemStack;
+		return handler;
 	}
 
 	public static float randomBonus() {
@@ -135,6 +136,10 @@ public class AccessoryHandler {
 
 		CompoundTag bonus = this.itemStack.getOrCreateTagElement( Tags.BONUS );
 		return new Range( bonus.getFloat( Tags.VALUE_MIN ), bonus.getFloat( Tags.VALUE_MAX ) );
+	}
+
+	public ItemStack getItemStack() {
+		return this.itemStack;
 	}
 
 	public GameModifiersHolder< ? > getHolder() {

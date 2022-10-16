@@ -31,7 +31,7 @@ public class AccessoryItem extends Item implements IRegistrable {
 
 		for( int i = 0; i < 9; ++i ) {
 			float bonus = Math.round( 100.0f * Mth.lerp( i / 8.0f, AccessoryHandler.MIN_BONUS, AccessoryHandler.MAX_BONUS ) ) / 100.0f;
-			itemStacks.add( AccessoryHandler.setup( new ItemStack( this ), bonus ) );
+			itemStacks.add( AccessoryHandler.setup( new ItemStack( this ), bonus ).getItemStack() );
 		}
 	}
 
