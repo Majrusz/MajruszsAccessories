@@ -67,7 +67,11 @@ public class CombineAccessoriesRecipe extends CustomRecipe {
 				continue;
 
 			if( itemStack.getItem() instanceof AccessoryItem item ) {
-				accessory = accessory != null ? accessory : item;
+				if( accessory == null ) {
+					accessory = item;
+				} else if( accessory != item ) {
+					return null;
+				}
 				bonuses.add( new AccessoryHandler( itemStack ).getBonus() );
 			} else {
 				return null;
