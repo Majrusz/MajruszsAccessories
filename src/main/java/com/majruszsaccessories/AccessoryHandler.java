@@ -34,38 +34,31 @@ public class AccessoryHandler {
 		return itemStack != null ? new AccessoryHandler( itemStack ) : null;
 	}
 
-	public static void setup( ItemStack itemStack, float ratio ) {
+	public static ItemStack setup( ItemStack itemStack, float bonus ) {
 		AccessoryHandler handler = new AccessoryHandler( itemStack );
-		if( handler.hasBonusTag() ) {
-			return;
+		if( !handler.hasBonusTag() ) {
+			handler.setBonus( bonus );
 		}
-
-		handler.setBonus( ratio );
-	}
-
-	public static void setup( ItemStack itemStack ) {
-		setup( itemStack, randomRatio() );
-	}
-
-	public static ItemStack construct( AccessoryItem item, float ratio ) {
-		ItemStack itemStack = new ItemStack( item );
-		setup( itemStack, ratio );
 
 		return itemStack;
 	}
 
+	public static ItemStack setup( ItemStack itemStack ) {
+		return setup( itemStack, randomBonus() );
+	}
+
+	public static ItemStack construct( AccessoryItem item, float bonus ) {
+		return setup( new ItemStack( item ), bonus );
+	}
+
 	public static ItemStack construct( AccessoryItem item ) {
-		return construct( item, randomRatio() );
+		return construct( item, randomBonus() );
 	}
 
-	public static float randomRatio() {
-		// random value from range [-1.0; 1.0] with mean ~= 0.0 and standard deviation ~= 0.3333..
-		float gaussianRandom = ( float )Mth.clamp( MajruszLibrary.RANDOM.nextGaussian() / 3.0f, -1.0f, 1.0f );
+	public static float randomBonus() {
+		float gaussianRandom = ( float )Mth.clamp( MajruszLibrary.RANDOM.nextGaussian() / 3.0f, -1.0f, 1.0f ); // random value from range [-1.0; 1.0] with mean ~= 0.0 and standard deviation ~= 0.3333..
+		float ratio = ( gaussianRandom + 1.0f ) / 2.0f; // random value from range [0.0; 1.0] with mean ~= 0.5 and standard deviation ~= 0.1666..
 
-		return ( gaussianRandom + 1.0f ) / 2.0f; // random value from range [0.0; 1.0] with mean ~= 0.5 and standard deviation ~= 0.1666..
-	}
-
-	public static float ratioToBonus( float ratio ) {
 		return Math.round( 100.0f * Mth.lerp( ratio, MIN_BONUS, MAX_BONUS ) ) / 100.0f;
 	}
 
@@ -109,19 +102,20 @@ public class AccessoryHandler {
 		return bonus != null && bonus.contains( Tags.VALUE_MIN ) && bonus.contains( Tags.VALUE_MAX );
 	}
 
-	public void setBonus( float ratio ) {
-		assert 0.0 <= ratio && ratio <= 1.0;
+	public void setBonus( float bonus ) {
+		assert MIN_BONUS <= bonus && bonus <= MAX_BONUS;
 
-		this.itemStack.getOrCreateTagElement( Tags.BONUS ).putFloat( Tags.VALUE, ratioToBonus( ratio ) );
+		this.itemStack.getOrCreateTagElement( Tags.BONUS ).putFloat( Tags.VALUE, bonus );
 	}
 
-	public void setBonusRange( float minRatio, float maxRatio ) {
-		assert 0.0 <= minRatio && minRatio <= 1.0;
-		assert 0.0 <= maxRatio && maxRatio <= 1.0;
+	public void setBonusRange( float minBonus, float maxBonus ) {
+		assert minBonus <= maxBonus;
+		assert MIN_BONUS <= minBonus && minBonus <= MAX_BONUS;
+		assert MIN_BONUS <= maxBonus && maxBonus <= MAX_BONUS;
 
 		CompoundTag bonus = this.itemStack.getOrCreateTagElement( Tags.BONUS );
-		bonus.putFloat( Tags.VALUE_MIN, ratioToBonus( minRatio ) );
-		bonus.putFloat( Tags.VALUE_MAX, ratioToBonus( maxRatio ) );
+		bonus.putFloat( Tags.VALUE_MIN, minBonus );
+		bonus.putFloat( Tags.VALUE_MAX, maxBonus );
 	}
 
 	public void applyRangeBonus() {

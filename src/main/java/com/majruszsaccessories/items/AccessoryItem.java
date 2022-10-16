@@ -5,6 +5,7 @@ import com.majruszsaccessories.Registries;
 import com.mlib.gamemodifiers.GameModifiersHolder;
 import com.mlib.gamemodifiers.IRegistrable;
 import net.minecraft.core.NonNullList;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -29,7 +30,8 @@ public class AccessoryItem extends Item implements IRegistrable {
 		}
 
 		for( int i = 0; i < 9; ++i ) {
-			itemStacks.add( AccessoryHandler.construct( this, i / 8.0f ) );
+			float bonus = Math.round( 100.0f * Mth.lerp( i / 8.0f, AccessoryHandler.MIN_BONUS, AccessoryHandler.MAX_BONUS ) ) / 100.0f;
+			itemStacks.add( AccessoryHandler.construct( this, bonus ) );
 		}
 	}
 
