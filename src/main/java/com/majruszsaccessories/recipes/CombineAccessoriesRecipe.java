@@ -6,7 +6,6 @@ import com.majruszsaccessories.items.AccessoryItem;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
@@ -32,7 +31,10 @@ public class CombineAccessoriesRecipe extends CustomRecipe {
 
 	@Override
 	public ItemStack assemble( CraftingContainer container ) {
-		return new ItemStack( Items.GOLD_INGOT );
+		Data data = this.buildCraftingData( container );
+		AccessoryHandler handler = AccessoryHandler.setup( new ItemStack( data.item ), 0.2f, 0.3f );
+
+		return handler.getItemStack();
 	}
 
 	@Override

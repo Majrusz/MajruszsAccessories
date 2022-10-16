@@ -30,13 +30,27 @@ public class TooltipUpdater extends GameModifier {
 	}
 
 	private void addTooltip( OnItemTooltip.Data data ) {
+		AccessoryHandler handler = new AccessoryHandler( data.itemStack );
 		List< Component > components = new ArrayList<>();
-
-		addBonusInfo( components, data );
-		addUseInfo( components, data );
-		addModifierInfo( components, data );
+		if( handler.hasBonusRangeTag() ) {
+			addBonusRangeInfo( components, data );
+		} else {
+			addBonusInfo( components, data );
+			addUseInfo( components, data );
+			addModifierInfo( components, data );
+		}
 
 		data.tooltip.addAll( 1, components );
+	}
+
+	private void addBonusRangeInfo( List< Component > components, OnItemTooltip.Data data ) {
+		AccessoryHandler handler = new AccessoryHandler( data.itemStack );
+		AccessoryHandler.Range bonus = handler.getBonusRange();
+
+		FormattedTranslatable component = new FormattedTranslatable( Tooltips.BONUS_RANGE, ChatFormatting.GRAY );
+		component.addParameter( TextHelper.signedPercent( bonus.min() ), AccessoryHandler.getBonusFormatting( bonus.min() ) )
+			.addParameter( TextHelper.signedPercent( bonus.max() ), AccessoryHandler.getBonusFormatting( bonus.max() ) )
+			.insertInto( components );
 	}
 
 	private void addBonusInfo( List< Component > components, OnItemTooltip.Data data ) {
@@ -80,5 +94,6 @@ public class TooltipUpdater extends GameModifier {
 	static final class Tooltips {
 		static final String INVENTORY = "majruszsaccessories.items.accessory_item";
 		static final String BONUS = "majruszsaccessories.items.bonus";
+		static final String BONUS_RANGE = "majruszsaccessories.items.bonus_range";
 	}
 }

@@ -9,6 +9,7 @@
   "item.majruszsaccessories.tamed_potato_beetle": "Tamed Potato Beetle",
   "majruszsaccessories.items.accessory_item": "Works when held in the other hand.",
   "majruszsaccessories.items.bonus": "%1$s efficiency bonus",
+  "majruszsaccessories.items.bonus_range": "Random efficiency bonus from %1$s to %2$s.",
   "majruszsaccessories.items.formula": "%1$s%2$s",
   "majruszsaccessories.bonuses.fishing_luck": "Increases luck by %1$s when fishing.",
   "majruszsaccessories.bonuses.extra_stone_loot": "Gives %1$s chance for extra loot when mining.",

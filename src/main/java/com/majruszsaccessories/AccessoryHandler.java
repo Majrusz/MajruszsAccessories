@@ -81,6 +81,16 @@ public class AccessoryHandler {
 		return null;
 	}
 
+	public static ChatFormatting getBonusFormatting( float bonus ) {
+		if( bonus == AccessoryHandler.MAX_BONUS ) {
+			return ChatFormatting.GOLD;
+		} else if( bonus > 0.0f ) {
+			return ChatFormatting.GREEN;
+		} else {
+			return ChatFormatting.RED;
+		}
+	}
+
 	public boolean hasAccessory( LivingEntity entity ) {
 		return hasAccessory( entity, this.item );
 	}
@@ -147,14 +157,7 @@ public class AccessoryHandler {
 	}
 
 	public ChatFormatting getBonusFormatting() {
-		float bonus = getBonus();
-		if( bonus == AccessoryHandler.MAX_BONUS ) {
-			return ChatFormatting.GOLD;
-		} else if( bonus > 0.0f ) {
-			return ChatFormatting.GREEN;
-		} else {
-			return ChatFormatting.RED;
-		}
+		return getBonusFormatting( this.getBonus() );
 	}
 
 	public record Range( float min, float max ) {}
