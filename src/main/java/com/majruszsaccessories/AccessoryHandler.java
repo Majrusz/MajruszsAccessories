@@ -57,7 +57,7 @@ public class AccessoryHandler {
 		float gaussianRandom = ( float )Mth.clamp( MajruszLibrary.RANDOM.nextGaussian() / 3.0f, -1.0f, 1.0f ); // random value from range [-1.0; 1.0] with mean ~= 0.0 and standard deviation ~= 0.3333..
 		float ratio = ( gaussianRandom + 1.0f ) / 2.0f; // random value from range [0.0; 1.0] with mean ~= 0.5 and standard deviation ~= 0.1666..
 
-		return Math.round( 100.0f * Mth.lerp( ratio, MIN_BONUS, MAX_BONUS ) ) / 100.0f;
+		return Mth.lerp( ratio, MIN_BONUS, MAX_BONUS );
 	}
 
 	public static boolean hasAccessory( LivingEntity entity, AccessoryItem item ) {
@@ -113,17 +113,15 @@ public class AccessoryHandler {
 	public void setBonus( float bonus ) {
 		assert MIN_BONUS <= bonus && bonus <= MAX_BONUS;
 
-		this.itemStack.getOrCreateTagElement( Tags.BONUS ).putFloat( Tags.VALUE, bonus );
+		this.itemStack.getOrCreateTagElement( Tags.BONUS ).putFloat( Tags.VALUE, Math.round( 100.0f * bonus ) / 100.0f );
 	}
 
 	public void setBonusRange( float minBonus, float maxBonus ) {
 		assert minBonus <= maxBonus;
-		assert MIN_BONUS <= minBonus && minBonus <= MAX_BONUS;
-		assert MIN_BONUS <= maxBonus && maxBonus <= MAX_BONUS;
 
 		CompoundTag bonus = this.itemStack.getOrCreateTagElement( Tags.BONUS );
-		bonus.putFloat( Tags.VALUE_MIN, minBonus );
-		bonus.putFloat( Tags.VALUE_MAX, maxBonus );
+		bonus.putFloat( Tags.VALUE_MIN, Math.round( 100.0f * minBonus ) / 100.0f );
+		bonus.putFloat( Tags.VALUE_MAX, Math.round( 100.0f * maxBonus ) / 100.0f );
 	}
 
 	public void applyBonusRange() {
@@ -132,7 +130,8 @@ public class AccessoryHandler {
 		CompoundTag bonus = this.itemStack.getOrCreateTagElement( Tags.BONUS );
 		float minBonus = bonus.getFloat( Tags.VALUE_MIN );
 		float maxBonus = bonus.getFloat( Tags.VALUE_MAX );
-		bonus.putFloat( Tags.VALUE, Math.round( 100.0f * Mth.lerp( Random.nextFloat( 0.0f, 1.0f ), minBonus, maxBonus ) ) / 100.0f );
+		float randomBonus = Math.round( 100.0f * Mth.lerp( Random.nextFloat( 0.0f, 1.0f ), minBonus, maxBonus ) ) / 100.0f;
+		bonus.putFloat( Tags.VALUE, Mth.clamp( randomBonus, AccessoryHandler.MIN_BONUS, AccessoryHandler.MAX_BONUS ) );
 		bonus.remove( Tags.VALUE_MIN );
 		bonus.remove( Tags.VALUE_MAX );
 	}
@@ -160,7 +159,12 @@ public class AccessoryHandler {
 		return getBonusFormatting( this.getBonus() );
 	}
 
-	public record Range( float min, float max ) {}
+	public record Range( float min, float max ) {
+		public Range( float min, float max ) {
+			this.min = Math.max( AccessoryHandler.MIN_BONUS, min );
+			this.max = Math.min( AccessoryHandler.MAX_BONUS, max );
+		}
+	}
 
 	static final class Tags {
 		static final String BONUS = "Bonus";
