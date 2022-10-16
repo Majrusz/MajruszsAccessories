@@ -52,6 +52,7 @@ public class Registries {
 	public static final RegistryObject< LuckyRockItem > LUCKY_ROCK = ITEMS.register( "lucky_rock", LuckyRockItem.create() );
 	public static final RegistryObject< SecretIngredientItem > SECRET_INGREDIENT = ITEMS.register( "secret_ingredient", SecretIngredientItem.create() );
 	public static final RegistryObject< TamedPotatoBeetleItem > TAMED_POTATO_BEETLE = ITEMS.register( "tamed_potato_beetle", TamedPotatoBeetleItem.create() );
+	public static final RegistryObject< WhiteFlagItem > WHITE_FLAG = ITEMS.register( "white_flag", WhiteFlagItem.create() );
 
 	// Recipes
 	public static final RegistryObject< RecipeSerializer< ? > > COMBINE_ACCESSORIES_RECIPE = RECIPES.register( "combine_accessories", CombineAccessoriesRecipe.create() );
