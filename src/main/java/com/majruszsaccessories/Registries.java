@@ -4,6 +4,7 @@ import com.majruszsaccessories.gamemodifiers.list.AccessoryObserver;
 import com.majruszsaccessories.gamemodifiers.list.TooltipUpdater;
 import com.majruszsaccessories.gamemodifiers.list.VillagerTradeUpdater;
 import com.majruszsaccessories.items.*;
+import com.majruszsaccessories.recipes.CombineAccessoriesRecipe;
 import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.items.ItemCreativeModeTab;
 import com.mlib.registries.DeferredRegisterHelper;
@@ -11,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -40,6 +42,7 @@ public class Registries {
 
 	// Groups
 	static final DeferredRegister< Item > ITEMS = HELPER.create( ForgeRegistries.Keys.ITEMS );
+	static final DeferredRegister< RecipeSerializer< ? > > RECIPES = HELPER.create( ForgeRegistries.Keys.RECIPE_SERIALIZERS );
 
 	// Items
 	public static final RegistryObject< AdventurersGuideItem > ADVENTURERS_GUIDE = ITEMS.register( "adventurers_guide", AdventurersGuideItem.create() );
@@ -49,6 +52,9 @@ public class Registries {
 	public static final RegistryObject< LuckyRockItem > LUCKY_ROCK = ITEMS.register( "lucky_rock", LuckyRockItem.create() );
 	public static final RegistryObject< SecretIngredientItem > SECRET_INGREDIENT = ITEMS.register( "secret_ingredient", SecretIngredientItem.create() );
 	public static final RegistryObject< TamedPotatoBeetleItem > TAMED_POTATO_BEETLE = ITEMS.register( "tamed_potato_beetle", TamedPotatoBeetleItem.create() );
+
+	// Recipes
+	public static final RegistryObject< RecipeSerializer< ? > > COMBINE_ACCESSORIES_RECIPE = RECIPES.register( "combine_accessories", CombineAccessoriesRecipe.create() );
 
 	// Misc
 	public static final CreativeModeTab ITEM_GROUP = new ItemCreativeModeTab( "majruszsaccessories_tab", ANGLERS_TROPHY );

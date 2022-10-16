@@ -2,9 +2,10 @@ package com.majruszsaccessories;
 
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.MajruszLibrary;
-import com.mlib.gamemodifiers.GameModifier;
+import com.mlib.Random;
 import com.mlib.gamemodifiers.GameModifiersHolder;
 import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -12,7 +13,6 @@ import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
 
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.Optional;
 
 public class AccessoryHandler {
@@ -103,10 +103,36 @@ public class AccessoryHandler {
 		return this.itemStack.getTagElement( Tags.BONUS ) != null;
 	}
 
+	public boolean hasRangeValueTags() {
+		CompoundTag bonus = this.itemStack.getTagElement( Tags.BONUS );
+
+		return bonus != null && bonus.contains( Tags.VALUE_MIN ) && bonus.contains( Tags.VALUE_MAX );
+	}
+
 	public void setBonus( float ratio ) {
 		assert 0.0 <= ratio && ratio <= 1.0;
 
 		this.itemStack.getOrCreateTagElement( Tags.BONUS ).putFloat( Tags.VALUE, ratioToBonus( ratio ) );
+	}
+
+	public void setBonusRange( float minRatio, float maxRatio ) {
+		assert 0.0 <= minRatio && minRatio <= 1.0;
+		assert 0.0 <= maxRatio && maxRatio <= 1.0;
+
+		CompoundTag bonus = this.itemStack.getOrCreateTagElement( Tags.BONUS );
+		bonus.putFloat( Tags.VALUE_MIN, ratioToBonus( minRatio ) );
+		bonus.putFloat( Tags.VALUE_MAX, ratioToBonus( maxRatio ) );
+	}
+
+	public void applyRangeBonus() {
+		assert this.hasRangeValueTags();
+
+		CompoundTag bonus = this.itemStack.getOrCreateTagElement( Tags.BONUS );
+		float minBonus = bonus.getFloat( Tags.VALUE_MIN );
+		float maxBonus = bonus.getFloat( Tags.VALUE_MAX );
+		bonus.putFloat( Tags.VALUE, Math.round( 100.0f * Mth.lerp( Random.nextFloat( 0.0f, 1.0f ), minBonus, maxBonus ) ) / 100.0f );
+		bonus.remove( Tags.VALUE_MIN );
+		bonus.remove( Tags.VALUE_MAX );
 	}
 
 	public float getBonus() {
@@ -131,5 +157,6 @@ public class AccessoryHandler {
 	static final class Tags {
 		static final String BONUS = "Bonus";
 		static final String VALUE = "Value";
+		static final String VALUE_MIN = "ValueMin", VALUE_MAX = "ValueMax";
 	}
 }
