@@ -6,10 +6,12 @@ import com.mlib.gamemodifiers.GameModifiersHolder;
 import com.mlib.gamemodifiers.IRegistrable;
 import net.minecraft.core.NonNullList;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,14 @@ public class AccessoryItem extends Item implements IRegistrable {
 	@Override
 	public GameModifiersHolder< ? > getHolder() {
 		return this.holder;
+	}
+
+	@Override
+	public void onCraftedBy( ItemStack itemStack, Level level, Player player ) {
+		AccessoryHandler handler = new AccessoryHandler( itemStack );
+		if( handler.hasBonusRangeTag() ) {
+			handler.applyBonusRange();
+		}
 	}
 
 	protected static < Type extends AccessoryItem > GameModifiersHolder< Type > newHolder( String configKey, Supplier< Type > supplier ) {
