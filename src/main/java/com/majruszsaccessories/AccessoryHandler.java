@@ -43,16 +43,13 @@ public class AccessoryHandler {
 		return itemStack;
 	}
 
-	public static ItemStack setup( ItemStack itemStack ) {
-		return setup( itemStack, randomBonus() );
-	}
+	public static ItemStack setup( ItemStack itemStack, float minBonus, float maxBonus ) {
+		AccessoryHandler handler = new AccessoryHandler( itemStack );
+		if( !handler.hasBonusTag() ) {
+			handler.setBonusRange( minBonus, maxBonus );
+		}
 
-	public static ItemStack construct( AccessoryItem item, float bonus ) {
-		return setup( new ItemStack( item ), bonus );
-	}
-
-	public static ItemStack construct( AccessoryItem item ) {
-		return construct( item, randomBonus() );
+		return itemStack;
 	}
 
 	public static float randomBonus() {
@@ -96,7 +93,7 @@ public class AccessoryHandler {
 		return this.itemStack.getTagElement( Tags.BONUS ) != null;
 	}
 
-	public boolean hasRangeValueTags() {
+	public boolean hasBonusRangeTag() {
 		CompoundTag bonus = this.itemStack.getTagElement( Tags.BONUS );
 
 		return bonus != null && bonus.contains( Tags.VALUE_MIN ) && bonus.contains( Tags.VALUE_MAX );
@@ -118,8 +115,8 @@ public class AccessoryHandler {
 		bonus.putFloat( Tags.VALUE_MAX, maxBonus );
 	}
 
-	public void applyRangeBonus() {
-		assert this.hasRangeValueTags();
+	public void applyBonusRange() {
+		assert this.hasBonusRangeTag();
 
 		CompoundTag bonus = this.itemStack.getOrCreateTagElement( Tags.BONUS );
 		float minBonus = bonus.getFloat( Tags.VALUE_MIN );
@@ -131,6 +128,13 @@ public class AccessoryHandler {
 
 	public float getBonus() {
 		return this.itemStack.getOrCreateTagElement( Tags.BONUS ).getFloat( Tags.VALUE );
+	}
+
+	public Range getBonusRange() {
+		assert this.hasBonusRangeTag();
+
+		CompoundTag bonus = this.itemStack.getOrCreateTagElement( Tags.BONUS );
+		return new Range( bonus.getFloat( Tags.VALUE_MIN ), bonus.getFloat( Tags.VALUE_MAX ) );
 	}
 
 	public GameModifiersHolder< ? > getHolder() {
@@ -147,6 +151,8 @@ public class AccessoryHandler {
 			return ChatFormatting.RED;
 		}
 	}
+
+	public record Range( float min, float max ) {}
 
 	static final class Tags {
 		static final String BONUS = "Bonus";

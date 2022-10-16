@@ -57,7 +57,7 @@ public abstract class AccessoryModifier extends GameModifier {
 	}
 
 	protected ItemStack constructItemStack() {
-		return AccessoryHandler.construct( this.item.get() );
+		return AccessoryHandler.setup( new ItemStack( this.item.get() ), AccessoryHandler.randomBonus() );
 	}
 
 	protected void addToGeneratedLoot( OnLoot.Data data ) {

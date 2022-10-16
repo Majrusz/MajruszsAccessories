@@ -19,7 +19,7 @@ public class AccessoryObserver extends GameModifier {
 	private void tryToSetupAccessories( OnLoot.Data data ) {
 		data.generatedLoot.forEach( itemStack->{
 			if( itemStack.getItem() instanceof AccessoryItem ) {
-				AccessoryHandler.setup( itemStack );
+				AccessoryHandler.setup( itemStack, AccessoryHandler.randomBonus() );
 			}
 		} );
 	}
