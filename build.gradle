@@ -82,7 +82,7 @@ repositories {
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.19.2-43.1.0'
-    implementation fg.deobf( 'com.mlib:majrusz-library-1.19.2:2.15.1' )
+    implementation fg.deobf( 'com.mlib:majrusz-library-1.19.2:2.16.0-unfinished' )
     implementation fg.deobf( 'com.mlib:majruszs-difficulty-1.19.2:1.5.11' )
     runtimeOnly fg.deobf( "top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0" )
     compileOnly fg.deobf( "top.theillusivec4.curios:curios-forge:1.19.2-5.1.1.0:api" )
