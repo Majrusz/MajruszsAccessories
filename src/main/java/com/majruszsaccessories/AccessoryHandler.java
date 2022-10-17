@@ -10,6 +10,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
 
@@ -84,10 +85,20 @@ public class AccessoryHandler {
 	public static ChatFormatting getBonusFormatting( float bonus ) {
 		if( bonus == AccessoryHandler.MAX_BONUS ) {
 			return ChatFormatting.GOLD;
-		} else if( bonus > 0.0f ) {
+		} else if( bonus >= 0.0f ) {
 			return ChatFormatting.GREEN;
 		} else {
 			return ChatFormatting.RED;
+		}
+	}
+
+	public static Rarity getItemRarity( float bonus ) {
+		if( bonus == AccessoryHandler.MAX_BONUS ) {
+			return Rarity.EPIC;
+		} else if( bonus >= 0.0f ) {
+			return Rarity.RARE;
+		} else {
+			return Rarity.UNCOMMON;
 		}
 	}
 
@@ -157,6 +168,10 @@ public class AccessoryHandler {
 
 	public ChatFormatting getBonusFormatting() {
 		return getBonusFormatting( this.getBonus() );
+	}
+
+	public Rarity getItemRarity() {
+		return getItemRarity( this.getBonus() );
 	}
 
 	public boolean hasMaxBonus() {

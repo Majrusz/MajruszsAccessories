@@ -57,16 +57,12 @@ public class AccessoryItem extends Item implements IRegistrable {
 
 	@Override
 	public boolean isFoil( ItemStack itemStack ) {
-		AccessoryHandler handler = new AccessoryHandler( itemStack );
-
-		return super.isFoil( itemStack ) || handler.hasMaxBonus();
+		return new AccessoryHandler( itemStack ).hasMaxBonus();
 	}
 
 	@Override
 	public Rarity getRarity( ItemStack itemStack ) {
-		AccessoryHandler handler = new AccessoryHandler( itemStack );
-
-		return handler.hasMaxBonus() ? Rarity.EPIC : Rarity.RARE;
+		return new AccessoryHandler( itemStack ).getItemRarity();
 	}
 
 	protected static < Type extends AccessoryItem > GameModifiersHolder< Type > newHolder( String configKey, Supplier< Type > supplier ) {
