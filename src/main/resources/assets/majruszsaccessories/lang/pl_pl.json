@@ -7,6 +7,7 @@
   "item.majruszsaccessories.lucky_rock": "Szczęśliwy kamień",
   "item.majruszsaccessories.secret_ingredient": "Sekretny składnik",
   "item.majruszsaccessories.tamed_potato_beetle": "Oswojona stonka ziemniaczana",
+  "item.majruszsaccessories.white_flag": "Biała flaga",
   "majruszsaccessories.items.accessory_item": "Działa gdy trzymany w drugiej ręce.",
   "majruszsaccessories.items.bonus": "%1$s bonusu do wydajności",
   "majruszsaccessories.items.bonus_range": "Losowy bonus do wydajności od %1$s do %2$s.",
@@ -37,5 +38,7 @@
   "advancements.majruszsaccessories.secret_ingredient.description": "Zdobądź sekretny składnik",
   "advancements.majruszsaccessories.tamed_potato_beetle.title": "Od wroga do przyjaciela",
   "advancements.majruszsaccessories.tamed_potato_beetle.description": "Zdobądź oswojoną stonkę ziemniaczaną",
+  "advancements.majruszsaccessories.white_flag.title": "Przemoc nigdy nie była rozważana",
+  "advancements.majruszsaccessories.white_flag.description": "Zdobądź białą flagę",
   "curios.identifier.pocket": "Pocket"
 }

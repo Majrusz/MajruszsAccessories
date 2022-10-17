@@ -1,0 +1,40 @@
+{
+  "parent": "minecraft:husbandry/root",
+  "display": {
+    "icon": {
+      "item": "majruszsaccessories:white_flag"
+    },
+    "title": {
+      "translate": "advancements.majruszsaccessories.white_flag.title"
+    },
+    "description": {
+      "translate": "advancements.majruszsaccessories.white_flag.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "rewards": {
+    "experience": 100
+  },
+  "criteria": {
+    "picked_up_accessory": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "majruszsaccessories:white_flag"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "picked_up_accessory"
+    ]
+  ]
+}
