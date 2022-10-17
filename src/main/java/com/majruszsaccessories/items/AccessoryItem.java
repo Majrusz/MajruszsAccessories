@@ -22,7 +22,7 @@ public class AccessoryItem extends Item implements IRegistrable {
 	GameModifiersHolder< ? > holder = null;
 
 	public AccessoryItem() {
-		super( new Properties().stacksTo( 1 ).rarity( Rarity.RARE ).tab( Registries.ITEM_GROUP ) );
+		super( new Properties().stacksTo( 1 ).tab( Registries.ITEM_GROUP ) );
 	}
 
 	@Override
@@ -53,6 +53,20 @@ public class AccessoryItem extends Item implements IRegistrable {
 		if( handler.hasBonusRangeTag() ) {
 			handler.applyBonusRange();
 		}
+	}
+
+	@Override
+	public boolean isFoil( ItemStack itemStack ) {
+		AccessoryHandler handler = new AccessoryHandler( itemStack );
+
+		return super.isFoil( itemStack ) || handler.hasMaxBonus();
+	}
+
+	@Override
+	public Rarity getRarity( ItemStack itemStack ) {
+		AccessoryHandler handler = new AccessoryHandler( itemStack );
+
+		return handler.hasMaxBonus() ? Rarity.EPIC : Rarity.RARE;
 	}
 
 	protected static < Type extends AccessoryItem > GameModifiersHolder< Type > newHolder( String configKey, Supplier< Type > supplier ) {

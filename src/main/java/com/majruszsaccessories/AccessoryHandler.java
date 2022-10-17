@@ -159,6 +159,10 @@ public class AccessoryHandler {
 		return getBonusFormatting( this.getBonus() );
 	}
 
+	public boolean hasMaxBonus() {
+		return this.getBonus() == MAX_BONUS;
+	}
+
 	public record Range( float min, float max ) {
 		public Range( float min, float max ) {
 			this.min = Math.max( AccessoryHandler.MIN_BONUS, min );
