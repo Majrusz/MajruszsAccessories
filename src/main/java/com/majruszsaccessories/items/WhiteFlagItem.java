@@ -2,6 +2,7 @@ package com.majruszsaccessories.items;
 
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
+import com.majruszsaccessories.gamemodifiers.list.BaseOffer;
 import com.majruszsaccessories.gamemodifiers.list.ReduceDamageDealt;
 import com.majruszsaccessories.gamemodifiers.list.ReduceDamageReceived;
 import com.mlib.Utility;
@@ -9,6 +10,7 @@ import com.mlib.config.ConfigGroup;
 import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.gamemodifiers.GameModifiersHolder;
 import com.mlib.gamemodifiers.contexts.OnPlayerInteract;
+import net.minecraft.world.entity.npc.VillagerProfession;
 
 import java.util.function.Supplier;
 
@@ -23,6 +25,7 @@ public class WhiteFlagItem extends AccessoryItem {
 		holder.addModifier( ReduceDamageReceived::new );
 		holder.addModifier( ReduceDamageDealt::new );
 		holder.addModifier( SwingBehavior::new );
+		holder.addModifier( TradeOffer::new );
 
 		return holder::getRegistry;
 	}
@@ -41,6 +44,12 @@ public class WhiteFlagItem extends AccessoryItem {
 		private void swing( OnPlayerInteract.Data data ) {
 			data.player.swing( data.hand );
 			data.player.getCooldowns().addCooldown( data.itemStack.getItem(), Utility.secondsToTicks( 0.5 ) );
+		}
+	}
+
+	static class TradeOffer extends BaseOffer {
+		public TradeOffer( Supplier< ? extends AccessoryItem > item, String configKey ) {
+			super( item, configKey, VillagerProfession.LIBRARIAN, 5 );
 		}
 	}
 }
