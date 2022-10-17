@@ -9,6 +9,7 @@ import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.gamemodifiers.contexts.OnLoot;
 import com.mlib.levels.LevelHelper;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public abstract class AccessoryModifier extends GameModifier {
@@ -69,10 +71,11 @@ public abstract class AccessoryModifier extends GameModifier {
 	}
 
 	protected < DataType extends ContextData > Consumer< DataType > toAccessoryConsumer( BiConsumer< DataType, AccessoryHandler > consumer,
-		AccessoryPercent... chances
+		Function< DataType, LivingEntity > entityGetter, AccessoryPercent... chances
 	) {
 		return data->{
-			AccessoryHandler handler = AccessoryHandler.tryToCreate( data.entity, this.item.get() );
+			LivingEntity entity = entityGetter.apply( data );
+			AccessoryHandler handler = entity != null ? AccessoryHandler.tryToCreate( entity, this.item.get() ) : null;
 			if( handler == null ) {
 				return;
 			}
@@ -85,6 +88,12 @@ public abstract class AccessoryModifier extends GameModifier {
 
 			consumer.accept( data, handler );
 		};
+	}
+
+	protected < DataType extends ContextData > Consumer< DataType > toAccessoryConsumer( BiConsumer< DataType, AccessoryHandler > consumer,
+		AccessoryPercent... chances
+	) {
+		return this.toAccessoryConsumer( consumer, data->data.entity, chances );
 	}
 
 	record Data( IAccessoryTooltip tooltip, String key ) {

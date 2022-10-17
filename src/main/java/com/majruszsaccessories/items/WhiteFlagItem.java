@@ -2,6 +2,8 @@ package com.majruszsaccessories.items;
 
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
+import com.majruszsaccessories.gamemodifiers.list.ReduceDamageDealt;
+import com.majruszsaccessories.gamemodifiers.list.ReduceDamageReceived;
 import com.mlib.Utility;
 import com.mlib.config.ConfigGroup;
 import com.mlib.gamemodifiers.GameModifier;
@@ -18,6 +20,8 @@ public class WhiteFlagItem extends AccessoryItem {
 
 	public static Supplier< WhiteFlagItem > create() {
 		GameModifiersHolder< WhiteFlagItem > holder = AccessoryItem.newHolder( ID, WhiteFlagItem::new );
+		holder.addModifier( ReduceDamageReceived::new );
+		holder.addModifier( ReduceDamageDealt::new );
 		holder.addModifier( SwingBehavior::new );
 
 		return holder::getRegistry;
