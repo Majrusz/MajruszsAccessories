@@ -16,15 +16,14 @@ public class OverworldRuneItem extends AccessoryItem {
 
 	public static Supplier< OverworldRuneItem > create() {
 		GameModifiersHolder< OverworldRuneItem > holder = AccessoryItem.newHolder( ID, OverworldRuneItem::new );
-		holder.addModifier( MoreChestLoot::new );
-		holder.addModifier( FishingLuckBonus::new );
-		holder.addModifier( EnhanceTamedAnimal::new );
-		holder.addModifier( SpawnTwins::new );
-		holder.addModifier( ExtraStoneLoot::new );
-		holder.addModifier( EnhancePotions::new );
-		holder.addModifier( DoubleCrops::new );
-		holder.addModifier( ReduceDamageReceived::new );
-		holder.addModifier( ReduceDamageDealt::new );
+		holder.addModifier( ( item, configKey ) -> new MoreChestLoot( item, configKey, 1.5 ) );
+		holder.addModifier( ( item, configKey ) -> new FishingLuckBonus( item, configKey, 4 ) );
+		holder.addModifier( ( item, configKey ) -> new EnhanceTamedAnimal( item, configKey, 0.25 ) );
+		holder.addModifier( ( item, configKey ) -> new SpawnTwins( item, configKey, 0.3 ) );
+		holder.addModifier( ( item, configKey ) -> new ExtraStoneLoot( item, configKey, 0.04 ) );
+		holder.addModifier( ( item, configKey ) -> new EnhancePotions( item, configKey, 0.5, 1 ) );
+		holder.addModifier( ( item, configKey ) -> new DoubleCrops( item, configKey, 0.3 ) );
+		holder.addModifier( ( item, configKey ) -> new ReduceDamageReceived( item, configKey, 0.0625 ) );
 
 		return holder::getRegistry;
 	}
