@@ -5,11 +5,14 @@ import com.majruszsaccessories.Integration;
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
 import com.majruszsaccessories.items.AccessoryItem;
+import com.mlib.MajruszLibrary;
+import com.mlib.Utility;
 import com.mlib.client.ClientHelper;
 import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.gamemodifiers.contexts.OnItemTooltip;
 import com.mlib.text.FormattedTranslatable;
 import com.mlib.text.TextHelper;
+import com.mlib.time.TimeHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -20,6 +23,8 @@ import java.util.List;
 import java.util.function.BiConsumer;
 
 public class TooltipUpdater extends GameModifier {
+	static final int PAGE_SIZE = 5;
+
 	public TooltipUpdater() {
 		super( Registries.Modifiers.DEFAULT_GROUP, "TooltipUpdater", "" );
 
@@ -84,11 +89,20 @@ public class TooltipUpdater extends GameModifier {
 	}
 
 	private void addModifierInfo( List< Component > components, OnItemTooltip.Data data ) {
+		List< Component > pageComponents = new ArrayList<>();
 		AccessoryHandler handler = new AccessoryHandler( data.itemStack );
 		handler.getHolder().forEach( AccessoryModifier.class, modifier->{
 			BiConsumer< List< Component >, AccessoryHandler > consumer = ClientHelper.isShiftDown() ? modifier::buildDetailedTooltip : modifier::buildTooltip;
-			consumer.accept( components, handler );
+			consumer.accept( pageComponents, handler );
 		} );
+		components.addAll( pageComponents.size() > PAGE_SIZE ? this.getCurrentPageComponents( pageComponents ) : pageComponents );
+	}
+
+	private List< Component > getCurrentPageComponents( List< Component > components ) {
+		int totalPages = ( int )Math.ceil( ( double )components.size() / PAGE_SIZE );
+		int currentPage = ( int )( Math.floor( ( double )TimeHelper.getClientTicks() / Utility.secondsToTicks( 7.5 ) ) % totalPages );
+
+		return components.subList( currentPage * PAGE_SIZE, Math.min( ( currentPage + 1 ) * PAGE_SIZE, components.size() ) );
 	}
 
 	static final class Tooltips {
