@@ -23,7 +23,7 @@ public class EnhancePotions extends AccessoryModifier {
 	final AccessoryInteger amplifier;
 
 	public EnhancePotions( Supplier< ? extends AccessoryItem > item, String configKey ) {
-		this( item, configKey, 0.5, 1 );
+		this( item, configKey, 0.6, 1 );
 	}
 
 	public EnhancePotions( Supplier< ? extends AccessoryItem > item, String configKey, double durationPenalty, int extraLevel ) {
