@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "majruszsaccessories:item/overworld_essence"
+    "layer0": "majruszsaccessories:item/overworld_rune"
   }
 }
