@@ -18,10 +18,15 @@ public class EnhanceTamedAnimal extends AccessoryModifier {
 	static final AttributeHandler DAMAGE = new AttributeHandler( "f1d3671c-9474-4ffd-a440-902d69bd3bd9", "CoTDamageMultiplier", Attributes.ATTACK_DAMAGE, AttributeModifier.Operation.MULTIPLY_BASE );
 	static final AttributeHandler SPEED = new AttributeHandler( "ed1c5feb-1017-4dc2-8a8b-7a64388f0dea", "CoTSpeedMultiplier", Attributes.MOVEMENT_SPEED, AttributeModifier.Operation.MULTIPLY_BASE );
 	static final AttributeHandler JUMP_HEIGHT = new AttributeHandler( "8c065a4c-98de-4ce4-adda-41ae7a20abfb", "CoTJumpHeightMultiplier", Attributes.JUMP_STRENGTH, AttributeModifier.Operation.MULTIPLY_BASE );
-	final AccessoryPercent bonus = new AccessoryPercent( "animal_bonus", "Bonus health, damage, movement speed and jump height for tamed animals.", false, 0.2, 0.0, 10.0 );
+	final AccessoryPercent bonus;
 
 	public EnhanceTamedAnimal( Supplier< ? extends AccessoryItem > item, String configKey ) {
+		this( item, configKey, 0.2 );
+	}
+
+	public EnhanceTamedAnimal( Supplier< ? extends AccessoryItem > item, String configKey, double bonus ) {
 		super( item, configKey, "", "" );
+		this.bonus = new AccessoryPercent( "animal_bonus", "Bonus health, damage, movement speed and jump height for tamed animals.", false, bonus, 0.0, 10.0 );
 
 		OnAnimalTame.Context onAnimalTame = new OnAnimalTame.Context( this.toAccessoryConsumer( this::enhanceAnimal ) );
 		onAnimalTame.addConfig( this.bonus );

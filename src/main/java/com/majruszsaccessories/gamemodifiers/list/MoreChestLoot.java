@@ -28,10 +28,15 @@ import java.util.function.Supplier;
 
 public class MoreChestLoot extends AccessoryModifier {
 	static final int BLOCKS_DISTANCE = 6000;
-	final ChestChance sizeMultiplier = new ChestChance( "chest_size_bonus", "Extra multiplier for number of items acquired from chests.", false, 1.2, 0.0, 10.0 );
+	final ChestChance sizeMultiplier;
 
 	public MoreChestLoot( Supplier< ? extends AccessoryItem > item, String configKey ) {
+		this( item, configKey, 1.2 );
+	}
+
+	public MoreChestLoot( Supplier< ? extends AccessoryItem > item, String configKey, double sizeMultiplier ) {
 		super( item, configKey, "", "" );
+		this.sizeMultiplier = new ChestChance( "chest_size_bonus", "Extra multiplier for number of items acquired from chests.", false, sizeMultiplier, 0.0, 10.0 );
 
 		OnLoot.Context onLoot = MoreChestLoot.lootContext( this.toAccessoryConsumer( this::increaseLoot ) );
 		onLoot.addConfig( this.sizeMultiplier );

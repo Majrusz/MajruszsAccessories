@@ -28,10 +28,15 @@ public class ExtraStoneLoot extends AccessoryModifier {
 	public static final ResourceLocation LOOT_OVERWORLD = Registries.getLocation( "gameplay/lucky_rock_overworld" );
 	public static final ResourceLocation LOOT_THE_NETHER = Registries.getLocation( "gameplay/lucky_rock_nether" );
 	public static final ResourceLocation LOOT_THE_END = Registries.getLocation( "gameplay/lucky_rock_end" );
-	final AccessoryPercent chance = new AccessoryPercent( "extra_loot_chance", "Chance to drop extra items when mining stone.", false, 0.03, 0.0, 1.0 );
+	final AccessoryPercent chance;
 
 	public ExtraStoneLoot( Supplier< ? extends AccessoryItem > item, String configKey ) {
+		this( item, configKey, 0.03 );
+	}
+
+	public ExtraStoneLoot( Supplier< ? extends AccessoryItem > item, String configKey, double chance ) {
 		super( item, configKey, "", "" );
+		this.chance = new AccessoryPercent( "extra_loot_chance", "Chance to drop extra items when mining stone.", false, chance, 0.0, 1.0 );
 
 		OnLoot.Context onLoot = ExtraStoneLoot.lootContext( this.toAccessoryConsumer( this::addExtraLoot, this.chance ) );
 		onLoot.addConfig( this.chance );

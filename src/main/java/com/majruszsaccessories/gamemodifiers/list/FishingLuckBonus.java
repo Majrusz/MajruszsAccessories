@@ -16,10 +16,15 @@ import java.util.function.Supplier;
 
 public class FishingLuckBonus extends AccessoryModifier {
 	static final AttributeHandler LUCK_ATTRIBUTE = new AttributeHandler( "4010270c-9d57-4273-8a41-00985f1e4781", "FishingLuckBonus", Attributes.LUCK, AttributeModifier.Operation.ADDITION );
-	final AccessoryInteger luck = new AccessoryInteger( "fishing_luck", "Luck bonus during fishing.", false, 3, 1, 10 );
+	final AccessoryInteger luck;
 
 	public FishingLuckBonus( Supplier< ? extends AccessoryItem > item, String configKey ) {
+		this( item, configKey, 3 );
+	}
+
+	public FishingLuckBonus( Supplier< ? extends AccessoryItem > item, String configKey, int luck ) {
 		super( item, configKey, "", "" );
+		this.luck = new AccessoryInteger( "fishing_luck", "Luck bonus during fishing.", false, luck, 1, 10 );
 
 		OnPlayerTick.Context onTick = new OnPlayerTick.Context( this::updateLuck );
 		onTick.addCondition( new Condition.Cooldown( 4, Dist.DEDICATED_SERVER, false ) ).addConfig( this.luck );

@@ -14,10 +14,15 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class SpawnTwins extends AccessoryModifier {
-	final AccessoryPercent chance = new AccessoryPercent( "twins_chance", "Chance to spawn twins when breeding animals.", false, 0.25, 0.0, 1.0 );
+	final AccessoryPercent chance;
 
 	public SpawnTwins( Supplier< ? extends AccessoryItem > item, String configKey ) {
+		this( item, configKey, 0.25 );
+	}
+
+	public SpawnTwins( Supplier< ? extends AccessoryItem > item, String configKey, double chance ) {
 		super( item, configKey, "", "" );
+		this.chance = new AccessoryPercent( "twins_chance", "Chance to spawn twins when breeding animals.", false, chance, 0.0, 1.0 );
 
 		OnBabySpawn.Context onBabySpawn = SpawnTwins.babySpawnContext( this.toAccessoryConsumer( this::spawnTwins, this.chance ) );
 		onBabySpawn.addConfig( this.chance );

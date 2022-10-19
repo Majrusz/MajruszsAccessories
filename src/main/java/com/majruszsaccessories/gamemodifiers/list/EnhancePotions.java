@@ -19,11 +19,17 @@ import java.util.function.Supplier;
 import static net.minecraft.world.item.alchemy.PotionUtils.TAG_CUSTOM_POTION_EFFECTS;
 
 public class EnhancePotions extends AccessoryModifier {
-	final AccessoryPercent duration = new AccessoryPercent( "potion_duration_penalty", "Duration penalty for created enhanced potions.", false, 0.5, 0.0, 1.0, -1.0 );
-	final AccessoryInteger amplifier = new AccessoryInteger( "potion_extra_amplifier", "Extra potion level for created enhanced potions.", false, 1, 1, 10 );
+	final AccessoryPercent duration;
+	final AccessoryInteger amplifier;
 
 	public EnhancePotions( Supplier< ? extends AccessoryItem > item, String configKey ) {
+		this( item, configKey, 0.5, 1 );
+	}
+
+	public EnhancePotions( Supplier< ? extends AccessoryItem > item, String configKey, double durationPenalty, int extraLevel ) {
 		super( item, configKey, "", "" );
+		this.duration = new AccessoryPercent( "potion_duration_penalty", "Duration penalty for created enhanced potions.", false, durationPenalty, 0.0, 1.0, -1.0 );
+		this.amplifier = new AccessoryInteger( "potion_extra_amplifier", "Extra potion level for created enhanced potions.", false, extraLevel, 1, 10 );
 
 		OnPotionBrewed.Context onPotionBrewed = new OnPotionBrewed.Context( this.toAccessoryConsumer( this::enhancePotion ) );
 		onPotionBrewed.addCondition( data->PotionUtils.getMobEffects( data.itemStack ).size() > 0 ).addCondition( data->!data.itemStack.getOrCreateTag()

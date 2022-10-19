@@ -15,10 +15,15 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class DoubleCrops extends AccessoryModifier {
-	final AccessoryPercent chance = new AccessoryPercent( "double_crops_chance", "Chance to double crops when harvesting.", false, 0.25, 0.0, 1.0 );
+	final AccessoryPercent chance;
 
 	public DoubleCrops( Supplier< ? extends AccessoryItem > item, String configKey ) {
+		this( item, configKey, 0.25 );
+	}
+
+	public DoubleCrops( Supplier< ? extends AccessoryItem > item, String configKey, double chance ) {
 		super( item, configKey, "", "" );
+		this.chance = new AccessoryPercent( "double_crops_chance", "Chance to double crops when harvesting.", false, chance, 0.0, 1.0 );
 
 		OnLoot.Context onLoot = DoubleCrops.lootContext( this.toAccessoryConsumer( this::doubleLoot, this.chance ) );
 		onLoot.addConfig( this.chance );

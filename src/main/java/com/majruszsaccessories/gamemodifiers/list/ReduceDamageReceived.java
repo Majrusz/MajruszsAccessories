@@ -9,10 +9,15 @@ import com.mlib.gamemodifiers.contexts.OnDamaged;
 import java.util.function.Supplier;
 
 public class ReduceDamageReceived extends AccessoryModifier {
-	final AccessoryPercent reduction = new AccessoryPercent( "damage_received_reduction", "Ratio of damage ignored while being attacked.", false, 0.2, 0.01, 0.99 );
+	final AccessoryPercent reduction;
 
 	public ReduceDamageReceived( Supplier< ? extends AccessoryItem > item, String configKey ) {
+		this( item, configKey, 0.2 );
+	}
+
+	public ReduceDamageReceived( Supplier< ? extends AccessoryItem > item, String configKey, double reduction ) {
 		super( item, configKey, "", "" );
+		this.reduction = new AccessoryPercent( "damage_received_reduction", "Ratio of damage ignored while being attacked.", false, reduction, 0.01, 0.99 );
 
 		OnDamaged.Context onDamaged = new OnDamaged.Context( this.toAccessoryConsumer( this::reduceDamage, data->data.target ) );
 		onDamaged.addConfig( this.reduction );
