@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.function.BiConsumer;
 
 public class TooltipUpdater extends GameModifier {
-	static final int PAGE_SIZE = 5;
+	static final int PAGE_SIZE = 4;
 
 	public TooltipUpdater() {
 		super( Registries.Modifiers.DEFAULT_GROUP, "TooltipUpdater", "" );
