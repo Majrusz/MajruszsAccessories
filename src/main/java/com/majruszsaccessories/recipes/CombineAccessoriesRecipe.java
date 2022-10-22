@@ -30,22 +30,21 @@ public class CombineAccessoriesRecipe extends CustomRecipe {
 
 	@Override
 	public boolean matches( CraftingContainer container, Level level ) {
-		Data data = this.buildCraftingData( container );
+		RecipeData data = this.buildCraftingData( container );
 
-		return data != null && data.bonuses.size() > 1;
+		return data != null && data.getBonusesSize() > 1;
 	}
 
 	@Override
 	public ItemStack assemble( CraftingContainer container ) {
-		Data data = this.buildCraftingData( container );
+		RecipeData data = this.buildCraftingData( container );
 		float craftingMaxBonus = data.getMaxBonus();
 		float ratio = data.determineRatio();
-		float bonusOffset = data.bonuses.size() * BONUS_OFFSET;
+		float bonusOffset = data.getBonusesSize() * BONUS_OFFSET;
 		float minBonus = craftingMaxBonus - ( 1.0f - ratio ) * bonusOffset;
 		float maxBonus = craftingMaxBonus + ratio * bonusOffset;
-		AccessoryHandler handler = AccessoryHandler.setup( new ItemStack( data.item ), minBonus, maxBonus );
 
-		return handler.getItemStack();
+		return data.build( minBonus, maxBonus );
 	}
 
 	@Override
@@ -58,7 +57,7 @@ public class CombineAccessoriesRecipe extends CustomRecipe {
 		return Registries.COMBINE_ACCESSORIES_RECIPE.get();
 	}
 
-	private Data buildCraftingData( CraftingContainer container ) {
+	private RecipeData buildCraftingData( CraftingContainer container ) {
 		AccessoryItem accessory = null;
 		List< Float > bonuses = new ArrayList<>();
 		for( int i = 0; i < container.getContainerSize(); ++i ) {
@@ -78,38 +77,7 @@ public class CombineAccessoriesRecipe extends CustomRecipe {
 			}
 		}
 
-		Data data = new Data( accessory, bonuses );
+		RecipeData data = new RecipeData( accessory, bonuses );
 		return accessory != null && data.getMaxBonus() < AccessoryHandler.MAX_BONUS ? data : null;
-	}
-
-	public record Data( AccessoryItem item, List< Float > bonuses ) {
-		public Data( AccessoryItem item, List< Float > bonuses ) {
-			this.item = item;
-			this.bonuses = bonuses;
-
-			Collections.sort( this.bonuses );
-		}
-
-		float getAverageBonus() {
-			return this.bonuses.stream().reduce( 0.0f, Float::sum ) / this.bonuses.size();
-		}
-
-		float getMaxBonus() {
-			return this.bonuses.get( this.bonuses.size() - 1 );
-		}
-
-		float getMinBonus() {
-			return this.bonuses.get( 0 );
-		}
-
-		private float determineRatio() {
-			float min = this.getMinBonus(), max = this.getMaxBonus();
-			if( min == max )
-				return 1.0f;
-
-			float average = this.getAverageBonus();
-			float std = ( float )Math.sqrt( this.bonuses.stream().reduce( 0.0f, ( sum, bonus ) -> sum + ( float )Math.pow( bonus - average, 2.0f ) )/this.bonuses.size() );
-			return Mth.clamp( 1.0f - 2.0f * std / ( AccessoryHandler.MAX_BONUS - AccessoryHandler.MIN_BONUS ) , 0.0f, 1.0f );
-		}
 	}
 }

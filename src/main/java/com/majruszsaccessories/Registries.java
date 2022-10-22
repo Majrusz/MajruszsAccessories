@@ -4,6 +4,7 @@ import com.majruszsaccessories.gamemodifiers.list.AccessoryObserver;
 import com.majruszsaccessories.gamemodifiers.list.TooltipUpdater;
 import com.majruszsaccessories.gamemodifiers.list.VillagerTradeUpdater;
 import com.majruszsaccessories.items.*;
+import com.majruszsaccessories.recipes.AccessoryRecipe;
 import com.majruszsaccessories.recipes.CombineAccessoriesRecipe;
 import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.items.ItemCreativeModeTab;
@@ -56,7 +57,8 @@ public class Registries {
 	public static final RegistryObject< WhiteFlagItem > WHITE_FLAG = ITEMS.register( "white_flag", WhiteFlagItem.create() );
 
 	// Recipes
-	public static final RegistryObject< RecipeSerializer< ? > > COMBINE_ACCESSORIES_RECIPE = RECIPES.register( "combine_accessories", CombineAccessoriesRecipe.create() );
+	public static final RegistryObject< RecipeSerializer< ? > > ACCESSORY_RECIPE = RECIPES.register( "crafting_accessory", AccessoryRecipe.create() );
+	public static final RegistryObject< RecipeSerializer< ? > > COMBINE_ACCESSORIES_RECIPE = RECIPES.register( "crafting_combine_accessories", CombineAccessoriesRecipe.create() );
 
 	// Misc
 	public static final CreativeModeTab ITEM_GROUP = new ItemCreativeModeTab( "majruszsaccessories_tab", ANGLERS_TROPHY );

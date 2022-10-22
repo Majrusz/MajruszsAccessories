@@ -1,0 +1,14 @@
+{
+  "type": "majruszsaccessories:crafting_accessory",
+  "ingredients": [
+    "majruszsaccessories:adventurers_guide",
+    "majruszsaccessories:anglers_trophy",
+    "majruszsaccessories:certificate_of_taming",
+    "majruszsaccessories:idol_of_fertility",
+    "majruszsaccessories:lucky_rock",
+    "majruszsaccessories:secret_ingredient",
+    "majruszsaccessories:tamed_potato_beetle",
+    "majruszsaccessories:white_flag"
+  ],
+  "result": "majruszsaccessories:overworld_rune"
+}
