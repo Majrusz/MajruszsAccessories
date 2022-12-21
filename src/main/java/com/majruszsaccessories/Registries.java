@@ -7,11 +7,9 @@ import com.majruszsaccessories.items.*;
 import com.majruszsaccessories.recipes.AccessoryRecipe;
 import com.majruszsaccessories.recipes.CombineAccessoriesRecipe;
 import com.mlib.gamemodifiers.GameModifier;
-import com.mlib.items.ItemCreativeModeTab;
-import com.mlib.registries.DeferredRegisterHelper;
+import com.mlib.registries.RegistryHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.api.distmarker.Dist;
@@ -26,8 +24,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotTypeMessage;
+// import top.theillusivec4.curios.api.CuriosApi;
+// import top.theillusivec4.curios.api.SlotTypeMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +34,8 @@ import java.util.function.Supplier;
 import static com.majruszsaccessories.MajruszsAccessories.SERVER_CONFIG;
 
 public class Registries {
-	private static final DeferredRegisterHelper HELPER = new DeferredRegisterHelper( MajruszsAccessories.MOD_ID );
+	private static final RegistryHelper HELPER = new RegistryHelper( MajruszsAccessories.MOD_ID );
+
 	static {
 		SERVER_CONFIG.addGroup( GameModifier.addNewGroup( Modifiers.DEFAULT_GROUP ) );
 	}
@@ -61,7 +60,6 @@ public class Registries {
 	public static final RegistryObject< RecipeSerializer< ? > > COMBINE_ACCESSORIES_RECIPE = RECIPES.register( "crafting_combine_accessories", CombineAccessoriesRecipe.create() );
 
 	// Misc
-	public static final CreativeModeTab ITEM_GROUP = new ItemCreativeModeTab( "majruszsaccessories_tab", ANGLERS_TROPHY );
 	public static final ResourceLocation ACCESSORY_SLOT_TEXTURE = Registries.getLocation( "item/empty_accessory_slot" );
 
 	// Game Modifiers
@@ -78,7 +76,7 @@ public class Registries {
 		final IEventBus modEventBus = loadingContext.getModEventBus();
 
 		HELPER.registerAll();
-		DistExecutor.unsafeRunWhenOn( Dist.CLIENT, ()->()->modEventBus.addListener( Registries::onTextureStitch ) );
+		// DistExecutor.unsafeRunWhenOn( Dist.CLIENT, ()->()->modEventBus.addListener( Registries::onTextureStitch ) );
 		modEventBus.addListener( Registries::onEnqueueIMC );
 		SERVER_CONFIG.register( ModLoadingContext.get() );
 	}
@@ -96,16 +94,18 @@ public class Registries {
 			return;
 		}
 
-		Supplier< SlotTypeMessage > slotTypeMessage = ()->new SlotTypeMessage.Builder( "pocket" ).priority( 220 ).icon( ACCESSORY_SLOT_TEXTURE ).build();
-		InterModComms.sendTo( MajruszsAccessories.MOD_ID, CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, slotTypeMessage );
+		/*Supplier< SlotTypeMessage > slotTypeMessage = ()->new SlotTypeMessage.Builder( "pocket" ).priority( 220 )
+			.icon( ACCESSORY_SLOT_TEXTURE )
+			.build();
+		InterModComms.sendTo( MajruszsAccessories.MOD_ID, CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, slotTypeMessage );*/
 	}
 
-	@OnlyIn( Dist.CLIENT )
+	/*@OnlyIn( Dist.CLIENT )
 	private static void onTextureStitch( TextureStitchEvent.Pre event ) {
 		if( InventoryMenu.BLOCK_ATLAS.equals( event.getAtlas().location() ) ) {
 			event.addSprite( ACCESSORY_SLOT_TEXTURE );
 		}
-	}
+	}*/
 
 	public static class Modifiers {
 		public static final String DEFAULT_GROUP = Registries.getLocationString( "default" );

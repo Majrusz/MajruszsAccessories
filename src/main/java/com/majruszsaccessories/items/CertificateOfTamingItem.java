@@ -33,7 +33,7 @@ public class CertificateOfTamingItem extends AccessoryItem {
 			super( item, configKey, "", "" );
 
 			OnAnimalTame.Context onAnimalTame = new OnAnimalTame.Context( this::spawnCertificate );
-			onAnimalTame.addCondition( new Condition.Chance( 0.01, "drop_chance", "Chance for Certificate of Taming to drop when taming animals." ) );
+			onAnimalTame.addCondition( new Condition.Chance<>( 0.01, "drop_chance", "Chance for Certificate of Taming to drop when taming animals." ) );
 
 			this.addContext( onAnimalTame );
 		}

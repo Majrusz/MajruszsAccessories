@@ -58,8 +58,8 @@ public class WhiteFlagItem extends AccessoryItem {
 			super( item, configKey, "", "" );
 
 			OnLoot.Context onLoot = new OnLoot.Context( this::addToGeneratedLoot );
-			onLoot.addCondition( new Condition.IsServer() )
-				.addCondition( new Condition.Chance( 0.15, "spawn_chance", "Chance for White Flag to spawn in any village chest." ) )
+			onLoot.addCondition( new Condition.IsServer<>() )
+				.addCondition( new Condition.Chance<>( 0.15, "spawn_chance", "Chance for White Flag to spawn in any village chest." ) )
 				.addCondition( OnLoot.HAS_ORIGIN )
 				.addCondition( data->BlockHelper.getBlockEntity( data.level, data.origin ) instanceof RandomizableContainerBlockEntity )
 				.addCondition( data->data.entity instanceof ServerPlayer )

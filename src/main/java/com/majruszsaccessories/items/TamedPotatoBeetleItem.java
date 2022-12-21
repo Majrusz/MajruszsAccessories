@@ -33,7 +33,7 @@ public class TamedPotatoBeetleItem extends AccessoryItem {
 			super( item, configKey, "", "" );
 
 			OnLoot.Context onLoot = DoubleCrops.lootContext( this::addToGeneratedLoot );
-			onLoot.addCondition( new Condition.Chance( 0.002, "drop_chance", "Chance for Tamed Potato Beetle to drop from crops." ) );
+			onLoot.addCondition( new Condition.Chance<>( 0.002, "drop_chance", "Chance for Tamed Potato Beetle to drop from crops." ) );
 
 			this.addContext( onLoot );
 		}

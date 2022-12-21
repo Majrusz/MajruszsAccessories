@@ -47,7 +47,7 @@ public class ExtraStoneLoot extends AccessoryModifier {
 
 	public static OnLoot.Context lootContext( Consumer< OnLoot.Data > consumer ) {
 		OnLoot.Context onLoot = new OnLoot.Context( consumer );
-		onLoot.addCondition( new Condition.IsServer() )
+		onLoot.addCondition( new Condition.IsServer<>() )
 			.addCondition( data->data.blockState != null && data.blockState.getMaterial() == Material.STONE )
 			.addCondition( OnLoot.HAS_ENTITY )
 			.addCondition( OnLoot.HAS_ORIGIN );

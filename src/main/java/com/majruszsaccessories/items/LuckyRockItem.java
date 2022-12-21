@@ -52,7 +52,7 @@ public class LuckyRockItem extends AccessoryItem {
 			super( item, configKey, "", "" );
 
 			OnLoot.Context onLoot = ExtraStoneLoot.lootContext( this::addToGeneratedLoot );
-			onLoot.addCondition( new Condition.Chance( 0.0002, "drop_chance", "Chance for Lucky Rock to drop when mining stone." ) );
+			onLoot.addCondition( new Condition.Chance<>( 0.0002, "drop_chance", "Chance for Lucky Rock to drop when mining stone." ) );
 
 			this.addContext( onLoot );
 		}

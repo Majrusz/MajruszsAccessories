@@ -33,7 +33,7 @@ public class AdventurersGuideItem extends AccessoryItem {
 			super( item, configKey, "", "" );
 
 			OnLoot.Context onLoot = MoreChestLoot.lootContext( this::addToGeneratedLoot );
-			onLoot.addCondition( new Condition.Chance( 0.025, "spawn_chance", "Chance for Adventurer's Guide to spawn in any chest." ) );
+			onLoot.addCondition( new Condition.Chance<>( 0.025, "spawn_chance", "Chance for Adventurer's Guide to spawn in any chest." ) );
 
 			this.addContext( onLoot );
 		}

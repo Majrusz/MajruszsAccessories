@@ -11,8 +11,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotResult;
+// import top.theillusivec4.curios.api.CuriosApi;
+// import top.theillusivec4.curios.api.SlotResult;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -55,7 +55,7 @@ public class AccessoryHandler {
 	}
 
 	public static float randomBonus() {
-		float gaussianRandom = ( float )Mth.clamp( MajruszLibrary.RANDOM.nextGaussian() / 3.0f, -1.0f, 1.0f ); // random value from range [-1.0; 1.0] with mean ~= 0.0 and standard deviation ~= 0.3333..
+		float gaussianRandom = ( float )Mth.clamp( Random.nextGaussian() / 3.0f, -1.0f, 1.0f ); // random value from range [-1.0; 1.0] with mean ~= 0.0 and standard deviation ~= 0.3333..
 		float ratio = ( gaussianRandom + 1.0f ) / 2.0f; // random value from range [0.0; 1.0] with mean ~= 0.5 and standard deviation ~= 0.1666..
 
 		return Mth.lerp( ratio, MIN_BONUS, MAX_BONUS );
@@ -68,10 +68,10 @@ public class AccessoryHandler {
 	@Nullable
 	public static ItemStack findAccessory( LivingEntity entity, AccessoryItem item ) {
 		if( Integration.isCuriosInstalled() ) {
-			Optional< SlotResult > slotResult = CuriosApi.getCuriosHelper().findFirstCurio( entity, item );
+			/*Optional< SlotResult > slotResult = CuriosApi.getCuriosHelper().findFirstCurio( entity, item );
 			if( slotResult.isPresent() ) {
 				return slotResult.get().stack();
-			}
+			}*/
 		} else {
 			ItemStack itemStack = entity.getOffhandItem();
 			if( itemStack.is( item ) ) {

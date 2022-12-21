@@ -43,7 +43,7 @@ public class AnglersTrophyItem extends AccessoryItem {
 				this.addContext( onLoad );
 			} else {
 				OnItemFished.Context onFished = new OnItemFished.Context( this::onFished );
-				onFished.addCondition( new Condition.Chance( 0.00375, "drop_chance", "Chance to drop Angler's Trophy from fishing." ) );
+				onFished.addCondition( new Condition.Chance<>( 0.00375, "drop_chance", "Chance to drop Angler's Trophy from fishing." ) );
 
 				this.addContext( onFished );
 			}

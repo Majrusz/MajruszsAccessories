@@ -27,7 +27,8 @@ public class FishingLuckBonus extends AccessoryModifier {
 		this.luck = new AccessoryInteger( "fishing_luck", "Luck bonus during fishing.", false, luck, 1, 10 );
 
 		OnPlayerTick.Context onTick = new OnPlayerTick.Context( this::updateLuck );
-		onTick.addCondition( new Condition.Cooldown( 4, Dist.DEDICATED_SERVER, false ) ).addConfig( this.luck );
+		onTick.addCondition( new Condition.Cooldown< OnPlayerTick.Data >( 4, Dist.DEDICATED_SERVER ).setConfigurable( false ) )
+			.addConfig( this.luck );
 
 		this.addContext( onTick );
 		this.addTooltip( this.luck, "majruszsaccessories.bonuses.fishing_luck" );

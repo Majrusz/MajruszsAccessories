@@ -34,7 +34,7 @@ public class DoubleCrops extends AccessoryModifier {
 
 	public static OnLoot.Context lootContext( Consumer< OnLoot.Data > consumer ) {
 		OnLoot.Context onLoot = new OnLoot.Context( consumer );
-		onLoot.addCondition( new Condition.IsServer() )
+		onLoot.addCondition( new Condition.IsServer<>() )
 			.addCondition( OnLoot.HAS_ORIGIN )
 			.addCondition( data->data.blockState != null && BlockHelper.isCropAtMaxAge( data.blockState ) )
 			.addCondition( data->data.entity instanceof LivingEntity );

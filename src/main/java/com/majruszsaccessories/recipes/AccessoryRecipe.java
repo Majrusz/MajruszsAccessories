@@ -31,7 +31,7 @@ public class AccessoryRecipe extends CustomRecipe {
 	}
 
 	public AccessoryRecipe( ResourceLocation id, AccessoryItem result, List< AccessoryItem > ingredients ) {
-		super( id );
+		super( id, CraftingBookCategory.EQUIPMENT );
 		this.result = result;
 		this.ingredients = ingredients;
 	}

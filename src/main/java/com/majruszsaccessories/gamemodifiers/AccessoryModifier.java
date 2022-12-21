@@ -4,6 +4,7 @@ import com.majruszsaccessories.AccessoryHandler;
 import com.majruszsaccessories.gamemodifiers.configs.AccessoryPercent;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.Random;
+import com.mlib.Utility;
 import com.mlib.gamemodifiers.ContextData;
 import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.gamemodifiers.contexts.OnLoot;
@@ -93,7 +94,7 @@ public abstract class AccessoryModifier extends GameModifier {
 	protected < DataType extends ContextData > Consumer< DataType > toAccessoryConsumer( BiConsumer< DataType, AccessoryHandler > consumer,
 		AccessoryPercent... chances
 	) {
-		return this.toAccessoryConsumer( consumer, data->data.entity, chances );
+		return this.toAccessoryConsumer( consumer, data->Utility.castIfPossible( LivingEntity.class, data.entity ), chances );
 	}
 
 	record Data( IAccessoryTooltip tooltip, String key ) {

@@ -50,7 +50,7 @@ public class EnhanceTamedAnimal extends AccessoryModifier {
 		}
 		data.animal.setHealth( data.animal.getMaxHealth() );
 		if( data.level != null ) {
-			ParticleHandler.AWARD.spawn( data.level, data.animal.position().add( 0.0, 0.5, 0.0 ), 8, 2.0 );
+			ParticleHandler.AWARD.spawn( data.level, data.animal.position().add( 0.0, 0.5, 0.0 ), 8, ParticleHandler.offset( 2.0f ) );
 		}
 	}
 }

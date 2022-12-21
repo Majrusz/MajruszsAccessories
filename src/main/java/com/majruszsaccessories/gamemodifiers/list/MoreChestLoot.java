@@ -47,7 +47,7 @@ public class MoreChestLoot extends AccessoryModifier {
 
 	public static OnLoot.Context lootContext( Consumer< OnLoot.Data > consumer ) {
 		OnLoot.Context onLoot = new OnLoot.Context( consumer );
-		onLoot.addCondition( new Condition.IsServer() )
+		onLoot.addCondition( new Condition.IsServer<>() )
 			.addCondition( OnLoot.HAS_ORIGIN )
 			.addCondition( data->BlockHelper.getBlockEntity( data.level, data.origin ) instanceof RandomizableContainerBlockEntity )
 			.addCondition( data->data.entity instanceof ServerPlayer );
@@ -64,7 +64,7 @@ public class MoreChestLoot extends AccessoryModifier {
 			itemStack.setCount( count );
 		}
 		if( hasIncreasedLoot ) {
-			ParticleHandler.AWARD.spawn( data.level, data.origin, 16, 1.5 );
+			ParticleHandler.AWARD.spawn( data.level, data.origin, 16, ParticleHandler.offset( 1.5f ) );
 		}
 	}
 
