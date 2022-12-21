@@ -7,6 +7,7 @@ import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.MajruszLibrary;
 import com.mlib.Utility;
+import com.mlib.annotations.AutoInstance;
 import com.mlib.client.ClientHelper;
 import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.gamemodifiers.contexts.OnItemTooltip;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
+@AutoInstance
 public class TooltipUpdater extends GameModifier {
 	static final int PAGE_SIZE = 4;
 

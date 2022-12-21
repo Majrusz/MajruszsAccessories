@@ -1,35 +1,23 @@
 package com.majruszsaccessories;
 
-import com.majruszsaccessories.gamemodifiers.list.AccessoryObserver;
-import com.majruszsaccessories.gamemodifiers.list.TooltipUpdater;
-import com.majruszsaccessories.gamemodifiers.list.VillagerTradeUpdater;
 import com.majruszsaccessories.items.*;
 import com.majruszsaccessories.recipes.AccessoryRecipe;
 import com.majruszsaccessories.recipes.CombineAccessoriesRecipe;
+import com.mlib.annotations.AnnotationHandler;
 import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.registries.RegistryHelper;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-// import top.theillusivec4.curios.api.CuriosApi;
-// import top.theillusivec4.curios.api.SlotTypeMessage;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 import static com.majruszsaccessories.MajruszsAccessories.SERVER_CONFIG;
 
@@ -63,12 +51,11 @@ public class Registries {
 	public static final ResourceLocation ACCESSORY_SLOT_TEXTURE = Registries.getLocation( "item/empty_accessory_slot" );
 
 	// Game Modifiers
-	public static final List< GameModifier > GAME_MODIFIERS = new ArrayList<>();
+	public static final List< GameModifier > GAME_MODIFIERS;
 
 	static {
-		GAME_MODIFIERS.add( new AccessoryObserver() );
-		GAME_MODIFIERS.add( new TooltipUpdater() );
-		GAME_MODIFIERS.add( new VillagerTradeUpdater() );
+		AnnotationHandler annotationHandler = new AnnotationHandler( MajruszsAccessories.MOD_ID );
+		GAME_MODIFIERS = annotationHandler.getInstances( GameModifier.class );
 	}
 
 	public static void initialize() {

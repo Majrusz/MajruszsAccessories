@@ -3,6 +3,7 @@ package com.majruszsaccessories.gamemodifiers.list;
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.gamemodifiers.IAccessoryOffer;
 import com.majruszsaccessories.items.AccessoryItem;
+import com.mlib.annotations.AutoInstance;
 import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.gamemodifiers.contexts.OnTradeSetup;
 import net.minecraft.world.entity.npc.VillagerTrades;
@@ -12,6 +13,7 @@ import net.minecraft.world.item.trading.MerchantOffer;
 
 import java.util.List;
 
+@AutoInstance
 public class VillagerTradeUpdater extends GameModifier {
 	public VillagerTradeUpdater() {
 		super( Registries.Modifiers.DEFAULT_GROUP, "VillagerTradeUpdater", "" );
