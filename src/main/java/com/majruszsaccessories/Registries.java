@@ -33,15 +33,15 @@ public class Registries {
 	static final DeferredRegister< RecipeSerializer< ? > > RECIPES = HELPER.create( ForgeRegistries.Keys.RECIPE_SERIALIZERS );
 
 	// Items
-	public static final RegistryObject< AdventurersGuideItem > ADVENTURERS_GUIDE = ITEMS.register( "adventurers_guide", AdventurersGuideItem.create() );
-	public static final RegistryObject< AnglersTrophyItem > ANGLERS_TROPHY = ITEMS.register( "anglers_trophy", AnglersTrophyItem.create() );
-	public static final RegistryObject< CertificateOfTamingItem > CERTIFICATE_OF_TAMING = ITEMS.register( "certificate_of_taming", CertificateOfTamingItem.create() );
-	public static final RegistryObject< IdolOfFertilityItem > IDOL_OF_FERTILITY = ITEMS.register( "idol_of_fertility", IdolOfFertilityItem.create() );
-	public static final RegistryObject< LuckyRockItem > LUCKY_ROCK = ITEMS.register( "lucky_rock", LuckyRockItem.create() );
-	public static final RegistryObject< OverworldRuneItem > OVERWORLD_RUNE = ITEMS.register( "overworld_rune", OverworldRuneItem.create() );
-	public static final RegistryObject< SecretIngredientItem > SECRET_INGREDIENT = ITEMS.register( "secret_ingredient", SecretIngredientItem.create() );
-	public static final RegistryObject< TamedPotatoBeetleItem > TAMED_POTATO_BEETLE = ITEMS.register( "tamed_potato_beetle", TamedPotatoBeetleItem.create() );
-	public static final RegistryObject< WhiteFlagItem > WHITE_FLAG = ITEMS.register( "white_flag", WhiteFlagItem.create() );
+	public static final RegistryObject< AdventurersGuideItem > ADVENTURERS_GUIDE = ITEMS.register( "adventurers_guide", AdventurersGuideItem::new );
+	public static final RegistryObject< AnglersTrophyItem > ANGLERS_TROPHY = ITEMS.register( "anglers_trophy", AnglersTrophyItem::new );
+	public static final RegistryObject< CertificateOfTamingItem > CERTIFICATE_OF_TAMING = ITEMS.register( "certificate_of_taming", CertificateOfTamingItem::new );
+	public static final RegistryObject< IdolOfFertilityItem > IDOL_OF_FERTILITY = ITEMS.register( "idol_of_fertility", IdolOfFertilityItem::new );
+	public static final RegistryObject< LuckyRockItem > LUCKY_ROCK = ITEMS.register( "lucky_rock", LuckyRockItem::new );
+	public static final RegistryObject< OverworldRuneItem > OVERWORLD_RUNE = ITEMS.register( "overworld_rune", OverworldRuneItem::new );
+	public static final RegistryObject< SecretIngredientItem > SECRET_INGREDIENT = ITEMS.register( "secret_ingredient", SecretIngredientItem::new );
+	public static final RegistryObject< TamedPotatoBeetleItem > TAMED_POTATO_BEETLE = ITEMS.register( "tamed_potato_beetle", TamedPotatoBeetleItem::new );
+	public static final RegistryObject< WhiteFlagItem > WHITE_FLAG = ITEMS.register( "white_flag", WhiteFlagItem::new );
 
 	// Recipes
 	public static final RegistryObject< RecipeSerializer< ? > > ACCESSORY_RECIPE = RECIPES.register( "crafting_accessory", AccessoryRecipe.create() );
@@ -73,7 +73,7 @@ public class Registries {
 	}
 
 	public static String getLocationString( String register ) {
-		return getLocation( register ).toString();
+		return HELPER.getLocationString( register );
 	}
 
 	private static void onEnqueueIMC( InterModEnqueueEvent event ) {

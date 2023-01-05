@@ -9,6 +9,7 @@ import com.mlib.effects.ParticleHandler;
 import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.contexts.OnLoot;
 import com.mlib.levels.LevelHelper;
+import com.mlib.math.Range;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
@@ -35,24 +36,15 @@ public class ExtraStoneLoot extends AccessoryModifier {
 	}
 
 	public ExtraStoneLoot( Supplier< ? extends AccessoryItem > item, String configKey, double chance ) {
-		super( item, configKey, "", "" );
-		this.chance = new AccessoryPercent( "extra_loot_chance", "Chance to drop extra items when mining stone.", false, chance, 0.0, 1.0 );
+		super( item, configKey );
 
-		OnLoot.Context onLoot = ExtraStoneLoot.lootContext( this.toAccessoryConsumer( this::addExtraLoot, this.chance ) );
-		onLoot.addConfig( this.chance );
+		this.chance = new AccessoryPercent( chance, Range.CHANCE );
 
-		this.addContext( onLoot );
+		new OnStoneMinedContext( this.toAccessoryConsumer( this::addExtraLoot, this.chance ) )
+			.addConfig( this.chance.name( "extra_loot_chance" ).comment( "Chance to drop extra items when mining stone." ) )
+			.insertTo( this );
+
 		this.addTooltip( this.chance, "majruszsaccessories.bonuses.extra_stone_loot" );
-	}
-
-	public static OnLoot.Context lootContext( Consumer< OnLoot.Data > consumer ) {
-		OnLoot.Context onLoot = new OnLoot.Context( consumer );
-		onLoot.addCondition( new Condition.IsServer<>() )
-			.addCondition( data->data.blockState != null && data.blockState.getMaterial() == Material.STONE )
-			.addCondition( OnLoot.HAS_ENTITY )
-			.addCondition( OnLoot.HAS_ORIGIN );
-
-		return onLoot;
 	}
 
 	private void addExtraLoot( OnLoot.Data data, AccessoryHandler handler ) {
@@ -81,5 +73,16 @@ public class ExtraStoneLoot extends AccessoryModifier {
 		return new LootContext.Builder( ( ServerLevel )entity.level ).withParameter( LootContextParams.ORIGIN, entity.position() )
 			.withParameter( LootContextParams.THIS_ENTITY, entity )
 			.create( LootContextParamSets.GIFT );
+	}
+
+	public static class OnStoneMinedContext extends OnLoot.Context {
+		public OnStoneMinedContext( Consumer< OnLoot.Data > consumer ) {
+			super( consumer );
+
+			this.addCondition( new Condition.IsServer<>() )
+				.addCondition( data->data.blockState != null && data.blockState.getMaterial() == Material.STONE )
+				.addCondition( OnLoot.HAS_ENTITY )
+				.addCondition( OnLoot.HAS_ORIGIN );
+		}
 	}
 }

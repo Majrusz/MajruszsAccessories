@@ -26,8 +26,9 @@ public abstract class AccessoryModifier extends GameModifier {
 	protected final Supplier< ? extends AccessoryItem > item;
 	protected final List< Data > dataList = new ArrayList<>();
 
-	public AccessoryModifier( Supplier< ? extends AccessoryItem > item, String configKey, String configName, String configComment ) {
-		super( configKey, configName, configComment );
+	public AccessoryModifier( Supplier< ? extends AccessoryItem > item, String configKey ) {
+		super( configKey );
+
 		this.item = item;
 	}
 
@@ -44,19 +45,11 @@ public abstract class AccessoryModifier extends GameModifier {
 	}
 
 	public void buildTooltip( List< Component > components, AccessoryHandler handler ) {
-		for( Data data : this.dataList ) {
-			data.tooltip.addTooltip( data.key, components, handler );
-		}
+		this.dataList.forEach( data->data.tooltip.addTooltip( data.key, components, handler ) );
 	}
 
 	public void buildDetailedTooltip( List< Component > components, AccessoryHandler handler ) {
-		for( Data data : this.dataList ) {
-			if( data.tooltip.areTooltipsIdentical( handler ) ) {
-				data.tooltip.addTooltip( data.key, components, handler );
-			} else {
-				data.tooltip.addDetailedTooltip( data.key, components, handler );
-			}
-		}
+		this.dataList.forEach( data->data.tooltip.addDetailedTooltip( data.key, components, handler ) );
 	}
 
 	protected ItemStack constructItemStack() {

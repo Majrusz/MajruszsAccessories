@@ -7,6 +7,7 @@ import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.attributes.AttributeHandler;
 import com.mlib.effects.ParticleHandler;
 import com.mlib.gamemodifiers.contexts.OnAnimalTame;
+import com.mlib.math.Range;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.horse.Horse;
@@ -25,13 +26,14 @@ public class EnhanceTamedAnimal extends AccessoryModifier {
 	}
 
 	public EnhanceTamedAnimal( Supplier< ? extends AccessoryItem > item, String configKey, double bonus ) {
-		super( item, configKey, "", "" );
-		this.bonus = new AccessoryPercent( "animal_bonus", "Bonus health, damage, movement speed and jump height for tamed animals.", false, bonus, 0.0, 10.0 );
+		super( item, configKey );
 
-		OnAnimalTame.Context onAnimalTame = new OnAnimalTame.Context( this.toAccessoryConsumer( this::enhanceAnimal ) );
-		onAnimalTame.addConfig( this.bonus );
+		this.bonus = new AccessoryPercent( bonus, new Range<>( 0.0, 10.0 ) );
 
-		this.addContext( onAnimalTame );
+		new OnAnimalTame.Context( this.toAccessoryConsumer( this::enhanceAnimal ) )
+			.addConfig( this.bonus.name( "animal_bonus" ).comment( "Bonus health, damage, movement speed and jump height for tamed animals." ) )
+			.insertTo( this );
+
 		this.addTooltip( this.bonus, "majruszsaccessories.bonuses.animal_health" );
 		this.addTooltip( this.bonus, "majruszsaccessories.bonuses.animal_damage" );
 		this.addTooltip( this.bonus, "majruszsaccessories.bonuses.animal_speed" );

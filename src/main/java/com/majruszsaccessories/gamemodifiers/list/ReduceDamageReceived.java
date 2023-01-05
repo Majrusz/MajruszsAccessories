@@ -5,6 +5,7 @@ import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
 import com.majruszsaccessories.gamemodifiers.configs.AccessoryPercent;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.gamemodifiers.contexts.OnDamaged;
+import com.mlib.math.Range;
 
 import java.util.function.Supplier;
 
@@ -16,13 +17,14 @@ public class ReduceDamageReceived extends AccessoryModifier {
 	}
 
 	public ReduceDamageReceived( Supplier< ? extends AccessoryItem > item, String configKey, double reduction ) {
-		super( item, configKey, "", "" );
-		this.reduction = new AccessoryPercent( "damage_received_reduction", "Ratio of damage ignored while being attacked.", false, reduction, 0.01, 0.99 );
+		super( item, configKey );
 
-		OnDamaged.Context onDamaged = new OnDamaged.Context( this.toAccessoryConsumer( this::reduceDamage, data->data.target ) );
-		onDamaged.addConfig( this.reduction );
+		this.reduction = new AccessoryPercent( reduction, new Range<>( 0.01, 0.99 ) );
 
-		this.addContext( onDamaged );
+		new OnDamaged.Context( this.toAccessoryConsumer( this::reduceDamage, data->data.target ) )
+			.addConfig( this.reduction.name( "damage_received_reduction" ).comment( "Ratio of damage ignored while being attacked." ) )
+			.insertTo( this );
+
 		this.addTooltip( this.reduction, "majruszsaccessories.bonuses.reduce_damage_received" );
 	}
 

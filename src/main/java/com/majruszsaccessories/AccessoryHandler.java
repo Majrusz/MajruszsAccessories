@@ -1,21 +1,18 @@
 package com.majruszsaccessories;
 
+import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
 import com.majruszsaccessories.items.AccessoryItem;
-import com.mlib.MajruszLibrary;
 import com.mlib.Random;
-import com.mlib.gamemodifiers.GameModifiersHolder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
-// import top.theillusivec4.curios.api.CuriosApi;
-// import top.theillusivec4.curios.api.SlotResult;
 
 import javax.annotation.Nullable;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AccessoryHandler {
 	public static final float MIN_BONUS = -0.6f, MAX_BONUS = 0.6f;
@@ -147,6 +144,10 @@ public class AccessoryHandler {
 		bonus.remove( Tags.VALUE_MAX );
 	}
 
+	public List< AccessoryModifier > getModifiers() {
+		return this.item.getModifiers();
+	}
+
 	public float getBonus() {
 		return this.itemStack.getOrCreateTagElement( Tags.BONUS ).getFloat( Tags.VALUE );
 	}
@@ -160,10 +161,6 @@ public class AccessoryHandler {
 
 	public ItemStack getItemStack() {
 		return this.itemStack;
-	}
-
-	public GameModifiersHolder< ? > getHolder() {
-		return this.item.getHolder();
 	}
 
 	public ChatFormatting getBonusFormatting() {

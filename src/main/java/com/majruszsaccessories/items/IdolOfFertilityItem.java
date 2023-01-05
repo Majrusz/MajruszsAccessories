@@ -4,10 +4,9 @@ import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
 import com.majruszsaccessories.gamemodifiers.list.BaseOffer;
 import com.majruszsaccessories.gamemodifiers.list.SpawnTwins;
-import com.mlib.config.ConfigGroup;
+import com.mlib.annotations.AutoInstance;
 import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.GameModifier;
-import com.mlib.gamemodifiers.GameModifiersHolder;
 import com.mlib.gamemodifiers.contexts.OnBabySpawn;
 import net.minecraft.world.entity.npc.VillagerProfession;
 
@@ -17,29 +16,41 @@ import static com.majruszsaccessories.MajruszsAccessories.SERVER_CONFIG;
 
 public class IdolOfFertilityItem extends AccessoryItem {
 	static final String ID = Registries.getLocationString( "idol_of_fertility" );
-	static final ConfigGroup GROUP = SERVER_CONFIG.addGroup( GameModifier.addNewGroup( ID, "IdolOfFertility", "" ) );
 
-	public static Supplier< IdolOfFertilityItem > create() {
-		GameModifiersHolder< IdolOfFertilityItem > holder = AccessoryItem.newHolder( ID, IdolOfFertilityItem::new );
-		holder.addModifier( SpawnTwins::new );
-		holder.addModifier( AddDropChance::new );
-		holder.addModifier( TradeOffer::new );
+	public IdolOfFertilityItem() {
+		super( ID );
+	}
 
-		return holder::getRegistry;
+	@AutoInstance
+	public static class Register {
+		public Register() {
+			GameModifier.addNewGroup( SERVER_CONFIG, ID ).name( "IdolOfFertility" );
+
+			new SpawnTwins( Registries.IDOL_OF_FERTILITY, ID );
+			new AddDropChance( Registries.IDOL_OF_FERTILITY, ID );
+			new TradeOffer( Registries.IDOL_OF_FERTILITY, ID );
+		}
 	}
 
 	static class AddDropChance extends AccessoryModifier {
 		public AddDropChance( Supplier< ? extends AccessoryItem > item, String configKey ) {
-			super( item, configKey, "", "" );
+			super( item, configKey );
 
-			OnBabySpawn.Context onBabySpawn = SpawnTwins.babySpawnContext( this::spawnTotem );
-			onBabySpawn.addCondition( new Condition.Chance<>( 0.005, "drop_chance", "Chance for Idol of Fertility to drop when breeding animals." ) );
-
-			this.addContext( onBabySpawn );
+			new SpawnTwins.OnTwinsSpawnContext( this::spawnTotem )
+				.addCondition( new DropChance( 0.005 ) )
+				.insertTo( this );
 		}
 
 		private void spawnTotem( OnBabySpawn.Data data ) {
 			this.spawnFlyingItem( data.level, data.parentA.position(), data.parentB.position() );
+		}
+
+		static class DropChance extends Condition.Chance< OnBabySpawn.Data > {
+			public DropChance( double chance ) {
+				super( chance );
+
+				this.chance.name( "drop_chance" ).comment( "Chance for Idol of Fertility to drop when breeding animals." );
+			}
 		}
 	}
 

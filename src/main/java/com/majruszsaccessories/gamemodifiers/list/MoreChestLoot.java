@@ -11,6 +11,7 @@ import com.mlib.effects.ParticleHandler;
 import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.contexts.OnLoot;
 import com.mlib.levels.LevelHelper;
+import com.mlib.math.Range;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -35,24 +36,15 @@ public class MoreChestLoot extends AccessoryModifier {
 	}
 
 	public MoreChestLoot( Supplier< ? extends AccessoryItem > item, String configKey, double sizeMultiplier ) {
-		super( item, configKey, "", "" );
-		this.sizeMultiplier = new ChestChance( "chest_size_bonus", "Extra multiplier for number of items acquired from chests.", false, sizeMultiplier, 0.0, 10.0 );
+		super( item, configKey );
 
-		OnLoot.Context onLoot = MoreChestLoot.lootContext( this.toAccessoryConsumer( this::increaseLoot ) );
-		onLoot.addConfig( this.sizeMultiplier );
+		this.sizeMultiplier = new ChestChance( sizeMultiplier, new Range<>( 0.0, 10.0 ) );
 
-		this.addContext( onLoot );
+		new OnChestContext( this.toAccessoryConsumer( this::increaseLoot ) )
+			.addConfig( this.sizeMultiplier.name( "chest_size_bonus" ).comment( "Extra multiplier for number of items acquired from chests." ) )
+			.insertTo( this );
+
 		this.addTooltip( this.sizeMultiplier, "majruszsaccessories.bonuses.more_chest_loot" );
-	}
-
-	public static OnLoot.Context lootContext( Consumer< OnLoot.Data > consumer ) {
-		OnLoot.Context onLoot = new OnLoot.Context( consumer );
-		onLoot.addCondition( new Condition.IsServer<>() )
-			.addCondition( OnLoot.HAS_ORIGIN )
-			.addCondition( data->BlockHelper.getBlockEntity( data.level, data.origin ) instanceof RandomizableContainerBlockEntity )
-			.addCondition( data->data.entity instanceof ServerPlayer );
-
-		return onLoot;
 	}
 
 	private void increaseLoot( OnLoot.Data data, AccessoryHandler handler ) {
@@ -70,14 +62,26 @@ public class MoreChestLoot extends AccessoryModifier {
 
 	private float getFinalSizeMultiplier( ServerPlayer player, AccessoryHandler handler ) {
 		Pair< Vec3, ServerLevel > spawnData = LevelHelper.getSpawnData( player );
-		float distanceMultiplier = ( float )Mth.clamp( spawnData.getFirst().distanceTo( player.position() ) / BLOCKS_DISTANCE, 0.0, 1.0 );
+		float distanceMultiplier = ( float )Mth.clamp( spawnData.getFirst()
+			.distanceTo( player.position() ) / BLOCKS_DISTANCE, 0.0, 1.0 );
 
 		return 1.0f + this.sizeMultiplier.getValue( handler ) * distanceMultiplier;
 	}
 
+	public static class OnChestContext extends OnLoot.Context {
+		public OnChestContext( Consumer< OnLoot.Data > consumer ) {
+			super( consumer );
+
+			this.addCondition( new Condition.IsServer<>() )
+				.addCondition( OnLoot.HAS_ORIGIN )
+				.addCondition( data->BlockHelper.getBlockEntity( data.level, data.origin ) instanceof RandomizableContainerBlockEntity )
+				.addCondition( data->data.entity instanceof ServerPlayer );
+		}
+	}
+
 	static class ChestChance extends AccessoryPercent {
-		public ChestChance( String name, String comment, boolean worldRestartRequired, double defaultValue, double min, double max ) {
-			super( name, comment, worldRestartRequired, defaultValue, min, max );
+		public ChestChance( double defaultValue, Range< Double > range ) {
+			super( defaultValue, range );
 		}
 
 		@Override
@@ -90,7 +94,9 @@ public class MoreChestLoot extends AccessoryModifier {
 			this.addTooltip( this::getPercentFormula, key, components, handler );
 		}
 
-		private void addTooltip( ComponentBuilder builder, String key, List< Component > components, AccessoryHandler handler ) {
+		private void addTooltip( ComponentBuilder builder, String key, List< Component > components,
+			AccessoryHandler handler
+		) {
 			int blocksPerPercent = Math.round( BLOCKS_DISTANCE / ( this.getDefaultValue() * 100.0f ) );
 			IAccessoryTooltip.build( key, DEFAULT_FORMAT )
 				.addParameter( builder.apply( ()->0.01f, _handler->( 1.0f + handler.getBonus() ) / 100.0f, handler ) )
@@ -100,7 +106,9 @@ public class MoreChestLoot extends AccessoryModifier {
 		}
 
 		interface ComponentBuilder {
-			MutableComponent apply( Supplier< Float > defaultBonus, Function< AccessoryHandler, Float > bonus, AccessoryHandler handler );
+			MutableComponent apply( Supplier< Float > defaultBonus, Function< AccessoryHandler, Float > bonus,
+				AccessoryHandler handler
+			);
 		}
 	}
 }

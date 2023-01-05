@@ -7,6 +7,7 @@ import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.attributes.AttributeHandler;
 import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.contexts.OnPlayerTick;
+import com.mlib.math.Range;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
@@ -23,14 +24,15 @@ public class FishingLuckBonus extends AccessoryModifier {
 	}
 
 	public FishingLuckBonus( Supplier< ? extends AccessoryItem > item, String configKey, int luck ) {
-		super( item, configKey, "", "" );
-		this.luck = new AccessoryInteger( "fishing_luck", "Luck bonus during fishing.", false, luck, 1, 10 );
+		super( item, configKey );
 
-		OnPlayerTick.Context onTick = new OnPlayerTick.Context( this::updateLuck );
-		onTick.addCondition( new Condition.Cooldown< OnPlayerTick.Data >( 4, Dist.DEDICATED_SERVER ).setConfigurable( false ) )
-			.addConfig( this.luck );
+		this.luck = new AccessoryInteger( luck, new Range<>( 1, 10 ) );
 
-		this.addContext( onTick );
+		new OnPlayerTick.Context( this::updateLuck )
+			.addCondition( new Condition.Cooldown< OnPlayerTick.Data >( 4, Dist.DEDICATED_SERVER ).setConfigurable( false ) )
+			.addConfig( this.luck.name( "fishing_luck" ).comment( "Luck bonus during fishing." ) )
+			.insertTo( this );
+
 		this.addTooltip( this.luck, "majruszsaccessories.bonuses.fishing_luck" );
 	}
 

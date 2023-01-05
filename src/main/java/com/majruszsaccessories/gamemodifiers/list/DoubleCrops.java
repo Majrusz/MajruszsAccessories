@@ -8,6 +8,7 @@ import com.mlib.blocks.BlockHelper;
 import com.mlib.effects.ParticleHandler;
 import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.contexts.OnLoot;
+import com.mlib.math.Range;
 import net.minecraft.world.entity.LivingEntity;
 
 import java.util.ArrayList;
@@ -22,28 +23,30 @@ public class DoubleCrops extends AccessoryModifier {
 	}
 
 	public DoubleCrops( Supplier< ? extends AccessoryItem > item, String configKey, double chance ) {
-		super( item, configKey, "", "" );
-		this.chance = new AccessoryPercent( "double_crops_chance", "Chance to double crops when harvesting.", false, chance, 0.0, 1.0 );
+		super( item, configKey );
 
-		OnLoot.Context onLoot = DoubleCrops.lootContext( this.toAccessoryConsumer( this::doubleLoot, this.chance ) );
-		onLoot.addConfig( this.chance );
+		this.chance = new AccessoryPercent( chance, Range.CHANCE );
 
-		this.addContext( onLoot );
+		new OnCropsContext( this.toAccessoryConsumer( this::doubleLoot, this.chance ) )
+			.addConfig( this.chance.name( "double_crops_chance" ).comment( "Chance to double crops when harvesting." ) )
+			.insertTo( this );
+
 		this.addTooltip( this.chance, "majruszsaccessories.bonuses.double_crops" );
-	}
-
-	public static OnLoot.Context lootContext( Consumer< OnLoot.Data > consumer ) {
-		OnLoot.Context onLoot = new OnLoot.Context( consumer );
-		onLoot.addCondition( new Condition.IsServer<>() )
-			.addCondition( OnLoot.HAS_ORIGIN )
-			.addCondition( data->data.blockState != null && BlockHelper.isCropAtMaxAge( data.blockState ) )
-			.addCondition( data->data.entity instanceof LivingEntity );
-
-		return onLoot;
 	}
 
 	private void doubleLoot( OnLoot.Data data, AccessoryHandler handler ) {
 		ParticleHandler.AWARD.spawn( data.level, data.origin, 6 );
 		data.generatedLoot.addAll( new ArrayList<>( data.generatedLoot ) );
+	}
+
+	public static class OnCropsContext extends OnLoot.Context {
+		public OnCropsContext( Consumer< OnLoot.Data > consumer ) {
+			super( consumer );
+
+			this.addCondition( new Condition.IsServer<>() )
+				.addCondition( OnLoot.HAS_ORIGIN )
+				.addCondition( data->data.blockState != null && BlockHelper.isCropAtMaxAge( data.blockState ) )
+				.addCondition( data->data.entity instanceof LivingEntity );
+		}
 	}
 }

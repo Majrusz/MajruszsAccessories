@@ -16,13 +16,16 @@ import java.util.List;
 @AutoInstance
 public class VillagerTradeUpdater extends GameModifier {
 	public VillagerTradeUpdater() {
-		super( Registries.Modifiers.DEFAULT_GROUP, "VillagerTradeUpdater", "" );
+		super( Registries.Modifiers.DEFAULT_GROUP );
 
-		this.addContext( new OnTradeSetup.Context( this::addTrades ) );
+		new OnTradeSetup.Context( this::addTrades )
+			.insertTo( this );
+
+		this.name( "VillagerTradeUpdater" );
 	}
 
 	private void addTrades( OnTradeSetup.Data data ) {
-		AccessoryItem.ACCESSORIES.forEach( accessory->accessory.forEach( IAccessoryOffer.class, offer->this.addTrades( data, offer ) ) );
+		BaseOffer.OFFERS.forEach( offer->this.addTrades( data, offer ) );
 	}
 
 	private void addTrades( OnTradeSetup.Data data, IAccessoryOffer offer ) {

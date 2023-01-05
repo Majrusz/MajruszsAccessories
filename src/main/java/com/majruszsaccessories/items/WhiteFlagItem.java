@@ -6,16 +6,16 @@ import com.majruszsaccessories.gamemodifiers.list.BaseOffer;
 import com.majruszsaccessories.gamemodifiers.list.ReduceDamageDealt;
 import com.majruszsaccessories.gamemodifiers.list.ReduceDamageReceived;
 import com.mlib.Utility;
+import com.mlib.annotations.AutoInstance;
 import com.mlib.blocks.BlockHelper;
-import com.mlib.config.ConfigGroup;
 import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.GameModifier;
-import com.mlib.gamemodifiers.GameModifiersHolder;
 import com.mlib.gamemodifiers.contexts.OnLoot;
 import com.mlib.gamemodifiers.contexts.OnPlayerInteract;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 
 import java.util.function.Supplier;
 
@@ -23,28 +23,32 @@ import static com.majruszsaccessories.MajruszsAccessories.SERVER_CONFIG;
 
 public class WhiteFlagItem extends AccessoryItem {
 	static final String ID = Registries.getLocationString( "white_flag" );
-	static final ConfigGroup GROUP = SERVER_CONFIG.addGroup( GameModifier.addNewGroup( ID, "WhiteFlag", "" ) );
 
-	public static Supplier< WhiteFlagItem > create() {
-		GameModifiersHolder< WhiteFlagItem > holder = AccessoryItem.newHolder( ID, WhiteFlagItem::new );
-		holder.addModifier( ReduceDamageReceived::new );
-		holder.addModifier( ReduceDamageDealt::new );
-		holder.addModifier( SwingBehavior::new );
-		holder.addModifier( AddToVillageChests::new );
-		holder.addModifier( TradeOffer::new );
+	public WhiteFlagItem() {
+		super( ID );
+	}
 
-		return holder::getRegistry;
+	@AutoInstance
+	public static class Register {
+		public Register() {
+			GameModifier.addNewGroup( SERVER_CONFIG, ID ).name( "WhiteFlag" );
+
+			new ReduceDamageReceived( Registries.WHITE_FLAG, ID );
+			new ReduceDamageDealt( Registries.WHITE_FLAG, ID );
+			new SwingBehavior( Registries.WHITE_FLAG, ID );
+			new AddToVillageChests( Registries.WHITE_FLAG, ID );
+			new TradeOffer( Registries.WHITE_FLAG, ID );
+		}
 	}
 
 	static class SwingBehavior extends AccessoryModifier {
 		public SwingBehavior( Supplier< ? extends AccessoryItem > item, String configKey ) {
-			super( item, configKey, "", "" );
+			super( item, configKey );
 
-			OnPlayerInteract.Context onPlayerInteract = new OnPlayerInteract.Context( this::swing );
-			onPlayerInteract.addCondition( data->data.itemStack.getItem() instanceof WhiteFlagItem )
-				.addCondition( data->!data.player.getCooldowns().isOnCooldown( data.itemStack.getItem() ) );
-
-			this.addContext( onPlayerInteract );
+			new OnPlayerInteract.Context( this::swing )
+				.addCondition( data->data.itemStack.getItem() instanceof WhiteFlagItem )
+				.addCondition( data->!data.player.getCooldowns().isOnCooldown( data.itemStack.getItem() ) )
+				.insertTo( this );
 		}
 
 		private void swing( OnPlayerInteract.Data data ) {
@@ -55,17 +59,50 @@ public class WhiteFlagItem extends AccessoryItem {
 
 	static class AddToVillageChests extends AccessoryModifier {
 		public AddToVillageChests( Supplier< ? extends AccessoryItem > item, String configKey ) {
-			super( item, configKey, "", "" );
+			super( item, configKey );
 
-			OnLoot.Context onLoot = new OnLoot.Context( this::addToGeneratedLoot );
-			onLoot.addCondition( new Condition.IsServer<>() )
-				.addCondition( new Condition.Chance<>( 0.15, "spawn_chance", "Chance for White Flag to spawn in any village chest." ) )
+			new OnLoot.Context( this::addToGeneratedLoot )
+				.addCondition( new Condition.IsServer<>() )
+				.addCondition( new SpawnChance( 0.15 ) )
+				.addCondition( new IsVillageChest() )
 				.addCondition( OnLoot.HAS_ORIGIN )
 				.addCondition( data->BlockHelper.getBlockEntity( data.level, data.origin ) instanceof RandomizableContainerBlockEntity )
 				.addCondition( data->data.entity instanceof ServerPlayer )
-				.addCondition( data->data.context.getQueriedLootTableId().toString().contains( "minecraft:chests/village" ) );
+				.insertTo( this );
+		}
 
-			this.addContext( onLoot );
+		static class SpawnChance extends Condition.Chance< OnLoot.Data > {
+			public SpawnChance( double chance ) {
+				super( chance );
+
+				this.chance.name( "spawn_chance" ).comment( "Chance for White Flag to spawn in any village chest." );
+			}
+		}
+
+		static class IsVillageChest extends OnLoot.Is {
+			public IsVillageChest() {
+				super(
+					BuiltInLootTables.VILLAGE_WEAPONSMITH,
+					BuiltInLootTables.VILLAGE_TOOLSMITH,
+					BuiltInLootTables.VILLAGE_ARMORER,
+					BuiltInLootTables.VILLAGE_ARMORER,
+					BuiltInLootTables.VILLAGE_CARTOGRAPHER,
+					BuiltInLootTables.VILLAGE_MASON,
+					BuiltInLootTables.VILLAGE_SHEPHERD,
+					BuiltInLootTables.VILLAGE_BUTCHER,
+					BuiltInLootTables.VILLAGE_FLETCHER,
+					BuiltInLootTables.VILLAGE_FISHER,
+					BuiltInLootTables.VILLAGE_TANNERY,
+					BuiltInLootTables.VILLAGE_TEMPLE,
+					BuiltInLootTables.VILLAGE_DESERT_HOUSE,
+					BuiltInLootTables.VILLAGE_PLAINS_HOUSE,
+					BuiltInLootTables.VILLAGE_TAIGA_HOUSE,
+					BuiltInLootTables.VILLAGE_SNOWY_HOUSE,
+					BuiltInLootTables.VILLAGE_SAVANNA_HOUSE
+				);
+
+				this.ids.comment( "Determines which chests should contain White Flag." );
+			}
 		}
 	}
 

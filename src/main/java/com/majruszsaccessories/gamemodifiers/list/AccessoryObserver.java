@@ -11,9 +11,13 @@ import com.mlib.gamemodifiers.parameters.Priority;
 @AutoInstance
 public class AccessoryObserver extends GameModifier {
 	public AccessoryObserver() {
-		super( Registries.Modifiers.DEFAULT_GROUP, "AccessoryObserver", "" );
+		super( Registries.Modifiers.DEFAULT_GROUP );
 
-		this.addContext( new OnLoot.Context( this::tryToSetupAccessories ).priority( Priority.LOWEST ) );
+		new OnLoot.Context( this::tryToSetupAccessories )
+			.priority( Priority.LOWEST )
+			.insertTo( this );
+
+		this.name( "AccessoryObserver" );
 	}
 
 	private void tryToSetupAccessories( OnLoot.Data data ) {

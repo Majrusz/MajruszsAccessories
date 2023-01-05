@@ -6,10 +6,9 @@ import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
 import com.majruszsaccessories.gamemodifiers.list.BaseOffer;
 import com.majruszsaccessories.gamemodifiers.list.FishingLuckBonus;
 import com.majruszsdifficulty.items.TreasureBagItem;
-import com.mlib.config.ConfigGroup;
+import com.mlib.annotations.AutoInstance;
 import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.GameModifier;
-import com.mlib.gamemodifiers.GameModifiersHolder;
 import com.mlib.gamemodifiers.contexts.OnItemFished;
 import com.mlib.gamemodifiers.contexts.OnLootTableCustomLoad;
 import net.minecraft.world.entity.npc.VillagerProfession;
@@ -21,31 +20,34 @@ import static com.majruszsaccessories.MajruszsAccessories.SERVER_CONFIG;
 
 public class AnglersTrophyItem extends AccessoryItem {
 	static final String ID = Registries.getLocationString( "anglers_trophy" );
-	static final ConfigGroup GROUP = SERVER_CONFIG.addGroup( GameModifier.addNewGroup( ID, "AnglerTrophy", "" ) );
 
-	public static Supplier< AnglersTrophyItem > create() {
-		GameModifiersHolder< AnglersTrophyItem > holder = AccessoryItem.newHolder( ID, AnglersTrophyItem::new );
-		holder.addModifier( FishingLuckBonus::new );
-		holder.addModifier( AddDropChance::new );
-		holder.addModifier( TradeOffer::new );
+	public AnglersTrophyItem() {
+		super( ID );
+	}
 
-		return holder::getRegistry;
+	@AutoInstance
+	public static class Register {
+		public Register() {
+			GameModifier.addNewGroup( SERVER_CONFIG, ID ).name( "AnglerTrophy" );
+
+			new FishingLuckBonus( Registries.ANGLERS_TROPHY, ID );
+			new AddDropChance( Registries.ANGLERS_TROPHY, ID );
+			new TradeOffer( Registries.ANGLERS_TROPHY, ID );
+		}
 	}
 
 	static class AddDropChance extends AccessoryModifier {
 		public AddDropChance( Supplier< ? extends AccessoryItem > item, String configKey ) {
-			super( item, configKey, "", "" );
+			super( item, configKey );
 
 			if( Integration.isProgressiveDifficultyInstalled() ) {
-				OnLootTableCustomLoad.Context onLoad = new OnLootTableCustomLoad.Context( this::addToTreasureBag );
-				onLoad.addCondition( data->TreasureBagItem.Fishing.LOCATION.equals( data.name ) );
-
-				this.addContext( onLoad );
+				new OnLootTableCustomLoad.Context( this::addToTreasureBag )
+					.addCondition( data->TreasureBagItem.Fishing.LOCATION.equals( data.name ) )
+					.insertTo( this );
 			} else {
-				OnItemFished.Context onFished = new OnItemFished.Context( this::onFished );
-				onFished.addCondition( new Condition.Chance<>( 0.00375, "drop_chance", "Chance to drop Angler's Trophy from fishing." ) );
-
-				this.addContext( onFished );
+				new OnItemFished.Context( this::onFished )
+					.addCondition( new DropChance( 0.00375 ) )
+					.insertTo( this );
 			}
 		}
 
@@ -56,6 +58,14 @@ public class AnglersTrophyItem extends AccessoryItem {
 
 		private void onFished( OnItemFished.Data data ) {
 			this.spawnFlyingItem( data.level, data.hook.position(), data.player.position() );
+		}
+
+		static class DropChance extends Condition.Chance< OnItemFished.Data > {
+			public DropChance( double chance ) {
+				super( chance );
+
+				this.chance.name( "drop_chance" ).comment( "Chance to drop Angler's Trophy when fishing." );
+			}
 		}
 	}
 

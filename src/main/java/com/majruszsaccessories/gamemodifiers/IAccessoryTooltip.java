@@ -17,10 +17,6 @@ public interface IAccessoryTooltip {
 		this.addTooltip( key, components, handler );
 	}
 
-	default boolean areTooltipsIdentical( AccessoryHandler handler ) {
-		return true;
-	}
-
 	static FormattedTranslatable build( String id, ChatFormatting... defaultFormat ) {
 		return new FormattedTranslatable( id, defaultFormat );
 	}

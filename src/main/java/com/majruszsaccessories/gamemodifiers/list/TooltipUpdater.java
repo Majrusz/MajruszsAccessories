@@ -3,9 +3,7 @@ package com.majruszsaccessories.gamemodifiers.list;
 import com.majruszsaccessories.AccessoryHandler;
 import com.majruszsaccessories.Integration;
 import com.majruszsaccessories.Registries;
-import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
 import com.majruszsaccessories.items.AccessoryItem;
-import com.mlib.MajruszLibrary;
 import com.mlib.Utility;
 import com.mlib.annotations.AutoInstance;
 import com.mlib.client.ClientHelper;
@@ -28,12 +26,13 @@ public class TooltipUpdater extends GameModifier {
 	static final int PAGE_SIZE = 4;
 
 	public TooltipUpdater() {
-		super( Registries.Modifiers.DEFAULT_GROUP, "TooltipUpdater", "" );
+		super( Registries.Modifiers.DEFAULT_GROUP );
 
-		OnItemTooltip.Context onTooltip = new OnItemTooltip.Context( this::addTooltip );
-		onTooltip.addCondition( data->data.itemStack.getItem() instanceof AccessoryItem );
+		new OnItemTooltip.Context( this::addTooltip )
+			.addCondition( data->data.itemStack.getItem() instanceof AccessoryItem )
+			.insertTo( this );
 
-		this.addContext( onTooltip );
+		this.name( "TooltipUpdater" );
 	}
 
 	private void addTooltip( OnItemTooltip.Data data ) {
@@ -93,7 +92,7 @@ public class TooltipUpdater extends GameModifier {
 	private void addModifierInfo( List< Component > components, OnItemTooltip.Data data ) {
 		List< Component > pageComponents = new ArrayList<>();
 		AccessoryHandler handler = new AccessoryHandler( data.itemStack );
-		handler.getHolder().forEach( AccessoryModifier.class, modifier->{
+		handler.getModifiers().forEach( modifier->{
 			BiConsumer< List< Component >, AccessoryHandler > consumer = ClientHelper.isShiftDown() ? modifier::buildDetailedTooltip : modifier::buildTooltip;
 			consumer.accept( pageComponents, handler );
 		} );

@@ -3,6 +3,7 @@ package com.majruszsaccessories.gamemodifiers.configs;
 import com.majruszsaccessories.AccessoryHandler;
 import com.majruszsaccessories.gamemodifiers.IAccessoryTooltip;
 import com.mlib.config.DoubleConfig;
+import com.mlib.math.Range;
 import com.mlib.text.FormattedTranslatable;
 import com.mlib.text.TextHelper;
 import net.minecraft.network.chat.Component;
@@ -16,13 +17,14 @@ import java.util.function.Supplier;
 public class AccessoryPercent extends DoubleConfig implements IAccessoryTooltip {
 	final float multiplier;
 
-	public AccessoryPercent( String name, String comment, boolean worldRestartRequired, double defaultValue, double min, double max, double multiplier ) {
-		super( name, comment, worldRestartRequired, defaultValue, min, max );
+	public AccessoryPercent( double defaultValue, Range< Double > range, double multiplier ) {
+		super( defaultValue, range );
+
 		this.multiplier = ( float )multiplier;
 	}
 
-	public AccessoryPercent( String name, String comment, boolean worldRestartRequired, double defaultValue, double min, double max ) {
-		this( name, comment, worldRestartRequired, defaultValue, min, max, 1.0 );
+	public AccessoryPercent( double defaultValue, Range< Double > range ) {
+		this( defaultValue, range, 1.0 );
 	}
 
 	public float getDefaultValue() {
@@ -30,11 +32,11 @@ public class AccessoryPercent extends DoubleConfig implements IAccessoryTooltip 
 	}
 
 	public float getValue( AccessoryHandler handler ) {
-		if( handler != null ) {
-			return ( float )Mth.clamp( ( 1.0f + this.multiplier * handler.getBonus() ) * this.getDefaultValue(), this.min, this.max );
+		if( handler == null ) {
+			return 0.0f;
 		}
 
-		return 0.0f;
+		return ( float )Mth.clamp( ( 1.0f + this.multiplier * handler.getBonus() ) * this.getDefaultValue(), this.range.from, this.range.to );
 	}
 
 	@Override
@@ -46,14 +48,14 @@ public class AccessoryPercent extends DoubleConfig implements IAccessoryTooltip 
 
 	@Override
 	public void addDetailedTooltip( String key, List< Component > components, AccessoryHandler handler ) {
+		if( Math.abs( this.getDefaultValue() - this.getValue( handler ) ) < 0.0001f ) {
+			this.addTooltip( key, components, handler );
+			return;
+		}
+
 		IAccessoryTooltip.build( key, DEFAULT_FORMAT )
 			.addParameter( this.getPercentFormula( this::getDefaultValue, this::getValue, handler ) )
 			.insertInto( components );
-	}
-
-	@Override
-	public boolean areTooltipsIdentical( AccessoryHandler handler ) {
-		return Math.abs( this.getDefaultValue() - this.getValue( handler ) ) < 0.0001f;
 	}
 
 	protected MutableComponent getPercentBonus( Supplier< Float > defaultBonus, Function< AccessoryHandler, Float > bonus, AccessoryHandler handler ) {

@@ -7,6 +7,7 @@ import com.majruszsaccessories.gamemodifiers.configs.AccessoryPercent;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.Utility;
 import com.mlib.gamemodifiers.contexts.OnPotionBrewed;
+import com.mlib.math.Range;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionUtils;
@@ -27,15 +28,18 @@ public class EnhancePotions extends AccessoryModifier {
 	}
 
 	public EnhancePotions( Supplier< ? extends AccessoryItem > item, String configKey, double durationPenalty, int extraLevel ) {
-		super( item, configKey, "", "" );
-		this.duration = new AccessoryPercent( "potion_duration_penalty", "Duration penalty for created enhanced potions.", false, durationPenalty, 0.0, 1.0, -1.0 );
-		this.amplifier = new AccessoryInteger( "potion_extra_amplifier", "Extra potion level for created enhanced potions.", false, extraLevel, 1, 10 );
+		super( item, configKey );
 
-		OnPotionBrewed.Context onPotionBrewed = new OnPotionBrewed.Context( this.toAccessoryConsumer( this::enhancePotion ) );
-		onPotionBrewed.addCondition( data->PotionUtils.getMobEffects( data.itemStack ).size() > 0 ).addCondition( data->!data.itemStack.getOrCreateTag()
-			.contains( TAG_CUSTOM_POTION_EFFECTS ) ).addConfigs( this.duration, this.amplifier );
+		this.duration = new AccessoryPercent( durationPenalty, new Range<>( 0.0, 1.0 ), -1.0 );
+		this.amplifier = new AccessoryInteger( extraLevel, new Range<>( 1, 10 ) );
 
-		this.addContext( onPotionBrewed );
+		new OnPotionBrewed.Context( this.toAccessoryConsumer( this::enhancePotion ) )
+			.addCondition( data->PotionUtils.getMobEffects( data.itemStack ).size() > 0 )
+			.addCondition( data->!data.itemStack.getOrCreateTag().contains( TAG_CUSTOM_POTION_EFFECTS ) )
+			.addConfig( this.duration.name( "potion_duration_penalty" ).comment( "Duration penalty for created enhanced potions." ) )
+			.addConfig( this.amplifier.name( "potion_extra_amplifier" ).comment( "Extra potion level for created enhanced potions." ) )
+			.insertTo( this );
+
 		this.addTooltip( this.amplifier, "majruszsaccessories.bonuses.potion_amplifier" );
 		this.addTooltip( this.duration, "majruszsaccessories.bonuses.potion_duration" );
 	}

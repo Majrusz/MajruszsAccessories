@@ -7,6 +7,7 @@ import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.effects.ParticleHandler;
 import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.contexts.OnBabySpawn;
+import com.mlib.math.Range;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.animal.Animal;
 
@@ -21,23 +22,15 @@ public class SpawnTwins extends AccessoryModifier {
 	}
 
 	public SpawnTwins( Supplier< ? extends AccessoryItem > item, String configKey, double chance ) {
-		super( item, configKey, "", "" );
-		this.chance = new AccessoryPercent( "twins_chance", "Chance to spawn twins when breeding animals.", false, chance, 0.0, 1.0 );
+		super( item, configKey );
 
-		OnBabySpawn.Context onBabySpawn = SpawnTwins.babySpawnContext( this.toAccessoryConsumer( this::spawnTwins, this.chance ) );
-		onBabySpawn.addConfig( this.chance );
+		this.chance = new AccessoryPercent( chance, Range.CHANCE );
 
-		this.addContext( onBabySpawn );
+		new OnTwinsSpawnContext( this.toAccessoryConsumer( this::spawnTwins, this.chance ) )
+			.addConfig( this.chance.name( "twins_chance" ).comment( "Chance to spawn twins when breeding animals." ) )
+			.insertTo( this );
+
 		this.addTooltip( this.chance, "majruszsaccessories.bonuses.spawn_twins" );
-	}
-
-	public static OnBabySpawn.Context babySpawnContext( Consumer< OnBabySpawn.Data > consumer ) {
-		OnBabySpawn.Context onBabySpawn = new OnBabySpawn.Context( consumer );
-		onBabySpawn.addCondition( new Condition.IsServer<>() )
-			.addCondition( data->data.parentA instanceof Animal )
-			.addCondition( data->data.parentB instanceof Animal );
-
-		return onBabySpawn;
 	}
 
 	private void spawnTwins( OnBabySpawn.Data data, AccessoryHandler handler ) {
@@ -52,5 +45,15 @@ public class SpawnTwins extends AccessoryModifier {
 		child.absMoveTo( parentA.getX(), parentA.getY(), parentA.getZ(), 0.0f, 0.0f );
 		data.level.addFreshEntity( child );
 		ParticleHandler.AWARD.spawn( data.level, child.position().add( 0.0, 0.5, 0.0 ), 8, ParticleHandler.offset( 2.0f ) );
+	}
+
+	public static class OnTwinsSpawnContext extends OnBabySpawn.Context {
+		public OnTwinsSpawnContext( Consumer< OnBabySpawn.Data > consumer ) {
+			super( consumer );
+
+			this.addCondition( new Condition.IsServer<>() )
+				.addCondition( data->data.parentA instanceof Animal )
+				.addCondition( data->data.parentB instanceof Animal );
+		}
 	}
 }
