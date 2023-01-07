@@ -29,7 +29,7 @@ public class FishingLuckBonus extends AccessoryModifier {
 		this.luck = new AccessoryInteger( luck, new Range<>( 1, 10 ) );
 
 		new OnPlayerTick.Context( this::updateLuck )
-			.addCondition( new Condition.Cooldown< OnPlayerTick.Data >( 4, Dist.DEDICATED_SERVER ).setConfigurable( false ) )
+			.addCondition( new Condition.Cooldown< OnPlayerTick.Data >( 4, Dist.DEDICATED_SERVER ).configurable( false ) )
 			.addConfig( this.luck.name( "fishing_luck" ).comment( "Luck bonus during fishing." ) )
 			.insertTo( this );
 
