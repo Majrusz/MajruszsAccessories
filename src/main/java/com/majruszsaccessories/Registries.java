@@ -10,12 +10,15 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotTypeMessage;
 
 import java.util.List;
 
@@ -63,7 +66,6 @@ public class Registries {
 		final IEventBus modEventBus = loadingContext.getModEventBus();
 
 		HELPER.registerAll();
-		// DistExecutor.unsafeRunWhenOn( Dist.CLIENT, ()->()->modEventBus.addListener( Registries::onTextureStitch ) );
 		modEventBus.addListener( Registries::onEnqueueIMC );
 		SERVER_CONFIG.register( ModLoadingContext.get() );
 	}
@@ -81,18 +83,12 @@ public class Registries {
 			return;
 		}
 
-		/*Supplier< SlotTypeMessage > slotTypeMessage = ()->new SlotTypeMessage.Builder( "pocket" ).priority( 220 )
+		InterModComms.sendTo( MajruszsAccessories.MOD_ID, CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, ()->new SlotTypeMessage.Builder( "pocket" )
+			.priority( 220 )
 			.icon( ACCESSORY_SLOT_TEXTURE )
-			.build();
-		InterModComms.sendTo( MajruszsAccessories.MOD_ID, CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, slotTypeMessage );*/
+			.build()
+		);
 	}
-
-	/*@OnlyIn( Dist.CLIENT )
-	private static void onTextureStitch( TextureStitchEvent.Pre event ) {
-		if( InventoryMenu.BLOCK_ATLAS.equals( event.getAtlas().location() ) ) {
-			event.addSprite( ACCESSORY_SLOT_TEXTURE );
-		}
-	}*/
 
 	public static class Modifiers {
 		public static final String DEFAULT_GROUP = Registries.getLocationString( "default" );

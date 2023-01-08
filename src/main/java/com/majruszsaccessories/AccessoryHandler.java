@@ -9,10 +9,13 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotResult;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class AccessoryHandler {
 	public static final float MIN_BONUS = -0.6f, MAX_BONUS = 0.6f;
@@ -65,10 +68,10 @@ public class AccessoryHandler {
 	@Nullable
 	public static ItemStack findAccessory( LivingEntity entity, AccessoryItem item ) {
 		if( Integration.isCuriosInstalled() ) {
-			/*Optional< SlotResult > slotResult = CuriosApi.getCuriosHelper().findFirstCurio( entity, item );
+			Optional< SlotResult > slotResult = CuriosApi.getCuriosHelper().findFirstCurio( entity, item );
 			if( slotResult.isPresent() ) {
 				return slotResult.get().stack();
-			}*/
+			}
 		} else {
 			ItemStack itemStack = entity.getOffhandItem();
 			if( itemStack.is( item ) ) {
