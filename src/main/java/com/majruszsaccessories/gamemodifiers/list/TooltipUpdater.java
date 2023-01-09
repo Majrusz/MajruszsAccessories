@@ -39,11 +39,11 @@ public class TooltipUpdater extends GameModifier {
 		AccessoryHandler handler = new AccessoryHandler( data.itemStack );
 		List< Component > components = new ArrayList<>();
 		if( handler.hasBonusRangeTag() ) {
-			addBonusRangeInfo( components, data );
+			this.addBonusRangeInfo( components, data );
 		} else {
-			addBonusInfo( components, data );
-			addUseInfo( components, data );
-			addModifierInfo( components, data );
+			this.addBonusInfo( components, data );
+			this.addUseInfo( components, data );
+			this.addModifierInfo( components, data );
 		}
 
 		data.tooltip.addAll( 1, components );
@@ -96,19 +96,21 @@ public class TooltipUpdater extends GameModifier {
 			BiConsumer< List< Component >, AccessoryHandler > consumer = ClientHelper.isShiftDown() ? modifier::buildDetailedTooltip : modifier::buildTooltip;
 			consumer.accept( pageComponents, handler );
 		} );
-		components.addAll( pageComponents.size() > PAGE_SIZE ? this.getCurrentPageComponents( pageComponents ) : pageComponents );
-	}
-
-	private List< Component > getCurrentPageComponents( List< Component > components ) {
-		int totalPages = ( int )Math.ceil( ( double )components.size() / PAGE_SIZE );
-		int currentPage = ( int )( Math.floor( ( double )TimeHelper.getClientTicks() / Utility.secondsToTicks( 7.5 ) ) % totalPages );
-
-		return components.subList( currentPage * PAGE_SIZE, Math.min( ( currentPage + 1 ) * PAGE_SIZE, components.size() ) );
+		boolean cannotFitSinglePage = pageComponents.size() > PAGE_SIZE;
+		if( cannotFitSinglePage ) {
+			int totalPages = ( int )Math.ceil( ( double )pageComponents.size() / PAGE_SIZE );
+			int currentPage = ( int )( Math.floor( ( double )TimeHelper.getClientTicks() / Utility.secondsToTicks( 7.5 ) ) % totalPages );
+			components.addAll( pageComponents.subList( currentPage * PAGE_SIZE, Math.min( ( currentPage + 1 ) * PAGE_SIZE, pageComponents.size() ) ) );
+			components.add( Component.translatable( Tooltips.PAGE, currentPage + 1, totalPages ).withStyle( ChatFormatting.DARK_GRAY ) );
+		} else {
+			components.addAll( pageComponents );
+		}
 	}
 
 	static final class Tooltips {
 		static final String INVENTORY = "majruszsaccessories.items.accessory_item";
 		static final String BONUS = "majruszsaccessories.items.bonus";
 		static final String BONUS_RANGE = "majruszsaccessories.items.bonus_range";
+		static final String PAGE = "majruszsaccessories.items.page";
 	}
 }

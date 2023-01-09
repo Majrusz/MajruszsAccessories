@@ -13,6 +13,7 @@
   "majruszsaccessories.items.bonus": "%1$s bonusu do wydajności",
   "majruszsaccessories.items.bonus_range": "Losowy bonus do wydajności od %1$s do %2$s.",
   "majruszsaccessories.items.formula": "%1$s%2$s",
+  "majruszsaccessories.items.page": "--- Strona %1$s/%2$s ---",
   "majruszsaccessories.bonuses.fishing_luck": "Zwiększa szczęście o %1$s podczas łowienia.",
   "majruszsaccessories.bonuses.extra_stone_loot": "Daje %1$s szansy na dodatkowe przedmioty podczas kopania.",
   "majruszsaccessories.bonuses.spawn_twins": "Daje %1$s szansy na bliźniaki podczas rozmnażania zwierząt.",
