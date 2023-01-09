@@ -4,6 +4,9 @@ import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.gamemodifiers.list.*;
 import com.mlib.annotations.AutoInstance;
 import com.mlib.gamemodifiers.GameModifier;
+import net.minecraft.world.entity.npc.VillagerProfession;
+
+import java.util.function.Supplier;
 
 import static com.majruszsaccessories.MajruszsAccessories.SERVER_CONFIG;
 
@@ -27,6 +30,13 @@ public class OverworldRuneItem extends AccessoryItem {
 			new EnhancePotions( Registries.OVERWORLD_RUNE, ID, 0.5, 1 );
 			new DoubleCrops( Registries.OVERWORLD_RUNE, ID, 0.3 );
 			new ReduceDamageReceived( Registries.OVERWORLD_RUNE, ID, 0.0625 );
+			new TradeOffer( Registries.OVERWORLD_RUNE, ID );
+		}
+	}
+
+	static class TradeOffer extends BaseOffer {
+		public TradeOffer( Supplier< ? extends AccessoryItem > item, String configKey ) {
+			super( item, configKey, VillagerProfession.LIBRARIAN, 17 );
 		}
 	}
 }
