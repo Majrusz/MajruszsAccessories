@@ -36,7 +36,7 @@ public class OverworldRuneItem extends AccessoryItem {
 
 	static class TradeOffer extends BaseOffer {
 		public TradeOffer( Supplier< ? extends AccessoryItem > item, String configKey ) {
-			super( item, configKey, VillagerProfession.LIBRARIAN, 17 );
+			super( item, configKey, VillagerProfession.LIBRARIAN, 5, 17 );
 		}
 	}
 }
