@@ -9,17 +9,13 @@ import com.mlib.effects.ParticleHandler;
 import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.contexts.OnLoot;
 import com.mlib.levels.LevelHelper;
+import com.mlib.loot.LootHelper;
 import com.mlib.math.Range;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraftforge.server.ServerLifecycleHooks;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -53,10 +49,8 @@ public class ExtraStoneLoot extends AccessoryModifier {
 	}
 
 	private static List< ItemStack > generateLoot( LivingEntity entity ) {
-		return ServerLifecycleHooks.getCurrentServer()
-			.getLootTables()
-			.get( getLootTableLocation( entity ) )
-			.getRandomItems( generateLootContext( entity ) );
+		return LootHelper.getLootTable( getLootTableLocation( entity ) )
+			.getRandomItems( LootHelper.toGiftContext( entity ) );
 	}
 
 	private static ResourceLocation getLootTableLocation( LivingEntity entity ) {
@@ -67,12 +61,6 @@ public class ExtraStoneLoot extends AccessoryModifier {
 		}
 
 		return LOOT_OVERWORLD;
-	}
-
-	private static LootContext generateLootContext( LivingEntity entity ) {
-		return new LootContext.Builder( ( ServerLevel )entity.level ).withParameter( LootContextParams.ORIGIN, entity.position() )
-			.withParameter( LootContextParams.THIS_ENTITY, entity )
-			.create( LootContextParamSets.GIFT );
 	}
 
 	public static class OnStoneMinedContext extends OnLoot.Context {
