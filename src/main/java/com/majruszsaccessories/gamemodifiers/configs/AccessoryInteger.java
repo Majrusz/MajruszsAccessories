@@ -6,7 +6,7 @@ import com.mlib.config.IntegerConfig;
 import com.mlib.math.Range;
 import com.mlib.text.FormattedTranslatable;
 import com.mlib.text.TextHelper;
-import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.*;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.Mth;
 
@@ -59,7 +59,7 @@ public class AccessoryInteger extends IntegerConfig implements IAccessoryTooltip
 	}
 
 	protected MutableComponent getBonus( Supplier< Integer > defaultBonus, Function< AccessoryHandler, Integer > bonus, AccessoryHandler handler ) {
-		MutableComponent component = Component.literal( String.format( "%d", bonus.apply( handler ) ) );
+		MutableComponent component = new TextComponent( String.format( "%d", bonus.apply( handler ) ) );
 		int diff = bonus.apply( handler ) - defaultBonus.get();
 		component.withStyle( diff != 0 ? handler.getBonusFormatting() : DEFAULT_FORMAT );
 

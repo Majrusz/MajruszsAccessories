@@ -13,7 +13,7 @@ import com.mlib.text.FormattedTranslatable;
 import com.mlib.text.TextHelper;
 import com.mlib.time.TimeHelper;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.*;
 import net.minecraft.world.entity.player.Player;
 
 import javax.annotation.Nullable;
@@ -81,7 +81,7 @@ public class TooltipUpdater extends GameModifier {
 
 	private ChatFormatting getUseFormatting( OnItemTooltip.Data data ) {
 		AccessoryHandler handler = new AccessoryHandler( data.itemStack );
-		@Nullable Player player = data.event.getEntity();
+		@Nullable Player player = data.player;
 		if( player != null && handler.findAccessory( player ) == data.itemStack ) {
 			return ChatFormatting.GOLD;
 		} else {
@@ -101,7 +101,7 @@ public class TooltipUpdater extends GameModifier {
 			int totalPages = ( int )Math.ceil( ( double )pageComponents.size() / PAGE_SIZE );
 			int currentPage = ( int )( Math.floor( ( double )TimeHelper.getClientTicks() / Utility.secondsToTicks( 7.5 ) ) % totalPages );
 			components.addAll( pageComponents.subList( currentPage * PAGE_SIZE, Math.min( ( currentPage + 1 ) * PAGE_SIZE, pageComponents.size() ) ) );
-			components.add( Component.translatable( Tooltips.PAGE, currentPage + 1, totalPages ).withStyle( ChatFormatting.DARK_GRAY ) );
+			components.add( new TranslatableComponent( Tooltips.PAGE, currentPage + 1, totalPages ).withStyle( ChatFormatting.DARK_GRAY ) );
 		} else {
 			components.addAll( pageComponents );
 		}

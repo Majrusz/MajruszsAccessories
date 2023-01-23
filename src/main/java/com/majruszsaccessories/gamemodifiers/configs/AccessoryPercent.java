@@ -6,7 +6,7 @@ import com.mlib.config.DoubleConfig;
 import com.mlib.math.Range;
 import com.mlib.text.FormattedTranslatable;
 import com.mlib.text.TextHelper;
-import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.*;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.Mth;
 
@@ -59,7 +59,7 @@ public class AccessoryPercent extends DoubleConfig implements IAccessoryTooltip 
 	}
 
 	protected MutableComponent getPercentBonus( Supplier< Float > defaultBonus, Function< AccessoryHandler, Float > bonus, AccessoryHandler handler ) {
-		MutableComponent component = Component.literal( TextHelper.percent( bonus.apply( handler ) ) );
+		MutableComponent component = new TextComponent( TextHelper.percent( bonus.apply( handler ) ) );
 		float diff = bonus.apply( handler ) - defaultBonus.get();
 		component.withStyle( Math.abs( diff ) >= 0.0001f ? handler.getBonusFormatting() : DEFAULT_FORMAT );
 

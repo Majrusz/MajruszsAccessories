@@ -9,7 +9,7 @@ import com.mlib.gamemodifiers.ContextData;
 import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.gamemodifiers.contexts.OnLoot;
 import com.mlib.levels.LevelHelper;
-import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.*;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;

@@ -11,7 +11,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class AccessoryRecipe extends CustomRecipe {
 	public static float BONUS_OFFSET = 0.05f;
 	final AccessoryItem result;
 	final List< AccessoryItem > ingredients;
+
 	public static Supplier< RecipeSerializer< ? > > create() {
 		return AccessoryRecipe.Serializer::new;
 	}
@@ -83,7 +85,7 @@ public class AccessoryRecipe extends CustomRecipe {
 		return Registries.ACCESSORY_RECIPE.get();
 	}
 
-	public static class Serializer implements RecipeSerializer< AccessoryRecipe > {
+	public static class Serializer extends net.minecraftforge.registries.ForgeRegistryEntry< RecipeSerializer< ? > > implements RecipeSerializer< AccessoryRecipe > {
 		public AccessoryRecipe fromJson( ResourceLocation id, JsonObject object ) {
 			AccessoryItem result = ( AccessoryItem )GsonHelper.getAsItem( object, "result" );
 			List< AccessoryItem > ingredients = serializeIngredients( GsonHelper.getAsJsonArray( object, "ingredients" ) );

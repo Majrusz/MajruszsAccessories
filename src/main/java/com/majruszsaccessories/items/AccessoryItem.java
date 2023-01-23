@@ -44,7 +44,7 @@ public class AccessoryItem extends Item {
 
 	@Override
 	public void fillItemCategory( CreativeModeTab itemGroup, NonNullList< ItemStack > itemStacks ) {
-		if( !this.allowedIn( itemGroup ) )
+		if( !this.allowdedIn( itemGroup ) )
 			return;
 
 		for( int i = 0; i < 9; ++i ) {

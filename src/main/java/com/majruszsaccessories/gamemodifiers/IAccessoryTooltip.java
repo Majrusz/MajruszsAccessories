@@ -3,7 +3,7 @@ package com.majruszsaccessories.gamemodifiers;
 import com.majruszsaccessories.AccessoryHandler;
 import com.mlib.text.FormattedTranslatable;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.*;
 
 import java.util.List;
 

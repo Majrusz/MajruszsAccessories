@@ -13,7 +13,7 @@ import com.mlib.gamemodifiers.contexts.OnLoot;
 import com.mlib.levels.LevelHelper;
 import com.mlib.math.Range;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.*;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -100,7 +100,7 @@ public class MoreChestLoot extends AccessoryModifier {
 			int blocksPerPercent = Math.round( BLOCKS_DISTANCE / ( this.getDefaultValue() * 100.0f ) );
 			IAccessoryTooltip.build( key, DEFAULT_FORMAT )
 				.addParameter( builder.apply( ()->0.01f, _handler->( 1.0f + handler.getBonus() ) / 100.0f, handler ) )
-				.addParameter( Component.literal( "" + blocksPerPercent ).withStyle( DEFAULT_FORMAT ) )
+				.addParameter( new TextComponent( "" + blocksPerPercent ).withStyle( DEFAULT_FORMAT ) )
 				.addParameter( builder.apply( this::getDefaultValue, this::getValue, handler ) )
 				.insertInto( components );
 		}
