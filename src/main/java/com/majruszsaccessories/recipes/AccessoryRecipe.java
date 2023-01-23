@@ -6,14 +6,11 @@ import com.google.gson.JsonParseException;
 import com.majruszsaccessories.AccessoryHandler;
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.items.AccessoryItem;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.inventory.CraftingContainer;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
@@ -31,7 +28,7 @@ public class AccessoryRecipe extends CustomRecipe {
 	}
 
 	public AccessoryRecipe( ResourceLocation id, AccessoryItem result, List< AccessoryItem > ingredients ) {
-		super( id, CraftingBookCategory.EQUIPMENT );
+		super( id );
 		this.result = result;
 		this.ingredients = ingredients;
 	}

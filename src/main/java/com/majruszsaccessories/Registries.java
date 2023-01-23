@@ -5,11 +5,19 @@ import com.majruszsaccessories.recipes.AccessoryRecipe;
 import com.majruszsaccessories.recipes.CombineAccessoriesRecipe;
 import com.mlib.annotations.AnnotationHandler;
 import com.mlib.gamemodifiers.GameModifier;
+import com.mlib.items.CreativeModeTabHelper;
 import com.mlib.registries.RegistryHelper;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
@@ -52,6 +60,7 @@ public class Registries {
 
 	// Misc
 	public static final ResourceLocation ACCESSORY_SLOT_TEXTURE = Registries.getLocation( "item/empty_accessory_slot" );
+	public static final CreativeModeTab ITEM_GROUP = CreativeModeTabHelper.newTab( "majruszsaccessories.primary", LUCKY_ROCK );
 
 	// Game Modifiers
 	public static final List< GameModifier > GAME_MODIFIERS;
@@ -67,6 +76,8 @@ public class Registries {
 
 		HELPER.registerAll();
 		modEventBus.addListener( Registries::onEnqueueIMC );
+		DistExecutor.unsafeRunWhenOn( Dist.CLIENT, ()->()->modEventBus.addListener( Registries::onTextureStitch ) );
+
 		SERVER_CONFIG.register( ModLoadingContext.get() );
 	}
 
@@ -88,6 +99,13 @@ public class Registries {
 			.icon( ACCESSORY_SLOT_TEXTURE )
 			.build()
 		);
+	}
+
+	@OnlyIn( Dist.CLIENT )
+	private static void onTextureStitch( TextureStitchEvent.Pre event ) {
+		final TextureAtlas map = event.getAtlas();
+		if( InventoryMenu.BLOCK_ATLAS.equals( map.location() ) )
+			event.addSprite( ACCESSORY_SLOT_TEXTURE );
 	}
 
 	public static class Modifiers {
