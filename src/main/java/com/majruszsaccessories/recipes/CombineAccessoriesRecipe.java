@@ -1,6 +1,6 @@
 package com.majruszsaccessories.recipes;
 
-import com.majruszsaccessories.AccessoryHandler;
+import com.majruszsaccessories.AccessoryHolder;
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.items.AccessoryItem;
 import net.minecraft.resources.ResourceLocation;
@@ -70,13 +70,13 @@ public class CombineAccessoriesRecipe extends CustomRecipe {
 				} else if( accessory != item ) {
 					return null;
 				}
-				bonuses.add( new AccessoryHandler( itemStack ).getBonus() );
+				bonuses.add( AccessoryHolder.create( itemStack ).getBonus() );
 			} else {
 				return null;
 			}
 		}
 
 		RecipeData data = new RecipeData( accessory, bonuses );
-		return accessory != null && data.getMaxBonus() < AccessoryHandler.MAX_BONUS ? data : null;
+		return accessory != null && data.getMaxBonus() < AccessoryHolder.BONUS_RANGE.to ? data : null;
 	}
 }

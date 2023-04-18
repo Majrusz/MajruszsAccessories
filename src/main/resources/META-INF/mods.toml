@@ -31,7 +31,7 @@ issueTrackerURL="https://github.com/Majrusz/MajruszsAccessories/issues"
 [[dependencies.majruszsaccessories]]
     modId="mlib"
     mandatory=true
-    versionRange="[3.2.0,4.0.0)"
+    versionRange="[4.0.0,5.0.0)"
     ordering="NONE"
     side="BOTH"
 
@@ -45,6 +45,6 @@ issueTrackerURL="https://github.com/Majrusz/MajruszsAccessories/issues"
 [[dependencies.majruszsaccessories]]
     modId="majruszsdifficulty"
     mandatory=false
-    versionRange="[1.7.0,)"
+    versionRange="[1.7.4,)"
     ordering="AFTER"
     side="BOTH"
