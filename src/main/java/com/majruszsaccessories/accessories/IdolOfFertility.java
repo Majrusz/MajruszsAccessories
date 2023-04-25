@@ -34,7 +34,7 @@ public class IdolOfFertility extends AccessoryBase {
 		protected DropChance( Supplier< AccessoryItem > item, ConfigGroup group ) {
 			super( item );
 
-			DoubleConfig chance = new DoubleConfig( 0.005, Range.CHANCE );
+			DoubleConfig chance = new DoubleConfig( 0.01, Range.CHANCE );
 			chance.name( "drop_chance" ).comment( "Chance for Idol of Fertility to drop when breeding animals." );
 
 			SpawnTwins.OnTwinsSpawn.listen( this::spawnTotem )

@@ -43,7 +43,7 @@ public class AnglersTrophy extends AccessoryBase {
 					.addCondition( Condition.predicate( data->TreasureBagItem.Fishing.LOCATION.equals( data.name ) ) )
 					.insertTo( group );
 			} else {
-				DoubleConfig chance = new DoubleConfig( 0.0075, Range.CHANCE );
+				DoubleConfig chance = new DoubleConfig( 0.015, Range.CHANCE );
 				chance.name( "drop_chance" ).comment( "Chance to drop Angler's Trophy when fishing." );
 
 				OnItemFished.listen( this::onFished )
@@ -53,7 +53,7 @@ public class AnglersTrophy extends AccessoryBase {
 		}
 
 		private void addToTreasureBag( OnLootTableCustomLoad.Data data ) {
-			data.addEntry( data.addPool(), this.item.get(), 1, 4, LootItemRandomChanceCondition.randomChance( 0.15f ) );
+			data.addEntry( data.addPool(), this.item.get(), 1, 4, LootItemRandomChanceCondition.randomChance( 0.30f ) );
 		}
 
 		private void onFished( OnItemFished.Data data ) {
