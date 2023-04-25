@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
+import static com.majruszsaccessories.AccessoryHolder.BONUS_RANGE;
+
 public class CombineAccessoriesRecipe extends CustomRecipe {
 	public static float BONUS_OFFSET = 0.04f;
 
@@ -40,8 +42,8 @@ public class CombineAccessoriesRecipe extends CustomRecipe {
 		float craftingMaxBonus = data.getMaxBonus();
 		float ratio = data.determineRatio();
 		float bonusOffset = data.getBonusesSize() * BONUS_OFFSET;
-		float minBonus = craftingMaxBonus - ( 1.0f - ratio ) * bonusOffset;
-		float maxBonus = craftingMaxBonus + ratio * bonusOffset;
+		float minBonus = BONUS_RANGE.clamp( craftingMaxBonus - ( 1.0f - ratio ) * bonusOffset );
+		float maxBonus = BONUS_RANGE.clamp( craftingMaxBonus + ratio * bonusOffset );
 
 		return data.build( minBonus, maxBonus );
 	}

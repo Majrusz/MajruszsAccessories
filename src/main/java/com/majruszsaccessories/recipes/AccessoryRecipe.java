@@ -21,6 +21,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Supplier;
 
+import static com.majruszsaccessories.AccessoryHolder.BONUS_RANGE;
+
 public class AccessoryRecipe extends CustomRecipe {
 	public static float BONUS_OFFSET = 0.05f;
 	final AccessoryItem result;
@@ -71,9 +73,10 @@ public class AccessoryRecipe extends CustomRecipe {
 			}
 		}
 		RecipeData data = new RecipeData( this.result, bonuses );
-		float average = data.getAverageBonus();
+		float minBonus = BONUS_RANGE.clamp( data.getAverageBonus() - BONUS_OFFSET );
+		float maxBonus = BONUS_RANGE.clamp( data.getAverageBonus() + BONUS_OFFSET );
 
-		return data.build( average - BONUS_OFFSET, average + BONUS_OFFSET );
+		return data.build( minBonus, maxBonus );
 	}
 
 	@Override
