@@ -35,8 +35,8 @@ public class CreativeModeTabs {
 			Registries.WHITE_FLAG
 		).forEach( item->{
 			for( int i = 0; i < 9; ++i ) {
-				float bonus = Math.round( 100.0f * Mth.lerp( i / 8.0f, AccessoryHandler.MIN_BONUS, AccessoryHandler.MAX_BONUS ) ) / 100.0f;
-				output.accept( AccessoryHandler.setup( new ItemStack( item.get() ), bonus ).getItemStack() );
+				float bonus = Math.round( 100.0f * Mth.lerp( i / 8.0f, AccessoryHolder.BONUS_RANGE.from, AccessoryHolder.BONUS_RANGE.to ) ) / 100.0f;
+				output.accept( AccessoryHolder.create( item.get(), bonus ).getItemStack() );
 			}
 		} );
 	}

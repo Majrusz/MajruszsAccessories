@@ -4,7 +4,7 @@ import com.majruszsaccessories.items.*;
 import com.majruszsaccessories.recipes.AccessoryRecipe;
 import com.majruszsaccessories.recipes.CombineAccessoriesRecipe;
 import com.mlib.annotations.AnnotationHandler;
-import com.mlib.gamemodifiers.GameModifier;
+import com.mlib.gamemodifiers.ModConfigs;
 import com.mlib.registries.RegistryHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -28,7 +28,7 @@ public class Registries {
 	private static final RegistryHelper HELPER = new RegistryHelper( MajruszsAccessories.MOD_ID );
 
 	static {
-		SERVER_CONFIG.addGroup( GameModifier.addNewGroup( Modifiers.DEFAULT_GROUP ) );
+		ModConfigs.init( SERVER_CONFIG, Groups.DEFAULT );
 	}
 
 	// Groups
@@ -36,15 +36,15 @@ public class Registries {
 	static final DeferredRegister< RecipeSerializer< ? > > RECIPES = HELPER.create( ForgeRegistries.Keys.RECIPE_SERIALIZERS );
 
 	// Items
-	public static final RegistryObject< AdventurersGuideItem > ADVENTURERS_GUIDE = ITEMS.register( "adventurers_guide", AdventurersGuideItem::new );
-	public static final RegistryObject< AnglersTrophyItem > ANGLERS_TROPHY = ITEMS.register( "anglers_trophy", AnglersTrophyItem::new );
-	public static final RegistryObject< CertificateOfTamingItem > CERTIFICATE_OF_TAMING = ITEMS.register( "certificate_of_taming", CertificateOfTamingItem::new );
-	public static final RegistryObject< IdolOfFertilityItem > IDOL_OF_FERTILITY = ITEMS.register( "idol_of_fertility", IdolOfFertilityItem::new );
-	public static final RegistryObject< LuckyRockItem > LUCKY_ROCK = ITEMS.register( "lucky_rock", LuckyRockItem::new );
-	public static final RegistryObject< OverworldRuneItem > OVERWORLD_RUNE = ITEMS.register( "overworld_rune", OverworldRuneItem::new );
-	public static final RegistryObject< SecretIngredientItem > SECRET_INGREDIENT = ITEMS.register( "secret_ingredient", SecretIngredientItem::new );
-	public static final RegistryObject< TamedPotatoBeetleItem > TAMED_POTATO_BEETLE = ITEMS.register( "tamed_potato_beetle", TamedPotatoBeetleItem::new );
-	public static final RegistryObject< WhiteFlagItem > WHITE_FLAG = ITEMS.register( "white_flag", WhiteFlagItem::new );
+	public static final RegistryObject< AccessoryItem > ADVENTURERS_GUIDE = ITEMS.register( "adventurers_guide", AccessoryItem::new );
+	public static final RegistryObject< AccessoryItem > ANGLERS_TROPHY = ITEMS.register( "anglers_trophy", AccessoryItem::new );
+	public static final RegistryObject< AccessoryItem > CERTIFICATE_OF_TAMING = ITEMS.register( "certificate_of_taming", AccessoryItem::new );
+	public static final RegistryObject< AccessoryItem > IDOL_OF_FERTILITY = ITEMS.register( "idol_of_fertility", AccessoryItem::new );
+	public static final RegistryObject< AccessoryItem > LUCKY_ROCK = ITEMS.register( "lucky_rock", AccessoryItem::new );
+	public static final RegistryObject< AccessoryItem > OVERWORLD_RUNE = ITEMS.register( "overworld_rune", AccessoryItem::new );
+	public static final RegistryObject< AccessoryItem > SECRET_INGREDIENT = ITEMS.register( "secret_ingredient", AccessoryItem::new );
+	public static final RegistryObject< AccessoryItem > TAMED_POTATO_BEETLE = ITEMS.register( "tamed_potato_beetle", AccessoryItem::new );
+	public static final RegistryObject< AccessoryItem > WHITE_FLAG = ITEMS.register( "white_flag", AccessoryItem::new );
 
 	// Recipes
 	public static final RegistryObject< RecipeSerializer< ? > > ACCESSORY_RECIPE = RECIPES.register( "crafting_accessory", AccessoryRecipe.create() );
@@ -52,13 +52,10 @@ public class Registries {
 
 	// Misc
 	public static final ResourceLocation ACCESSORY_SLOT_TEXTURE = Registries.getLocation( "item/empty_accessory_slot" );
-
-	// Game Modifiers
-	public static final List< GameModifier > GAME_MODIFIERS;
+	public static final List< Object > OBJECTS;
 
 	static {
-		AnnotationHandler annotationHandler = new AnnotationHandler( MajruszsAccessories.MOD_ID );
-		GAME_MODIFIERS = annotationHandler.getInstances( GameModifier.class );
+		OBJECTS = new AnnotationHandler( MajruszsAccessories.MOD_ID ).getInstances();
 	}
 
 	public static void initialize() {
@@ -90,7 +87,7 @@ public class Registries {
 		);
 	}
 
-	public static class Modifiers {
-		public static final String DEFAULT_GROUP = Registries.getLocationString( "default" );
+	public static class Groups {
+		public static final String DEFAULT = Registries.getLocationString( "default" );
 	}
 }

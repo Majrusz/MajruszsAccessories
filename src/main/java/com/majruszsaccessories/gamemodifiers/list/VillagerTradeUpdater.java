@@ -1,10 +1,10 @@
 package com.majruszsaccessories.gamemodifiers.list;
 
 import com.majruszsaccessories.Registries;
-import com.majruszsaccessories.gamemodifiers.IAccessoryOffer;
+import com.majruszsaccessories.accessories.AccessoryBase;
+import com.majruszsaccessories.components.TradeOffer;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.annotations.AutoInstance;
-import com.mlib.gamemodifiers.GameModifier;
 import com.mlib.gamemodifiers.contexts.OnTradeSetup;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
@@ -14,21 +14,19 @@ import net.minecraft.world.item.trading.MerchantOffer;
 import java.util.List;
 
 @AutoInstance
-public class VillagerTradeUpdater extends GameModifier {
+public class VillagerTradeUpdater {
 	public VillagerTradeUpdater() {
-		super( Registries.Modifiers.DEFAULT_GROUP );
-
-		new OnTradeSetup.Context( this::addTrades )
-			.insertTo( this );
-
-		this.name( "VillagerTradeUpdater" );
+		OnTradeSetup.listen( this::addTrades );
 	}
 
 	private void addTrades( OnTradeSetup.Data data ) {
-		BaseOffer.OFFERS.forEach( offer->this.addTrades( data, offer ) );
+		Registries.OBJECTS.stream()
+			.filter( object->object instanceof AccessoryBase )
+			.map( object->( AccessoryBase )object )
+			.forEach( accessory->accessory.getComponents( TradeOffer.class ).forEach( offer->this.addTrades( data, offer ) ) );
 	}
 
-	private void addTrades( OnTradeSetup.Data data, IAccessoryOffer offer ) {
+	private void addTrades( OnTradeSetup.Data data, TradeOffer offer ) {
 		if( offer.getProfession() != data.profession ) {
 			return;
 		}
@@ -40,7 +38,7 @@ public class VillagerTradeUpdater extends GameModifier {
 	static class AccessoryMerchantOffer extends MerchantOffer {
 		final AccessoryItem item;
 
-		public AccessoryMerchantOffer( IAccessoryOffer offer ) {
+		public AccessoryMerchantOffer( TradeOffer offer ) {
 			super( new ItemStack( offer.getItem(), 1 ), new ItemStack( Items.EMERALD, offer.getPrice() ), 2, 40, 0.05f );
 			this.item = offer.getItem();
 		}
