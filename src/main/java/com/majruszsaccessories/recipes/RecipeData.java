@@ -1,7 +1,8 @@
 package com.majruszsaccessories.recipes;
 
-import com.majruszsaccessories.AccessoryHandler;
+import com.majruszsaccessories.AccessoryHolder;
 import com.majruszsaccessories.items.AccessoryItem;
+import com.mlib.math.Range;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -18,7 +19,7 @@ public record RecipeData( AccessoryItem item, List< Float > bonuses ) {
 	}
 
 	ItemStack build( float minBonus, float maxBonus ) {
-		return AccessoryHandler.setup( new ItemStack( this.item ), minBonus, maxBonus ).getItemStack();
+		return AccessoryHolder.create( this.item, new Range<>( minBonus, maxBonus ) ).getItemStack();
 	}
 
 	Item getItem() {
@@ -51,7 +52,8 @@ public record RecipeData( AccessoryItem item, List< Float > bonuses ) {
 			return 1.0f;
 
 		float average = this.getAverageBonus();
-		float std = ( float )Math.sqrt( this.bonuses.stream().reduce( 0.0f, ( sum, bonus ) -> sum + ( float )Math.pow( bonus - average, 2.0f ) )/this.bonuses.size() );
-		return Mth.clamp( 1.0f - 2.0f * std / ( AccessoryHandler.MAX_BONUS - AccessoryHandler.MIN_BONUS ) , 0.0f, 1.0f );
+		float std = ( float )Math.sqrt( this.bonuses.stream()
+			.reduce( 0.0f, ( sum, bonus )->sum + ( float )Math.pow( bonus - average, 2.0f ) ) / this.bonuses.size() );
+		return Mth.clamp( 1.0f - 2.0f * std / ( AccessoryHolder.BONUS_RANGE.to - AccessoryHolder.BONUS_RANGE.from ), 0.0f, 1.0f );
 	}
 }

@@ -1,11 +1,8 @@
 package com.majruszsaccessories.items;
 
-import com.majruszsaccessories.AccessoryHandler;
-import com.majruszsaccessories.Registries;
-import com.majruszsaccessories.gamemodifiers.AccessoryModifier;
-import com.mlib.MajruszLibrary;
 import net.minecraft.core.NonNullList;
 import net.minecraft.util.Mth;
+import com.majruszsaccessories.AccessoryHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -13,33 +10,27 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
 
-import java.util.List;
-
 public class AccessoryItem extends Item {
-	final String id;
-
-	public AccessoryItem( String id ) {
-		super( new Properties().tab( Registries.ITEM_GROUP ).stacksTo( 1 ) );
-
-		this.id = id;
+	public AccessoryItem() {
+		super( new Properties().stacksTo( 1 ) );
 	}
 
 	@Override
 	public void onCraftedBy( ItemStack itemStack, Level level, Player player ) {
-		AccessoryHandler handler = new AccessoryHandler( itemStack );
-		if( handler.hasBonusRangeTag() ) {
-			handler.applyBonusRange();
+		AccessoryHolder holder = AccessoryHolder.create( itemStack );
+		if( holder.hasBonusRangeTag() && !holder.hasBonusTag() ) {
+			holder.setRandomBonus();
 		}
 	}
 
 	@Override
 	public boolean isFoil( ItemStack itemStack ) {
-		return new AccessoryHandler( itemStack ).hasMaxBonus();
+		return AccessoryHolder.create( itemStack ).hasMaxBonus();
 	}
 
 	@Override
 	public Rarity getRarity( ItemStack itemStack ) {
-		return new AccessoryHandler( itemStack ).getItemRarity();
+		return AccessoryHolder.create( itemStack ).getItemRarity();
 	}
 
 	@Override
@@ -48,17 +39,8 @@ public class AccessoryItem extends Item {
 			return;
 
 		for( int i = 0; i < 9; ++i ) {
-			float bonus = Math.round( 100.0f * Mth.lerp( i / 8.0f, AccessoryHandler.MIN_BONUS, AccessoryHandler.MAX_BONUS ) ) / 100.0f;
-			itemStacks.add( AccessoryHandler.setup( new ItemStack( this ), bonus ).getItemStack() );
+			float bonus = Math.round( 100.0f * Mth.lerp( i / 8.0f, AccessoryHolder.BONUS_RANGE.from, AccessoryHolder.BONUS_RANGE.to ) ) / 100.0f;
+			itemStacks.add( AccessoryHolder.create( this ).setBonus( bonus ).getItemStack() );
 		}
-	}
-
-	public List< AccessoryModifier > getModifiers() {
-		return MajruszLibrary.MOD_CONFIGS.get( this.id )
-			.getConfigs()
-			.stream()
-			.filter( config->config instanceof AccessoryModifier )
-			.map( config->( AccessoryModifier )config )
-			.toList();
 	}
 }

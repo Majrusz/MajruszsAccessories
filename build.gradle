@@ -14,7 +14,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 
-version = '1.1.4'
+version = '1.1.5'
 group = 'com.majruszsaccessories' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'majruszs-accessories-1.18.2'
 
@@ -82,8 +82,8 @@ repositories {
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.18.2-40.2.0'
-    implementation fg.deobf( 'com.mlib:majrusz-library-1.18.2:3.2.0' )
-    implementation fg.deobf( 'com.mlib:majruszs-difficulty-1.18.2:1.7.0' )
+    implementation fg.deobf( 'com.mlib:majrusz-library-1.18.2:4.0.0' )
+    implementation fg.deobf( 'com.mlib:majruszs-difficulty-1.18.2:1.7.4' )
     runtimeOnly fg.deobf( "top.theillusivec4.curios:curios-forge:1.18.2-5.0.7.1" )
     compileOnly fg.deobf( "top.theillusivec4.curios:curios-forge:1.18.2-5.0.7.1:api" )
 }

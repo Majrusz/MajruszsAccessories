@@ -1,6 +1,6 @@
 package com.majruszsaccessories.recipes;
 
-import com.majruszsaccessories.AccessoryHandler;
+import com.majruszsaccessories.AccessoryHolder;
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.items.AccessoryItem;
 import net.minecraft.resources.ResourceLocation;
@@ -14,6 +14,8 @@ import net.minecraft.world.level.Level;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
+
+import static com.majruszsaccessories.AccessoryHolder.BONUS_RANGE;
 
 public class CombineAccessoriesRecipe extends CustomRecipe {
 	public static float BONUS_OFFSET = 0.04f;
@@ -39,8 +41,8 @@ public class CombineAccessoriesRecipe extends CustomRecipe {
 		float craftingMaxBonus = data.getMaxBonus();
 		float ratio = data.determineRatio();
 		float bonusOffset = data.getBonusesSize() * BONUS_OFFSET;
-		float minBonus = craftingMaxBonus - ( 1.0f - ratio ) * bonusOffset;
-		float maxBonus = craftingMaxBonus + ratio * bonusOffset;
+		float minBonus = BONUS_RANGE.clamp( craftingMaxBonus - ( 1.0f - ratio ) * bonusOffset );
+		float maxBonus = BONUS_RANGE.clamp( craftingMaxBonus + ratio * bonusOffset );
 
 		return data.build( minBonus, maxBonus );
 	}
@@ -69,13 +71,13 @@ public class CombineAccessoriesRecipe extends CustomRecipe {
 				} else if( accessory != item ) {
 					return null;
 				}
-				bonuses.add( new AccessoryHandler( itemStack ).getBonus() );
+				bonuses.add( AccessoryHolder.create( itemStack ).getBonus() );
 			} else {
 				return null;
 			}
 		}
 
 		RecipeData data = new RecipeData( accessory, bonuses );
-		return accessory != null && data.getMaxBonus() < AccessoryHandler.MAX_BONUS ? data : null;
+		return accessory != null && data.getMaxBonus() < AccessoryHolder.BONUS_RANGE.to ? data : null;
 	}
 }
