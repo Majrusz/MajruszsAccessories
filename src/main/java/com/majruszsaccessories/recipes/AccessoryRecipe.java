@@ -3,7 +3,7 @@ package com.majruszsaccessories.recipes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import com.majruszsaccessories.AccessoryHandler;
+import com.majruszsaccessories.AccessoryHolder;
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.items.AccessoryItem;
 import net.minecraft.network.FriendlyByteBuf;
@@ -11,7 +11,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
@@ -19,10 +20,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Supplier;
 
+import static com.majruszsaccessories.AccessoryHolder.BONUS_RANGE;
+
 public class AccessoryRecipe extends CustomRecipe {
 	public static float BONUS_OFFSET = 0.05f;
 	final AccessoryItem result;
 	final List< AccessoryItem > ingredients;
+
 	public static Supplier< RecipeSerializer< ? > > create() {
 		return AccessoryRecipe.Serializer::new;
 	}
@@ -64,13 +68,14 @@ public class AccessoryRecipe extends CustomRecipe {
 		for( int i = 0; i < container.getContainerSize(); ++i ) {
 			ItemStack itemStack = container.getItem( i );
 			if( !itemStack.isEmpty() ) {
-				bonuses.add( new AccessoryHandler( itemStack ).getBonus() );
+				bonuses.add( AccessoryHolder.create( itemStack ).getBonus() );
 			}
 		}
 		RecipeData data = new RecipeData( this.result, bonuses );
-		float average = data.getAverageBonus();
+		float minBonus = BONUS_RANGE.clamp( data.getAverageBonus() - BONUS_OFFSET );
+		float maxBonus = BONUS_RANGE.clamp( data.getAverageBonus() + BONUS_OFFSET );
 
-		return data.build( average - BONUS_OFFSET, average + BONUS_OFFSET );
+		return data.build( minBonus, maxBonus );
 	}
 
 	@Override

@@ -5,7 +5,7 @@ issueTrackerURL="https://github.com/Majrusz/MajruszsAccessories/issues"
 
 [[mods]]
     modId="majruszsaccessories"
-    version="1.1.4"
+    version="1.1.5"
     displayName="Majrusz's Accessories"
     updateJSONURL="https://raw.githubusercontent.com/Majrusz/MinecraftCommon/main/Accessories/update.json"
     displayURL="https://www.curseforge.com/minecraft/mc-mods/majruszs-accessories"
@@ -31,7 +31,7 @@ issueTrackerURL="https://github.com/Majrusz/MajruszsAccessories/issues"
 [[dependencies.majruszsaccessories]]
     modId="mlib"
     mandatory=true
-    versionRange="[3.2.0,4.0.0)"
+    versionRange="[4.0.0,5.0.0)"
     ordering="NONE"
     side="BOTH"
 
@@ -45,6 +45,6 @@ issueTrackerURL="https://github.com/Majrusz/MajruszsAccessories/issues"
 [[dependencies.majruszsaccessories]]
     modId="majruszsdifficulty"
     mandatory=false
-    versionRange="[1.7.0,)"
+    versionRange="[1.7.4,)"
     ordering="AFTER"
     side="BOTH"
