@@ -1,5 +1,6 @@
 package com.majruszsaccessories.items;
 
+import com.majruszsaccessories.Registries;
 import net.minecraft.core.NonNullList;
 import net.minecraft.util.Mth;
 import com.majruszsaccessories.AccessoryHolder;
@@ -12,7 +13,7 @@ import net.minecraft.world.level.Level;
 
 public class AccessoryItem extends Item {
 	public AccessoryItem() {
-		super( new Properties().stacksTo( 1 ) );
+		super( new Properties().tab( Registries.ITEM_GROUP ).stacksTo( 1 ) );
 	}
 
 	@Override
