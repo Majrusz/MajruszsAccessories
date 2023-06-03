@@ -4,6 +4,7 @@ import com.majruszsaccessories.Integration;
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.components.AccessoryComponent;
 import com.majruszsaccessories.components.FishingLuckBonus;
+import com.majruszsaccessories.components.FishingLureBonus;
 import com.majruszsaccessories.components.TradeOffer;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsdifficulty.items.TreasureBagItem;
@@ -26,6 +27,7 @@ public class AnglersTrophy extends AccessoryBase {
 
 		this.name( "AnglersTrophy" )
 			.add( FishingLuckBonus.create() )
+			.add( FishingLureBonus.create() )
 			.add( TradeOffer.create( VillagerProfession.FISHERMAN, 5 ) )
 			.add( DropChance.create() );
 	}

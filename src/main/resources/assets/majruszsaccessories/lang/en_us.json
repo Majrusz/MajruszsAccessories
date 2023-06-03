@@ -15,6 +15,7 @@
   "majruszsaccessories.items.formula": "%1$s%2$s",
   "majruszsaccessories.items.page": "--- Page %1$s/%2$s ---",
   "majruszsaccessories.bonuses.fishing_luck": "Increases luck by %1$s when fishing.",
+  "majruszsaccessories.bonuses.fishing_lure": "Reduces fishing time by %1$s.",
   "majruszsaccessories.bonuses.extra_stone_loot": "Gives %1$s chance for extra loot when mining.",
   "majruszsaccessories.bonuses.spawn_twins": "Gives %1$s chance of twins when breeding animals.",
   "majruszsaccessories.bonuses.potion_amplifier": "Makes created potions %1$s level(s) stronger.",
