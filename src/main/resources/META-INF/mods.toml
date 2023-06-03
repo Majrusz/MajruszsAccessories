@@ -5,7 +5,7 @@ issueTrackerURL="https://github.com/Majrusz/MajruszsAccessories/issues"
 
 [[mods]]
     modId="majruszsaccessories"
-    version="1.1.5"
+    version="${versions_mod}"
     displayName="Majrusz's Accessories"
     updateJSONURL="https://raw.githubusercontent.com/Majrusz/MinecraftCommon/main/Accessories/update.json"
     displayURL="https://www.curseforge.com/minecraft/mc-mods/majruszs-accessories"
@@ -17,34 +17,34 @@ issueTrackerURL="https://github.com/Majrusz/MajruszsAccessories/issues"
 [[dependencies.majruszsaccessories]]
     modId="forge"
     mandatory=true
-    versionRange="[44.0.0,)"
+    versionRange="${versions_forge_range}"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.majruszsaccessories]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.3,1.20)"
+    versionRange="${versions_minecraft_range}"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.majruszsaccessories]]
     modId="mlib"
     mandatory=true
-    versionRange="[4.0.0,5.0.0)"
+    versionRange="${versions_mlib_range}"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.majruszsaccessories]]
     modId="curios"
     mandatory=false
-    versionRange="[1.19.3-5.1.1.2,)"
+    versionRange="${versions_curios_range}"
     ordering="AFTER"
     side="BOTH"
 
 [[dependencies.majruszsaccessories]]
     modId="majruszsdifficulty"
     mandatory=false
-    versionRange="[1.7.4,)"
+    versionRange="${versions_difficulty_range}"
     ordering="AFTER"
     side="BOTH"
