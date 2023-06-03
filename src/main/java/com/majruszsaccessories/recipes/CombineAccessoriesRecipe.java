@@ -19,8 +19,6 @@ import java.util.function.Supplier;
 import static com.majruszsaccessories.AccessoryHolder.BONUS_RANGE;
 
 public class CombineAccessoriesRecipe extends CustomRecipe {
-	public static float BONUS_OFFSET = 0.04f;
-
 	public static Supplier< RecipeSerializer< ? > > create() {
 		return ()->new SimpleCraftingRecipeSerializer<>( CombineAccessoriesRecipe::new );
 	}
@@ -40,10 +38,8 @@ public class CombineAccessoriesRecipe extends CustomRecipe {
 	public ItemStack assemble( CraftingContainer container ) {
 		RecipeData data = this.buildCraftingData( container );
 		float craftingMaxBonus = data.getMaxBonus();
-		float ratio = data.determineRatio();
-		float bonusOffset = data.getBonusesSize() * BONUS_OFFSET;
-		float minBonus = BONUS_RANGE.clamp( craftingMaxBonus - ( 1.0f - ratio ) * bonusOffset );
-		float maxBonus = BONUS_RANGE.clamp( craftingMaxBonus + ratio * bonusOffset );
+		float minBonus = BONUS_RANGE.clamp( craftingMaxBonus - 0.01f * ( data.getBonusesSize() - 1 ) );
+		float maxBonus = BONUS_RANGE.clamp( craftingMaxBonus + 0.03f * ( data.getBonusesSize() - 1 ) );
 
 		return data.build( minBonus, maxBonus );
 	}
