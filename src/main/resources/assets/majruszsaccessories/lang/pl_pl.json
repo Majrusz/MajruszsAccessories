@@ -9,6 +9,8 @@
   "item.majruszsaccessories.tamed_potato_beetle": "Oswojona stonka ziemniaczana",
   "item.majruszsaccessories.white_flag": "Biała flaga",
   "item.majruszsaccessories.overworld_rune": "Runa Ziemi",
+  "item.majruszsaccessories.dice": "Kostka",
+  "item.majruszsaccessories.golden_dice": "Złota kostka",
   "majruszsaccessories.items.accessory_item": "Działa gdy trzymany w drugiej ręce.",
   "majruszsaccessories.items.bonus": "%1$s bonusu do wydajności",
   "majruszsaccessories.items.bonus_range": "Losowy bonus do wydajności od %1$s do %2$s.",

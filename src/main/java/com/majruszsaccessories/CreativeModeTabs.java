@@ -39,6 +39,11 @@ public class CreativeModeTabs {
 				output.accept( AccessoryHolder.create( item.get(), bonus ).getItemStack() );
 			}
 		} );
+
+		Stream.of(
+			Registries.DICE,
+			Registries.GOLDEN_DICE
+		).forEach( item->output.accept( new ItemStack( item.get() ) ) );
 	}
 
 	private static class Primary extends CreativeModeTab {
