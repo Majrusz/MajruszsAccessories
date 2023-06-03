@@ -20,7 +20,7 @@ import java.util.List;
 
 @AutoInstance
 public class TooltipUpdater {
-	static final int PAGE_SIZE = 4;
+	static final int PAGE_SIZE = 7;
 
 	public TooltipUpdater() {
 		OnItemTooltip.listen( this::addTooltip )
@@ -91,7 +91,7 @@ public class TooltipUpdater {
 
 	private List< Component > convertToEffectsInfoPage( List< Component > components ) {
 		int totalPages = ( int )Math.ceil( ( double )components.size() / PAGE_SIZE );
-		int currentPage = ( int )( Math.floor( ( double )TimeHelper.getClientTicks() / Utility.secondsToTicks( 7.5 ) ) % totalPages );
+		int currentPage = ( int )( Math.floor( ( double )TimeHelper.getClientTicks() / Utility.secondsToTicks( PAGE_SIZE * 2 ) ) % totalPages );
 		List< Component > pageComponents = new ArrayList<>( components.subList( currentPage * PAGE_SIZE, Math.min( ( currentPage + 1 ) * PAGE_SIZE, components.size() ) ) );
 		pageComponents.add( Component.translatable( Tooltips.PAGE, currentPage + 1, totalPages ).withStyle( ChatFormatting.DARK_GRAY ) );
 
