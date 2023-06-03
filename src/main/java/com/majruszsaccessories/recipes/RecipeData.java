@@ -3,7 +3,6 @@ package com.majruszsaccessories.recipes;
 import com.majruszsaccessories.AccessoryHolder;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.math.Range;
-import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
@@ -19,7 +18,11 @@ public record RecipeData( AccessoryItem item, List< Float > bonuses ) {
 	}
 
 	ItemStack build( float minBonus, float maxBonus ) {
-		return AccessoryHolder.create( this.item, new Range<>( minBonus, maxBonus ) ).getItemStack();
+		if( ( maxBonus - minBonus ) < 1e-5f ) {
+			return AccessoryHolder.create( this.item, minBonus ).getItemStack();
+		} else {
+			return AccessoryHolder.create( this.item, new Range<>( minBonus, maxBonus ) ).getItemStack();
+		}
 	}
 
 	Item getItem() {
@@ -38,22 +41,17 @@ public record RecipeData( AccessoryItem item, List< Float > bonuses ) {
 		return this.bonuses.stream().reduce( 0.0f, Float::sum ) / this.bonuses.size();
 	}
 
+	float getStandardDeviation() {
+		float average = this.getAverageBonus();
+
+		return this.bonuses.stream().reduce( 0.0f, ( sum, bonus )->sum + ( float )Math.pow( bonus - average, 2.0f ) ) / this.bonuses.size();
+	}
+
 	float getMaxBonus() {
 		return this.bonuses.get( this.bonuses.size() - 1 );
 	}
 
 	float getMinBonus() {
 		return this.bonuses.get( 0 );
-	}
-
-	float determineRatio() {
-		float min = this.getMinBonus(), max = this.getMaxBonus();
-		if( min == max )
-			return 1.0f;
-
-		float average = this.getAverageBonus();
-		float std = ( float )Math.sqrt( this.bonuses.stream()
-			.reduce( 0.0f, ( sum, bonus )->sum + ( float )Math.pow( bonus - average, 2.0f ) ) / this.bonuses.size() );
-		return Mth.clamp( 1.0f - 2.0f * std / ( AccessoryHolder.BONUS_RANGE.to - AccessoryHolder.BONUS_RANGE.from ), 0.0f, 1.0f );
 	}
 }

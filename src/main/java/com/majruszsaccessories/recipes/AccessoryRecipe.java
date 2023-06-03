@@ -72,8 +72,10 @@ public class AccessoryRecipe extends CustomRecipe {
 			}
 		}
 		RecipeData data = new RecipeData( this.result, bonuses );
-		float minBonus = BONUS_RANGE.clamp( data.getAverageBonus() - 0.03f );
-		float maxBonus = BONUS_RANGE.clamp( data.getAverageBonus() + 0.06f );
+		float average = data.getAverageBonus();
+		float std = data.getStandardDeviation();
+		float minBonus = BONUS_RANGE.clamp( average - std );
+		float maxBonus = BONUS_RANGE.clamp( average + std );
 
 		return data.build( minBonus, maxBonus );
 	}
