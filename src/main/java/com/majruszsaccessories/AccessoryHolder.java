@@ -79,8 +79,8 @@ public class AccessoryHolder {
 	}
 
 	public static float randomBonus() {
-		float gaussianRandom = ( float )Mth.clamp( Random.nextGaussian() / 3.0f, -1.0f, 1.0f ); // random value from range [-1.0; 1.0] with mean ~= 0.0 and standard deviation ~= 0.3333..
-		float ratio = ( gaussianRandom + 1.0f ) / 2.0f; // random value from range [0.0; 1.0] with mean ~= 0.5 and standard deviation ~= 0.1666..
+		float gaussianRandom = ( float )Mth.clamp( Random.nextGaussian() / 4.0f, -1.0f, 1.0f ); // random value from range [-1.0; 1.0] with mean ~= 0.0 and standard deviation ~= 0.25
+		float ratio = ( gaussianRandom + 1.0f ) / 2.0f; // random value from range [0.0; 1.0] with mean ~= 0.5 and standard deviation ~= 0.125
 
 		return Mth.lerp( ratio, BONUS_RANGE.from, BONUS_RANGE.to );
 	}
