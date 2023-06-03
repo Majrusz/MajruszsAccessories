@@ -44,7 +44,8 @@ public record RecipeData( AccessoryItem item, List< Float > bonuses ) {
 	float getStandardDeviation() {
 		float average = this.getAverageBonus();
 
-		return this.bonuses.stream().reduce( 0.0f, ( sum, bonus )->sum + ( float )Math.pow( bonus - average, 2.0f ) ) / this.bonuses.size();
+		return ( float )Math.sqrt( this.bonuses.stream()
+			.reduce( 0.0f, ( sum, bonus )->sum + ( float )Math.pow( bonus - average, 2.0 ) ) / this.bonuses.size() );
 	}
 
 	float getMaxBonus() {
