@@ -33,7 +33,7 @@ public class CertificateOfTaming extends AccessoryBase {
 		protected DropChance( Supplier< AccessoryItem > item, ConfigGroup group ) {
 			super( item );
 
-			DoubleConfig chance = new DoubleConfig( 0.02, Range.CHANCE );
+			DoubleConfig chance = new DoubleConfig( 0.04, Range.CHANCE );
 			chance.name( "drop_chance" ).comment( "Chance for Certificate of Taming to drop when taming animals." );
 
 			OnAnimalTame.listen( this::spawnCertificate )
