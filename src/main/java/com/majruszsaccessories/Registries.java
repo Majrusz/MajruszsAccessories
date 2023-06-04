@@ -54,10 +54,9 @@ public class Registries {
 
 	// Misc
 	public static final ResourceLocation ACCESSORY_SLOT_TEXTURE = Registries.getLocation( "item/empty_accessory_slot" );
-	public static final List< Object > OBJECTS;
 
 	static {
-		OBJECTS = new AnnotationHandler( MajruszsAccessories.MOD_ID ).getInstances();
+		new AnnotationHandler( MajruszsAccessories.MOD_ID );
 	}
 
 	public static void initialize() {
