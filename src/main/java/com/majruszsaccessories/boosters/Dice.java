@@ -10,6 +10,6 @@ public class Dice extends BoosterBase {
 		super( Registries.DICE );
 
 		this.name( "Dice" )
-			.add( AccessoryDropChance.create( 0.1 ) );
+			.add( AccessoryDropChance.create( 0.2 ) );
 	}
 }

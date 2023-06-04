@@ -10,6 +10,6 @@ public class GoldenDice extends BoosterBase {
 		super( Registries.GOLDEN_DICE );
 
 		this.name( "GoldenDice" )
-			.add( AccessoryDropChance.create( 0.2 ) );
+			.add( AccessoryDropChance.create( 0.3 ) );
 	}
 }
