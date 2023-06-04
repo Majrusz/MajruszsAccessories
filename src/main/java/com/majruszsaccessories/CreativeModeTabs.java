@@ -36,7 +36,7 @@ public class CreativeModeTabs {
 		).forEach( item->{
 			for( int i = 0; i < 9; ++i ) {
 				float bonus = Math.round( 100.0f * Mth.lerp( i / 8.0f, AccessoryHolder.BONUS_RANGE.from, AccessoryHolder.BONUS_RANGE.to ) ) / 100.0f;
-				output.accept( AccessoryHolder.create( item.get(), bonus ).getItemStack() );
+				output.accept( AccessoryHolder.create( item.get() ).setBonus( bonus ).getItemStack() );
 			}
 		} );
 

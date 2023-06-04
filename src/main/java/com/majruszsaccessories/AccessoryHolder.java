@@ -46,14 +46,6 @@ public class AccessoryHolder {
 		return new AccessoryHolder( new ItemStack( item ) );
 	}
 
-	public static AccessoryHolder create( AccessoryItem item, float bonus ) {
-		return new AccessoryHolder( new ItemStack( item ) ).setBonus( bonus );
-	}
-
-	public static AccessoryHolder create( AccessoryItem item, Range< Float > bonus ) {
-		return new AccessoryHolder( new ItemStack( item ) ).setBonus( bonus );
-	}
-
 	public static AccessoryHolder create( ItemStack itemStack ) {
 		return new AccessoryHolder( itemStack );
 	}

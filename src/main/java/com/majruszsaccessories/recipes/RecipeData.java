@@ -19,9 +19,9 @@ public record RecipeData( AccessoryItem item, List< Float > bonuses ) {
 
 	ItemStack build( float minBonus, float maxBonus ) {
 		if( ( maxBonus - minBonus ) < 1e-5f ) {
-			return AccessoryHolder.create( this.item, minBonus ).getItemStack();
+			return AccessoryHolder.create( this.item ).setBonus( minBonus ).getItemStack();
 		} else {
-			return AccessoryHolder.create( this.item, new Range<>( minBonus, maxBonus ) ).getItemStack();
+			return AccessoryHolder.create( this.item ).setBonus( new Range<>( minBonus, maxBonus ) ).getItemStack();
 		}
 	}
 
