@@ -1,4 +1,4 @@
-package com.majruszsaccessories.accessories.tooltip;
+package com.majruszsaccessories.tooltip;
 
 import com.majruszsaccessories.AccessoryHolder;
 import net.minecraft.network.chat.Component;

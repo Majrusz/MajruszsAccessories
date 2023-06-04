@@ -4,6 +4,7 @@ import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.EnhancedPotions;
 import com.majruszsaccessories.accessories.components.TradeOffer;
+import com.majruszsaccessories.gamemodifiers.CustomConditions;
 import com.mlib.annotations.AutoInstance;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
@@ -39,7 +40,7 @@ public class SecretIngredient extends AccessoryBase {
 
 			OnLoot.listen( this::addToGeneratedLoot )
 				.addCondition( Condition.isServer() )
-				.addCondition( Condition.chance( chance ) )
+				.addCondition( CustomConditions.dropChance( chance, data->data.killer ) )
 				.addCondition( OnLoot.hasLastDamagePlayer() )
 				.addCondition( Condition.predicate( data->data.entity instanceof Witch ) )
 				.insertTo( group );

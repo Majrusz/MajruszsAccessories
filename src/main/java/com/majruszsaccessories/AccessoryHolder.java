@@ -46,7 +46,7 @@ public class AccessoryHolder {
 	}
 
 	public static AccessoryHolder find( LivingEntity entity, BoosterItem item ) {
-		return find( entity, itemStack->itemStack.is( item ) );
+		return find( entity, itemStack->AccessoryHolder.create( itemStack ).hasBoosterTag( item ) );
 	}
 
 	public static boolean hasAccessory( LivingEntity entity, AccessoryItem item ) {

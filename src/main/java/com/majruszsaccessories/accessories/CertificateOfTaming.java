@@ -4,10 +4,10 @@ import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.EnhanceTamedAnimal;
 import com.majruszsaccessories.accessories.components.TradeOffer;
+import com.majruszsaccessories.gamemodifiers.CustomConditions;
 import com.mlib.annotations.AutoInstance;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
-import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.contexts.OnAnimalTame;
 import com.mlib.math.Range;
 import net.minecraft.world.entity.npc.VillagerProfession;
@@ -37,7 +37,7 @@ public class CertificateOfTaming extends AccessoryBase {
 			chance.name( "drop_chance" ).comment( "Chance for Certificate of Taming to drop when taming animals." );
 
 			OnAnimalTame.listen( this::spawnCertificate )
-				.addCondition( Condition.chance( chance ) )
+				.addCondition( CustomConditions.dropChance( chance, data->data.tamer ) )
 				.insertTo( group );
 		}
 

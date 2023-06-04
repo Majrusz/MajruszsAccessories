@@ -5,6 +5,7 @@ import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.ReduceDamageDealt;
 import com.majruszsaccessories.accessories.components.ReduceDamageReceived;
 import com.majruszsaccessories.accessories.components.TradeOffer;
+import com.majruszsaccessories.gamemodifiers.CustomConditions;
 import com.mlib.Utility;
 import com.mlib.annotations.AutoInstance;
 import com.mlib.blocks.BlockHelper;
@@ -91,7 +92,7 @@ public class WhiteFlag extends AccessoryBase {
 
 			OnLoot.listen( this::addToGeneratedLoot )
 				.addCondition( Condition.isServer() )
-				.addCondition( Condition.chance( chance ) )
+				.addCondition( CustomConditions.dropChance( chance, data->data.entity ) )
 				.addCondition( OnLoot.is( villageIds ) )
 				.addCondition( OnLoot.hasOrigin() )
 				.addCondition( Condition.predicate( data->BlockHelper.getBlockEntity( data.getLevel(), data.origin ) instanceof RandomizableContainerBlockEntity ) )

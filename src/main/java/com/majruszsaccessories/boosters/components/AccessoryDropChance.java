@@ -1,38 +1,39 @@
 package com.majruszsaccessories.boosters.components;
 
-import com.majruszsaccessories.accessories.tooltip.TooltipHelper;
-import com.majruszsaccessories.gamemodifiers.CustomConditions;
 import com.majruszsaccessories.boosters.BoosterItem;
+import com.majruszsaccessories.gamemodifiers.CustomConditions;
+import com.majruszsaccessories.gamemodifiers.contexts.OnAccessoryDropChance;
+import com.majruszsaccessories.tooltip.TooltipHelper;
+import com.mlib.MajruszLibrary;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
-import com.mlib.gamemodifiers.contexts.OnDamaged;
 import com.mlib.math.Range;
 
 import java.util.function.Supplier;
 
 public class AccessoryDropChance extends BoosterComponent {
-	final DoubleConfig chance;
+	final DoubleConfig chanceExtraMultiplier;
 
 	public static ISupplier create( double chance ) {
 		return ( item, group )->new AccessoryDropChance( item, group, chance );
 	}
 
-	protected AccessoryDropChance( Supplier< BoosterItem > item, ConfigGroup group, double chance ) {
+	protected AccessoryDropChance( Supplier< BoosterItem > item, ConfigGroup group, double extraChanceMultiplier ) {
 		super( item );
 
-		this.chance = new DoubleConfig( chance, Range.CHANCE );
-		this.chance.name( "double_crops_chance" ).comment( "Chance to double crops when harvesting." );
+		this.chanceExtraMultiplier = new DoubleConfig( extraChanceMultiplier, new Range<>( 0.01, 10.0 ) );
 
-		OnDamaged.listen( this::reduceDamage )
-			.addCondition( CustomConditions.hasBooster( item, data->data.target ) )
-			.addConfig( this.chance )
+		OnAccessoryDropChance.listen( this::increaseChance )
+			.addCondition( CustomConditions.hasBooster( item, data->data.player ) )
+			.addConfig( this.chanceExtraMultiplier.name( "extra_chance_multiplier" ).comment( "Extra chance multiplier to drop accessories." ) )
 			.insertTo( group );
 
-		this.addTooltip( "majruszsaccessories.boosters.drop_chance", TooltipHelper.asItem( item ), TooltipHelper.asFixedPercent( this.chance ) );
+		this.addTooltip( "majruszsaccessories.boosters.drop_chance", TooltipHelper.asItem( item ), TooltipHelper.asFixedPercent( this.chanceExtraMultiplier ) );
 	}
 
-	private void reduceDamage( OnDamaged.Data data ) {
-		// AccessoryHolder holder = AccessoryHolder.find( data.target, this.item.get() );
-		// data.event.setAmount( data.event.getAmount() * ( 1.0f - holder.apply( this.reduction ) ) );
+	private void increaseChance( OnAccessoryDropChance.Data data ) {
+		MajruszLibrary.log( "old %.3f", data.chance );
+		data.chance *= 1.0 + this.chanceExtraMultiplier.get();
+		MajruszLibrary.log( "new %.3f", data.chance );
 	}
 }

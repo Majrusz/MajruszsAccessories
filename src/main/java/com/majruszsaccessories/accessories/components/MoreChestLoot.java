@@ -1,10 +1,10 @@
 package com.majruszsaccessories.accessories.components;
 
 import com.majruszsaccessories.AccessoryHolder;
-import com.majruszsaccessories.accessories.tooltip.ITooltipProvider;
-import com.majruszsaccessories.accessories.tooltip.TooltipHelper;
-import com.majruszsaccessories.gamemodifiers.CustomConditions;
 import com.majruszsaccessories.accessories.AccessoryItem;
+import com.majruszsaccessories.gamemodifiers.CustomConditions;
+import com.majruszsaccessories.tooltip.ITooltipProvider;
+import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.Random;
 import com.mlib.blocks.BlockHelper;
 import com.mlib.config.ConfigGroup;

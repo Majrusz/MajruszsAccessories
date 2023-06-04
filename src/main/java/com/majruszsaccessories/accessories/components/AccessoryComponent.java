@@ -1,8 +1,8 @@
 package com.majruszsaccessories.accessories.components;
 
 import com.majruszsaccessories.AccessoryHolder;
-import com.majruszsaccessories.common.ComponentBase;
 import com.majruszsaccessories.accessories.AccessoryItem;
+import com.majruszsaccessories.common.ComponentBase;
 import com.mlib.config.ConfigGroup;
 import com.mlib.gamemodifiers.contexts.OnLoot;
 import com.mlib.levels.LevelHelper;

@@ -1,8 +1,8 @@
 package com.majruszsaccessories.accessories.components;
 
-import com.majruszsaccessories.accessories.tooltip.TooltipHelper;
-import com.majruszsaccessories.gamemodifiers.CustomConditions;
 import com.majruszsaccessories.accessories.AccessoryItem;
+import com.majruszsaccessories.gamemodifiers.CustomConditions;
+import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
 import com.mlib.effects.ParticleHandler;
