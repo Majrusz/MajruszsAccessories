@@ -1,9 +1,9 @@
 package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.Registries;
-import com.majruszsaccessories.components.AccessoryComponent;
-import com.majruszsaccessories.components.DoubleCrops;
-import com.majruszsaccessories.components.TradeOffer;
+import com.majruszsaccessories.accessories.components.AccessoryComponent;
+import com.majruszsaccessories.accessories.components.DoubleCrops;
+import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.Random;
 import com.mlib.annotations.AutoInstance;

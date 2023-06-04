@@ -2,7 +2,7 @@ package com.majruszsaccessories.gamemodifiers.list;
 
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.accessories.AccessoryBase;
-import com.majruszsaccessories.components.TradeOffer;
+import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.annotations.AutoInstance;
 import com.mlib.gamemodifiers.contexts.OnTradeSetup;

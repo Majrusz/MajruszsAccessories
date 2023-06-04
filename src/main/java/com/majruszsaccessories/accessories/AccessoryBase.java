@@ -1,7 +1,7 @@
 package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.AccessoryHolder;
-import com.majruszsaccessories.components.AccessoryComponent;
+import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.client.ClientHelper;
 import com.mlib.config.ConfigGroup;

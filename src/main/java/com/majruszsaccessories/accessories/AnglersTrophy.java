@@ -2,10 +2,10 @@ package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.Integration;
 import com.majruszsaccessories.Registries;
-import com.majruszsaccessories.components.AccessoryComponent;
-import com.majruszsaccessories.components.FishingLuckBonus;
-import com.majruszsaccessories.components.FishingLureBonus;
-import com.majruszsaccessories.components.TradeOffer;
+import com.majruszsaccessories.accessories.components.AccessoryComponent;
+import com.majruszsaccessories.accessories.components.FishingLuckBonus;
+import com.majruszsaccessories.accessories.components.FishingLureBonus;
+import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsdifficulty.items.TreasureBagItem;
 import com.mlib.annotations.AutoInstance;

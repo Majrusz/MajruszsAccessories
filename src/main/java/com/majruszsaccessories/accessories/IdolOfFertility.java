@@ -1,9 +1,9 @@
 package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.Registries;
-import com.majruszsaccessories.components.AccessoryComponent;
-import com.majruszsaccessories.components.SpawnTwins;
-import com.majruszsaccessories.components.TradeOffer;
+import com.majruszsaccessories.accessories.components.AccessoryComponent;
+import com.majruszsaccessories.accessories.components.SpawnTwins;
+import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.annotations.AutoInstance;
 import com.mlib.config.ConfigGroup;

@@ -1,4 +1,4 @@
-package com.majruszsaccessories.components;
+package com.majruszsaccessories.accessories.components;
 
 import com.majruszsaccessories.accessories.tooltip.TooltipHelper;
 import com.majruszsaccessories.gamemodifiers.CustomConditions;
