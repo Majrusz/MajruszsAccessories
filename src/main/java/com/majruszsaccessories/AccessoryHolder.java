@@ -125,14 +125,6 @@ public class AccessoryHolder {
 		return this.setTagValue( Tags.VALUE_MIN, bonus.from ).setTagValue( Tags.VALUE_MAX, bonus.to );
 	}
 
-	public Optional< AccessoryBase > findAccessoryBase() {
-		return Registries.OBJECTS.stream()
-			.filter( obj->obj instanceof AccessoryBase )
-			.map( obj->( AccessoryBase )obj )
-			.filter( base->base.is( this.item ) )
-			.findAny();
-	}
-
 	public float getBonus() {
 		return this.getTagValue( Tags.VALUE );
 	}

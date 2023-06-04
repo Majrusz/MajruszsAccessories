@@ -2,6 +2,7 @@ package com.majruszsaccessories.gamemodifiers.list;
 
 import com.majruszsaccessories.AccessoryHolder;
 import com.majruszsaccessories.Integration;
+import com.majruszsaccessories.gamemodifiers.contexts.OnAccessoryTooltip;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.Utility;
 import com.mlib.annotations.AutoInstance;
@@ -78,14 +79,12 @@ public class TooltipUpdater {
 	}
 
 	private List< Component > buildEffectsInfo( OnItemTooltip.Data data ) {
-		List< Component > components = new ArrayList<>();
-		AccessoryHolder holder = AccessoryHolder.create( data.itemStack );
-		holder.findAccessoryBase().ifPresent( base->components.addAll( base.buildTooltip( holder ) ) );
-		boolean cannotFitSinglePage = components.size() > PAGE_SIZE;
+		OnAccessoryTooltip.Data tooltipData = OnAccessoryTooltip.dispatch( data.itemStack );
+		boolean cannotFitSinglePage = tooltipData.components.size() > PAGE_SIZE;
 		if( cannotFitSinglePage ) {
-			return this.convertToEffectsInfoPage( components );
+			return this.convertToEffectsInfoPage( tooltipData.components );
 		} else {
-			return components;
+			return tooltipData.components;
 		}
 	}
 
