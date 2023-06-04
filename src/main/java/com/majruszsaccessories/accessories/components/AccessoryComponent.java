@@ -1,49 +1,21 @@
 package com.majruszsaccessories.accessories.components;
 
 import com.majruszsaccessories.AccessoryHolder;
-import com.majruszsaccessories.accessories.tooltip.ITooltipProvider;
-import com.majruszsaccessories.items.AccessoryItem;
+import com.majruszsaccessories.common.ComponentBase;
+import com.majruszsaccessories.accessories.AccessoryItem;
 import com.mlib.config.ConfigGroup;
 import com.mlib.gamemodifiers.contexts.OnLoot;
 import com.mlib.levels.LevelHelper;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
-public class AccessoryComponent {
-	protected final Supplier< AccessoryItem > item;
-	final List< ITooltipProvider > tooltipProviders = new ArrayList<>();
-
+public class AccessoryComponent extends ComponentBase< AccessoryItem > {
 	public AccessoryComponent( Supplier< AccessoryItem > item ) {
-		this.item = item;
-	}
-
-	public AccessoryComponent addTooltip( String key, ITooltipProvider... providers ) {
-		this.tooltipProviders.add( new ITooltipProvider() {
-			@Override
-			public MutableComponent getTooltip( AccessoryHolder holder ) {
-				return Component.translatable( key, Stream.of( providers ).map( provider->provider.getTooltip( holder ) ).toArray() );
-			}
-
-			@Override
-			public MutableComponent getDetailedTooltip( AccessoryHolder holder ) {
-				return Component.translatable( key, Stream.of( providers ).map( provider->provider.getDetailedTooltip( holder ) ).toArray() );
-			}
-		} );
-
-		return this;
-	}
-
-	public List< ITooltipProvider > getTooltipProviders() {
-		return Collections.unmodifiableList( this.tooltipProviders );
+		super( item );
 	}
 
 	protected void addToGeneratedLoot( OnLoot.Data data ) {
@@ -59,7 +31,5 @@ public class AccessoryComponent {
 	}
 
 	@FunctionalInterface
-	public interface ISupplier {
-		AccessoryComponent accept( Supplier< AccessoryItem > item, ConfigGroup group );
-	}
+	public interface ISupplier extends BiFunction< Supplier< AccessoryItem >, ConfigGroup, AccessoryComponent > {}
 }

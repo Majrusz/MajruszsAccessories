@@ -3,7 +3,7 @@ package com.majruszsaccessories.accessories.components;
 import com.majruszsaccessories.AccessoryHolder;
 import com.majruszsaccessories.accessories.tooltip.TooltipHelper;
 import com.majruszsaccessories.gamemodifiers.CustomConditions;
-import com.majruszsaccessories.items.AccessoryItem;
+import com.majruszsaccessories.accessories.AccessoryItem;
 import com.mlib.Utility;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
@@ -43,7 +43,7 @@ public class EnhancedPotions extends AccessoryComponent {
 		OnPotionBrewed.listen( this::enhancePotion )
 			.addCondition( Condition.predicate( data->PotionUtils.getMobEffects( data.itemStack ).size() > 0 ) )
 			.addCondition( Condition.predicate( data->!data.itemStack.getOrCreateTag().contains( TAG_CUSTOM_POTION_EFFECTS ) ) )
-			.addCondition( CustomConditions.has( item, data->data.player ) )
+			.addCondition( CustomConditions.hasAccessory( item, data->data.player ) )
 			.addConfig( this.duration.name( "potion_duration_penalty" ).comment( "Duration penalty for created enhanced potions." ) )
 			.addConfig( this.amplifier.name( "potion_extra_amplifier" ).comment( "Extra potion level for created enhanced potions." ) )
 			.insertTo( group );

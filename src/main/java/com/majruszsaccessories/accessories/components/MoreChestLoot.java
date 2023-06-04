@@ -4,7 +4,7 @@ import com.majruszsaccessories.AccessoryHolder;
 import com.majruszsaccessories.accessories.tooltip.ITooltipProvider;
 import com.majruszsaccessories.accessories.tooltip.TooltipHelper;
 import com.majruszsaccessories.gamemodifiers.CustomConditions;
-import com.majruszsaccessories.items.AccessoryItem;
+import com.majruszsaccessories.accessories.AccessoryItem;
 import com.mlib.Random;
 import com.mlib.blocks.BlockHelper;
 import com.mlib.config.ConfigGroup;
@@ -49,7 +49,7 @@ public class MoreChestLoot extends AccessoryComponent {
 		this.sizeMultiplier.name( "chest_size_bonus" ).comment( "Extra multiplier for number of items acquired from chests." );
 
 		OnChestOpened.listen( this::increaseLoot )
-			.addCondition( CustomConditions.has( this.item, data->( LivingEntity )data.entity ) )
+			.addCondition( CustomConditions.hasAccessory( this.item, data->( LivingEntity )data.entity ) )
 			.addConfig( this.sizeMultiplier )
 			.insertTo( group );
 

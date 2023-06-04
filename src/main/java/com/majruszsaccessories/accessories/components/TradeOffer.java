@@ -1,6 +1,6 @@
 package com.majruszsaccessories.accessories.components;
 
-import com.majruszsaccessories.items.AccessoryItem;
+import com.majruszsaccessories.accessories.AccessoryItem;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.IntegerConfig;
 import com.mlib.math.Range;

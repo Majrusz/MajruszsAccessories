@@ -5,7 +5,6 @@ import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.ReduceDamageDealt;
 import com.majruszsaccessories.accessories.components.ReduceDamageReceived;
 import com.majruszsaccessories.accessories.components.TradeOffer;
-import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.Utility;
 import com.mlib.annotations.AutoInstance;
 import com.mlib.blocks.BlockHelper;

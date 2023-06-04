@@ -3,7 +3,7 @@ package com.majruszsaccessories.accessories.components;
 import com.majruszsaccessories.AccessoryHolder;
 import com.majruszsaccessories.accessories.tooltip.TooltipHelper;
 import com.majruszsaccessories.gamemodifiers.CustomConditions;
-import com.majruszsaccessories.items.AccessoryItem;
+import com.majruszsaccessories.accessories.AccessoryItem;
 import com.mlib.attributes.AttributeHandler;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
@@ -38,7 +38,7 @@ public class EnhanceTamedAnimal extends AccessoryComponent {
 		this.bonus = new DoubleConfig( bonus, new Range<>( 0.0, 10.0 ) );
 
 		OnAnimalTame.listen( this::enhanceAnimal )
-			.addCondition( CustomConditions.has( item, data->data.tamer ) )
+			.addCondition( CustomConditions.hasAccessory( item, data->data.tamer ) )
 			.addConfig( this.bonus.name( "animal_bonus" ).comment( "Bonus health, damage, movement speed and jump height for tamed animals." ) )
 			.insertTo( group );
 

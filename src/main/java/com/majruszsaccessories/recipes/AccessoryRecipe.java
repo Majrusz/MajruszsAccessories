@@ -5,7 +5,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.majruszsaccessories.AccessoryHolder;
 import com.majruszsaccessories.Registries;
-import com.majruszsaccessories.items.AccessoryItem;
+import com.majruszsaccessories.accessories.AccessoryItem;
+import com.mlib.math.Range;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -17,7 +18,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -33,51 +33,27 @@ public class AccessoryRecipe extends CustomRecipe {
 
 	public AccessoryRecipe( ResourceLocation id, AccessoryItem result, List< AccessoryItem > ingredients ) {
 		super( id, CraftingBookCategory.EQUIPMENT );
+
 		this.result = result;
 		this.ingredients = ingredients;
 	}
 
 	@Override
 	public boolean matches( CraftingContainer container, Level level ) {
-		List< AccessoryItem > ingredients = new ArrayList<>( this.ingredients );
-		for( int i = 0; i < container.getContainerSize(); ++i ) {
-			ItemStack itemStack = container.getItem( i );
-			if( itemStack.isEmpty() )
-				continue;
+		RecipeData data = RecipeData.build( container );
 
-			boolean foundMatch = false;
-			Iterator< AccessoryItem > iterator = ingredients.iterator();
-			while( iterator.hasNext() ) {
-				if( itemStack.getItem() == iterator.next() ) {
-					iterator.remove();
-					foundMatch = true;
-					break;
-				}
-			}
-			if( !foundMatch ) {
-				return false;
-			}
-		}
-
-		return ingredients.isEmpty();
+		return this.ingredients.stream().allMatch( data::hasAccessory );
 	}
 
 	@Override
 	public ItemStack assemble( CraftingContainer container ) {
-		List< Float > bonuses = new ArrayList<>();
-		for( int i = 0; i < container.getContainerSize(); ++i ) {
-			ItemStack itemStack = container.getItem( i );
-			if( !itemStack.isEmpty() ) {
-				bonuses.add( AccessoryHolder.create( itemStack ).getBonus() );
-			}
-		}
-		RecipeData data = new RecipeData( this.result, bonuses );
+		RecipeData data = RecipeData.build( container );
 		float average = data.getAverageBonus();
 		float std = data.getStandardDeviation();
 		float minBonus = BONUS_RANGE.clamp( average - std );
 		float maxBonus = BONUS_RANGE.clamp( average + std );
 
-		return data.build( minBonus, maxBonus );
+		return AccessoryHolder.create( this.result ).setBonus( new Range<>( minBonus, maxBonus ) ).getItemStack();
 	}
 
 	@Override

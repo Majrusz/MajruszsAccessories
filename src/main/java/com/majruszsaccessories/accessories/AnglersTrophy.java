@@ -6,7 +6,6 @@ import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.FishingLuckBonus;
 import com.majruszsaccessories.accessories.components.FishingLureBonus;
 import com.majruszsaccessories.accessories.components.TradeOffer;
-import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsdifficulty.items.TreasureBagItem;
 import com.mlib.annotations.AutoInstance;
 import com.mlib.config.ConfigGroup;

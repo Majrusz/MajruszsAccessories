@@ -3,7 +3,7 @@ package com.majruszsaccessories.gamemodifiers.list;
 import com.majruszsaccessories.AccessoryHolder;
 import com.majruszsaccessories.Integration;
 import com.majruszsaccessories.gamemodifiers.contexts.OnAccessoryTooltip;
-import com.majruszsaccessories.items.AccessoryItem;
+import com.majruszsaccessories.accessories.AccessoryItem;
 import com.mlib.Utility;
 import com.mlib.annotations.AutoInstance;
 import com.mlib.gamemodifiers.Condition;

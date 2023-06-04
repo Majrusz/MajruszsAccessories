@@ -1,12 +1,16 @@
 package com.majruszsaccessories.accessories.tooltip;
 
 import com.majruszsaccessories.AccessoryHolder;
+import com.majruszsaccessories.boosters.BoosterItem;
 import com.mlib.config.DoubleConfig;
 import com.mlib.config.IntegerConfig;
 import com.mlib.text.TextHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.item.ItemStack;
+
+import java.util.function.Supplier;
 
 public class TooltipHelper {
 	public final static ChatFormatting DEFAULT_FORMAT = ChatFormatting.GRAY;
@@ -70,5 +74,19 @@ public class TooltipHelper {
 
 	public static ITooltipProvider asPercent( DoubleConfig config ) {
 		return asPercent( config, 1.0 );
+	}
+
+	public static ITooltipProvider asFixedPercent( DoubleConfig config ) {
+		return asPercent( config, 0.0 );
+	}
+
+	public static ITooltipProvider asItem( Supplier< BoosterItem > item ) {
+		return new ITooltipProvider() {
+			@Override
+			public MutableComponent getTooltip( AccessoryHolder holder ) {
+				return Component.translatable( "majruszsaccessories.items.booster_name", item.get().getDescription() )
+					.withStyle( item.get().getRarity( ItemStack.EMPTY ).getStyleModifier() );
+			}
+		};
 	}
 }

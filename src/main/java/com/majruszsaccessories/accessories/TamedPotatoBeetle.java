@@ -4,7 +4,6 @@ import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.DoubleCrops;
 import com.majruszsaccessories.accessories.components.TradeOffer;
-import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.Random;
 import com.mlib.annotations.AutoInstance;
 import com.mlib.config.ConfigGroup;

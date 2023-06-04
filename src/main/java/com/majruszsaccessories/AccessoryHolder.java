@@ -1,8 +1,9 @@
 package com.majruszsaccessories;
 
-import com.majruszsaccessories.accessories.AccessoryBase;
-import com.majruszsaccessories.items.AccessoryItem;
+import com.majruszsaccessories.accessories.AccessoryItem;
+import com.majruszsaccessories.boosters.BoosterItem;
 import com.mlib.Random;
+import com.mlib.Utility;
 import com.mlib.config.DoubleConfig;
 import com.mlib.config.IntegerConfig;
 import com.mlib.math.Range;
@@ -12,25 +13,27 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
+import net.minecraftforge.registries.RegistryObject;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
 
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class AccessoryHolder {
 	public static final Range< Float > BONUS_RANGE = new Range<>( -0.6f, 0.6f );
 	final ItemStack itemStack;
 	final AccessoryItem item;
 
-	public static AccessoryHolder find( LivingEntity entity, AccessoryItem item ) {
+	public static AccessoryHolder find( LivingEntity entity, Predicate< ItemStack > predicate ) {
 		if( Integration.isCuriosInstalled() ) {
-			Optional< SlotResult > slotResult = CuriosApi.getCuriosHelper().findFirstCurio( entity, item );
+			Optional< SlotResult > slotResult = CuriosApi.getCuriosHelper().findFirstCurio( entity, predicate );
 			if( slotResult.isPresent() ) {
 				return new AccessoryHolder( slotResult.get().stack() );
 			}
 		} else {
 			ItemStack itemStack = entity.getOffhandItem();
-			if( itemStack.is( item ) ) {
+			if( predicate.test( itemStack ) ) {
 				return new AccessoryHolder( itemStack );
 			}
 		}
@@ -38,7 +41,19 @@ public class AccessoryHolder {
 		return new AccessoryHolder( ItemStack.EMPTY );
 	}
 
+	public static AccessoryHolder find( LivingEntity entity, AccessoryItem item ) {
+		return find( entity, itemStack->itemStack.is( item ) );
+	}
+
+	public static AccessoryHolder find( LivingEntity entity, BoosterItem item ) {
+		return find( entity, itemStack->itemStack.is( item ) );
+	}
+
 	public static boolean hasAccessory( LivingEntity entity, AccessoryItem item ) {
+		return find( entity, item ).isValid();
+	}
+
+	public static boolean hasBooster( LivingEntity entity, BoosterItem item ) {
 		return find( entity, item ).isValid();
 	}
 
@@ -82,6 +97,13 @@ public class AccessoryHolder {
 		this.item = itemStack.getItem() instanceof AccessoryItem item ? item : null;
 	}
 
+	public AccessoryHolder copy() {
+		AccessoryHolder copy = new AccessoryHolder( new ItemStack( this.item ) );
+		copy.setBonus( this.getBonus() );
+
+		return copy;
+	}
+
 	public int apply( IntegerConfig config, int multiplier ) {
 		return config.getRange().clamp( Math.round( ( 1.0f + multiplier * this.getBonus() ) * config.get() ) );
 	}
@@ -100,8 +122,8 @@ public class AccessoryHolder {
 
 	public AccessoryHolder setRandomBonus() {
 		if( this.hasBonusRangeTag() ) {
-			float minBonus = this.getTagValue( Tags.VALUE_MIN );
-			float maxBonus = this.getTagValue( Tags.VALUE_MAX );
+			float minBonus = this.getFloatTag( Tags.VALUE_MIN );
+			float maxBonus = this.getFloatTag( Tags.VALUE_MAX );
 
 			return this.setTagValue( Tags.VALUE, Mth.lerp( Random.nextFloat( 0.0f, 1.0f ), minBonus, maxBonus ) );
 		} else {
@@ -114,15 +136,23 @@ public class AccessoryHolder {
 	}
 
 	public AccessoryHolder setBonus( Range< Float > bonus ) {
-		return this.setTagValue( Tags.VALUE_MIN, bonus.from ).setTagValue( Tags.VALUE_MAX, bonus.to );
+		if( ( bonus.to - bonus.from ) > 1e-5f ) {
+			return this.setTagValue( Tags.VALUE_MIN, bonus.from ).setTagValue( Tags.VALUE_MAX, bonus.to );
+		} else {
+			return this.setBonus( bonus.from );
+		}
+	}
+
+	public AccessoryHolder setBooster( BoosterItem item ) {
+		return this.setTagValue( Tags.BOOSTER, Utility.getRegistryString( item ) );
 	}
 
 	public float getBonus() {
-		return this.getTagValue( Tags.VALUE );
+		return this.getFloatTag( Tags.VALUE );
 	}
 
 	public Range< Float > getBonusRange() {
-		return new Range<>( this.getTagValue( Tags.VALUE_MIN ), this.getTagValue( Tags.VALUE_MAX ) );
+		return new Range<>( this.getFloatTag( Tags.VALUE_MIN ), this.getFloatTag( Tags.VALUE_MAX ) );
 	}
 
 	public ItemStack getItemStack() {
@@ -161,16 +191,32 @@ public class AccessoryHolder {
 		return this.getBonus() == BONUS_RANGE.to;
 	}
 
+	public boolean hasBoosterTag( BoosterItem item ) {
+		return Utility.getRegistryString( item ).equals( this.getStringTag( Tags.BOOSTER ) );
+	}
+
 	private AccessoryHolder setTagValue( String tag, float value ) {
 		this.itemStack.getOrCreateTagElement( Tags.BONUS ).putFloat( tag, Math.round( 100.0f * value ) / 100.0f );
 
 		return this;
 	}
 
-	private float getTagValue( String tag ) {
+	private AccessoryHolder setTagValue( String tag, String value ) {
+		this.itemStack.getOrCreateTagElement( Tags.BONUS ).putString( tag, value );
+
+		return this;
+	}
+
+	private float getFloatTag( String tag ) {
 		CompoundTag itemTag = this.itemStack.getTagElement( Tags.BONUS );
 
 		return itemTag != null ? itemTag.getFloat( tag ) : 0.0f;
+	}
+
+	private String getStringTag( String tag ) {
+		CompoundTag itemTag = this.itemStack.getTagElement( Tags.BONUS );
+
+		return itemTag != null ? itemTag.getString( tag ) : null;
 	}
 
 	static final class Tags {
@@ -178,5 +224,6 @@ public class AccessoryHolder {
 		static final String VALUE = "Value";
 		static final String VALUE_MIN = "ValueMin";
 		static final String VALUE_MAX = "ValueMax";
+		static final String BOOSTER = "Booster";
 	}
 }

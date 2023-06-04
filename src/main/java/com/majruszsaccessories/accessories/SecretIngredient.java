@@ -4,7 +4,6 @@ import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.EnhancedPotions;
 import com.majruszsaccessories.accessories.components.TradeOffer;
-import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.annotations.AutoInstance;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;

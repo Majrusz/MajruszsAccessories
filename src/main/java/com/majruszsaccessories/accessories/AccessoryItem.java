@@ -1,4 +1,4 @@
-package com.majruszsaccessories.items;
+package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.AccessoryHolder;
 import net.minecraft.world.entity.player.Player;

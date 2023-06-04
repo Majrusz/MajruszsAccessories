@@ -3,7 +3,7 @@ package com.majruszsaccessories.accessories.components;
 import com.majruszsaccessories.AccessoryHolder;
 import com.majruszsaccessories.accessories.tooltip.TooltipHelper;
 import com.majruszsaccessories.gamemodifiers.CustomConditions;
-import com.majruszsaccessories.items.AccessoryItem;
+import com.majruszsaccessories.accessories.AccessoryItem;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
 import com.mlib.gamemodifiers.contexts.OnDamaged;
@@ -28,7 +28,7 @@ public class ReduceDamageReceived extends AccessoryComponent {
 		this.reduction = new DoubleConfig( reduction, new Range<>( 0.01, 0.99 ) );
 
 		OnDamaged.listen( this::reduceDamage )
-			.addCondition( CustomConditions.has( item, data->data.target ) )
+			.addCondition( CustomConditions.hasAccessory( item, data->data.target ) )
 			.addConfig( this.reduction.name( "damage_received_reduction" ).comment( "Ratio of damage ignored while being attacked." ) )
 			.insertTo( group );
 

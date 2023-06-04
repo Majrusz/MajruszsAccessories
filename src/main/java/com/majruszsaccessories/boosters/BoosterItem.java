@@ -1,4 +1,4 @@
-package com.majruszsaccessories.items;
+package com.majruszsaccessories.boosters;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

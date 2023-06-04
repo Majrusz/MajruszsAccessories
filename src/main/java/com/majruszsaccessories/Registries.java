@@ -1,7 +1,9 @@
 package com.majruszsaccessories;
 
-import com.majruszsaccessories.items.*;
+import com.majruszsaccessories.accessories.AccessoryItem;
+import com.majruszsaccessories.boosters.BoosterItem;
 import com.majruszsaccessories.recipes.AccessoryRecipe;
+import com.majruszsaccessories.recipes.BoostAccessoriesRecipe;
 import com.majruszsaccessories.recipes.CombineAccessoriesRecipe;
 import com.mlib.annotations.AnnotationHandler;
 import com.mlib.gamemodifiers.ModConfigs;
@@ -19,8 +21,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypeMessage;
-
-import java.util.List;
 
 import static com.majruszsaccessories.MajruszsAccessories.SERVER_CONFIG;
 
@@ -51,6 +51,7 @@ public class Registries {
 	// Recipes
 	public static final RegistryObject< RecipeSerializer< ? > > ACCESSORY_RECIPE = RECIPES.register( "crafting_accessory", AccessoryRecipe.create() );
 	public static final RegistryObject< RecipeSerializer< ? > > COMBINE_ACCESSORIES_RECIPE = RECIPES.register( "crafting_combine_accessories", CombineAccessoriesRecipe.create() );
+	public static final RegistryObject< RecipeSerializer< ? > > BOOST_ACCESSORIES_RECIPE = RECIPES.register( "crafting_boost_accessories", BoostAccessoriesRecipe.create() );
 
 	// Misc
 	public static final ResourceLocation ACCESSORY_SLOT_TEXTURE = Registries.getLocation( "item/empty_accessory_slot" );
