@@ -20,10 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @AutoInstance
-public class TooltipUpdater {
+public class AccessoryTooltipUpdater {
 	static final int PAGE_SIZE = 7;
 
-	public TooltipUpdater() {
+	public AccessoryTooltipUpdater() {
 		OnItemTooltip.listen( this::addTooltip )
 			.addCondition( Condition.predicate( data->data.itemStack.getItem() instanceof AccessoryItem ) );
 	}

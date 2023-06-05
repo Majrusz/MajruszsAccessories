@@ -84,8 +84,13 @@ public class TooltipHelper {
 		return new ITooltipProvider() {
 			@Override
 			public MutableComponent getTooltip( AccessoryHolder holder ) {
+				if( !holder.isValid() ) {
+					return Component.literal( "" );
+				}
+
 				return Component.translatable( "majruszsaccessories.items.booster_name", item.get().getDescription() )
-					.withStyle( item.get().getRarity( ItemStack.EMPTY ).getStyleModifier() );
+					.withStyle( item.get().getRarity( ItemStack.EMPTY ).getStyleModifier() )
+					.append( " " );
 			}
 		};
 	}
