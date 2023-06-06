@@ -4,7 +4,6 @@ import com.majruszsaccessories.boosters.BoosterItem;
 import com.majruszsaccessories.gamemodifiers.CustomConditions;
 import com.majruszsaccessories.gamemodifiers.contexts.OnAccessoryDropChance;
 import com.majruszsaccessories.tooltip.TooltipHelper;
-import com.mlib.MajruszLibrary;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
 import com.mlib.math.Range;
@@ -32,8 +31,6 @@ public class AccessoryDropChance extends BoosterComponent {
 	}
 
 	private void increaseChance( OnAccessoryDropChance.Data data ) {
-		MajruszLibrary.log( "old %.3f", data.chance );
 		data.chance *= 1.0 + this.chanceExtraMultiplier.get();
-		MajruszLibrary.log( "new %.3f", data.chance );
 	}
 }

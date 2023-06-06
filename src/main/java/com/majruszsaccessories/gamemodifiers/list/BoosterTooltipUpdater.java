@@ -27,7 +27,7 @@ public class BoosterTooltipUpdater {
 	}
 
 	private List< Component > buildGenericInfo() {
-		return List.of( Component.translatable( Tooltips.INFO ).withStyle( ChatFormatting.GRAY ) );
+		return List.of( Component.translatable( Tooltips.INFO ).withStyle( ChatFormatting.GOLD ) );
 	}
 
 	private List< Component > buildEffectsInfo( OnItemTooltip.Data data ) {
