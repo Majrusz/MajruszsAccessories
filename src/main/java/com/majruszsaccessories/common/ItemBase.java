@@ -65,9 +65,8 @@ public class ItemBase< ItemType extends Item, ComponentType extends ComponentBas
 	protected void renderBoosterIcon( int xOffset, int yOffset, float blitOffset ) {
 		DistExecutor.unsafeCallWhenOn( Dist.CLIENT, ()->()->{
 			ItemRenderer renderer = Minecraft.getInstance().getItemRenderer();
-			renderer.blitOffset += blitOffset;
-			renderer.renderGuiItem( new ItemStack( Registries.BOOSTER_OVERLAY.get() ), xOffset, yOffset );
-			renderer.blitOffset -= blitOffset;
+			renderer.renderAndDecorateItem( new ItemStack( Registries.BOOSTER_OVERLAY.get() ), xOffset, yOffset, 0, (int)blitOffset );
+			//renderer.blitOffset -= 200;
 
 			return true;
 		} );
