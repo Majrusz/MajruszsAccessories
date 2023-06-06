@@ -1,7 +1,7 @@
 package com.majruszsaccessories.boosters;
 
 import com.majruszsaccessories.Registries;
-import com.majruszsaccessories.boosters.components.ExtraExperience;
+import com.majruszsaccessories.boosters.components.ExperienceBonus;
 import com.mlib.annotations.AutoInstance;
 
 @AutoInstance
@@ -10,6 +10,6 @@ public class OwlFeather extends BoosterBase {
 		super( Registries.OWL_FEATHER );
 
 		this.name( "OwlFeather" )
-			.add( ExtraExperience.create( 0.15 ) );
+			.add( ExperienceBonus.create( 0.15 ) );
 	}
 }

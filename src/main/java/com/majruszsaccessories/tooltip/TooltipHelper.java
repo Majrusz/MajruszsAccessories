@@ -48,6 +48,10 @@ public class TooltipHelper {
 		return asValue( config, 1 );
 	}
 
+	public static ITooltipProvider asFixedValue( IntegerConfig config ) {
+		return asValue( config, 0 );
+	}
+
 	public static ITooltipProvider asPercent( DoubleConfig config, double multiplier ) {
 		return new ITooltipProvider() {
 			@Override

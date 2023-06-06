@@ -45,7 +45,8 @@ public class CreativeModeTabs {
 		Stream.of(
 			Registries.DICE,
 			Registries.GOLDEN_DICE,
-			Registries.OWL_FEATHER
+			Registries.OWL_FEATHER,
+			Registries.GOLDEN_HORSESHOE
 		).forEach( item->output.accept( new ItemStack( item.get() ) ) );
 	}
 

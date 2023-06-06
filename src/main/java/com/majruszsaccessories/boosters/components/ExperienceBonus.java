@@ -12,14 +12,14 @@ import com.mlib.math.Range;
 
 import java.util.function.Supplier;
 
-public class ExtraExperience extends BoosterComponent {
+public class ExperienceBonus extends BoosterComponent {
 	final DoubleConfig experienceExtraMultiplier;
 
 	public static ISupplier create( double chance ) {
-		return ( item, group )->new ExtraExperience( item, group, chance );
+		return ( item, group )->new ExperienceBonus( item, group, chance );
 	}
 
-	protected ExtraExperience( Supplier< BoosterItem > item, ConfigGroup group, double experienceExtraMultiplier ) {
+	protected ExperienceBonus( Supplier< BoosterItem > item, ConfigGroup group, double experienceExtraMultiplier ) {
 		super( item );
 
 		this.experienceExtraMultiplier = new DoubleConfig( experienceExtraMultiplier, new Range<>( 0.01, 10.0 ) );
@@ -29,7 +29,7 @@ public class ExtraExperience extends BoosterComponent {
 			.addConfig( this.experienceExtraMultiplier.name( "experience_extra_multiplier" ).comment( "Extra experience multiplier from all sources." ) )
 			.insertTo( group );
 
-		this.addTooltip( "majruszsaccessories.boosters.extra_experience", TooltipHelper.asItem( item ), TooltipHelper.asFixedPercent( this.experienceExtraMultiplier ) );
+		this.addTooltip( "majruszsaccessories.boosters.experience_bonus", TooltipHelper.asItem( item ), TooltipHelper.asFixedPercent( this.experienceExtraMultiplier ) );
 	}
 
 	private void increaseExperience( OnPickupXp.Data data ) {
