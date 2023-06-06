@@ -1,12 +1,18 @@
 package com.majruszsaccessories.common;
 
+import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.gamemodifiers.contexts.OnAccessoryTooltip;
 import com.mlib.client.ClientHelper;
 import com.mlib.config.ConfigGroup;
 import com.mlib.gamemodifiers.ModConfigs;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
@@ -54,5 +60,16 @@ public class ItemBase< ItemType extends Item, ComponentType extends ComponentBas
 			.map( provider->ClientHelper.isShiftDown() ? provider.getDetailedTooltip( data.holder ) : provider.getTooltip( data.holder ) )
 			.map( component->( Component )component.withStyle( ChatFormatting.GRAY ) )
 			.forEach( data.components::add );
+	}
+
+	protected void renderBoosterIcon( int xOffset, int yOffset, float blitOffset ) {
+		DistExecutor.unsafeCallWhenOn( Dist.CLIENT, ()->()->{
+			ItemRenderer renderer = Minecraft.getInstance().getItemRenderer();
+			renderer.blitOffset += blitOffset;
+			renderer.renderGuiItem( new ItemStack( Registries.BOOSTER_OVERLAY.get() ), xOffset, yOffset );
+			renderer.blitOffset -= blitOffset;
+
+			return true;
+		} );
 	}
 }

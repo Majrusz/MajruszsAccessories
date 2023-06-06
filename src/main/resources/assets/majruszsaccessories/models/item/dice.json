@@ -1,7 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "majruszsaccessories:item/dice",
-    "layer1": "majruszsaccessories:item/booster_icon"
+    "layer0": "majruszsaccessories:item/dice"
   }
 }

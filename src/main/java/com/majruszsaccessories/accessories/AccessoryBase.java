@@ -1,11 +1,16 @@
 package com.majruszsaccessories.accessories;
 
+import com.majruszsaccessories.AccessoryHolder;
 import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.common.ItemBase;
 import com.majruszsaccessories.gamemodifiers.contexts.OnAccessoryTooltip;
+import com.majruszsaccessories.gamemodifiers.contexts.OnItemRender;
 import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.contexts.OnTradeSetup;
+import net.minecraft.client.gui.Font;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.client.IItemDecorator;
 import net.minecraftforge.registries.RegistryObject;
 
 public class AccessoryBase extends ItemBase< AccessoryItem, AccessoryComponent, AccessoryComponent.ISupplier > {
@@ -18,6 +23,8 @@ public class AccessoryBase extends ItemBase< AccessoryItem, AccessoryComponent, 
 
 		OnTradeSetup.listen( this::addTrades )
 			.insertTo( this.group );
+
+		OnItemRender.listen( this::addBoosterIcon );
 	}
 
 	private void addTrades( OnTradeSetup.Data data ) {
@@ -26,5 +33,20 @@ public class AccessoryBase extends ItemBase< AccessoryItem, AccessoryComponent, 
 			.map( TradeOffer.class::cast )
 			.filter( offer->offer.getProfession() == data.profession )
 			.forEach( offer->data.getTrades( offer.getTier() ).add( ( trader, random )->offer.toMerchantOffer() ) );
+	}
+
+	private void addBoosterIcon( OnItemRender.Data data ) {
+		data.addDecoration( this.item, new IItemDecorator() {
+			@Override
+			public boolean render( Font font, ItemStack itemStack, int xOffset, int yOffset, float blitOffset ) {
+				if( AccessoryHolder.create( itemStack ).hasBoosterTag() ) {
+					AccessoryBase.this.renderBoosterIcon( xOffset, yOffset, blitOffset );
+
+					return true;
+				}
+
+				return false;
+			}
+		} );
 	}
 }

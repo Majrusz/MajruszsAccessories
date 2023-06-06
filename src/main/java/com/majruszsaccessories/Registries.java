@@ -2,6 +2,7 @@ package com.majruszsaccessories;
 
 import com.majruszsaccessories.accessories.AccessoryItem;
 import com.majruszsaccessories.boosters.BoosterItem;
+import com.majruszsaccessories.items.BoosterOverlay;
 import com.majruszsaccessories.recipes.AccessoryRecipe;
 import com.majruszsaccessories.recipes.BoostAccessoriesRecipe;
 import com.majruszsaccessories.recipes.CombineAccessoriesRecipe;
@@ -55,6 +56,7 @@ public class Registries {
 
 	// Misc
 	public static final ResourceLocation ACCESSORY_SLOT_TEXTURE = Registries.getLocation( "item/empty_accessory_slot" );
+	public static final RegistryObject< Item > BOOSTER_OVERLAY = ITEMS.register( "booster_icon", BoosterOverlay::new );
 
 	static {
 		new AnnotationHandler( MajruszsAccessories.MOD_ID );

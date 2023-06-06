@@ -195,6 +195,10 @@ public class AccessoryHolder {
 		return Utility.getRegistryString( item ).equals( this.getStringTag( Tags.BOOSTER ) );
 	}
 
+	public boolean hasBoosterTag() {
+		return !this.getStringTag( Tags.BOOSTER ).isEmpty();
+	}
+
 	private AccessoryHolder setTagValue( String tag, float value ) {
 		this.itemStack.getOrCreateTagElement( Tags.BONUS ).putFloat( tag, Math.round( 100.0f * value ) / 100.0f );
 
@@ -216,7 +220,7 @@ public class AccessoryHolder {
 	private String getStringTag( String tag ) {
 		CompoundTag itemTag = this.itemStack.getTagElement( Tags.BONUS );
 
-		return itemTag != null ? itemTag.getString( tag ) : null;
+		return itemTag != null ? itemTag.getString( tag ) : "";
 	}
 
 	static final class Tags {
