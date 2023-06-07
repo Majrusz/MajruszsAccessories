@@ -2,7 +2,7 @@
   "parent": "minecraft:adventure/root",
   "display": {
     "icon": {
-      "item": "majruszsaccessories:anglers_trophy",
+      "item": "majruszsaccessories:dice",
       "nbt": "{Bonus:{Booster:\"any\"}}"
     },
     "title": {
