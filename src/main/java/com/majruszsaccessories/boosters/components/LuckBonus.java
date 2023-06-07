@@ -30,7 +30,7 @@ public class LuckBonus extends BoosterComponent {
 
 		OnPlayerTick.listen( this::updateLuck )
 			.addCondition( Condition.< OnPlayerTick.Data > cooldown( 4, Dist.DEDICATED_SERVER ).configurable( false ) )
-			.addConfig( this.luckBonus.name( "luck" ).comment( "Luck bonus when fishing." ) )
+			.addConfig( this.luckBonus.name( "luck" ).comment( "Extra luck bonus." ) )
 			.insertTo( group );
 
 		this.addTooltip( "majruszsaccessories.boosters.luck_bonus", TooltipHelper.asItem( item ), TooltipHelper.asFixedValue( this.luckBonus ) );
