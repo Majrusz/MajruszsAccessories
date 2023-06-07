@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "majruszsaccessories:golden_horseshoe"
+    ]
+  },
+  "criteria": {
+    "has_horseshoe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "majruszsaccessories:horseshoe"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "majruszsaccessories:golden_horseshoe"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_horseshoe",
+      "has_the_recipe"
+    ]
+  ]
+}

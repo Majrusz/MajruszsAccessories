@@ -43,7 +43,8 @@ public class Registries {
 	public static final RegistryObject< AccessoryItem > CERTIFICATE_OF_TAMING = ITEMS.register( "certificate_of_taming", AccessoryItem::new );
 	public static final RegistryObject< BoosterItem > DICE = ITEMS.register( "dice", BoosterItem.basic() );
 	public static final RegistryObject< BoosterItem > GOLDEN_DICE = ITEMS.register( "golden_dice", BoosterItem.rare() );
-	public static final RegistryObject< BoosterItem > GOLDEN_HORSESHOE = ITEMS.register( "golden_horseshoe", BoosterItem.basic() );
+	public static final RegistryObject< BoosterItem > GOLDEN_HORSESHOE = ITEMS.register( "golden_horseshoe", BoosterItem.rare() );
+	public static final RegistryObject< BoosterItem > HORSESHOE = ITEMS.register( "horseshoe", BoosterItem.basic() );
 	public static final RegistryObject< AccessoryItem > IDOL_OF_FERTILITY = ITEMS.register( "idol_of_fertility", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > LUCKY_ROCK = ITEMS.register( "lucky_rock", AccessoryItem::new );
 	public static final RegistryObject< BoosterItem > OWL_FEATHER = ITEMS.register( "owl_feather", BoosterItem.basic() );

@@ -5,11 +5,11 @@ import com.majruszsaccessories.boosters.components.LuckBonus;
 import com.mlib.annotations.AutoInstance;
 
 @AutoInstance
-public class GoldenHorseshoe extends BoosterBase {
-	public GoldenHorseshoe() {
-		super( Registries.GOLDEN_HORSESHOE );
+public class Horseshoe extends BoosterBase {
+	public Horseshoe() {
+		super( Registries.HORSESHOE );
 
-		this.name( "GoldenHorseshoe" )
-			.add( LuckBonus.create( 2 ) );
+		this.name( "Horseshoe" )
+			.add( LuckBonus.create( 1 ) );
 	}
 }
