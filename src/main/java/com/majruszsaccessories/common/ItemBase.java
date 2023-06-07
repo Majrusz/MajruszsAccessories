@@ -59,11 +59,11 @@ public class ItemBase< ItemType extends Item, ComponentType extends ComponentBas
 			.forEach( data.components::add );
 	}
 
-	protected void renderBoosterIcon( int xOffset, int yOffset, float blitOffset ) {
-		DistExecutor.unsafeCallWhenOn( Dist.CLIENT, ()->()->{
+	protected boolean renderBoosterIcon( int xOffset, int yOffset, float blitOffset ) {
+		return DistExecutor.unsafeCallWhenOn( Dist.CLIENT, ()->()->{
 			Minecraft.getInstance()
 				.getItemRenderer()
-				.renderAndDecorateItem( new ItemStack( Registries.BOOSTER_OVERLAY.get() ), xOffset, yOffset, 0, ( int )blitOffset );
+				.renderAndDecorateItem( new ItemStack( Registries.BOOSTER_OVERLAY.get() ), xOffset, yOffset, 0, 111 );
 
 			return true;
 		} );

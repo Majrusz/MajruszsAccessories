@@ -40,13 +40,8 @@ public class AccessoryBase extends ItemBase< AccessoryItem, AccessoryComponent, 
 		data.addDecoration( this.item, new IItemDecorator() {
 			@Override
 			public boolean render( Font font, ItemStack itemStack, int xOffset, int yOffset, float blitOffset ) {
-				if( AccessoryHolder.create( itemStack ).hasBoosterTag() ) {
-					AccessoryBase.this.renderBoosterIcon( xOffset, yOffset, blitOffset );
-
-					return true;
-				}
-
-				return false;
+				return AccessoryHolder.create( itemStack ).hasBoosterTag()
+					&& AccessoryBase.this.renderBoosterIcon( xOffset, yOffset, blitOffset );
 			}
 		} );
 	}

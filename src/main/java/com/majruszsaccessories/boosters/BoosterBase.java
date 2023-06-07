@@ -46,9 +46,7 @@ public class BoosterBase extends ItemBase< BoosterItem, BoosterComponent, Booste
 		data.addDecoration( this.item, new IItemDecorator() {
 			@Override
 			public boolean render( Font font, ItemStack itemStack, int xOffset, int yOffset, float blitOffset ) {
-				BoosterBase.this.renderBoosterIcon( xOffset, yOffset, blitOffset );
-
-				return true;
+				return BoosterBase.this.renderBoosterIcon( xOffset, yOffset, blitOffset );
 			}
 		} );
 	}
