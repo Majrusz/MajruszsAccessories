@@ -1,0 +1,35 @@
+{
+  "parent": "majruszsaccessories:booster_dropped",
+  "display": {
+    "icon": {
+      "item": "majruszsaccessories:anglers_trophy",
+      "nbt": "{Bonus:{Booster:\"any\"}}"
+    },
+    "title": {
+      "translate": "advancements.majruszsaccessories.booster_used.title"
+    },
+    "description": {
+      "translate": "advancements.majruszsaccessories.booster_used.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "rewards": {
+    "experience": 50
+  },
+  "criteria": {
+    "booster_used": {
+      "trigger": "majruszsaccessories:basic_trigger",
+      "conditions": {
+        "type": "booster_used"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "booster_used"
+    ]
+  ]
+}

@@ -9,6 +9,7 @@ import com.majruszsaccessories.recipes.CombineAccessoriesRecipe;
 import com.mlib.annotations.AnnotationHandler;
 import com.mlib.gamemodifiers.ModConfigs;
 import com.mlib.registries.RegistryHelper;
+import com.mlib.triggers.BasicTrigger;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -59,6 +60,7 @@ public class Registries {
 	// Misc
 	public static final ResourceLocation ACCESSORY_SLOT_TEXTURE = Registries.getLocation( "item/empty_accessory_slot" );
 	public static final RegistryObject< Item > BOOSTER_OVERLAY = ITEMS.register( "booster_icon", BoosterOverlay::new );
+	public static final BasicTrigger BASIC_TRIGGER = HELPER.registerBasicTrigger();
 
 	static {
 		new AnnotationHandler( MajruszsAccessories.MOD_ID );

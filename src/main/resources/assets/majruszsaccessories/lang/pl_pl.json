@@ -56,5 +56,9 @@
   "advancements.majruszsaccessories.white_flag.description": "Zdobądź białą flagę",
   "advancements.majruszsaccessories.overworld_rune.title": "Ziemia nie skrywa już tajemnic",
   "advancements.majruszsaccessories.overworld_rune.description": "Zdobądź runę Ziemi",
-  "curios.identifier.pocket": "Pocket"
+  "advancements.majruszsaccessories.booster_dropped.title": "Czy to nie czas na wzmocnienie?",
+  "advancements.majruszsaccessories.booster_dropped.description": "Zdobądź dowolny wzmacniacz akcesoriów",
+  "advancements.majruszsaccessories.booster_used.title": "Co za wzmocnienie!",
+  "advancements.majruszsaccessories.booster_used.description": "Wykorzystaj dowolny wzmacniacz akcesoriów",
+  "curios.identifier.pocket": "Kieszeń"
 }
