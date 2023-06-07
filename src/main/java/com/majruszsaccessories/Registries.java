@@ -31,6 +31,8 @@ public class Registries {
 
 	static {
 		ModConfigs.init( SERVER_CONFIG, Groups.DEFAULT );
+		ModConfigs.init( SERVER_CONFIG, Groups.ACCESSORIES ).name( "Accessories" );
+		ModConfigs.init( SERVER_CONFIG, Groups.BOOSTERS ).name( "Boosters" );
 	}
 
 	// Groups
@@ -98,5 +100,7 @@ public class Registries {
 
 	public static class Groups {
 		public static final String DEFAULT = Registries.getLocationString( "default" );
+		public static final String ACCESSORIES = Registries.getLocationString( "accessories" );
+		public static final String BOOSTERS = Registries.getLocationString( "boosters" );
 	}
 }

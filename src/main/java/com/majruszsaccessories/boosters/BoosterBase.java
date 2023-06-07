@@ -1,6 +1,7 @@
 package com.majruszsaccessories.boosters;
 
 import com.majruszsaccessories.AccessoryHolder;
+import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.boosters.components.BoosterComponent;
 import com.majruszsaccessories.common.ComponentBase;
 import com.majruszsaccessories.common.ItemBase;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class BoosterBase extends ItemBase< BoosterItem, BoosterComponent, BoosterComponent.ISupplier > {
 	public BoosterBase( RegistryObject< BoosterItem > item ) {
-		super( item );
+		super( item, Registries.Groups.BOOSTERS );
 
 		OnAccessoryTooltip.listen( this::addTooltip )
 			.addCondition( Condition.predicate( data->data.holder.hasBoosterTag( item.get() ) ) )

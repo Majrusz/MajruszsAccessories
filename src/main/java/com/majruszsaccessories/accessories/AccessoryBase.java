@@ -1,6 +1,7 @@
 package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.AccessoryHolder;
+import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.common.ItemBase;
@@ -15,7 +16,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class AccessoryBase extends ItemBase< AccessoryItem, AccessoryComponent, AccessoryComponent.ISupplier > {
 	public AccessoryBase( RegistryObject< AccessoryItem > item ) {
-		super( item );
+		super( item, Registries.Groups.ACCESSORIES );
 
 		OnAccessoryTooltip.listen( this::addTooltip )
 			.addCondition( Condition.predicate( data->data.holder.getItem().equals( this.item.get() ) ) )

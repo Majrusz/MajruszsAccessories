@@ -1,7 +1,7 @@
 package com.majruszsaccessories.boosters.components;
 
-import com.majruszsaccessories.common.ComponentBase;
 import com.majruszsaccessories.boosters.BoosterItem;
+import com.majruszsaccessories.common.ComponentBase;
 import com.mlib.config.ConfigGroup;
 
 import java.util.function.BiFunction;
