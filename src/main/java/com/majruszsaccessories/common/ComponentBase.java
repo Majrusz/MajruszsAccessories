@@ -2,9 +2,11 @@ package com.majruszsaccessories.common;
 
 import com.majruszsaccessories.AccessoryHolder;
 import com.majruszsaccessories.tooltip.ITooltipProvider;
+import com.mlib.gamemodifiers.contexts.OnLoot;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,5 +40,13 @@ public class ComponentBase< ItemType extends Item > {
 
 	public List< ITooltipProvider > getTooltipProviders() {
 		return Collections.unmodifiableList( this.tooltipProviders );
+	}
+
+	protected void addToGeneratedLoot( OnLoot.Data data ) {
+		data.generatedLoot.add( this.constructItemStack() );
+	}
+
+	protected ItemStack constructItemStack() {
+		return new ItemStack( this.item.get() );
 	}
 }

@@ -4,7 +4,6 @@ import com.majruszsaccessories.AccessoryHolder;
 import com.majruszsaccessories.accessories.AccessoryItem;
 import com.majruszsaccessories.common.ComponentBase;
 import com.mlib.config.ConfigGroup;
-import com.mlib.gamemodifiers.contexts.OnLoot;
 import com.mlib.levels.LevelHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -18,16 +17,13 @@ public class AccessoryComponent extends ComponentBase< AccessoryItem > {
 		super( item );
 	}
 
-	protected void addToGeneratedLoot( OnLoot.Data data ) {
-		data.generatedLoot.add( this.constructItemStack() );
+	@Override
+	protected ItemStack constructItemStack() {
+		return AccessoryHolder.create( this.item.get() ).setRandomBonus().getItemStack();
 	}
 
 	protected void spawnFlyingItem( Level level, Vec3 from, Vec3 to ) {
 		LevelHelper.spawnItemEntityFlyingTowardsDirection( this.constructItemStack(), level, from, to );
-	}
-
-	protected ItemStack constructItemStack() {
-		return AccessoryHolder.create( this.item.get() ).setRandomBonus().getItemStack();
 	}
 
 	@FunctionalInterface
