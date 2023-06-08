@@ -2,10 +2,10 @@ package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.Integration;
 import com.majruszsaccessories.Registries;
-import com.majruszsaccessories.components.AccessoryComponent;
-import com.majruszsaccessories.components.ExtraStoneLoot;
-import com.majruszsaccessories.components.TradeOffer;
-import com.majruszsaccessories.items.AccessoryItem;
+import com.majruszsaccessories.accessories.components.AccessoryComponent;
+import com.majruszsaccessories.accessories.components.ExtraStoneLoot;
+import com.majruszsaccessories.accessories.components.TradeOffer;
+import com.majruszsaccessories.gamemodifiers.CustomConditions;
 import com.mlib.annotations.AutoInstance;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
@@ -40,7 +40,7 @@ public class LuckyRock extends AccessoryBase {
 			chance.name( "drop_chance" ).comment( "Chance for Lucky Rock to drop when mining stone." );
 
 			ExtraStoneLoot.OnStoneMined.listen( this::addToGeneratedLoot )
-				.addCondition( Condition.chance( chance ) )
+				.addCondition( CustomConditions.dropChance( chance, data->data.entity ) )
 				.insertTo( group );
 		}
 	}

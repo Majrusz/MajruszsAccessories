@@ -2,7 +2,7 @@ package com.majruszsaccessories.recipes;
 
 import com.majruszsaccessories.AccessoryHolder;
 import com.majruszsaccessories.Registries;
-import com.majruszsaccessories.items.AccessoryItem;
+import com.mlib.math.Range;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
@@ -11,15 +11,11 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Supplier;
 
 import static com.majruszsaccessories.AccessoryHolder.BONUS_RANGE;
 
 public class CombineAccessoriesRecipe extends CustomRecipe {
-	public static float BONUS_OFFSET = 0.04f;
-
 	public static Supplier< RecipeSerializer< ? > > create() {
 		return ()->new SimpleRecipeSerializer<>( CombineAccessoriesRecipe::new );
 	}
@@ -30,21 +26,22 @@ public class CombineAccessoriesRecipe extends CustomRecipe {
 
 	@Override
 	public boolean matches( CraftingContainer container, Level level ) {
-		RecipeData data = this.buildCraftingData( container );
+		RecipeData data = RecipeData.build( container );
 
-		return data != null && data.getBonusesSize() > 1;
+		return data.getAccessoriesSize() > 1
+			&& data.hasIdenticalItemTypes()
+			&& data.getMaxBonus() < AccessoryHolder.BONUS_RANGE.to
+			&& data.getBoostersSize() == 0;
 	}
 
 	@Override
 	public ItemStack assemble( CraftingContainer container ) {
-		RecipeData data = this.buildCraftingData( container );
+		RecipeData data = RecipeData.build( container );
 		float craftingMaxBonus = data.getMaxBonus();
-		float ratio = data.determineRatio();
-		float bonusOffset = data.getBonusesSize() * BONUS_OFFSET;
-		float minBonus = BONUS_RANGE.clamp( craftingMaxBonus - ( 1.0f - ratio ) * bonusOffset );
-		float maxBonus = BONUS_RANGE.clamp( craftingMaxBonus + ratio * bonusOffset );
+		float minBonus = BONUS_RANGE.clamp( craftingMaxBonus - 0.01f * ( data.getAccessoriesSize() - 1 ) );
+		float maxBonus = BONUS_RANGE.clamp( craftingMaxBonus + 0.03f * ( data.getAccessoriesSize() - 1 ) );
 
-		return data.build( minBonus, maxBonus );
+		return AccessoryHolder.create( data.getAccessory( 0 ).getItem() ).setBonus( new Range<>( minBonus, maxBonus ) ).getItemStack();
 	}
 
 	@Override
@@ -55,29 +52,5 @@ public class CombineAccessoriesRecipe extends CustomRecipe {
 	@Override
 	public RecipeSerializer< ? > getSerializer() {
 		return Registries.COMBINE_ACCESSORIES_RECIPE.get();
-	}
-
-	private RecipeData buildCraftingData( CraftingContainer container ) {
-		AccessoryItem accessory = null;
-		List< Float > bonuses = new ArrayList<>();
-		for( int i = 0; i < container.getContainerSize(); ++i ) {
-			ItemStack itemStack = container.getItem( i );
-			if( itemStack.isEmpty() )
-				continue;
-
-			if( itemStack.getItem() instanceof AccessoryItem item ) {
-				if( accessory == null ) {
-					accessory = item;
-				} else if( accessory != item ) {
-					return null;
-				}
-				bonuses.add( AccessoryHolder.create( itemStack ).getBonus() );
-			} else {
-				return null;
-			}
-		}
-
-		RecipeData data = new RecipeData( accessory, bonuses );
-		return accessory != null && data.getMaxBonus() < AccessoryHolder.BONUS_RANGE.to ? data : null;
 	}
 }

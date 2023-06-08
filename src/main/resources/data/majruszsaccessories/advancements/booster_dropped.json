@@ -1,0 +1,45 @@
+{
+  "parent": "minecraft:adventure/root",
+  "display": {
+    "icon": {
+      "item": "majruszsaccessories:dice",
+      "nbt": "{Bonus:{Booster:\"any\"}}"
+    },
+    "title": {
+      "translate": "advancements.majruszsaccessories.booster_dropped.title"
+    },
+    "description": {
+      "translate": "advancements.majruszsaccessories.booster_dropped.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "rewards": {
+    "experience": 50
+  },
+  "criteria": {
+    "picked_up_booster": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "majruszsaccessories:dice",
+              "majruszsaccessories:golden_dice",
+              "majruszsaccessories:owl_feather",
+              "majruszsaccessories:horseshoe",
+              "majruszsaccessories:golden_horseshoe"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "picked_up_booster"
+    ]
+  ]
+}

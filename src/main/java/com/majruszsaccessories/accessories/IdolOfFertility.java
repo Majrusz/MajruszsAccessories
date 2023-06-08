@@ -1,14 +1,13 @@
 package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.Registries;
-import com.majruszsaccessories.components.AccessoryComponent;
-import com.majruszsaccessories.components.SpawnTwins;
-import com.majruszsaccessories.components.TradeOffer;
-import com.majruszsaccessories.items.AccessoryItem;
+import com.majruszsaccessories.accessories.components.AccessoryComponent;
+import com.majruszsaccessories.accessories.components.SpawnTwins;
+import com.majruszsaccessories.accessories.components.TradeOffer;
+import com.majruszsaccessories.gamemodifiers.CustomConditions;
 import com.mlib.annotations.AutoInstance;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
-import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.contexts.OnBabySpawn;
 import com.mlib.math.Range;
 import net.minecraft.world.entity.npc.VillagerProfession;
@@ -38,7 +37,7 @@ public class IdolOfFertility extends AccessoryBase {
 			chance.name( "drop_chance" ).comment( "Chance for Idol of Fertility to drop when breeding animals." );
 
 			SpawnTwins.OnTwinsSpawn.listen( this::spawnTotem )
-				.addCondition( Condition.chance( chance ) )
+				.addCondition( CustomConditions.dropChance( chance, data->data.player ) )
 				.insertTo( group );
 		}
 
