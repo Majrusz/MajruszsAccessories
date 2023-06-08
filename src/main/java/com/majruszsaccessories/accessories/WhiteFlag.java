@@ -47,7 +47,7 @@ public class WhiteFlag extends AccessoryBase {
 			super( item );
 
 			OnPlayerInteract.listen( this::swing )
-				.addCondition( Condition.predicate( data->data.itemStack.getItem().equals( item ) ) )
+				.addCondition( Condition.predicate( data->data.itemStack.getItem().equals( item.get() ) ) )
 				.addCondition( Condition.predicate( data->!data.player.getCooldowns().isOnCooldown( data.itemStack.getItem() ) ) )
 				.insertTo( group );
 		}
