@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "majruszsaccessories:golden_dice"
+    ]
+  },
+  "criteria": {
+    "has_dice": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "majruszsaccessories:dice"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "majruszsaccessories:golden_dice"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_dice",
+      "has_the_recipe"
+    ]
+  ]
+}
