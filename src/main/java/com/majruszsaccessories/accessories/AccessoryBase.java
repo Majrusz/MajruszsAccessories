@@ -1,6 +1,5 @@
 package com.majruszsaccessories.accessories;
 
-import com.majruszsaccessories.AccessoryHolder;
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.TradeOffer;
@@ -9,9 +8,6 @@ import com.majruszsaccessories.gamemodifiers.contexts.OnAccessoryTooltip;
 import com.majruszsaccessories.gamemodifiers.contexts.OnItemRender;
 import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.contexts.OnTradeSetup;
-import net.minecraft.client.gui.Font;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.IItemDecorator;
 import net.minecraftforge.registries.RegistryObject;
 
 public class AccessoryBase extends ItemBase< AccessoryItem, AccessoryComponent, AccessoryComponent.ISupplier > {
@@ -37,12 +33,6 @@ public class AccessoryBase extends ItemBase< AccessoryItem, AccessoryComponent, 
 	}
 
 	private void addBoosterIcon( OnItemRender.Data data ) {
-		data.addDecoration( this.item, new IItemDecorator() {
-			@Override
-			public boolean render( Font font, ItemStack itemStack, int xOffset, int yOffset, float blitOffset ) {
-				return AccessoryHolder.create( itemStack ).hasBoosterTag()
-					&& AccessoryBase.this.renderBoosterIcon( xOffset, yOffset, blitOffset );
-			}
-		} );
+		// TODO: 1.18.2 does not support IItemDecorator
 	}
 }

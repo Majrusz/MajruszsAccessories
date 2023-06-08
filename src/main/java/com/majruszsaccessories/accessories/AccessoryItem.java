@@ -1,11 +1,10 @@
 package com.majruszsaccessories.accessories;
 
-import com.majruszsaccessories.Registries;
-import net.minecraft.core.NonNullList;
-import net.minecraft.util.Mth;
 import com.majruszsaccessories.AccessoryHolder;
 import com.majruszsaccessories.Registries;
+import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -41,7 +40,7 @@ public class AccessoryItem extends Item {
 
 	@Override
 	public void fillItemCategory( CreativeModeTab itemGroup, NonNullList< ItemStack > itemStacks ) {
-		if( !this.allowedIn( itemGroup ) )
+		if( !this.allowdedIn( itemGroup ) )
 			return;
 
 		for( int i = 0; i < 9; ++i ) {

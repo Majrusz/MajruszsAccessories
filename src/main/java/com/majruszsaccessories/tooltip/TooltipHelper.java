@@ -6,7 +6,6 @@ import com.mlib.config.DoubleConfig;
 import com.mlib.config.IntegerConfig;
 import com.mlib.text.TextHelper;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -91,10 +90,10 @@ public class TooltipHelper {
 			@Override
 			public MutableComponent getTooltip( AccessoryHolder holder ) {
 				if( !holder.isValid() ) {
-					return Component.literal( "" );
+					return new TextComponent( "" );
 				}
 
-				return Component.translatable( "majruszsaccessories.items.booster_name", item.get().getDescription() )
+				return new TranslatableComponent( "majruszsaccessories.items.booster_name", item.get().getDescription() )
 					.withStyle( item.get().getRarity( ItemStack.EMPTY ).getStyleModifier() )
 					.append( " " );
 			}

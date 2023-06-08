@@ -1,5 +1,6 @@
 package com.majruszsaccessories.boosters;
 
+import com.majruszsaccessories.Registries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
@@ -18,7 +19,7 @@ public class BoosterItem extends Item {
 	}
 
 	private BoosterItem( Rarity rarity ) {
-		super( new Properties().stacksTo( 1 ) );
+		super( new Properties().tab( Registries.ITEM_GROUP ).stacksTo( 1 ) );
 
 		this.rarity = rarity;
 	}

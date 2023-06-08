@@ -7,6 +7,7 @@ import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.contexts.OnItemTooltip;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class BoosterTooltipUpdater {
 	}
 
 	private List< Component > buildGenericInfo() {
-		return List.of( Component.translatable( Tooltips.INFO ).withStyle( ChatFormatting.GOLD ) );
+		return List.of( new TranslatableComponent( Tooltips.INFO ).withStyle( ChatFormatting.GOLD ) );
 	}
 
 	private List< Component > buildEffectsInfo( OnItemTooltip.Data data ) {
