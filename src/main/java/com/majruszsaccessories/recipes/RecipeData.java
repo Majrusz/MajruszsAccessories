@@ -1,59 +1,83 @@
 package com.majruszsaccessories.recipes;
 
 import com.majruszsaccessories.AccessoryHolder;
-import com.majruszsaccessories.items.AccessoryItem;
-import com.mlib.math.Range;
-import net.minecraft.util.Mth;
-import net.minecraft.world.item.Item;
+import com.majruszsaccessories.accessories.AccessoryItem;
+import com.majruszsaccessories.boosters.BoosterItem;
+import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
-public record RecipeData( AccessoryItem item, List< Float > bonuses ) {
-	public RecipeData( AccessoryItem item, List< Float > bonuses ) {
-		this.item = item;
-		this.bonuses = bonuses;
+public record RecipeData( List< AccessoryHolder > accessories, List< BoosterItem > boosters ) {
+	public static RecipeData build( CraftingContainer container ) {
+		RecipeData data = new RecipeData();
+		for( int i = 0; i < container.getContainerSize(); ++i ) {
+			ItemStack itemStack = container.getItem( i );
+			if( itemStack.isEmpty() ) {
+				continue;
+			}
 
-		Collections.sort( this.bonuses );
+			if( itemStack.getItem() instanceof AccessoryItem ) {
+				data.accessories.add( AccessoryHolder.create( itemStack ) );
+			} else if( itemStack.getItem() instanceof BoosterItem item ) {
+				data.boosters.add( item );
+			} else {
+				return new RecipeData();
+			}
+		}
+
+		data.accessories.sort( ( left, right )->Float.compare( left.getBonus(), right.getBonus() ) );
+		return data;
 	}
 
-	ItemStack build( float minBonus, float maxBonus ) {
-		return AccessoryHolder.create( this.item, new Range<>( minBonus, maxBonus ) ).getItemStack();
+	public RecipeData() {
+		this( new ArrayList<>(), new ArrayList<>() );
 	}
 
-	Item getItem() {
-		return this.item;
+	public AccessoryHolder getAccessory( int idx ) {
+		return this.accessories.get( idx );
 	}
 
-	List< Float > getBonuses() {
-		return this.bonuses;
+	public BoosterItem getBooster( int idx ) {
+		return this.boosters.get( idx );
 	}
 
-	int getBonusesSize() {
-		return this.bonuses.size();
-	}
+	float getStandardDeviation() {
+		float average = this.getAverageBonus();
+		double variation = this.accessories.stream()
+			.map( AccessoryHolder::getBonus )
+			.reduce( 0.0f, ( sum, bonus )->sum + ( float )Math.pow( bonus - average, 2.0 ) ) / this.accessories.size();
 
-	float getAverageBonus() {
-		return this.bonuses.stream().reduce( 0.0f, Float::sum ) / this.bonuses.size();
+		return ( float )Math.sqrt( variation );
 	}
 
 	float getMaxBonus() {
-		return this.bonuses.get( this.bonuses.size() - 1 );
+		return this.accessories.get( this.accessories.size() - 1 ).getBonus();
 	}
 
 	float getMinBonus() {
-		return this.bonuses.get( 0 );
+		return this.accessories.get( 0 ).getBonus();
 	}
 
-	float determineRatio() {
-		float min = this.getMinBonus(), max = this.getMaxBonus();
-		if( min == max )
-			return 1.0f;
-
-		float average = this.getAverageBonus();
-		float std = ( float )Math.sqrt( this.bonuses.stream()
-			.reduce( 0.0f, ( sum, bonus )->sum + ( float )Math.pow( bonus - average, 2.0f ) ) / this.bonuses.size() );
-		return Mth.clamp( 1.0f - 2.0f * std / ( AccessoryHolder.BONUS_RANGE.to - AccessoryHolder.BONUS_RANGE.from ), 0.0f, 1.0f );
+	float getAverageBonus() {
+		return this.accessories.stream().map( AccessoryHolder::getBonus ).reduce( 0.0f, Float::sum ) / this.accessories.size();
 	}
+
+	int getAccessoriesSize() {
+		return this.accessories.size();
+	}
+
+	int getBoostersSize() {
+		return this.boosters.size();
+	}
+
+	boolean hasAccessory( AccessoryItem item ) {
+		return this.accessories.stream().anyMatch( holder->holder.getItem().equals( item ) );
+	}
+
+	boolean hasIdenticalItemTypes() {
+		return this.accessories.stream().allMatch( holder->holder.getItem().equals( this.accessories.get( 0 ).getItem() ) );
+	}
+
 }

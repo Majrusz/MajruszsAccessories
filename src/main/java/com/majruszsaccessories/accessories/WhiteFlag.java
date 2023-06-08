@@ -1,8 +1,11 @@
 package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.Registries;
-import com.majruszsaccessories.components.*;
-import com.majruszsaccessories.items.AccessoryItem;
+import com.majruszsaccessories.accessories.components.AccessoryComponent;
+import com.majruszsaccessories.accessories.components.ReduceDamageDealt;
+import com.majruszsaccessories.accessories.components.ReduceDamageReceived;
+import com.majruszsaccessories.accessories.components.TradeOffer;
+import com.majruszsaccessories.gamemodifiers.CustomConditions;
 import com.mlib.Utility;
 import com.mlib.annotations.AutoInstance;
 import com.mlib.blocks.BlockHelper;
@@ -44,7 +47,7 @@ public class WhiteFlag extends AccessoryBase {
 			super( item );
 
 			OnPlayerInteract.listen( this::swing )
-				.addCondition( Condition.predicate( data->data.itemStack.getItem().equals( item ) ) )
+				.addCondition( Condition.predicate( data->data.itemStack.getItem().equals( item.get() ) ) )
 				.addCondition( Condition.predicate( data->!data.player.getCooldowns().isOnCooldown( data.itemStack.getItem() ) ) )
 				.insertTo( group );
 		}
@@ -89,7 +92,7 @@ public class WhiteFlag extends AccessoryBase {
 
 			OnLoot.listen( this::addToGeneratedLoot )
 				.addCondition( Condition.isServer() )
-				.addCondition( Condition.chance( chance ) )
+				.addCondition( CustomConditions.dropChance( chance, data->data.entity ) )
 				.addCondition( OnLoot.is( villageIds ) )
 				.addCondition( OnLoot.hasOrigin() )
 				.addCondition( Condition.predicate( data->BlockHelper.getBlockEntity( data.getLevel(), data.origin ) instanceof RandomizableContainerBlockEntity ) )

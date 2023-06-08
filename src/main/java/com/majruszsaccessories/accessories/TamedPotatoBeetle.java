@@ -1,10 +1,10 @@
 package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.Registries;
-import com.majruszsaccessories.components.AccessoryComponent;
-import com.majruszsaccessories.components.DoubleCrops;
-import com.majruszsaccessories.components.TradeOffer;
-import com.majruszsaccessories.items.AccessoryItem;
+import com.majruszsaccessories.accessories.components.AccessoryComponent;
+import com.majruszsaccessories.accessories.components.DoubleCrops;
+import com.majruszsaccessories.accessories.components.TradeOffer;
+import com.majruszsaccessories.gamemodifiers.contexts.OnAccessoryDropChance;
 import com.mlib.Random;
 import com.mlib.annotations.AutoInstance;
 import com.mlib.config.ConfigGroup;
@@ -52,7 +52,7 @@ public class TamedPotatoBeetle extends AccessoryBase {
 					finalChance *= chanceMultiplier.getOrDefault();
 				}
 
-				return Random.tryChance( finalChance );
+				return Random.tryChance( OnAccessoryDropChance.dispatch( finalChance, data.entity ).getChance() );
 			};
 
 			return Condition.predicate( predicate )

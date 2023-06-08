@@ -1,66 +1,48 @@
 package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.AccessoryHolder;
-import com.majruszsaccessories.components.AccessoryComponent;
-import com.majruszsaccessories.items.AccessoryItem;
-import com.mlib.client.ClientHelper;
-import com.mlib.config.ConfigGroup;
-import com.mlib.gamemodifiers.ModConfigs;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
+import com.majruszsaccessories.Registries;
+import com.majruszsaccessories.accessories.components.AccessoryComponent;
+import com.majruszsaccessories.accessories.components.TradeOffer;
+import com.majruszsaccessories.common.ItemBase;
+import com.majruszsaccessories.gamemodifiers.contexts.OnAccessoryTooltip;
+import com.majruszsaccessories.gamemodifiers.contexts.OnItemRender;
+import com.mlib.gamemodifiers.Condition;
+import com.mlib.gamemodifiers.contexts.OnTradeSetup;
+import net.minecraft.client.gui.Font;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.client.IItemDecorator;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
-
-import static com.majruszsaccessories.MajruszsAccessories.SERVER_CONFIG;
-
-public class AccessoryBase {
-	protected final List< AccessoryComponent > components = new ArrayList<>();
-	protected final Supplier< AccessoryItem > item;
-	protected final ConfigGroup group;
-
+public class AccessoryBase extends ItemBase< AccessoryItem, AccessoryComponent, AccessoryComponent.ISupplier > {
 	public AccessoryBase( RegistryObject< AccessoryItem > item ) {
-		this.item = item;
-		this.group = ModConfigs.init( SERVER_CONFIG, item.getId().toString() );
+		super( item, Registries.Groups.ACCESSORIES );
+
+		OnAccessoryTooltip.listen( this::addTooltip )
+			.addCondition( Condition.predicate( data->data.holder.getItem().equals( this.item.get() ) ) )
+			.insertTo( this.group );
+
+		OnTradeSetup.listen( this::addTrades )
+			.insertTo( this.group );
+
+		OnItemRender.listen( this::addBoosterIcon );
 	}
 
-	public AccessoryBase name( String name ) {
-		this.group.name( name );
-
-		return this;
+	private void addTrades( OnTradeSetup.Data data ) {
+		this.components.stream()
+			.filter( TradeOffer.class::isInstance )
+			.map( TradeOffer.class::cast )
+			.filter( offer->offer.getProfession() == data.profession )
+			.forEach( offer->data.getTrades( offer.getTier() ).add( ( trader, random )->offer.toMerchantOffer() ) );
 	}
 
-	public AccessoryBase add( AccessoryComponent.ISupplier supplier ) {
-		this.components.add( supplier.accept( this.item, this.group ) );
-
-		return this;
-	}
-
-	public List< Component > buildTooltip( AccessoryHolder holder ) {
-		return this.components.stream()
-			.map( AccessoryComponent::getTooltipProviders )
-			.flatMap( List::stream )
-			.map( provider->ClientHelper.isShiftDown() ? provider.getDetailedTooltip( holder ) : provider.getTooltip( holder ) )
-			.map( component->( Component )component.withStyle( ChatFormatting.GRAY ) )
-			.toList();
-	}
-
-	public boolean is( AccessoryItem item ) {
-		return this.item.get().equals( item );
-	}
-
-	public List< AccessoryComponent > getComponents() {
-		return Collections.unmodifiableList( this.components );
-	}
-
-	public < Type > List< Type > getComponents( Class< Type > clazz ) {
-		return Stream.of( this.components )
-			.filter( clazz::isInstance )
-			.map( clazz::cast )
-			.toList();
+	private void addBoosterIcon( OnItemRender.Data data ) {
+		data.addDecoration( this.item, new IItemDecorator() {
+			@Override
+			public boolean render( Font font, ItemStack itemStack, int xOffset, int yOffset, float blitOffset ) {
+				return AccessoryHolder.create( itemStack ).hasBoosterTag()
+					&& AccessoryBase.this.renderBoosterIcon( xOffset, yOffset, blitOffset );
+			}
+		} );
 	}
 }

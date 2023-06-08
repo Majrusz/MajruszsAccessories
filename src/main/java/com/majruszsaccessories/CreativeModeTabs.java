@@ -24,21 +24,31 @@ public class CreativeModeTabs {
 
 	private void definePrimaryItems( FeatureFlagSet flagSet, CreativeModeTab.Output output, boolean hasPermissions ) {
 		Stream.of(
+			// TIER I
 			Registries.ADVENTURERS_GUIDE,
 			Registries.ANGLERS_TROPHY,
 			Registries.CERTIFICATE_OF_TAMING,
 			Registries.IDOL_OF_FERTILITY,
 			Registries.LUCKY_ROCK,
-			Registries.OVERWORLD_RUNE,
 			Registries.SECRET_INGREDIENT,
 			Registries.TAMED_POTATO_BEETLE,
-			Registries.WHITE_FLAG
+			Registries.WHITE_FLAG,
+			// TIER II
+			Registries.OVERWORLD_RUNE
 		).forEach( item->{
 			for( int i = 0; i < 9; ++i ) {
 				float bonus = Math.round( 100.0f * Mth.lerp( i / 8.0f, AccessoryHolder.BONUS_RANGE.from, AccessoryHolder.BONUS_RANGE.to ) ) / 100.0f;
-				output.accept( AccessoryHolder.create( item.get(), bonus ).getItemStack() );
+				output.accept( AccessoryHolder.create( item.get() ).setBonus( bonus ).getItemStack() );
 			}
 		} );
+
+		Stream.of(
+			Registries.DICE,
+			Registries.GOLDEN_DICE,
+			Registries.OWL_FEATHER,
+			Registries.HORSESHOE,
+			Registries.GOLDEN_HORSESHOE
+		).forEach( item->output.accept( new ItemStack( item.get() ) ) );
 	}
 
 	private static class Primary extends CreativeModeTab {
