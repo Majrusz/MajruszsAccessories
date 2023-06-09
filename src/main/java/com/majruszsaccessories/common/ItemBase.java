@@ -7,6 +7,7 @@ import com.mlib.config.ConfigGroup;
 import com.mlib.gamemodifiers.ModConfigs;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -59,11 +60,9 @@ public class ItemBase< ItemType extends Item, ComponentType extends ComponentBas
 			.forEach( data.components::add );
 	}
 
-	protected boolean renderBoosterIcon( int xOffset, int yOffset, float blitOffset ) {
+	protected boolean renderBoosterIcon( int xOffset, int yOffset, GuiGraphics guiGraphics ) {
 		return DistExecutor.unsafeCallWhenOn( Dist.CLIENT, ()->()->{
-			Minecraft.getInstance()
-				.getItemRenderer()
-				.renderAndDecorateItem( new ItemStack( Registries.BOOSTER_OVERLAY.get() ), xOffset, yOffset, 0, 111 );
+			guiGraphics.renderItem( new ItemStack( Registries.BOOSTER_OVERLAY.get() ), xOffset, yOffset );
 
 			return true;
 		} );

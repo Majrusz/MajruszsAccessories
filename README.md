@@ -9,10 +9,14 @@
 - [Modrinth](https://modrinth.com/mod/majruszs-accessories)
 
 ## Current Library Releases (Source Code)
-- [v1.1.5 for Minecraft 1.19.3](https://github.com/Majrusz/MajruszAccessories/tree/1.19.X)
+- [v1.2.0 for Minecraft 1.20](https://github.com/Majrusz/MajruszAccessories/tree/1.20.X)
+- [v1.2.0 for Minecraft 1.19.3](https://github.com/Majrusz/MajruszAccessories/tree/1.19.X) *(not supported anymore)*
 - [v0.4.0 for Minecraft 1.18.1](https://github.com/Majrusz/MajruszAccessories/tree/1.18.1) *(not supported anymore)*
 - [v0.3.0 for Minecraft 1.17.1](https://github.com/Majrusz/MajruszAccessories/tree/1.17.1) *(not supported anymore)*
 - [v0.1.4 for Minecraft 1.16.5](https://github.com/Majrusz/MajruszAccessories/tree/1.16.5) *(not supported anymore)*
+
+## Dependencies
+- [Majrusz Library](https://github.com/Majrusz/MajruszLibrary/tree/1.20.X)
 
 ## Technologies
 - Java 8

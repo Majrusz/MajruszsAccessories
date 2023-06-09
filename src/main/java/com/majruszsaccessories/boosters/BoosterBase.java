@@ -11,6 +11,7 @@ import com.majruszsaccessories.gamemodifiers.contexts.OnItemRender;
 import com.mlib.gamemodifiers.Condition;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.IItemDecorator;
@@ -45,8 +46,8 @@ public class BoosterBase extends ItemBase< BoosterItem, BoosterComponent, Booste
 	private void addBoosterIcon( OnItemRender.Data data ) {
 		data.addDecoration( this.item, new IItemDecorator() {
 			@Override
-			public boolean render( Font font, ItemStack itemStack, int xOffset, int yOffset, float blitOffset ) {
-				return BoosterBase.this.renderBoosterIcon( xOffset, yOffset, blitOffset );
+			public boolean render( GuiGraphics guiGraphics, Font font, ItemStack itemStack, int xOffset, int yOffset ) {
+				return BoosterBase.this.renderBoosterIcon( xOffset, yOffset, guiGraphics );
 			}
 		} );
 	}

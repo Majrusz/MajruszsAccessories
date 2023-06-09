@@ -3,6 +3,7 @@ package com.majruszsaccessories.recipes;
 import com.majruszsaccessories.AccessoryHolder;
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.boosters.BoosterItem;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
@@ -31,7 +32,7 @@ public class BoostAccessoriesRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public ItemStack assemble( CraftingContainer container ) {
+	public ItemStack assemble( CraftingContainer container, RegistryAccess registryAccess ) {
 		RecipeData data = RecipeData.build( container );
 		AccessoryHolder holder = data.getAccessory( 0 );
 		BoosterItem booster = data.getBooster( 0 );

@@ -3,6 +3,7 @@ package com.majruszsaccessories.recipes;
 import com.majruszsaccessories.AccessoryHolder;
 import com.majruszsaccessories.Registries;
 import com.mlib.math.Range;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
@@ -36,7 +37,7 @@ public class CombineAccessoriesRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public ItemStack assemble( CraftingContainer container ) {
+	public ItemStack assemble( CraftingContainer container, RegistryAccess registryAccess ) {
 		RecipeData data = RecipeData.build( container );
 		float craftingMaxBonus = data.getMaxBonus();
 		float minBonus = BONUS_RANGE.clamp( craftingMaxBonus - 0.01f * ( data.getAccessoriesSize() - 1 ) );

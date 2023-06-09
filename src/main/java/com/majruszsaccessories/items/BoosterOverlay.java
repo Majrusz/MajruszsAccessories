@@ -10,6 +10,6 @@ public class BoosterOverlay extends Item {
 
 	@Override
 	public boolean isFoil( ItemStack itemStack ) {
-		return true;
+		return false;
 	}
 }

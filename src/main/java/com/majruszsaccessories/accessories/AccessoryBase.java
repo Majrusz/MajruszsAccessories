@@ -10,6 +10,7 @@ import com.majruszsaccessories.gamemodifiers.contexts.OnItemRender;
 import com.mlib.gamemodifiers.Condition;
 import com.mlib.gamemodifiers.contexts.OnTradeSetup;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.IItemDecorator;
 import net.minecraftforge.registries.RegistryObject;
@@ -39,9 +40,9 @@ public class AccessoryBase extends ItemBase< AccessoryItem, AccessoryComponent, 
 	private void addBoosterIcon( OnItemRender.Data data ) {
 		data.addDecoration( this.item, new IItemDecorator() {
 			@Override
-			public boolean render( Font font, ItemStack itemStack, int xOffset, int yOffset, float blitOffset ) {
+			public boolean render( GuiGraphics guiGraphics, Font font, ItemStack itemStack, int xOffset, int yOffset ) {
 				return AccessoryHolder.create( itemStack ).hasBoosterTag()
-					&& AccessoryBase.this.renderBoosterIcon( xOffset, yOffset, blitOffset );
+					&& AccessoryBase.this.renderBoosterIcon( xOffset, yOffset, guiGraphics );
 			}
 		} );
 	}

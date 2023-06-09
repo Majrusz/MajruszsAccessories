@@ -11,6 +11,7 @@ import com.mlib.gamemodifiers.ModConfigs;
 import com.mlib.registries.RegistryHelper;
 import com.mlib.triggers.BasicTrigger;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -21,8 +22,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotTypeMessage;
+/* TODO: import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotTypeMessage; */
 
 import static com.majruszsaccessories.MajruszsAccessories.SERVER_CONFIG;
 
@@ -38,6 +39,7 @@ public class Registries {
 	// Groups
 	static final DeferredRegister< Item > ITEMS = HELPER.create( ForgeRegistries.Keys.ITEMS );
 	static final DeferredRegister< RecipeSerializer< ? > > RECIPES = HELPER.create( ForgeRegistries.Keys.RECIPE_SERIALIZERS );
+	static final DeferredRegister< CreativeModeTab > CREATIVE_MODE_TABS = HELPER.create( net.minecraft.core.registries.Registries.CREATIVE_MODE_TAB );
 
 	// Items
 	public static final RegistryObject< AccessoryItem > ADVENTURERS_GUIDE = ITEMS.register( "adventurers_guide", AccessoryItem::new );
@@ -59,6 +61,9 @@ public class Registries {
 	public static final RegistryObject< RecipeSerializer< ? > > ACCESSORY_RECIPE = RECIPES.register( "crafting_accessory", AccessoryRecipe.create() );
 	public static final RegistryObject< RecipeSerializer< ? > > COMBINE_ACCESSORIES_RECIPE = RECIPES.register( "crafting_combine_accessories", CombineAccessoriesRecipe.create() );
 	public static final RegistryObject< RecipeSerializer< ? > > BOOST_ACCESSORIES_RECIPE = RECIPES.register( "crafting_boost_accessories", BoostAccessoriesRecipe.create() );
+
+	// Creative Mode Tabs
+	public static final RegistryObject< CreativeModeTab > PRIMARY_TAB = CREATIVE_MODE_TABS.register( "primary", CreativeModeTabs.primary() );
 
 	// Misc
 	public static final ResourceLocation ACCESSORY_SLOT_TEXTURE = Registries.getLocation( "item/empty_accessory_slot" );
@@ -90,12 +95,12 @@ public class Registries {
 		if( !Integration.isCuriosInstalled() ) {
 			return;
 		}
-
+		/* TODO:
 		InterModComms.sendTo( MajruszsAccessories.MOD_ID, CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, ()->new SlotTypeMessage.Builder( "pocket" )
 			.priority( 220 )
 			.icon( ACCESSORY_SLOT_TEXTURE )
 			.build()
-		);
+		); */
 	}
 
 	public static class Groups {

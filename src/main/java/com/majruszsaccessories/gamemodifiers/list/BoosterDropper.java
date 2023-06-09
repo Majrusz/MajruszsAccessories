@@ -58,7 +58,7 @@ public class BoosterDropper {
 
 	private void addBooster( OnLoot.Data data, Entity entity ) {
 		LootHelper.getLootTable( LOOT_TABLE )
-			.getRandomItems( LootHelper.toGiftContext( entity ) )
+			.getRandomItems( LootHelper.toGiftParams( entity, LOOT_TABLE ) )
 			.forEach( data.generatedLoot::add );
 	}
 }

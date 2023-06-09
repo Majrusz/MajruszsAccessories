@@ -15,10 +15,11 @@ import com.mlib.levels.LevelHelper;
 import com.mlib.loot.LootHelper;
 import com.mlib.math.Range;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -58,7 +59,7 @@ public class ExtraStoneLoot extends AccessoryComponent {
 
 	private static List< ItemStack > generateLoot( LivingEntity entity ) {
 		return LootHelper.getLootTable( getLootTableLocation( entity ) )
-			.getRandomItems( LootHelper.toGiftContext( entity ) );
+			.getRandomItems( LootHelper.toGiftParams( entity, getLootTableLocation( entity ) ) );
 	}
 
 	private static ResourceLocation getLootTableLocation( LivingEntity entity ) {
@@ -75,7 +76,7 @@ public class ExtraStoneLoot extends AccessoryComponent {
 		public static Context< OnLoot.Data > listen( Consumer< OnLoot.Data > consumer ) {
 			return OnLoot.listen( consumer )
 				.addCondition( Condition.isServer() )
-				.addCondition( Condition.predicate( data->data.blockState != null && data.blockState.getMaterial() == Material.STONE ) )
+				.addCondition( Condition.predicate( data->data.blockState != null && ( data.blockState.is( BlockTags.BASE_STONE_OVERWORLD ) || data.blockState.is( BlockTags.BASE_STONE_NETHER ) || data.blockState.is( Blocks.END_STONE ) ) ) )
 				.addCondition( Condition.< OnLoot.Data > predicate( data->data.entity instanceof LivingEntity ).priority( Priority.HIGH ) )
 				.addCondition( OnLoot.hasOrigin() );
 		}

@@ -1,28 +1,25 @@
 package com.majruszsaccessories;
 
-import com.mlib.annotations.AutoInstance;
 import com.mlib.items.CreativeModeTabHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
-import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-@AutoInstance
 public class CreativeModeTabs {
-	public CreativeModeTabs() {
-		var primary = CreativeModeTabHelper.newTab( FMLJavaModLoadingContext.get(), Registries.getLocation( "primary" ) );
-		primary.accept( builder->builder.title( Component.translatable( "itemGroup.majruszsaccessories.primary" ) )
-			.displayItems( this::definePrimaryItems )
+	public static Supplier< CreativeModeTab > primary() {
+		return ()->CreativeModeTab.builder()
+			.withTabsBefore( net.minecraft.world.item.CreativeModeTabs.SPAWN_EGGS )
+			.title( Component.translatable( "itemGroup.majruszsaccessories.primary" ) )
 			.withTabFactory( Primary::new )
-		);
+			.displayItems( CreativeModeTabs::definePrimaryItems )
+			.build();
 	}
 
-	private void definePrimaryItems( FeatureFlagSet flagSet, CreativeModeTab.Output output, boolean hasPermissions ) {
+	private static void definePrimaryItems( CreativeModeTab.ItemDisplayParameters params, CreativeModeTab.Output output ) {
 		Stream.of(
 			// TIER I
 			Registries.ADVENTURERS_GUIDE,

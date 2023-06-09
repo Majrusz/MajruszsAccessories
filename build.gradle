@@ -5,7 +5,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.0.+', changing: true
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
@@ -91,8 +91,8 @@ dependencies {
     minecraft "net.minecraftforge:forge:${versions_minecraft}-${versions_forge}"
     implementation fg.deobf( "com.mlib:majrusz-library-${versions_minecraft}:${versions_mlib}" )
     implementation fg.deobf( "com.mlib:majruszs-difficulty-${versions_minecraft}:${versions_difficulty}" )
-    runtimeOnly fg.deobf( "top.theillusivec4.curios:curios-forge:${versions_curios}" )
-    compileOnly fg.deobf( "top.theillusivec4.curios:curios-forge:${versions_curios}:api" )
+    // runtimeOnly fg.deobf( "top.theillusivec4.curios:curios-forge:${versions_curios}" )
+    // compileOnly fg.deobf( "top.theillusivec4.curios:curios-forge:${versions_curios}:api" )
 }
 
 jar {
