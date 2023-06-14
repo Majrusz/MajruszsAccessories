@@ -22,8 +22,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-/* TODO: import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotTypeMessage; */
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotTypeMessage;
 
 import static com.majruszsaccessories.MajruszsAccessories.SERVER_CONFIG;
 
@@ -95,12 +95,12 @@ public class Registries {
 		if( !Integration.isCuriosInstalled() ) {
 			return;
 		}
-		/* TODO:
+
 		InterModComms.sendTo( MajruszsAccessories.MOD_ID, CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, ()->new SlotTypeMessage.Builder( "pocket" )
 			.priority( 220 )
 			.icon( ACCESSORY_SLOT_TEXTURE )
 			.build()
-		); */
+		);
 	}
 
 	public static class Groups {

@@ -13,10 +13,10 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
-/* TODO: import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
 
-import java.util.Optional; */
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public class AccessoryHolder {
