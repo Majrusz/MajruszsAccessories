@@ -164,6 +164,10 @@ public class AccessoryHolder {
 		return this.item;
 	}
 
+	public BoosterItem getBooster() {
+		return ( BoosterItem )Utility.getItem( this.getStringTag( Tags.BOOSTER ) );
+	}
+
 	public ChatFormatting getBonusFormatting() {
 		return getBonusFormatting( this.getBonus() );
 	}
