@@ -25,15 +25,17 @@ public class AccessoryHolder {
 	final AccessoryItem item;
 
 	public static AccessoryHolder find( LivingEntity entity, Predicate< ItemStack > predicate ) {
-		if( Integration.isCuriosInstalled() ) {
-			/* TODO: Optional< SlotResult > slotResult = CuriosApi.getCuriosHelper().findFirstCurio( entity, predicate );
-			if( slotResult.isPresent() ) {
-				return new AccessoryHolder( slotResult.get().stack() );
-			}*/
-		} else {
-			ItemStack itemStack = entity.getOffhandItem();
-			if( predicate.test( itemStack ) ) {
-				return new AccessoryHolder( itemStack );
+		if( entity != null ) {
+			if( Integration.isCuriosInstalled() ) {
+				Optional< SlotResult > slotResult = CuriosApi.getCuriosHelper().findFirstCurio( entity, predicate );
+				if( slotResult.isPresent() ) {
+					return new AccessoryHolder( slotResult.get().stack() );
+				}
+			} else {
+				ItemStack itemStack = entity.getOffhandItem();
+				if( predicate.test( itemStack ) ) {
+					return new AccessoryHolder( itemStack );
+				}
 			}
 		}
 
