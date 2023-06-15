@@ -39,6 +39,20 @@ public class AccessoryItem extends Item {
 	}
 
 	@Override
+	public ItemStack getCraftingRemainingItem( ItemStack itemStack ) {
+		if( this.hasCraftingRemainingItem( itemStack ) ) {
+			return new ItemStack( AccessoryHolder.create( itemStack ).getBooster() );
+		} else {
+			return ItemStack.EMPTY;
+		}
+	}
+
+	@Override
+	public boolean hasCraftingRemainingItem( ItemStack itemStack ) {
+		return AccessoryHolder.create( itemStack ).hasBoosterTag();
+	}
+
+	@Override
 	public void fillItemCategory( CreativeModeTab itemGroup, NonNullList< ItemStack > itemStacks ) {
 		if( !this.allowedIn( itemGroup ) )
 			return;

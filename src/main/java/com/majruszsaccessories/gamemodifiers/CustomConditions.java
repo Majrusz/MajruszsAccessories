@@ -16,11 +16,11 @@ import java.util.function.Supplier;
 
 public class CustomConditions {
 	public static < DataType > Condition< DataType > hasAccessory( Supplier< AccessoryItem > item, Function< DataType, LivingEntity > entity ) {
-		return Condition.predicate( data->entity.apply( data ) != null && AccessoryHolder.hasAccessory( entity.apply( data ), item.get() ) );
+		return Condition.predicate( data->AccessoryHolder.hasAccessory( entity.apply( data ), item.get() ) );
 	}
 
 	public static < DataType > Condition< DataType > hasBooster( Supplier< BoosterItem > item, Function< DataType, LivingEntity > entity ) {
-		return Condition.predicate( data->entity.apply( data ) != null && AccessoryHolder.hasBooster( entity.apply( data ), item.get() ) );
+		return Condition.predicate( data->AccessoryHolder.hasBooster( entity.apply( data ), item.get() ) );
 	}
 
 	public static < DataType > Condition< DataType > chance( Supplier< AccessoryItem > item, Function< DataType, LivingEntity > entity,
@@ -34,8 +34,7 @@ public class CustomConditions {
 	}
 
 	public static < DataType > Condition< DataType > dropChance( DoubleConfig chance, Function< DataType, Entity > entity ) {
-		return Condition.< DataType > predicate( data->Random.tryChance( OnAccessoryDropChance.dispatch( chance.getOrDefault(), entity.apply( data ) )
-				.getChance() ) )
+		return Condition.< DataType > predicate( data->OnAccessoryDropChance.dispatch( chance.getOrDefault(), entity.apply( data ) ).tryChance() )
 			.priority( Priority.HIGH )
 			.configurable( true )
 			.addConfig( chance );

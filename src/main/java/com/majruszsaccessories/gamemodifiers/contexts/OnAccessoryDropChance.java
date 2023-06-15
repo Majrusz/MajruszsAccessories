@@ -1,5 +1,6 @@
 package com.majruszsaccessories.gamemodifiers.contexts;
 
+import com.mlib.Random;
 import com.mlib.gamemodifiers.Context;
 import com.mlib.gamemodifiers.Contexts;
 import net.minecraft.util.Mth;
@@ -29,8 +30,8 @@ public class OnAccessoryDropChance {
 			this.player = entity instanceof Player player ? player : null;
 		}
 
-		public double getChance() {
-			return Mth.clamp( this.chance, 0.0, 1.0 );
+		public boolean tryChance() {
+			return Random.tryChance( Mth.clamp( this.chance, 0.0, 1.0 ) );
 		}
 	}
 }
