@@ -39,6 +39,20 @@ public class AccessoryItem extends Item {
 	}
 
 	@Override
+	public ItemStack getContainerItem( ItemStack itemStack ) {
+		if( this.hasContainerItem( itemStack ) ) {
+			return new ItemStack( AccessoryHolder.create( itemStack ).getBooster() );
+		} else {
+			return ItemStack.EMPTY;
+		}
+	}
+
+	@Override
+	public boolean hasContainerItem( ItemStack itemStack ) {
+		return AccessoryHolder.create( itemStack ).hasBoosterTag();
+	}
+
+	@Override
 	public void fillItemCategory( CreativeModeTab itemGroup, NonNullList< ItemStack > itemStacks ) {
 		if( !this.allowdedIn( itemGroup ) )
 			return;

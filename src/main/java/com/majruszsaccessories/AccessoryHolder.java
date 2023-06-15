@@ -25,15 +25,17 @@ public class AccessoryHolder {
 	final AccessoryItem item;
 
 	public static AccessoryHolder find( LivingEntity entity, Predicate< ItemStack > predicate ) {
-		if( Integration.isCuriosInstalled() ) {
-			Optional< SlotResult > slotResult = CuriosApi.getCuriosHelper().findFirstCurio( entity, predicate );
-			if( slotResult.isPresent() ) {
-				return new AccessoryHolder( slotResult.get().stack() );
-			}
-		} else {
-			ItemStack itemStack = entity.getOffhandItem();
-			if( predicate.test( itemStack ) ) {
-				return new AccessoryHolder( itemStack );
+		if( entity != null ) {
+			if( Integration.isCuriosInstalled() ) {
+				Optional< SlotResult > slotResult = CuriosApi.getCuriosHelper().findFirstCurio( entity, predicate );
+				if( slotResult.isPresent() ) {
+					return new AccessoryHolder( slotResult.get().stack() );
+				}
+			} else {
+				ItemStack itemStack = entity.getOffhandItem();
+				if( predicate.test( itemStack ) ) {
+					return new AccessoryHolder( itemStack );
+				}
 			}
 		}
 
@@ -160,6 +162,10 @@ public class AccessoryHolder {
 
 	public AccessoryItem getItem() {
 		return this.item;
+	}
+
+	public BoosterItem getBooster() {
+		return ( BoosterItem )Utility.getItem( this.getStringTag( Tags.BOOSTER ) );
 	}
 
 	public ChatFormatting getBonusFormatting() {

@@ -57,6 +57,7 @@ public class SpawnTwins extends AccessoryComponent {
 		public static Context< OnBabySpawn.Data > listen( Consumer< OnBabySpawn.Data > consumer ) {
 			return OnBabySpawn.listen( consumer )
 				.addCondition( Condition.isServer() )
+				.addCondition( Condition.predicate( data->data.player != null ) )
 				.addCondition( Condition.predicate( data->data.parentA instanceof Animal ) )
 				.addCondition( Condition.predicate( data->data.parentB instanceof Animal ) );
 		}
