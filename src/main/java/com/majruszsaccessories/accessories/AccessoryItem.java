@@ -34,4 +34,18 @@ public class AccessoryItem extends Item {
 	public Rarity getRarity( ItemStack itemStack ) {
 		return AccessoryHolder.create( itemStack ).getItemRarity();
 	}
+
+	@Override
+	public ItemStack getCraftingRemainingItem( ItemStack itemStack ) {
+		if( this.hasCraftingRemainingItem( itemStack ) ) {
+			return new ItemStack( AccessoryHolder.create( itemStack ).getBooster() );
+		} else {
+			return ItemStack.EMPTY;
+		}
+	}
+
+	@Override
+	public boolean hasCraftingRemainingItem( ItemStack itemStack ) {
+		return AccessoryHolder.create( itemStack ).hasBoosterTag();
+	}
 }

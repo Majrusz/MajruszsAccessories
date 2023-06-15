@@ -13,7 +13,7 @@ public class Integration {
 	}
 
 	public static boolean isCuriosInstalled() {
-		return false; // TODO: IS_CURIOS_INSTALLED;
+		return IS_CURIOS_INSTALLED;
 	}
 
 	public static boolean isProgressiveDifficultyInstalled() {
