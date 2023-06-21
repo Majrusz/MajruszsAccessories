@@ -44,6 +44,7 @@ public class BoosterDropper {
 			.addCondition( Condition.chance( mobChance ) )
 			.addCondition( OnLoot.hasEntity() )
 			.addCondition( OnLoot.hasKiller() )
+			.addCondition( OnLoot.hasLastDamagePlayer() )
 			.addCondition( Condition.predicate( data->LevelHelper.isEntityIn( data.killer, Level.NETHER ) ) )
 			.insertTo( group );
 	}
