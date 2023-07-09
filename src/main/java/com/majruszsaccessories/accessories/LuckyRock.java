@@ -32,7 +32,7 @@ public class LuckyRock extends AccessoryBase {
 		protected DropChance( Supplier< AccessoryItem > item, ConfigGroup group ) {
 			super( item );
 
-			DoubleConfig chance = new DoubleConfig( 0.0002, Range.CHANCE );
+			DoubleConfig chance = new DoubleConfig( 0.0005, Range.CHANCE );
 			chance.name( "drop_chance" ).comment( "Chance for Lucky Rock to drop when mining stone." );
 
 			ExtraStoneLoot.OnStoneMined.listen( this::addToGeneratedLoot )
