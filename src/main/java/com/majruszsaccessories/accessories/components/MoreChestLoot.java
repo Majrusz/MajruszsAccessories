@@ -107,7 +107,10 @@ public class MoreChestLoot extends AccessoryComponent {
 			return OnLoot.listen( consumer )
 				.addCondition( Condition.isServer() )
 				.addCondition( OnLoot.hasOrigin() )
-				.addCondition( Condition.predicate( data->BlockHelper.getBlockEntity( data.getLevel(), data.origin ) instanceof RandomizableContainerBlockEntity ) )
+				.addCondition( Condition.predicate( data->{
+					return BlockHelper.getBlockEntity( data.getLevel(), data.origin ) instanceof RandomizableContainerBlockEntity
+						|| data.context.getQueriedLootTableId().toString().contains( "chest" );
+				} ) )
 				.addCondition( Condition.predicate( data->data.entity instanceof ServerPlayer ) );
 		}
 	}
