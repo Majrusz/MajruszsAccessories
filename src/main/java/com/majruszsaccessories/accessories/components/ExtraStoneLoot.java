@@ -59,7 +59,7 @@ public class ExtraStoneLoot extends AccessoryComponent {
 
 	private static List< ItemStack > generateLoot( LivingEntity entity ) {
 		return LootHelper.getLootTable( getLootTableLocation( entity ) )
-			.getRandomItems( LootHelper.toGiftParams( entity, getLootTableLocation( entity ) ) );
+			.getRandomItems( LootHelper.toGiftParams( entity ) );
 	}
 
 	private static ResourceLocation getLootTableLocation( LivingEntity entity ) {

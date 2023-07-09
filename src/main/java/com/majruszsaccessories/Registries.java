@@ -6,17 +6,16 @@ import com.majruszsaccessories.items.BoosterOverlay;
 import com.majruszsaccessories.recipes.AccessoryRecipe;
 import com.majruszsaccessories.recipes.BoostAccessoriesRecipe;
 import com.majruszsaccessories.recipes.CombineAccessoriesRecipe;
-import com.mlib.annotations.AnnotationHandler;
+import com.mlib.config.ConfigHandler;
 import com.mlib.gamemodifiers.ModConfigs;
-import com.mlib.registries.RegistryHelper;
-import com.mlib.triggers.BasicTrigger;
+import com.mlib.modhelper.ModHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.InterModComms;
-import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -25,10 +24,11 @@ import net.minecraftforge.registries.RegistryObject;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 
-import static com.majruszsaccessories.MajruszsAccessories.SERVER_CONFIG;
-
 public class Registries {
-	private static final RegistryHelper HELPER = new RegistryHelper( MajruszsAccessories.MOD_ID );
+	public static final ModHelper HELPER = ModHelper.create( MajruszsAccessories.MOD_ID );
+
+	// Configs
+	public static final ConfigHandler SERVER_CONFIG = HELPER.createConfig( ModConfig.Type.SERVER );
 
 	static {
 		ModConfigs.init( SERVER_CONFIG, Groups.DEFAULT );
@@ -68,19 +68,13 @@ public class Registries {
 	// Misc
 	public static final ResourceLocation ACCESSORY_SLOT_TEXTURE = Registries.getLocation( "item/empty_accessory_slot" );
 	public static final RegistryObject< Item > BOOSTER_OVERLAY = ITEMS.register( "booster_icon", BoosterOverlay::new );
-	public static final BasicTrigger BASIC_TRIGGER = HELPER.registerBasicTrigger();
-
-	static {
-		new AnnotationHandler( MajruszsAccessories.MOD_ID );
-	}
 
 	public static void initialize() {
 		FMLJavaModLoadingContext loadingContext = FMLJavaModLoadingContext.get();
 		final IEventBus modEventBus = loadingContext.getModEventBus();
-
-		HELPER.registerAll();
 		modEventBus.addListener( Registries::onEnqueueIMC );
-		SERVER_CONFIG.register( ModLoadingContext.get() );
+
+		HELPER.register();
 	}
 
 	public static ResourceLocation getLocation( String register ) {
