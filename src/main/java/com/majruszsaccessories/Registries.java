@@ -7,7 +7,7 @@ import com.majruszsaccessories.recipes.AccessoryRecipe;
 import com.majruszsaccessories.recipes.BoostAccessoriesRecipe;
 import com.majruszsaccessories.recipes.CombineAccessoriesRecipe;
 import com.mlib.config.ConfigHandler;
-import com.mlib.gamemodifiers.ModConfigs;
+import com.mlib.contexts.base.ModConfigs;
 import com.mlib.modhelper.ModHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;

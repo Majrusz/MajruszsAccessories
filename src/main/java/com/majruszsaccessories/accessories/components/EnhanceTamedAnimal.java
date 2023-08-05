@@ -8,7 +8,7 @@ import com.mlib.attributes.AttributeHandler;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
 import com.mlib.effects.ParticleHandler;
-import com.mlib.gamemodifiers.contexts.OnAnimalTame;
+import com.mlib.contexts.OnAnimalTame;
 import com.mlib.math.Range;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;

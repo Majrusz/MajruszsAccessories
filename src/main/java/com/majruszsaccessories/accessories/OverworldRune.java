@@ -2,7 +2,7 @@ package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.accessories.components.*;
-import com.mlib.annotations.AutoInstance;
+import com.mlib.modhelper.AutoInstance;
 import net.minecraft.world.entity.npc.VillagerProfession;
 
 @AutoInstance

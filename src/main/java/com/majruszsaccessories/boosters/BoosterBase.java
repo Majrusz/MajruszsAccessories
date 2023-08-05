@@ -8,7 +8,7 @@ import com.majruszsaccessories.common.ItemBase;
 import com.majruszsaccessories.gamemodifiers.contexts.OnAccessoryTooltip;
 import com.majruszsaccessories.gamemodifiers.contexts.OnBoosterTooltip;
 import com.majruszsaccessories.gamemodifiers.contexts.OnItemRender;
-import com.mlib.gamemodifiers.Condition;
+import com.mlib.contexts.base.Condition;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
