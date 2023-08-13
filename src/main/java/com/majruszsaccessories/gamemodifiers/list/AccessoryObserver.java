@@ -1,9 +1,9 @@
 package com.majruszsaccessories.gamemodifiers.list;
 
 import com.majruszsaccessories.AccessoryHolder;
-import com.mlib.annotations.AutoInstance;
-import com.mlib.gamemodifiers.Priority;
-import com.mlib.gamemodifiers.contexts.OnLoot;
+import com.mlib.modhelper.AutoInstance;
+import com.mlib.contexts.base.Priority;
+import com.mlib.contexts.OnLoot;
 
 @AutoInstance
 public class AccessoryObserver {

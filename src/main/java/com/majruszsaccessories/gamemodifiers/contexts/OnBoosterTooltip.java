@@ -1,8 +1,8 @@
 package com.majruszsaccessories.gamemodifiers.contexts;
 
 import com.majruszsaccessories.boosters.BoosterItem;
-import com.mlib.gamemodifiers.Context;
-import com.mlib.gamemodifiers.Contexts;
+import com.mlib.contexts.base.Context;
+import com.mlib.contexts.base.Contexts;
 import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;

@@ -6,7 +6,7 @@ import com.majruszsaccessories.gamemodifiers.CustomConditions;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
-import com.mlib.gamemodifiers.contexts.OnDamaged;
+import com.mlib.contexts.OnDamaged;
 import com.mlib.math.Range;
 
 import java.util.function.Supplier;

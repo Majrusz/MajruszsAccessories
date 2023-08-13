@@ -5,10 +5,10 @@ import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.EnhanceTamedAnimal;
 import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.gamemodifiers.CustomConditions;
-import com.mlib.annotations.AutoInstance;
+import com.mlib.modhelper.AutoInstance;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
-import com.mlib.gamemodifiers.contexts.OnAnimalTame;
+import com.mlib.contexts.OnAnimalTame;
 import com.mlib.math.Range;
 import net.minecraft.world.entity.npc.VillagerProfession;
 

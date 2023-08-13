@@ -7,10 +7,10 @@ import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
 import com.mlib.effects.ParticleHandler;
-import com.mlib.gamemodifiers.Condition;
-import com.mlib.gamemodifiers.Context;
-import com.mlib.gamemodifiers.Priority;
-import com.mlib.gamemodifiers.contexts.OnLoot;
+import com.mlib.contexts.base.Condition;
+import com.mlib.contexts.base.Context;
+import com.mlib.contexts.base.Priority;
+import com.mlib.contexts.OnLoot;
 import com.mlib.levels.LevelHelper;
 import com.mlib.loot.LootHelper;
 import com.mlib.math.Range;
@@ -59,7 +59,7 @@ public class ExtraStoneLoot extends AccessoryComponent {
 
 	private static List< ItemStack > generateLoot( LivingEntity entity ) {
 		return LootHelper.getLootTable( getLootTableLocation( entity ) )
-			.getRandomItems( LootHelper.toGiftParams( entity, getLootTableLocation( entity ) ) );
+			.getRandomItems( LootHelper.toGiftParams( entity ) );
 	}
 
 	private static ResourceLocation getLootTableLocation( LivingEntity entity ) {
