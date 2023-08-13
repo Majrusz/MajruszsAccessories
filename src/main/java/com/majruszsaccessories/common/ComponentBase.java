@@ -2,7 +2,7 @@ package com.majruszsaccessories.common;
 
 import com.majruszsaccessories.AccessoryHolder;
 import com.majruszsaccessories.tooltip.ITooltipProvider;
-import com.mlib.gamemodifiers.contexts.OnLoot;
+import com.mlib.contexts.OnLoot;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.Item;

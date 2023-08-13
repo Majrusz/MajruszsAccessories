@@ -4,7 +4,7 @@ import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.gamemodifiers.contexts.OnAccessoryTooltip;
 import com.mlib.client.ClientHelper;
 import com.mlib.config.ConfigGroup;
-import com.mlib.gamemodifiers.ModConfigs;
+import com.mlib.contexts.base.ModConfigs;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;

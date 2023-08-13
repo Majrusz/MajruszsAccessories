@@ -24,7 +24,7 @@ public class AccessoryItem extends Item {
 			holder.setRandomBonus();
 		}
 		if( holder.hasBoosterTag() && player instanceof ServerPlayer serverPlayer ) {
-			Registries.BASIC_TRIGGER.trigger( serverPlayer, "booster_used" );
+			Registries.HELPER.triggerAchievement( serverPlayer, "booster_used" );
 		}
 	}
 

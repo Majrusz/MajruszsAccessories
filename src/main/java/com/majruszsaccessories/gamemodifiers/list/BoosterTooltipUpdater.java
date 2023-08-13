@@ -2,9 +2,9 @@ package com.majruszsaccessories.gamemodifiers.list;
 
 import com.majruszsaccessories.boosters.BoosterItem;
 import com.majruszsaccessories.gamemodifiers.contexts.OnBoosterTooltip;
-import com.mlib.annotations.AutoInstance;
-import com.mlib.gamemodifiers.Condition;
-import com.mlib.gamemodifiers.contexts.OnItemTooltip;
+import com.mlib.modhelper.AutoInstance;
+import com.mlib.contexts.base.Condition;
+import com.mlib.contexts.OnItemTooltip;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 

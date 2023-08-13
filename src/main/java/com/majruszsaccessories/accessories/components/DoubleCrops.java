@@ -7,9 +7,9 @@ import com.mlib.blocks.BlockHelper;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
 import com.mlib.effects.ParticleHandler;
-import com.mlib.gamemodifiers.Condition;
-import com.mlib.gamemodifiers.Context;
-import com.mlib.gamemodifiers.contexts.OnLoot;
+import com.mlib.contexts.base.Condition;
+import com.mlib.contexts.base.Context;
+import com.mlib.contexts.OnLoot;
 import com.mlib.math.Range;
 import net.minecraft.world.entity.LivingEntity;
 

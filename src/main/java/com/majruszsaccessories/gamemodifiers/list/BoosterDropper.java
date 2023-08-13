@@ -1,13 +1,13 @@
 package com.majruszsaccessories.gamemodifiers.list;
 
 import com.majruszsaccessories.Registries;
-import com.mlib.annotations.AutoInstance;
+import com.mlib.modhelper.AutoInstance;
 import com.mlib.blocks.BlockHelper;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
-import com.mlib.gamemodifiers.Condition;
-import com.mlib.gamemodifiers.ModConfigs;
-import com.mlib.gamemodifiers.contexts.OnLoot;
+import com.mlib.contexts.base.Condition;
+import com.mlib.contexts.base.ModConfigs;
+import com.mlib.contexts.OnLoot;
 import com.mlib.levels.LevelHelper;
 import com.mlib.loot.LootHelper;
 import com.mlib.math.Range;

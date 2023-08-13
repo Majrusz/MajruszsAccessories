@@ -5,7 +5,7 @@ import com.majruszsaccessories.accessories.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
-import com.mlib.gamemodifiers.contexts.OnFishingTimeSet;
+import com.mlib.contexts.OnFishingTimeSet;
 import com.mlib.math.Range;
 
 import java.util.function.Supplier;

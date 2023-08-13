@@ -7,7 +7,7 @@ import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.Random;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
-import com.mlib.gamemodifiers.contexts.OnPickupXp;
+import com.mlib.contexts.OnPickupXp;
 import com.mlib.math.Range;
 
 import java.util.function.Supplier;
@@ -35,7 +35,7 @@ public class ExperienceBonus extends BoosterComponent {
 	private void increaseExperience( OnPickupXp.Data data ) {
 		AccessoryHolder holder = AccessoryHolder.find( data.player, this.item.get() );
 		if( holder.isValid() ) {
-			int experiencePoints = Random.roundRandomly( this.experienceExtraMultiplier.get() * data.event.getOrb().getValue() );
+			int experiencePoints = Random.round( this.experienceExtraMultiplier.get() * data.event.getOrb().getValue() );
 			if( experiencePoints > 0 ) {
 				data.player.giveExperiencePoints( experiencePoints );
 			}
