@@ -6,8 +6,8 @@ import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.common.ItemBase;
 import com.majruszsaccessories.gamemodifiers.contexts.OnAccessoryTooltip;
 import com.majruszsaccessories.gamemodifiers.contexts.OnItemRender;
-import com.mlib.gamemodifiers.Condition;
-import com.mlib.gamemodifiers.contexts.OnTradeSetup;
+import com.mlib.contexts.base.Condition;
+import com.mlib.contexts.OnTradeSetup;
 import net.minecraftforge.registries.RegistryObject;
 
 public class AccessoryBase extends ItemBase< AccessoryItem, AccessoryComponent, AccessoryComponent.ISupplier > {

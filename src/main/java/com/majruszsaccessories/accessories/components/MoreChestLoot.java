@@ -10,9 +10,9 @@ import com.mlib.blocks.BlockHelper;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
 import com.mlib.effects.ParticleHandler;
-import com.mlib.gamemodifiers.Condition;
-import com.mlib.gamemodifiers.Context;
-import com.mlib.gamemodifiers.contexts.OnLoot;
+import com.mlib.contexts.base.Condition;
+import com.mlib.contexts.base.Context;
+import com.mlib.contexts.OnLoot;
 import com.mlib.levels.LevelHelper;
 import com.mlib.math.Range;
 import com.mlib.text.TextHelper;
@@ -62,7 +62,7 @@ public class MoreChestLoot extends AccessoryComponent {
 		boolean hasIncreasedLoot = false;
 		float sizeMultiplier = this.getFinalSizeMultiplier( ( ServerPlayer )data.entity );
 		for( ItemStack itemStack : data.generatedLoot ) {
-			int count = Math.min( Random.roundRandomly( sizeMultiplier * itemStack.getCount() ), itemStack.getMaxStackSize() );
+			int count = Math.min( Random.round( sizeMultiplier * itemStack.getCount() ), itemStack.getMaxStackSize() );
 			hasIncreasedLoot = hasIncreasedLoot || count > itemStack.getCount();
 			itemStack.setCount( count );
 		}
@@ -109,7 +109,10 @@ public class MoreChestLoot extends AccessoryComponent {
 			return OnLoot.listen( consumer )
 				.addCondition( Condition.isServer() )
 				.addCondition( OnLoot.hasOrigin() )
-				.addCondition( Condition.predicate( data->BlockHelper.getBlockEntity( data.getLevel(), data.origin ) instanceof RandomizableContainerBlockEntity ) )
+				.addCondition( Condition.predicate( data->{
+					return BlockHelper.getBlockEntity( data.getLevel(), data.origin ) instanceof RandomizableContainerBlockEntity
+						|| data.context.getQueriedLootTableId().toString().contains( "chest" );
+				} ) )
 				.addCondition( Condition.predicate( data->data.entity instanceof ServerPlayer ) );
 		}
 	}

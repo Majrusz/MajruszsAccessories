@@ -1,7 +1,7 @@
 package com.majruszsaccessories.gamemodifiers.contexts;
 
-import com.mlib.gamemodifiers.Context;
-import com.mlib.gamemodifiers.Contexts;
+import com.mlib.contexts.base.Context;
+import com.mlib.contexts.base.Contexts;
 import net.minecraft.world.item.Item;
 
 import java.util.function.Consumer;

@@ -6,8 +6,8 @@ import com.majruszsaccessories.boosters.BoosterItem;
 import com.majruszsaccessories.gamemodifiers.contexts.OnAccessoryDropChance;
 import com.mlib.Random;
 import com.mlib.config.DoubleConfig;
-import com.mlib.gamemodifiers.Condition;
-import com.mlib.gamemodifiers.Priority;
+import com.mlib.contexts.base.Condition;
+import com.mlib.contexts.base.Priority;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 

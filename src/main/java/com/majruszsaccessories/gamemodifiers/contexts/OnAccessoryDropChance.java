@@ -1,8 +1,8 @@
 package com.majruszsaccessories.gamemodifiers.contexts;
 
 import com.mlib.Random;
-import com.mlib.gamemodifiers.Context;
-import com.mlib.gamemodifiers.Contexts;
+import com.mlib.contexts.base.Context;
+import com.mlib.contexts.base.Contexts;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;

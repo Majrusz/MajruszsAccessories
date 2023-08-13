@@ -3,11 +3,11 @@ package com.majruszsaccessories.boosters;
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.boosters.components.AccessoryDropChance;
 import com.majruszsaccessories.boosters.components.BoosterComponent;
-import com.mlib.annotations.AutoInstance;
+import com.mlib.modhelper.AutoInstance;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
-import com.mlib.gamemodifiers.Condition;
-import com.mlib.gamemodifiers.contexts.OnLoot;
+import com.mlib.contexts.base.Condition;
+import com.mlib.contexts.OnLoot;
 import com.mlib.math.Range;
 import net.minecraft.world.entity.monster.Guardian;
 
