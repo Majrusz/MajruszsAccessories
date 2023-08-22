@@ -91,9 +91,12 @@ public class MoreChestLoot extends AccessoryComponent {
 			@Override
 			public MutableComponent getDetailedTooltip( AccessoryHolder holder ) {
 				float bonus = holder.getBonus();
+				if( bonus == 0.0f ) {
+					return this.getTooltip( holder );
+				}
 
 				return TooltipHelper.asFormula( TextHelper.percent( 0.01f ), Component.literal( TextHelper.signedPercent( holder.getBonus() / 100.0f ) )
-					.withStyle( bonus != 0.0f ? holder.getBonusFormatting() : TooltipHelper.DEFAULT_FORMAT ) );
+					.withStyle( holder.getBonusFormatting() ) );
 			}
 		};
 	}
