@@ -38,7 +38,7 @@
   "majruszsaccessories.bonuses.double_crops": "Gives %1$s chance to double crops when harvesting.",
   "majruszsaccessories.bonuses.reduce_damage_received": "Decreases damage received by %1$s.",
   "majruszsaccessories.bonuses.reduce_damage_dealt": "Decreases damage dealt by %1$s.",
-  "majruszsaccessories.bonuses.lower_spawn_rate": "Decreases mob spawn rate by %1$s.",
+  "majruszsaccessories.bonuses.lower_spawn_rate": "Decreases hostile mob spawn rate by %1$s.",
   "majruszsaccessories.boosters.drop_chance": "%1$sIncreases accessories drop chance by %2$s.",
   "majruszsaccessories.boosters.experience_bonus": "%1$sIncreases experience gained by %2$s.",
   "majruszsaccessories.boosters.luck_bonus": "%1$sIncreases luck by %2$s.",
