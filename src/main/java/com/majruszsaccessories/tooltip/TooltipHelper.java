@@ -1,6 +1,6 @@
 package com.majruszsaccessories.tooltip;
 
-import com.majruszsaccessories.AccessoryHolder;
+import com.majruszsaccessories.accessories.AccessoryHolder;
 import com.majruszsaccessories.boosters.BoosterItem;
 import com.mlib.config.DoubleConfig;
 import com.mlib.config.IntegerConfig;

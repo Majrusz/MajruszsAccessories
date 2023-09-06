@@ -1,6 +1,6 @@
-package com.majruszsaccessories;
+package com.majruszsaccessories.accessories;
 
-import com.majruszsaccessories.accessories.AccessoryItem;
+import com.majruszsaccessories.Integration;
 import com.majruszsaccessories.boosters.BoosterItem;
 import com.mlib.Random;
 import com.mlib.Utility;

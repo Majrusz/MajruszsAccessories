@@ -1,6 +1,6 @@
 package com.majruszsaccessories.boosters;
 
-import com.majruszsaccessories.AccessoryHolder;
+import com.majruszsaccessories.accessories.AccessoryHolder;
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.boosters.components.BoosterComponent;
 import com.majruszsaccessories.common.ComponentBase;

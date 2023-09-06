@@ -1,6 +1,6 @@
 package com.majruszsaccessories.gamemodifiers.list;
 
-import com.majruszsaccessories.AccessoryHolder;
+import com.majruszsaccessories.accessories.AccessoryHolder;
 import com.mlib.modhelper.AutoInstance;
 import com.mlib.contexts.base.Priority;
 import com.mlib.contexts.OnLoot;

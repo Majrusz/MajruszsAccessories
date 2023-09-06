@@ -1,6 +1,6 @@
 package com.majruszsaccessories.gamemodifiers.list;
 
-import com.majruszsaccessories.AccessoryHolder;
+import com.majruszsaccessories.accessories.AccessoryHolder;
 import com.majruszsaccessories.Integration;
 import com.majruszsaccessories.accessories.AccessoryItem;
 import com.majruszsaccessories.gamemodifiers.contexts.OnAccessoryTooltip;

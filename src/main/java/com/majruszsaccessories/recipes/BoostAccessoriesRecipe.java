@@ -1,6 +1,6 @@
 package com.majruszsaccessories.recipes;
 
-import com.majruszsaccessories.AccessoryHolder;
+import com.majruszsaccessories.accessories.AccessoryHolder;
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.boosters.BoosterItem;
 import net.minecraft.core.RegistryAccess;

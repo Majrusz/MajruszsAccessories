@@ -1,6 +1,5 @@
 package com.majruszsaccessories.accessories;
 
-import com.majruszsaccessories.AccessoryHolder;
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.TradeOffer;

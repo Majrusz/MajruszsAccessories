@@ -1,5 +1,6 @@
 package com.majruszsaccessories;
 
+import com.majruszsaccessories.accessories.AccessoryHolder;
 import com.mlib.items.CreativeModeTabHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;

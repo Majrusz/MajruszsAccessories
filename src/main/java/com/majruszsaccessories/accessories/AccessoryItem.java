@@ -1,6 +1,5 @@
 package com.majruszsaccessories.accessories;
 
-import com.majruszsaccessories.AccessoryHolder;
 import com.majruszsaccessories.Registries;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;

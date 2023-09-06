@@ -3,7 +3,7 @@ package com.majruszsaccessories.recipes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import com.majruszsaccessories.AccessoryHolder;
+import com.majruszsaccessories.accessories.AccessoryHolder;
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.accessories.AccessoryItem;
 import com.mlib.math.Range;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static com.majruszsaccessories.AccessoryHolder.BONUS_RANGE;
+import static com.majruszsaccessories.accessories.AccessoryHolder.BONUS_RANGE;
 
 public class AccessoryRecipe extends CustomRecipe {
 	final AccessoryItem result;

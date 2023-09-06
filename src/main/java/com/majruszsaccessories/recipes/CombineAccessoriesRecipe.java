@@ -1,6 +1,6 @@
 package com.majruszsaccessories.recipes;
 
-import com.majruszsaccessories.AccessoryHolder;
+import com.majruszsaccessories.accessories.AccessoryHolder;
 import com.majruszsaccessories.Registries;
 import com.mlib.math.Range;
 import net.minecraft.core.RegistryAccess;
@@ -15,7 +15,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.function.Supplier;
 
-import static com.majruszsaccessories.AccessoryHolder.BONUS_RANGE;
+import static com.majruszsaccessories.accessories.AccessoryHolder.BONUS_RANGE;
 
 public class CombineAccessoriesRecipe extends CustomRecipe {
 	public static Supplier< RecipeSerializer< ? > > create() {

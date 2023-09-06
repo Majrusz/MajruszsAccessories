@@ -1,6 +1,6 @@
 package com.majruszsaccessories.common;
 
-import com.majruszsaccessories.AccessoryHolder;
+import com.majruszsaccessories.accessories.AccessoryHolder;
 import com.majruszsaccessories.tooltip.ITooltipProvider;
 import com.mlib.contexts.OnLoot;
 import net.minecraft.network.chat.Component;

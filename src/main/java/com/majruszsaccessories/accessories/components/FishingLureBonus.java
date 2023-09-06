@@ -1,6 +1,6 @@
 package com.majruszsaccessories.accessories.components;
 
-import com.majruszsaccessories.AccessoryHolder;
+import com.majruszsaccessories.accessories.AccessoryHolder;
 import com.majruszsaccessories.accessories.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.config.ConfigGroup;

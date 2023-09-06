@@ -1,6 +1,6 @@
 package com.majruszsaccessories.boosters.components;
 
-import com.majruszsaccessories.AccessoryHolder;
+import com.majruszsaccessories.accessories.AccessoryHolder;
 import com.majruszsaccessories.boosters.BoosterItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.attributes.AttributeHandler;

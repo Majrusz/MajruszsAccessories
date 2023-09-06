@@ -1,6 +1,6 @@
 package com.majruszsaccessories.gamemodifiers.contexts;
 
-import com.majruszsaccessories.AccessoryHolder;
+import com.majruszsaccessories.accessories.AccessoryHolder;
 import com.mlib.contexts.base.Context;
 import com.mlib.contexts.base.Contexts;
 import net.minecraft.network.chat.Component;
