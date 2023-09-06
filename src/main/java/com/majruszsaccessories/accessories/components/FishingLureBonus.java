@@ -18,7 +18,7 @@ public class FishingLureBonus extends AccessoryComponent {
 	}
 
 	public static ISupplier create() {
-		return create( 0.4 );
+		return create( 0.3 );
 	}
 
 	protected FishingLureBonus( Supplier< AccessoryItem > item, ConfigGroup group, double bonus ) {

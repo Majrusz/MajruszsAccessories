@@ -28,10 +28,11 @@ public class CreativeModeTabs {
 			Registries.CERTIFICATE_OF_TAMING,
 			Registries.IDOL_OF_FERTILITY,
 			Registries.LUCKY_ROCK,
+			Registries.PEACE_EMBLEM,
+			Registries.PEARL_BARLEY_BUCKET,
 			Registries.SECRET_INGREDIENT,
 			Registries.TAMED_POTATO_BEETLE,
 			Registries.WHITE_FLAG,
-			Registries.PEACE_EMBLEM,
 			// TIER II
 			Registries.OVERWORLD_RUNE
 		).forEach( item->{
