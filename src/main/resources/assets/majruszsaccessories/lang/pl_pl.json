@@ -33,7 +33,7 @@
   "majruszsaccessories.bonuses.animal_damage": "Zwiększa obrażenia wilków o %1$s.",
   "majruszsaccessories.bonuses.animal_speed": "Zwiększa prędkość poruszania konia o %1$s.",
   "majruszsaccessories.bonuses.animal_jump_height": "Zwiększa wysokość skoku konia o %1$s.",
-  "majruszsaccessories.bonuses.more_chest_loot": "Wszystkie skrzynie zawierają %1$s więcej przedmiotów za każde %2$s blocków dalej od domu, aż do %3$s więcej.",
+  "majruszsaccessories.bonuses.more_chest_loot": "Wszystkie skrzynie zawierają %1$s więcej przedmiotów za każde %2$s blocków dalej od domu, aż do %3$s (aktualnie %4$s więcej).",
   "majruszsaccessories.bonuses.double_crops": "Daje %1$s szansy na podwójne plony podczas zbiorów.",
   "majruszsaccessories.bonuses.reduce_damage_received": "Zmniejsza otrzymywane obrażenia o %1$s.",
   "majruszsaccessories.bonuses.reduce_damage_dealt": "Zmniejsza zadawane obrażenia o %1$s.",

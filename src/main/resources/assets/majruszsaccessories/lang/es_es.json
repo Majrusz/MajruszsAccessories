@@ -24,7 +24,7 @@
   "majruszsaccessories.bonuses.animal_damage": "Aumenta el ataque de los lobos domados un %1$s.",
   "majruszsaccessories.bonuses.animal_speed": "Aumenta la velocidad de los caballos domados un %1$s.",
   "majruszsaccessories.bonuses.animal_jump_height": "Aumenta el salto de los caballos domados un %1$s.",
-  "majruszsaccessories.bonuses.more_chest_loot": "Todos los cofres de estructuras contienen un %1$s más de recompensas por cada %2$s bloques alejados de casa, hasta un %3$s.",
+  "majruszsaccessories.bonuses.more_chest_loot": "Todos los cofres de estructuras contienen un %1$s más de recompensas por cada %2$s bloques alejados de casa, hasta un %3$s (currently %4$s more loot).",
   "majruszsaccessories.bonuses.double_crops": "Tienes un %1$s de obtener el doble de cultivos al recogerlos",
   "majruszsaccessories.bonuses.reduce_damage_received": "Disminuye el daño recibido un %1$s.",
   "majruszsaccessories.bonuses.reduce_damage_dealt": "Disminuye el daño que haces un %1$s.",

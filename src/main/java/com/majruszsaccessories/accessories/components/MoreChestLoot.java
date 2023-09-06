@@ -1,6 +1,7 @@
 package com.majruszsaccessories.accessories.components;
 
 import com.majruszsaccessories.AccessoryHolder;
+import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.accessories.AccessoryItem;
 import com.majruszsaccessories.gamemodifiers.CustomConditions;
 import com.majruszsaccessories.tooltip.ITooltipProvider;
@@ -9,12 +10,15 @@ import com.mlib.Random;
 import com.mlib.blocks.BlockHelper;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
-import com.mlib.effects.ParticleHandler;
+import com.mlib.contexts.OnLoot;
+import com.mlib.contexts.OnPlayerTick;
 import com.mlib.contexts.base.Condition;
 import com.mlib.contexts.base.Context;
-import com.mlib.contexts.OnLoot;
+import com.mlib.data.SerializableStructure;
+import com.mlib.effects.ParticleHandler;
 import com.mlib.levels.LevelHelper;
 import com.mlib.math.Range;
+import com.mlib.modhelper.AutoInstance;
 import com.mlib.text.TextHelper;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.network.chat.Component;
@@ -26,6 +30,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.network.PacketDistributor;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -53,7 +61,7 @@ public class MoreChestLoot extends AccessoryComponent {
 			.addConfig( this.sizeMultiplier )
 			.insertTo( group );
 
-		this.addTooltip( "majruszsaccessories.bonuses.more_chest_loot", this.getPercentInfo(), this.getBlockInfo(), TooltipHelper.asPercent( this.sizeMultiplier ) );
+		this.addTooltip( "majruszsaccessories.bonuses.more_chest_loot", this.getPercentInfo(), this.getBlockInfo(), TooltipHelper.asPercent( this.sizeMultiplier ), this.getCurrentInfo() );
 	}
 
 	private void increaseLoot( OnLoot.Data data ) {
@@ -70,12 +78,7 @@ public class MoreChestLoot extends AccessoryComponent {
 	}
 
 	private float getFinalSizeMultiplier( ServerPlayer player ) {
-		AccessoryHolder holder = AccessoryHolder.find( player, this.item.get() );
-		Pair< Vec3, ServerLevel > spawnData = LevelHelper.getSpawnData( player );
-		float distanceMultiplier = ( float )Mth.clamp( spawnData.getFirst()
-			.distanceTo( player.position() ) / BLOCKS_DISTANCE, 0.0, 1.0 );
-
-		return 1.0f + holder.apply( this.sizeMultiplier ) * distanceMultiplier;
+		return 1.0f + AccessoryHolder.find( player, this.item.get() ).apply( this.sizeMultiplier ) * getDistanceBonus( player );
 	}
 
 	private ITooltipProvider getPercentInfo() {
@@ -105,6 +108,16 @@ public class MoreChestLoot extends AccessoryComponent {
 		return holder->Component.translatable( "" + Math.round( BLOCKS_DISTANCE / ( this.sizeMultiplier.get() * 100.0f ) ) );
 	}
 
+	private ITooltipProvider getCurrentInfo() {
+		return holder->Component.literal( TextHelper.percent( holder.apply( this.sizeMultiplier ) * BonusInfo.CURRENT_BONUS ) );
+	}
+
+	private static float getDistanceBonus( ServerPlayer player ) {
+		Pair< Vec3, ServerLevel > spawnData = LevelHelper.getSpawnData( player );
+
+		return ( float )Mth.clamp( spawnData.getFirst().distanceTo( player.position() ) / BLOCKS_DISTANCE, 0.0, 1.0 );
+	}
+
 	public static class OnChestOpened {
 		public static Context< OnLoot.Data > listen( Consumer< OnLoot.Data > consumer ) {
 			return OnLoot.listen( consumer )
@@ -115,6 +128,44 @@ public class MoreChestLoot extends AccessoryComponent {
 						|| data.context.getQueriedLootTableId().toString().contains( "chest" );
 				} ) )
 				.addCondition( Condition.predicate( data->data.entity instanceof ServerPlayer ) );
+		}
+	}
+
+	public static class BonusInfo extends SerializableStructure {
+		static float CURRENT_BONUS = 0.0f;
+		float bonus;
+
+		public BonusInfo( float bonus ) {
+			this.bonus = bonus;
+
+			this.defineFloat( "bonus", ()->this.bonus, x->this.bonus = x );
+		}
+
+		public BonusInfo() {
+			this( 0.0f );
+		}
+
+		@Override
+		@OnlyIn( Dist.CLIENT )
+		public void onClient( NetworkEvent.Context context ) {
+			super.onClient( context );
+
+			CURRENT_BONUS = this.bonus;
+		}
+	}
+
+	@AutoInstance
+	public static class Notifier {
+		public Notifier() {
+			OnPlayerTick.listen( this::sendUpdatedBonus )
+				.addCondition( Condition.isServer() )
+				.addCondition( Condition.cooldown( 1.0, Dist.DEDICATED_SERVER ) );
+		}
+
+		private void sendUpdatedBonus( OnPlayerTick.Data data ) {
+			ServerPlayer player = ( ServerPlayer )data.player;
+
+			Registries.HELPER.sendMessage( PacketDistributor.PLAYER.with( ()->player ), new BonusInfo( getDistanceBonus( player ) ) );
 		}
 	}
 }

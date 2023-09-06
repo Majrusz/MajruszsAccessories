@@ -1,6 +1,7 @@
 package com.majruszsaccessories;
 
 import com.majruszsaccessories.accessories.AccessoryItem;
+import com.majruszsaccessories.accessories.components.MoreChestLoot;
 import com.majruszsaccessories.boosters.BoosterItem;
 import com.majruszsaccessories.items.BoosterOverlay;
 import com.majruszsaccessories.recipes.AccessoryRecipe;
@@ -69,6 +70,11 @@ public class Registries {
 	// Misc
 	public static final ResourceLocation ACCESSORY_SLOT_TEXTURE = Registries.getLocation( "item/empty_accessory_slot" );
 	public static final RegistryObject< Item > BOOSTER_OVERLAY = ITEMS.register( "booster_icon", BoosterOverlay::new );
+
+	// Network
+	static {
+		HELPER.createMessage( MoreChestLoot.BonusInfo.class, MoreChestLoot.BonusInfo::new );
+	}
 
 	public static void initialize() {
 		FMLJavaModLoadingContext loadingContext = FMLJavaModLoadingContext.get();
