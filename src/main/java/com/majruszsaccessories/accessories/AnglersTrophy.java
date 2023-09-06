@@ -22,7 +22,6 @@ public class AnglersTrophy extends AccessoryBase {
 
 		this.name( "AnglersTrophy" )
 			.add( FishingLuckBonus.create() )
-			.add( FishingLureBonus.create() )
 			.add( TradeOffer.create( VillagerProfession.FISHERMAN, 5 ) )
 			.add( DropChance.create() );
 	}
