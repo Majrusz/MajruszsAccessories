@@ -1,7 +1,7 @@
-package com.majruszsaccessories.boosters.components;
+package com.majruszsaccessories.accessories.components;
 
 import com.majruszsaccessories.accessories.AccessoryHolder;
-import com.majruszsaccessories.boosters.BoosterItem;
+import com.majruszsaccessories.accessories.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
@@ -17,7 +17,7 @@ import net.minecraftforge.server.ServerLifecycleHooks;
 
 import java.util.function.Supplier;
 
-public class LowerSpawnRate extends BoosterComponent {
+public class LowerSpawnRate extends AccessoryComponent {
 	final DoubleConfig spawnRateReduction;
 	float currentMultiplier = 1.0f;
 
@@ -25,7 +25,7 @@ public class LowerSpawnRate extends BoosterComponent {
 		return ( item, group )->new LowerSpawnRate( item, group, chance );
 	}
 
-	protected LowerSpawnRate( Supplier< BoosterItem > item, ConfigGroup group, double spawnRateReduction ) {
+	protected LowerSpawnRate( Supplier< AccessoryItem > item, ConfigGroup group, double spawnRateReduction ) {
 		super( item );
 
 		this.spawnRateReduction = new DoubleConfig( spawnRateReduction, new Range<>( 0.01, 0.99 ) );
@@ -43,7 +43,7 @@ public class LowerSpawnRate extends BoosterComponent {
 			.addCondition( Condition.cooldown( 1.0, Dist.DEDICATED_SERVER ) )
 			.insertTo( group );
 
-		this.addTooltip( "majruszsaccessories.boosters.lower_spawn_rate", TooltipHelper.asItem( item ), TooltipHelper.asFixedPercent( this.spawnRateReduction ) );
+		this.addTooltip( "majruszsaccessories.bonuses.lower_spawn_rate", TooltipHelper.asPercent( this.spawnRateReduction ) );
 	}
 
 	private void decreaseSpawnRate( OnMobSpawnRate.Data data ) {
@@ -57,9 +57,11 @@ public class LowerSpawnRate extends BoosterComponent {
 	private void updateSpawnMultiplier( OnServerTick.Data data ) {
 		MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
 		if( server != null ) {
-			long boostersCount = server.getPlayerList().getPlayers().stream().filter( player->AccessoryHolder.hasBooster( player, this.item.get() ) ).count();
-
-			this.currentMultiplier = ( float )Math.pow( 1.0f - this.spawnRateReduction.get(), boostersCount );
+			this.currentMultiplier = server.getPlayerList()
+				.getPlayers()
+				.stream()
+				.map( player->1.0f - AccessoryHolder.find( player, this.item.get() ).apply( this.spawnRateReduction ) )
+				.reduce( 1.0f, ( total, multiplier )->total * multiplier );
 		} else {
 			this.currentMultiplier = 1.0f;
 		}

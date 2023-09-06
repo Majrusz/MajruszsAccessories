@@ -1,8 +1,11 @@
-package com.majruszsaccessories.boosters;
+package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.Registries;
+import com.majruszsaccessories.accessories.components.AccessoryComponent;
+import com.majruszsaccessories.boosters.BoosterBase;
+import com.majruszsaccessories.boosters.BoosterItem;
 import com.majruszsaccessories.boosters.components.BoosterComponent;
-import com.majruszsaccessories.boosters.components.LowerSpawnRate;
+import com.majruszsaccessories.accessories.components.LowerSpawnRate;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
 import com.mlib.contexts.OnLoot;
@@ -14,7 +17,7 @@ import net.minecraft.world.entity.monster.Endermite;
 import java.util.function.Supplier;
 
 @AutoInstance
-public class PeaceEmblem extends BoosterBase {
+public class PeaceEmblem extends AccessoryBase {
 	public PeaceEmblem() {
 		super( Registries.PEACE_EMBLEM );
 
@@ -23,12 +26,12 @@ public class PeaceEmblem extends BoosterBase {
 			.add( DropChance.create() );
 	}
 
-	static class DropChance extends BoosterComponent {
+	static class DropChance extends AccessoryComponent {
 		public static ISupplier create() {
 			return DropChance::new;
 		}
 
-		protected DropChance( Supplier< BoosterItem > item, ConfigGroup group ) {
+		protected DropChance( Supplier< AccessoryItem > item, ConfigGroup group ) {
 			super( item );
 
 			DoubleConfig chance = new DoubleConfig( 0.05, Range.CHANCE );

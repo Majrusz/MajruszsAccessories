@@ -52,7 +52,7 @@ public class Registries {
 	public static final RegistryObject< BoosterItem > HORSESHOE = ITEMS.register( "horseshoe", BoosterItem.basic() );
 	public static final RegistryObject< AccessoryItem > IDOL_OF_FERTILITY = ITEMS.register( "idol_of_fertility", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > LUCKY_ROCK = ITEMS.register( "lucky_rock", AccessoryItem::new );
-	public static final RegistryObject< BoosterItem > PEACE_EMBLEM = ITEMS.register( "peace_emblem", BoosterItem.basic() );
+	public static final RegistryObject< AccessoryItem > PEACE_EMBLEM = ITEMS.register( "peace_emblem", AccessoryItem::new );
 	public static final RegistryObject< BoosterItem > OWL_FEATHER = ITEMS.register( "owl_feather", BoosterItem.basic() );
 	public static final RegistryObject< AccessoryItem > OVERWORLD_RUNE = ITEMS.register( "overworld_rune", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > SECRET_INGREDIENT = ITEMS.register( "secret_ingredient", AccessoryItem::new );

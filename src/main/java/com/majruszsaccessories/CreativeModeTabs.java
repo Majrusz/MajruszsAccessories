@@ -31,6 +31,7 @@ public class CreativeModeTabs {
 			Registries.SECRET_INGREDIENT,
 			Registries.TAMED_POTATO_BEETLE,
 			Registries.WHITE_FLAG,
+			Registries.PEACE_EMBLEM,
 			// TIER II
 			Registries.OVERWORLD_RUNE
 		).forEach( item->{
