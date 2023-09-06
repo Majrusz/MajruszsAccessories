@@ -31,6 +31,7 @@ public class CreativeModeTabs {
 			Registries.PEACE_EMBLEM,
 			Registries.PEARL_BARLEY_BUCKET,
 			Registries.SECRET_INGREDIENT,
+			Registries.SRIRACHA,
 			Registries.TAMED_POTATO_BEETLE,
 			Registries.WHITE_FLAG,
 			// TIER II
