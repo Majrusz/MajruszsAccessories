@@ -1,5 +1,4 @@
 {
-  "mlib": "majruszsaccessories:gameplay/lucky_rock_overworld",
   "type": "minecraft:gift",
   "pools": [
     {
@@ -7,8 +6,9 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "weight": 20,
           "name": "minecraft:coal",
+          "weight": 20,
+          "quality": 0,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -22,8 +22,9 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 15,
           "name": "minecraft:lapis_lazuli",
+          "weight": 15,
+          "quality": 0,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -37,8 +38,9 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
           "name": "minecraft:raw_copper",
+          "weight": 10,
+          "quality": 1,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -52,8 +54,9 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
           "name": "minecraft:raw_iron",
+          "weight": 10,
+          "quality": 1,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -67,8 +70,9 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
           "name": "minecraft:raw_gold",
+          "weight": 10,
+          "quality": 1,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -82,18 +86,21 @@
         },
         {
           "type": "minecraft:item",
+          "name": "minecraft:emerald",
           "weight": 10,
-          "name": "minecraft:emerald"
+          "quality": 2
         },
         {
           "type": "minecraft:item",
+          "name": "minecraft:diamond",
           "weight": 10,
-          "name": "minecraft:diamond"
+          "quality": 2
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
           "name": "minecraft:redstone",
+          "weight": 10,
+          "quality": 2,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -107,8 +114,9 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
           "name": "minecraft:bone",
+          "weight": 5,
+          "quality": 2,
           "functions": [
             {
               "function": "minecraft:set_count",
