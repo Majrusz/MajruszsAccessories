@@ -9,7 +9,6 @@ import com.mlib.config.IntegerConfig;
 import com.mlib.contexts.OnPlayerTick;
 import com.mlib.contexts.base.Condition;
 import com.mlib.math.Range;
-import com.mlib.text.TextHelper;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraftforge.api.distmarker.Dist;
@@ -27,12 +26,7 @@ public class LuckBonus extends BoosterComponent {
 	protected LuckBonus( Supplier< BoosterItem > item, ConfigGroup group, int luck ) {
 		super( item );
 
-		this.attribute = new AttributeHandler(
-			TextHelper.createUUIDFromBytes( group.getName() ).toString(),
-			String.format( "%sLuckBonus", group.getName() ),
-			Attributes.LUCK,
-			AttributeModifier.Operation.ADDITION
-		);
+		this.attribute = new AttributeHandler( "%sLuckBonus".formatted( group.getName() ), Attributes.LUCK, AttributeModifier.Operation.ADDITION );
 		this.luckBonus = new IntegerConfig( luck, new Range<>( 1, 10 ) );
 
 		OnPlayerTick.listen( this::updateLuck )
@@ -47,6 +41,6 @@ public class LuckBonus extends BoosterComponent {
 		AccessoryHolder holder = AccessoryHolder.find( data.player, this.item.get() );
 		int luck = holder.isValid() ? holder.apply( this.luckBonus ) : 0;
 
-		attribute.setValue( luck ).apply( data.player );
+		this.attribute.setValue( luck ).apply( data.player );
 	}
 }

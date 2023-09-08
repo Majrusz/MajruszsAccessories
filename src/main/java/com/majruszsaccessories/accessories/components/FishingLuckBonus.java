@@ -6,8 +6,8 @@ import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.attributes.AttributeHandler;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.IntegerConfig;
-import com.mlib.contexts.base.Condition;
 import com.mlib.contexts.OnPlayerTick;
+import com.mlib.contexts.base.Condition;
 import com.mlib.math.Range;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -17,7 +17,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import java.util.function.Supplier;
 
 public class FishingLuckBonus extends AccessoryComponent {
-	static final AttributeHandler LUCK_ATTRIBUTE = new AttributeHandler( "4010270c-9d57-4273-8a41-00985f1e4781", "FishingLuckBonus", Attributes.LUCK, AttributeModifier.Operation.ADDITION );
+	final AttributeHandler attribute;
 	final IntegerConfig luck;
 
 	public static AccessoryComponent.ISupplier create( int luck ) {
@@ -31,6 +31,7 @@ public class FishingLuckBonus extends AccessoryComponent {
 	protected FishingLuckBonus( Supplier< AccessoryItem > item, ConfigGroup group, int luck ) {
 		super( item );
 
+		this.attribute = new AttributeHandler( "%sFishingLuckBonus".formatted( group.getName() ), Attributes.LUCK, AttributeModifier.Operation.ADDITION );
 		this.luck = new IntegerConfig( luck, new Range<>( 1, 10 ) );
 
 		OnPlayerTick.listen( this::updateLuck )
@@ -42,7 +43,7 @@ public class FishingLuckBonus extends AccessoryComponent {
 	}
 
 	private void updateLuck( OnPlayerTick.Data data ) {
-		LUCK_ATTRIBUTE.setValue( this.getLuck( data.player ) ).apply( data.player );
+		this.attribute.setValue( this.getLuck( data.player ) ).apply( data.player );
 	}
 
 	private int getLuck( Player player ) {
