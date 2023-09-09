@@ -33,6 +33,7 @@ public class CreativeModeTabs {
 			Registries.SECRET_INGREDIENT,
 			Registries.SRIRACHA,
 			Registries.TAMED_POTATO_BEETLE,
+			Registries.TOUGH_ROCK,
 			Registries.WHITE_FLAG,
 			// TIER II
 			Registries.OVERWORLD_RUNE
