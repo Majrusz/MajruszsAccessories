@@ -32,7 +32,7 @@ public class ReduceDamageDealt extends AccessoryComponent {
 			.addConfig( this.penalty.name( "damage_dealt_penalty" ).comment( "Ratio of damage ignored when attacking." ) )
 			.insertTo( group );
 
-		this.addTooltip( "majruszsaccessories.bonuses.reduce_damage_dealt", TooltipHelper.asPercent( this.penalty, -1.0 ) );
+		this.addTooltip( "majruszsaccessories.bonuses.reduce_damage_dealt", TooltipHelper.asPercent( this.penalty ).bonusMultiplier( -1.0f ) );
 	}
 
 	private void reduceDamage( OnDamaged.Data data ) {

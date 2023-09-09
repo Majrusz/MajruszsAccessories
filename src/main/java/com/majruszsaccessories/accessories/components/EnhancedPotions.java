@@ -49,7 +49,7 @@ public class EnhancedPotions extends AccessoryComponent {
 			.insertTo( group );
 
 		this.addTooltip( "majruszsaccessories.bonuses.potion_amplifier", TooltipHelper.asValue( this.amplifier ) );
-		this.addTooltip( "majruszsaccessories.bonuses.potion_duration", TooltipHelper.asPercent( this.duration, -1.0 ) );
+		this.addTooltip( "majruszsaccessories.bonuses.potion_duration", TooltipHelper.asPercent( this.duration ).bonusMultiplier( -1.0f ) );
 	}
 
 	private void enhancePotion( OnPotionBrewed.Data data ) {
