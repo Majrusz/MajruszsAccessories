@@ -37,7 +37,7 @@
   "majruszsaccessories.bonuses.animal_damage": "Increases tamed wolf's damage by %1$s.",
   "majruszsaccessories.bonuses.animal_speed": "Increases tamed horse's movement speed by %1$s.",
   "majruszsaccessories.bonuses.animal_jump_height": "Increases tamed horse's jump height by %1$s.",
-  "majruszsaccessories.bonuses.more_chest_loot": "Increases loot by %1$s in all chests for every %2$s blocks further from home, up to %3$s (currently %4$s more loot).",
+  "majruszsaccessories.bonuses.more_chest_loot": "Increases loot in chests by %1$s for every block further from home up to %2$s (%3$s in total).",
   "majruszsaccessories.bonuses.double_crops": "Gives %1$s chance to double crops when harvesting.",
   "majruszsaccessories.bonuses.reduce_damage_received": "Decreases damage received by %1$s.",
   "majruszsaccessories.bonuses.reduce_damage_dealt": "Decreases damage dealt by %1$s.",

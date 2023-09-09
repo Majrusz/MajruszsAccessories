@@ -24,7 +24,6 @@
   "majruszsaccessories.bonuses.animal_damage": "使驯服的狼的伤害增加 %1$s。",
   "majruszsaccessories.bonuses.animal_speed": "使驯服的马的移动速度提高 %1$s。",
   "majruszsaccessories.bonuses.animal_jump_height": "使驯服的马的跳跃能力提高 %1$s。",
-  "majruszsaccessories.bonuses.more_chest_loot": "所有结构的战利品箱距离家每 %2$s 区块，可以增加 %1$s 的战利品，最高可达 %3$s (currently %4$s more loot).",
   "majruszsaccessories.bonuses.double_crops": "在收获时会有 %1$s 的几率掉落双倍的战利品",
   "majruszsaccessories.bonuses.reduce_damage_received": "减少 %1$s 的受到的伤害",
   "majruszsaccessories.bonuses.reduce_damage_dealt": "减少 %1$s 的造成的伤害",

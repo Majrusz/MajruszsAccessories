@@ -32,7 +32,6 @@
   "majruszsaccessories.bonuses.animal_damage": "Збільшує шкоду при приручених вовків на %1$s.",
   "majruszsaccessories.bonuses.animal_speed": "Збільшує швидкість пересування прирученого коня на %1$s.",
   "majruszsaccessories.bonuses.animal_jump_height": "Збільшує висоту стрибка прирученого коня на %1$s.",
-  "majruszsaccessories.bonuses.more_chest_loot": "Усі скрині споруд містять на %1$s більше здобичі на кожні %2$s блоків далі від дому, до %3$s (currently %4$s more loot).",
   "majruszsaccessories.bonuses.double_crops": "Дає шанс %1$s подвоїти врожай під час збирання.",
   "majruszsaccessories.bonuses.reduce_damage_received": "Зменшує отриману шкоду на %1$s.",
   "majruszsaccessories.bonuses.reduce_damage_dealt": "Зменшує завдану шкоду на %1$s.",

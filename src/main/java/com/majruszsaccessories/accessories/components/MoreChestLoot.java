@@ -1,7 +1,7 @@
 package com.majruszsaccessories.accessories.components;
 
-import com.majruszsaccessories.accessories.AccessoryHolder;
 import com.majruszsaccessories.Registries;
+import com.majruszsaccessories.accessories.AccessoryHolder;
 import com.majruszsaccessories.accessories.AccessoryItem;
 import com.majruszsaccessories.gamemodifiers.CustomConditions;
 import com.majruszsaccessories.tooltip.ITooltipProvider;
@@ -22,7 +22,6 @@ import com.mlib.modhelper.AutoInstance;
 import com.mlib.text.TextHelper;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
@@ -54,14 +53,14 @@ public class MoreChestLoot extends AccessoryComponent {
 		super( item );
 
 		this.sizeMultiplier = new DoubleConfig( sizeMultiplier, new Range<>( 0.0, 10.0 ) );
-		this.sizeMultiplier.name( "chest_size_bonus" ).comment( "Extra multiplier for number of items acquired from chests." );
+		this.sizeMultiplier.name( "chest_size_bonus" ).comment( "Extra multiplier for loot amount acquired from chests." );
 
 		OnChestOpened.listen( this::increaseLoot )
 			.addCondition( CustomConditions.hasAccessory( this.item, data->( LivingEntity )data.entity ) )
 			.addConfig( this.sizeMultiplier )
 			.insertTo( group );
 
-		this.addTooltip( "majruszsaccessories.bonuses.more_chest_loot", this.getPercentInfo(), this.getBlockInfo(), TooltipHelper.asPercent( this.sizeMultiplier ), this.getCurrentInfo() );
+		this.addTooltip( "majruszsaccessories.bonuses.more_chest_loot", this.getPercentInfo(), TooltipHelper.asPercent( this.sizeMultiplier ), this.getCurrentInfo() );
 	}
 
 	private void increaseLoot( OnLoot.Data data ) {
@@ -73,7 +72,7 @@ public class MoreChestLoot extends AccessoryComponent {
 			itemStack.setCount( count );
 		}
 		if( hasIncreasedLoot ) {
-			ParticleHandler.AWARD.spawn( data.getServerLevel(), data.origin, 16, ParticleHandler.offset( 0.5f ) );
+			ParticleHandler.AWARD.spawn( data.getServerLevel(), data.origin, 16, ParticleHandler.offset( 0.25f ) );
 		}
 	}
 
@@ -82,30 +81,7 @@ public class MoreChestLoot extends AccessoryComponent {
 	}
 
 	private ITooltipProvider getPercentInfo() {
-		return new ITooltipProvider() {
-			@Override
-			public MutableComponent getTooltip( AccessoryHolder holder ) {
-				float bonus = holder.getBonus();
-
-				return Component.translatable( TextHelper.percent( 0.01f + holder.getBonus() / 100.0f ) )
-					.withStyle( bonus != 0.0f ? holder.getBonusFormatting() : TooltipHelper.DEFAULT_FORMAT );
-			}
-
-			@Override
-			public MutableComponent getDetailedTooltip( AccessoryHolder holder ) {
-				float bonus = holder.getBonus();
-				if( bonus == 0.0f ) {
-					return this.getTooltip( holder );
-				}
-
-				return TooltipHelper.asFormula( TextHelper.percent( 0.01f ), Component.literal( TextHelper.signedPercent( holder.getBonus() / 100.0f ) )
-					.withStyle( holder.getBonusFormatting() ) );
-			}
-		};
-	}
-
-	private ITooltipProvider getBlockInfo() {
-		return holder->Component.translatable( "" + Math.round( BLOCKS_DISTANCE / ( this.sizeMultiplier.get() * 100.0f ) ) );
+		return TooltipHelper.asPercent( this.sizeMultiplier ).valueMultiplier( 1.0f / BLOCKS_DISTANCE ).scale( 4 );
 	}
 
 	private ITooltipProvider getCurrentInfo() {
