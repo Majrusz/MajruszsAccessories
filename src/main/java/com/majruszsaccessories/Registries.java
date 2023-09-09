@@ -44,6 +44,7 @@ public class Registries {
 
 	// Items
 	public static final RegistryObject< AccessoryItem > ADVENTURERS_GUIDE = ITEMS.register( "adventurers_guide", AccessoryItem::new );
+	public static final RegistryObject< AccessoryItem > ANCIENT_SCARAB = ITEMS.register( "ancient_scarab", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > ANGLERS_TROPHY = ITEMS.register( "anglers_trophy", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > CERTIFICATE_OF_TAMING = ITEMS.register( "certificate_of_taming", AccessoryItem::new );
 	public static final RegistryObject< BoosterItem > DICE = ITEMS.register( "dice", BoosterItem.basic() );

@@ -24,6 +24,7 @@ public class CreativeModeTabs {
 		Stream.of(
 			// TIER I
 			Registries.ADVENTURERS_GUIDE,
+			Registries.ANCIENT_SCARAB,
 			Registries.ANGLERS_TROPHY,
 			Registries.CERTIFICATE_OF_TAMING,
 			Registries.IDOL_OF_FERTILITY,
