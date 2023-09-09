@@ -3,7 +3,6 @@ package com.majruszsaccessories.accessories;
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.FishingLuckBonus;
-import com.majruszsaccessories.accessories.components.FishingLureBonus;
 import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.gamemodifiers.CustomConditions;
 import com.mlib.modhelper.AutoInstance;
@@ -16,11 +15,11 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import java.util.function.Supplier;
 
 @AutoInstance
-public class AnglersTrophy extends AccessoryBase {
-	public AnglersTrophy() {
-		super( Registries.ANGLERS_TROPHY );
+public class AnglerTrophy extends AccessoryBase {
+	public AnglerTrophy() {
+		super( Registries.ANGLER_TROPHY );
 
-		this.name( "AnglersTrophy" )
+		this.name( "AnglerTrophy" )
 			.add( FishingLuckBonus.create() )
 			.add( TradeOffer.create( VillagerProfession.FISHERMAN, 5 ) )
 			.add( DropChance.create() );
@@ -35,7 +34,7 @@ public class AnglersTrophy extends AccessoryBase {
 			super( item );
 
 			DoubleConfig chance = new DoubleConfig( 0.015, Range.CHANCE );
-			chance.name( "drop_chance" ).comment( "Chance to drop Angler's Trophy when fishing." );
+			chance.name( "drop_chance" ).comment( "Chance to drop Angler Trophy when fishing." );
 
 			OnItemFished.listen( this::onFished )
 				.addCondition( CustomConditions.dropChance( chance, data->data.player ) )

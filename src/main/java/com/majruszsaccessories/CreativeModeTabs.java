@@ -25,7 +25,7 @@ public class CreativeModeTabs {
 			// TIER I
 			Registries.ADVENTURERS_GUIDE,
 			Registries.ANCIENT_SCARAB,
-			Registries.ANGLERS_TROPHY,
+			Registries.ANGLER_TROPHY,
 			Registries.CERTIFICATE_OF_TAMING,
 			Registries.IDOL_OF_FERTILITY,
 			Registries.LUCKY_ROCK,
@@ -62,7 +62,7 @@ public class CreativeModeTabs {
 
 			this.currentIcon = CreativeModeTabHelper.buildMultiIcon( Stream.of(
 				Registries.ADVENTURERS_GUIDE,
-				Registries.ANGLERS_TROPHY,
+				Registries.ANGLER_TROPHY,
 				Registries.CERTIFICATE_OF_TAMING,
 				Registries.IDOL_OF_FERTILITY,
 				Registries.LUCKY_ROCK,

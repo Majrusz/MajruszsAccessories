@@ -2,13 +2,13 @@
   "parent": "minecraft:husbandry/fishy_business",
   "display": {
     "icon": {
-      "item": "majruszsaccessories:anglers_trophy"
+      "item": "majruszsaccessories:angler_trophy"
     },
     "title": {
-      "translate": "advancements.majruszsaccessories.anglers_trophy.title"
+      "translate": "advancements.majruszsaccessories.angler_trophy.title"
     },
     "description": {
-      "translate": "advancements.majruszsaccessories.anglers_trophy.description"
+      "translate": "advancements.majruszsaccessories.angler_trophy.description"
     },
     "frame": "goal",
     "show_toast": true,
@@ -25,7 +25,7 @@
         "items": [
           {
             "items": [
-              "majruszsaccessories:anglers_trophy"
+              "majruszsaccessories:angler_trophy"
             ]
           }
         ]
