@@ -46,6 +46,11 @@ public class ComponentBase< ItemType extends Item > {
 		data.generatedLoot.add( this.constructItemStack() );
 	}
 
+	protected void replaceGeneratedLoot( OnLoot.Data data ) {
+		data.generatedLoot.clear();
+		data.generatedLoot.add( this.constructItemStack() );
+	}
+
 	protected ItemStack constructItemStack() {
 		return new ItemStack( this.item.get() );
 	}
