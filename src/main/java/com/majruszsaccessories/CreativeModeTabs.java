@@ -23,7 +23,7 @@ public class CreativeModeTabs {
 	private static void definePrimaryItems( CreativeModeTab.ItemDisplayParameters params, CreativeModeTab.Output output ) {
 		Stream.of(
 			// TIER I
-			Registries.ADVENTURERS_GUIDE,
+			Registries.ADVENTURER_GUIDE,
 			Registries.ANCIENT_SCARAB,
 			Registries.ANGLER_TROPHY,
 			Registries.CERTIFICATE_OF_TAMING,
@@ -61,7 +61,7 @@ public class CreativeModeTabs {
 			super( builder );
 
 			this.currentIcon = CreativeModeTabHelper.buildMultiIcon( Stream.of(
-				Registries.ADVENTURERS_GUIDE,
+				Registries.ADVENTURER_GUIDE,
 				Registries.ANGLER_TROPHY,
 				Registries.CERTIFICATE_OF_TAMING,
 				Registries.IDOL_OF_FERTILITY,

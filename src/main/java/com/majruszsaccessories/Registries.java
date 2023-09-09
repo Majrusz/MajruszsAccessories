@@ -43,7 +43,7 @@ public class Registries {
 	static final DeferredRegister< CreativeModeTab > CREATIVE_MODE_TABS = HELPER.create( net.minecraft.core.registries.Registries.CREATIVE_MODE_TAB );
 
 	// Items
-	public static final RegistryObject< AccessoryItem > ADVENTURERS_GUIDE = ITEMS.register( "adventurers_guide", AccessoryItem::new );
+	public static final RegistryObject< AccessoryItem > ADVENTURER_GUIDE = ITEMS.register( "adventurer_guide", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > ANCIENT_SCARAB = ITEMS.register( "ancient_scarab", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > ANGLER_TROPHY = ITEMS.register( "angler_trophy", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > CERTIFICATE_OF_TAMING = ITEMS.register( "certificate_of_taming", AccessoryItem::new );

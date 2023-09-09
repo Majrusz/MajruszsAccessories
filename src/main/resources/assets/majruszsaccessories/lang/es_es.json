@@ -1,6 +1,6 @@
 {
   "itemGroup.majruszsaccessories.primary": "Majrusz's Accessories",
-  "item.majruszsaccessories.adventurers_guide": "Guía de aventureros",
+  "item.majruszsaccessories.adventurer_guide": "Guía de aventureros",
   "item.majruszsaccessories.angler_trophy": "Trofeo del pescador",
   "item.majruszsaccessories.certificate_of_taming": "Certificado de domador",
   "item.majruszsaccessories.idol_of_fertility": "Ídolo de la fertilidad",
@@ -28,8 +28,8 @@
   "majruszsaccessories.bonuses.double_crops": "Tienes un %1$s de obtener el doble de cultivos al recogerlos",
   "majruszsaccessories.bonuses.reduce_damage_received": "Disminuye el daño recibido un %1$s.",
   "majruszsaccessories.bonuses.reduce_damage_dealt": "Disminuye el daño que haces un %1$s.",
-  "advancements.majruszsaccessories.adventurers_guide.title": "Hora de aventuras",
-  "advancements.majruszsaccessories.adventurers_guide.description": "Consigue una Guía de aventureros",
+  "advancements.majruszsaccessories.adventurer_guide.title": "Hora de aventuras",
+  "advancements.majruszsaccessories.adventurer_guide.description": "Consigue una Guía de aventureros",
   "advancements.majruszsaccessories.angler_trophy.title": "Que espécimen viscoso de la belleza",
   "advancements.majruszsaccessories.angler_trophy.description": "Consigue un Trofeo del pescador",
   "advancements.majruszsaccessories.certificate_of_taming.title": "¡Hazte con todos!",

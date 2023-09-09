@@ -14,11 +14,11 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import java.util.function.Supplier;
 
 @AutoInstance
-public class AdventurersGuide extends AccessoryBase {
-	public AdventurersGuide() {
-		super( Registries.ADVENTURERS_GUIDE );
+public class AdventurerGuide extends AccessoryBase {
+	public AdventurerGuide() {
+		super( Registries.ADVENTURER_GUIDE );
 
-		this.name( "AdventurersGuide" )
+		this.name( "AdventurerGuide" )
 			.add( MoreChestLoot.create() )
 			.add( DropChance.create() )
 			.add( TradeOffer.create( VillagerProfession.CARTOGRAPHER, 5 ) );
@@ -33,7 +33,7 @@ public class AdventurersGuide extends AccessoryBase {
 			super( item );
 
 			DoubleConfig chance = new DoubleConfig( 0.025, Range.CHANCE );
-			chance.name( "spawn_chance" ).comment( "Chance for Adventurer's Guide to spawn in any chest." );
+			chance.name( "spawn_chance" ).comment( "Chance for Adventurer Guide to spawn in any chest." );
 
 			MoreChestLoot.OnChestOpened.listen( this::addToGeneratedLoot )
 				.addCondition( CustomConditions.dropChance( chance, data->data.entity ) )

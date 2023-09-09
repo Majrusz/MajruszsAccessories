@@ -1,6 +1,6 @@
 {
   "itemGroup.majruszsaccessories.primary": "Аксесуари Majrusz",
-  "item.majruszsaccessories.adventurers_guide": "Путівник авантюриста",
+  "item.majruszsaccessories.adventurer_guide": "Путівник авантюриста",
   "item.majruszsaccessories.angler_trophy": "Трофей риболова",
   "item.majruszsaccessories.certificate_of_taming": "Сертифікат приручення",
   "item.majruszsaccessories.idol_of_fertility": "Ідол плодючості",
@@ -39,8 +39,8 @@
   "majruszsaccessories.boosters.drop_chance": "%1$sЗбільшує шанс падіння аксесуарів на %2$s.",
   "majruszsaccessories.boosters.experience_bonus": "%1$sЗбільшує отриманий досвід на %2$s.",
   "majruszsaccessories.boosters.luck_bonus": "%1$sЗбільшує вдачу на %2$s.",
-  "advancements.majruszsaccessories.adventurers_guide.title": "Час пригод",
-  "advancements.majruszsaccessories.adventurers_guide.description": "Здобудьте путівник авантюриста",
+  "advancements.majruszsaccessories.adventurer_guide.title": "Час пригод",
+  "advancements.majruszsaccessories.adventurer_guide.description": "Здобудьте путівник авантюриста",
   "advancements.majruszsaccessories.angler_trophy.title": "Слизький екземпляр краси",
   "advancements.majruszsaccessories.angler_trophy.description": "Здобудьте трофей риболова",
   "advancements.majruszsaccessories.certificate_of_taming.title": "Треба спіймати їх усіх!",
