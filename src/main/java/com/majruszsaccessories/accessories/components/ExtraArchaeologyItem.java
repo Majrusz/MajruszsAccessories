@@ -26,7 +26,7 @@ public class ExtraArchaeologyItem extends AccessoryComponent {
 	}
 
 	public static ISupplier create() {
-		return create( 0.1 );
+		return create( 0.15 );
 	}
 
 	protected ExtraArchaeologyItem( Supplier< AccessoryItem > item, ConfigGroup group, double chance ) {
