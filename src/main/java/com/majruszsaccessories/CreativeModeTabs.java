@@ -50,7 +50,8 @@ public class CreativeModeTabs {
 			Registries.GOLDEN_DICE,
 			Registries.OWL_FEATHER,
 			Registries.HORSESHOE,
-			Registries.GOLDEN_HORSESHOE
+			Registries.GOLDEN_HORSESHOE,
+			Registries.ONYX
 		).forEach( item->output.accept( new ItemStack( item.get() ) ) );
 	}
 
