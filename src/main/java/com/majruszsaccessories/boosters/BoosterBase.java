@@ -24,7 +24,7 @@ public class BoosterBase extends ItemBase< BoosterItem, BoosterComponent, Booste
 		super( item, Registries.Groups.BOOSTERS );
 
 		OnAccessoryTooltip.listen( this::addTooltip )
-			.addCondition( Condition.predicate( data->data.holder.hasBoosterTag( item.get() ) ) )
+			.addCondition( Condition.predicate( data->data.holder.hasBooster( item.get() ) ) )
 			.insertTo( this.group );
 
 		OnBoosterTooltip.listen( this::addBoosterTooltip )

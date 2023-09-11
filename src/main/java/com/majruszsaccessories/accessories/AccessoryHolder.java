@@ -6,9 +6,11 @@ import com.mlib.Random;
 import com.mlib.Utility;
 import com.mlib.config.DoubleConfig;
 import com.mlib.config.IntegerConfig;
+import com.mlib.data.SerializableHelper;
+import com.mlib.data.SerializableStructure;
 import com.mlib.math.Range;
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -23,6 +25,7 @@ public class AccessoryHolder {
 	public static final Range< Float > BONUS_RANGE = new Range<>( -0.6f, 0.6f );
 	final ItemStack itemStack;
 	final AccessoryItem item;
+	final Data data;
 
 	public static AccessoryHolder find( LivingEntity entity, Predicate< ItemStack > predicate ) {
 		if( entity != null ) {
@@ -47,7 +50,7 @@ public class AccessoryHolder {
 	}
 
 	public static AccessoryHolder find( LivingEntity entity, BoosterItem item ) {
-		return find( entity, itemStack->AccessoryHolder.create( itemStack ).hasBoosterTag( item ) );
+		return find( entity, itemStack->AccessoryHolder.create( itemStack ).hasBooster( item ) );
 	}
 
 	public static boolean hasAccessory( LivingEntity entity, AccessoryItem item ) {
@@ -93,16 +96,18 @@ public class AccessoryHolder {
 		return Mth.lerp( ratio, BONUS_RANGE.from, BONUS_RANGE.to );
 	}
 
-	private AccessoryHolder( ItemStack itemStack ) {
+	private AccessoryHolder( ItemStack itemStack, Data data ) {
 		this.itemStack = itemStack;
 		this.item = itemStack.getItem() instanceof AccessoryItem item ? item : null;
+		this.data = data;
+	}
+
+	private AccessoryHolder( ItemStack itemStack ) {
+		this( itemStack, itemStack.getTag() != null ? SerializableHelper.read( Data::new, itemStack.getTag() ) : new Data() );
 	}
 
 	public AccessoryHolder copy() {
-		AccessoryHolder copy = new AccessoryHolder( new ItemStack( this.item ) );
-		copy.setBonus( this.getBonus() );
-
-		return copy;
+		return new AccessoryHolder( new ItemStack( this.item ), new Data( this.data ) );
 	}
 
 	public int apply( IntegerConfig config, int multiplier ) {
@@ -122,38 +127,35 @@ public class AccessoryHolder {
 	}
 
 	public AccessoryHolder setRandomBonus() {
-		if( this.hasBonusRangeTag() ) {
-			float minBonus = this.getFloatTag( Tags.VALUE_MIN );
-			float maxBonus = this.getFloatTag( Tags.VALUE_MAX );
-
-			return this.setTagValue( Tags.VALUE, Mth.lerp( Random.nextFloat( 0.0f, 1.0f ), minBonus, maxBonus ) );
+		if( this.hasBonusRangeDefined() ) {
+			return this.setBonus( Mth.lerp( Random.nextFloat( 0.0f, 1.0f ), this.data.range.from, this.data.range.to ) );
 		} else {
-			return this.setTagValue( Tags.VALUE, randomBonus() );
+			return this.setBonus( randomBonus() );
 		}
 	}
 
 	public AccessoryHolder setBonus( float bonus ) {
-		return this.setTagValue( Tags.VALUE, bonus );
+		return this.save( ()->this.data.bonus = AccessoryHolder.round( bonus ) );
 	}
 
 	public AccessoryHolder setBonus( Range< Float > bonus ) {
 		if( ( bonus.to - bonus.from ) > 1e-5f ) {
-			return this.setTagValue( Tags.VALUE_MIN, bonus.from ).setTagValue( Tags.VALUE_MAX, bonus.to );
+			return this.save( ()->this.data.range = new Range<>( AccessoryHolder.round( bonus.from ), AccessoryHolder.round( bonus.to ) ) );
 		} else {
 			return this.setBonus( bonus.from );
 		}
 	}
 
 	public AccessoryHolder setBooster( BoosterItem item ) {
-		return this.setTagValue( Tags.BOOSTER, Utility.getRegistryString( item ) );
+		return this.save( ()->this.data.boosterId = Utility.getRegistryKey( item ) );
 	}
 
 	public float getBonus() {
-		return this.getFloatTag( Tags.VALUE );
+		return this.data.bonus != null ? this.data.bonus : 0.0f;
 	}
 
 	public Range< Float > getBonusRange() {
-		return new Range<>( this.getFloatTag( Tags.VALUE_MIN ), this.getFloatTag( Tags.VALUE_MAX ) );
+		return this.data.range;
 	}
 
 	public ItemStack getItemStack() {
@@ -165,74 +167,76 @@ public class AccessoryHolder {
 	}
 
 	public BoosterItem getBooster() {
-		return ( BoosterItem )Utility.getItem( this.getStringTag( Tags.BOOSTER ) );
+		return this.data.booster;
 	}
 
 	public ChatFormatting getBonusFormatting() {
-		return getBonusFormatting( this.getBonus() );
+		return AccessoryHolder.getBonusFormatting( this.getBonus() );
 	}
 
 	public Rarity getItemRarity() {
-		return getItemRarity( this.getBonus() );
+		return AccessoryHolder.getItemRarity( this.getBonus() );
 	}
 
 	public boolean isValid() {
 		return this.item != null;
 	}
 
-	public boolean hasBonusTag() {
-		CompoundTag tag = this.itemStack.getTagElement( Tags.BONUS );
-
-		return tag != null && tag.contains( Tags.VALUE );
+	public boolean hasBonusDefined() {
+		return this.data.bonus != null;
 	}
 
-	public boolean hasBonusRangeTag() {
-		CompoundTag tag = this.itemStack.getTagElement( Tags.BONUS );
-
-		return tag != null && tag.contains( Tags.VALUE_MIN ) && tag.contains( Tags.VALUE_MAX );
+	public boolean hasBonusRangeDefined() {
+		return this.data.range.from != null && this.data.range.to != null;
 	}
 
 	public boolean hasMaxBonus() {
 		return this.getBonus() == BONUS_RANGE.to;
 	}
 
-	public boolean hasBoosterTag( BoosterItem item ) {
-		return Utility.getRegistryString( item ).equals( this.getStringTag( Tags.BOOSTER ) );
+	public boolean hasBooster( BoosterItem item ) {
+		return this.data.booster == item;
 	}
 
-	public boolean hasBoosterTag() {
-		return !this.getStringTag( Tags.BOOSTER ).isEmpty();
+	public boolean hasBooster() {
+		return this.data.boosterId != null;
 	}
 
-	private AccessoryHolder setTagValue( String tag, float value ) {
-		this.itemStack.getOrCreateTagElement( Tags.BONUS ).putFloat( tag, Math.round( 100.0f * value ) / 100.0f );
+	private AccessoryHolder save( Runnable runnable ) {
+		runnable.run();
+		this.data.write( this.itemStack.getOrCreateTag() );
 
 		return this;
 	}
 
-	private AccessoryHolder setTagValue( String tag, String value ) {
-		this.itemStack.getOrCreateTagElement( Tags.BONUS ).putString( tag, value );
-
-		return this;
+	private static float round( float value ) {
+		return Math.round( 100.0f * value ) / 100.0f;
 	}
 
-	private float getFloatTag( String tag ) {
-		CompoundTag itemTag = this.itemStack.getTagElement( Tags.BONUS );
+	private static class Data extends SerializableStructure {
+		Float bonus = null;
+		Range< Float > range = new Range<>( null, null );
+		BoosterItem booster = null;
+		ResourceLocation boosterId = null;
 
-		return itemTag != null ? itemTag.getFloat( tag ) : 0.0f;
-	}
+		public Data() {
+			super( "Bonus" );
 
-	private String getStringTag( String tag ) {
-		CompoundTag itemTag = this.itemStack.getTagElement( Tags.BONUS );
+			this.defineFloat( "Value", ()->this.bonus, x->this.bonus = x );
+			this.defineFloat( "ValueMin", ()->this.range.from, x->this.range.from = x );
+			this.defineFloat( "ValueMax", ()->this.range.to, x->this.range.to = x );
+			this.defineLocation( "Booster", ()->this.boosterId, x->{
+				this.booster = ( BoosterItem )Utility.getItem( x );
+				this.boosterId = x;
+			} );
+		}
 
-		return itemTag != null ? itemTag.getString( tag ) : "";
-	}
+		public Data( Data data ) {
+			this();
 
-	static final class Tags {
-		static final String BONUS = "Bonus";
-		static final String VALUE = "Value";
-		static final String VALUE_MIN = "ValueMin";
-		static final String VALUE_MAX = "ValueMax";
-		static final String BOOSTER = "Booster";
+			this.bonus = data.bonus;
+			this.range = new Range<>( data.range.from, data.range.to );
+			this.boosterId = data.boosterId;
+		}
 	}
 }

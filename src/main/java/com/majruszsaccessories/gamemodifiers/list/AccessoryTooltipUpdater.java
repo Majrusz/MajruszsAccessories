@@ -31,7 +31,7 @@ public class AccessoryTooltipUpdater {
 	private void addTooltip( OnItemTooltip.Data data ) {
 		AccessoryHolder holder = AccessoryHolder.create( data.itemStack );
 		List< Component > components = new ArrayList<>();
-		if( holder.hasBonusRangeTag() && !holder.hasBonusTag() ) {
+		if( holder.hasBonusRangeDefined() && !holder.hasBonusDefined() ) {
 			components.addAll( this.buildBonusRangeInfo( data ) );
 		} else {
 			components.addAll( this.buildBonusInfo( data ) );

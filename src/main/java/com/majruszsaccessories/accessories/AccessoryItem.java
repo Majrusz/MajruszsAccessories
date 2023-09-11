@@ -16,10 +16,10 @@ public class AccessoryItem extends Item {
 	@Override
 	public void onCraftedBy( ItemStack itemStack, Level level, Player player ) {
 		AccessoryHolder holder = AccessoryHolder.create( itemStack );
-		if( holder.hasBonusRangeTag() && !holder.hasBonusTag() ) {
+		if( holder.hasBonusRangeDefined() && !holder.hasBonusDefined() ) {
 			holder.setRandomBonus();
 		}
-		if( holder.hasBoosterTag() && player instanceof ServerPlayer serverPlayer ) {
+		if( holder.hasBooster() && player instanceof ServerPlayer serverPlayer ) {
 			Registries.HELPER.triggerAchievement( serverPlayer, "booster_used" );
 		}
 	}
@@ -45,6 +45,6 @@ public class AccessoryItem extends Item {
 
 	@Override
 	public boolean hasCraftingRemainingItem( ItemStack itemStack ) {
-		return AccessoryHolder.create( itemStack ).hasBoosterTag();
+		return AccessoryHolder.create( itemStack ).hasBooster();
 	}
 }

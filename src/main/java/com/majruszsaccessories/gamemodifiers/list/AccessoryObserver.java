@@ -15,7 +15,7 @@ public class AccessoryObserver {
 	private void tryToGiveRandomBonus( OnLoot.Data data ) {
 		data.generatedLoot.forEach( itemStack->{
 			AccessoryHolder holder = AccessoryHolder.create( itemStack );
-			if( holder.isValid() && !holder.hasBonusTag() ) {
+			if( holder.isValid() && !holder.hasBonusDefined() ) {
 				holder.setRandomBonus();
 			}
 		} );

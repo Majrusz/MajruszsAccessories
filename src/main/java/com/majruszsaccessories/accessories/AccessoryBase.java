@@ -40,7 +40,7 @@ public class AccessoryBase extends ItemBase< AccessoryItem, AccessoryComponent, 
 		data.addDecoration( this.item, new IItemDecorator() {
 			@Override
 			public boolean render( GuiGraphics guiGraphics, Font font, ItemStack itemStack, int xOffset, int yOffset ) {
-				return AccessoryHolder.create( itemStack ).hasBoosterTag()
+				return AccessoryHolder.create( itemStack ).hasBooster()
 					&& AccessoryBase.this.renderBoosterIcon( xOffset, yOffset, guiGraphics );
 			}
 		} );
