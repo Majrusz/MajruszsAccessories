@@ -27,7 +27,7 @@ public record RecipeData( List< AccessoryHolder > accessories, List< BoosterItem
 			}
 		}
 
-		data.accessories.sort( ( left, right )->Float.compare( left.getBonus(), right.getBonus() ) );
+		data.accessories.sort( ( left, right )->Float.compare( left.getBaseBonus(), right.getBaseBonus() ) );
 		return data;
 	}
 
@@ -46,22 +46,22 @@ public record RecipeData( List< AccessoryHolder > accessories, List< BoosterItem
 	float getStandardDeviation() {
 		float average = this.getAverageBonus();
 		double variation = this.accessories.stream()
-			.map( AccessoryHolder::getBonus )
+			.map( AccessoryHolder::getBaseBonus )
 			.reduce( 0.0f, ( sum, bonus )->sum + ( float )Math.pow( bonus - average, 2.0 ) ) / this.accessories.size();
 
 		return ( float )Math.sqrt( variation );
 	}
 
 	float getMaxBonus() {
-		return this.accessories.get( this.accessories.size() - 1 ).getBonus();
+		return this.accessories.get( this.accessories.size() - 1 ).getBaseBonus();
 	}
 
 	float getMinBonus() {
-		return this.accessories.get( 0 ).getBonus();
+		return this.accessories.get( 0 ).getBaseBonus();
 	}
 
 	float getAverageBonus() {
-		return this.accessories.stream().map( AccessoryHolder::getBonus ).reduce( 0.0f, Float::sum ) / this.accessories.size();
+		return this.accessories.stream().map( AccessoryHolder::getBaseBonus ).reduce( 0.0f, Float::sum ) / this.accessories.size();
 	}
 
 	int getAccessoriesSize() {

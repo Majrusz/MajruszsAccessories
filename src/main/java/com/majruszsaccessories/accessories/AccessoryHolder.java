@@ -2,6 +2,7 @@ package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.Integration;
 import com.majruszsaccessories.boosters.BoosterItem;
+import com.majruszsaccessories.gamemodifiers.contexts.OnAccessoryExtraBonusGet;
 import com.mlib.Random;
 import com.mlib.Utility;
 import com.mlib.config.DoubleConfig;
@@ -70,17 +71,21 @@ public class AccessoryHolder {
 	}
 
 	public static ChatFormatting getBonusFormatting( float bonus ) {
-		if( bonus == AccessoryHolder.BONUS_RANGE.to ) {
+		if( bonus > AccessoryHolder.BONUS_RANGE.to ) {
+			return ChatFormatting.DARK_AQUA;
+		} else if( bonus == AccessoryHolder.BONUS_RANGE.to ) {
 			return ChatFormatting.GOLD;
-		} else if( bonus >= 0.0f ) {
+		} else if( bonus > 0.0f ) {
 			return ChatFormatting.GREEN;
+		} else if( bonus == 0.0f ) {
+			return ChatFormatting.GRAY;
 		} else {
 			return ChatFormatting.RED;
 		}
 	}
 
 	public static Rarity getItemRarity( float bonus ) {
-		if( bonus == AccessoryHolder.BONUS_RANGE.to ) {
+		if( bonus >= AccessoryHolder.BONUS_RANGE.to ) {
 			return Rarity.EPIC;
 		} else if( bonus >= 0.0f ) {
 			return Rarity.RARE;
@@ -100,6 +105,7 @@ public class AccessoryHolder {
 		this.itemStack = itemStack;
 		this.item = itemStack.getItem() instanceof AccessoryItem item ? item : null;
 		this.data = data;
+		this.data.extraBonus = AccessoryHolder.round( OnAccessoryExtraBonusGet.dispatch( this ).value );
 	}
 
 	private AccessoryHolder( ItemStack itemStack ) {
@@ -135,7 +141,10 @@ public class AccessoryHolder {
 	}
 
 	public AccessoryHolder setBonus( float bonus ) {
-		return this.save( ()->this.data.bonus = AccessoryHolder.round( bonus ) );
+		return this.save( ()->{
+			this.data.baseBonus = AccessoryHolder.round( bonus );
+			this.data.extraBonus = AccessoryHolder.round( OnAccessoryExtraBonusGet.dispatch( this ).value );
+		} );
 	}
 
 	public AccessoryHolder setBonus( Range< Float > bonus ) {
@@ -151,7 +160,15 @@ public class AccessoryHolder {
 	}
 
 	public float getBonus() {
-		return this.data.bonus != null ? this.data.bonus : 0.0f;
+		return AccessoryHolder.round( this.getBaseBonus() + this.getExtraBonus() );
+	}
+
+	public float getBaseBonus() {
+		return this.data.baseBonus != null ? this.data.baseBonus : 0.0f;
+	}
+
+	public float getExtraBonus() {
+		return this.data.extraBonus;
 	}
 
 	public Range< Float > getBonusRange() {
@@ -183,7 +200,7 @@ public class AccessoryHolder {
 	}
 
 	public boolean hasBonusDefined() {
-		return this.data.bonus != null;
+		return this.data.baseBonus != null;
 	}
 
 	public boolean hasBonusRangeDefined() {
@@ -191,7 +208,7 @@ public class AccessoryHolder {
 	}
 
 	public boolean hasMaxBonus() {
-		return this.getBonus() == BONUS_RANGE.to;
+		return this.getBaseBonus() == BONUS_RANGE.to;
 	}
 
 	public boolean hasBooster( BoosterItem item ) {
@@ -214,7 +231,8 @@ public class AccessoryHolder {
 	}
 
 	private static class Data extends SerializableStructure {
-		Float bonus = null;
+		Float baseBonus = null;
+		Float extraBonus = 0.0f;
 		Range< Float > range = new Range<>( null, null );
 		BoosterItem booster = null;
 		ResourceLocation boosterId = null;
@@ -222,7 +240,7 @@ public class AccessoryHolder {
 		public Data() {
 			super( "Bonus" );
 
-			this.defineFloat( "Value", ()->this.bonus, x->this.bonus = x );
+			this.defineFloat( "Value", ()->this.baseBonus, x->this.baseBonus = x );
 			this.defineFloat( "ValueMin", ()->this.range.from, x->this.range.from = x );
 			this.defineFloat( "ValueMax", ()->this.range.to, x->this.range.to = x );
 			this.defineLocation( "Booster", ()->this.boosterId, x->{
@@ -234,7 +252,7 @@ public class AccessoryHolder {
 		public Data( Data data ) {
 			this();
 
-			this.bonus = data.bonus;
+			this.baseBonus = data.baseBonus;
 			this.range = new Range<>( data.range.from, data.range.to );
 			this.boosterId = data.boosterId;
 		}

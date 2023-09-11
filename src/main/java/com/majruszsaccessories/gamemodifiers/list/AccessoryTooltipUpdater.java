@@ -4,7 +4,9 @@ import com.majruszsaccessories.accessories.AccessoryHolder;
 import com.majruszsaccessories.Integration;
 import com.majruszsaccessories.accessories.AccessoryItem;
 import com.majruszsaccessories.gamemodifiers.contexts.OnAccessoryTooltip;
+import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.Utility;
+import com.mlib.client.ClientHelper;
 import com.mlib.modhelper.AutoInstance;
 import com.mlib.contexts.base.Condition;
 import com.mlib.contexts.OnItemTooltip;
@@ -13,6 +15,7 @@ import com.mlib.text.TextHelper;
 import com.mlib.time.TimeHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Player;
 
 import javax.annotation.Nullable;
@@ -51,13 +54,23 @@ public class AccessoryTooltipUpdater {
 	}
 
 	private List< Component > buildBonusInfo( OnItemTooltip.Data data ) {
-		AccessoryHolder handler = AccessoryHolder.create( data.itemStack );
-		float bonus = handler.getBonus();
-		if( bonus == 0.0f ) {
+		AccessoryHolder holder = AccessoryHolder.create( data.itemStack );
+		float baseBonus = holder.getBaseBonus();
+		float bonus = holder.getBonus();
+		if( baseBonus == 0.0f && bonus == 0.0f ) {
 			return List.of();
 		}
 
-		return List.of( Component.translatable( Tooltips.BONUS, TextHelper.signedPercent( bonus ) ).withStyle( handler.getBonusFormatting() ) );
+		MutableComponent component;
+		if( ClientHelper.isShiftDown() && holder.getExtraBonus() != 0.0f ) {
+			component = TooltipHelper.asFormula(
+				Component.literal( TextHelper.signedPercent( baseBonus ) ).withStyle( AccessoryHolder.getBonusFormatting( baseBonus ) ),
+				Component.literal( TextHelper.signedPercent( holder.getExtraBonus() ) ).withStyle( AccessoryHolder.getBonusFormatting( bonus ) )
+			);
+		} else {
+			component = Component.literal( TextHelper.signedPercent( bonus ) );
+		}
+		return List.of( Component.translatable( Tooltips.BONUS, component ).withStyle( holder.getBonusFormatting() ) );
 	}
 
 	private List< Component > buildUseInfo( OnItemTooltip.Data data ) {
@@ -82,13 +95,13 @@ public class AccessoryTooltipUpdater {
 		OnAccessoryTooltip.Data tooltipData = OnAccessoryTooltip.dispatch( data.itemStack );
 		boolean cannotFitSinglePage = tooltipData.components.size() > PAGE_SIZE;
 		if( cannotFitSinglePage ) {
-			return this.convertToEffectsInfoPage( tooltipData.components );
+			return this.getCurrentPageSublist( tooltipData.components );
 		} else {
 			return tooltipData.components;
 		}
 	}
 
-	private List< Component > convertToEffectsInfoPage( List< Component > components ) {
+	private List< Component > getCurrentPageSublist( List< Component > components ) {
 		int totalPages = ( int )Math.ceil( ( double )components.size() / PAGE_SIZE );
 		int currentPage = ( int )( Math.floor( ( double )TimeHelper.getClientTicks() / Utility.secondsToTicks( PAGE_SIZE * 2 ) ) % totalPages );
 		List< Component > pageComponents = new ArrayList<>( components.subList( currentPage * PAGE_SIZE, Math.min( ( currentPage + 1 ) * PAGE_SIZE, components.size() ) ) );
