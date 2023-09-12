@@ -60,7 +60,11 @@ public class LowerSpawnRate extends AccessoryComponent {
 			this.currentMultiplier = server.getPlayerList()
 				.getPlayers()
 				.stream()
-				.map( player->1.0f - AccessoryHolder.find( player, this.item.get() ).apply( this.spawnRateReduction ) )
+				.map( player->{
+					AccessoryHolder holder = AccessoryHolder.find( player, this.item.get() );
+
+					return holder.isValid() ? 1.0f - holder.apply( this.spawnRateReduction ) : 1.0f;
+				} )
 				.reduce( 1.0f, ( total, multiplier )->total * multiplier );
 		} else {
 			this.currentMultiplier = 1.0f;
