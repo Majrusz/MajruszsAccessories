@@ -39,7 +39,8 @@ public class CreativeModeTabs {
 			Registries.TOUGH_ROCK,
 			Registries.WHITE_FLAG,
 			// TIER II
-			Registries.OVERWORLD_RUNE
+			Registries.OVERWORLD_RUNE,
+			Registries.ULTIMATE_GUIDE
 		).forEach( item->{
 			for( int i = 0; i < 9; ++i ) {
 				float bonus = Math.round( 100.0f * Mth.lerp( i / 8.0f, AccessoryHolder.BONUS_RANGE.from, AccessoryHolder.BONUS_RANGE.to ) ) / 100.0f;
