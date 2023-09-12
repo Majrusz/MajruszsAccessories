@@ -61,6 +61,7 @@ public class Registries {
 	public static final RegistryObject< AccessoryItem > OVERWORLD_RUNE = ITEMS.register( "overworld_rune", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > SECRET_INGREDIENT = ITEMS.register( "secret_ingredient", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > SRIRACHA = ITEMS.register( "sriracha", AccessoryItem::new );
+	public static final RegistryObject< AccessoryItem > SWIMMER_GUIDE = ITEMS.register( "swimmer_guide", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > TAMED_POTATO_BEETLE = ITEMS.register( "tamed_potato_beetle", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > TOUGH_ROCK = ITEMS.register( "tough_rock", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > WHITE_FLAG = ITEMS.register( "white_flag", AccessoryItem::new );

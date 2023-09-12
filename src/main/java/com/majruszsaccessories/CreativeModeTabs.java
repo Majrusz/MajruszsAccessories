@@ -34,6 +34,7 @@ public class CreativeModeTabs {
 			Registries.PEARL_BARLEY_BUCKET,
 			Registries.SECRET_INGREDIENT,
 			Registries.SRIRACHA,
+			Registries.SWIMMER_GUIDE,
 			Registries.TAMED_POTATO_BEETLE,
 			Registries.TOUGH_ROCK,
 			Registries.WHITE_FLAG,
