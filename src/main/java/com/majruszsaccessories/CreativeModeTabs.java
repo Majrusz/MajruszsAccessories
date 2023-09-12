@@ -29,6 +29,7 @@ public class CreativeModeTabs {
 			Registries.CERTIFICATE_OF_TAMING,
 			Registries.IDOL_OF_FERTILITY,
 			Registries.LUCKY_ROCK,
+			Registries.MINER_GUIDE,
 			Registries.PEACE_EMBLEM,
 			Registries.PEARL_BARLEY_BUCKET,
 			Registries.SECRET_INGREDIENT,

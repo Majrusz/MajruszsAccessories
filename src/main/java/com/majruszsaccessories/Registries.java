@@ -57,6 +57,7 @@ public class Registries {
 	public static final RegistryObject< AccessoryItem > PEARL_BARLEY_BUCKET = ITEMS.register( "pearl_barley_bucket", AccessoryItem::new );
 	public static final RegistryObject< BoosterItem > ONYX = ITEMS.register( "onyx", BoosterItem.basic() );
 	public static final RegistryObject< BoosterItem > OWL_FEATHER = ITEMS.register( "owl_feather", BoosterItem.basic() );
+	public static final RegistryObject< AccessoryItem > MINER_GUIDE = ITEMS.register( "miner_guide", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > OVERWORLD_RUNE = ITEMS.register( "overworld_rune", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > SECRET_INGREDIENT = ITEMS.register( "secret_ingredient", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > SRIRACHA = ITEMS.register( "sriracha", AccessoryItem::new );

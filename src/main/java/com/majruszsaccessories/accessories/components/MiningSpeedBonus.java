@@ -6,10 +6,7 @@ import com.majruszsaccessories.gamemodifiers.CustomConditions;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
-import com.mlib.config.IntegerConfig;
 import com.mlib.contexts.OnBreakSpeed;
-import com.mlib.contexts.OnFishingTimeSet;
-import com.mlib.contexts.base.Condition;
 import com.mlib.math.Range;
 
 import java.util.function.Supplier;
@@ -22,7 +19,7 @@ public class MiningSpeedBonus extends AccessoryComponent {
 	}
 
 	public static ISupplier create() {
-		return create( 0.5 );
+		return create( 0.1 );
 	}
 
 	protected MiningSpeedBonus( Supplier< AccessoryItem > item, ConfigGroup group, double bonus ) {
@@ -31,9 +28,8 @@ public class MiningSpeedBonus extends AccessoryComponent {
 		this.speedMultiplier = new DoubleConfig( bonus, new Range<>( 0.01, 10.0 ) );
 
 		OnBreakSpeed.listen( this::increaseMineSpeed )
-			.addCondition( Condition.predicate( data->data.blockState.getBlock().defaultDestroyTime() >= 10.0f ) )
 			.addCondition( CustomConditions.hasAccessory( item, data->data.player ) )
-			.addConfig( this.speedMultiplier.name( "speed_multiplier" ).comment( "Extra mining speed multiplier for the most durable blocks." ) )
+			.addConfig( this.speedMultiplier.name( "mine_speed_multiplier" ).comment( "Extra speed multiplier when mining blocks." ) )
 			.insertTo( group );
 
 		this.addTooltip( "majruszsaccessories.bonuses.mine_bonus", TooltipHelper.asPercent( this.speedMultiplier ) );
@@ -41,7 +37,8 @@ public class MiningSpeedBonus extends AccessoryComponent {
 
 	private void increaseMineSpeed( OnBreakSpeed.Data data ) {
 		AccessoryHolder holder = AccessoryHolder.find( data.player, this.item.get() );
+		double multiplier = holder.isValid() ? holder.apply( this.speedMultiplier ) : 0.0;
 
-		data.newSpeed += data.originalSpeed * holder.apply( this.speedMultiplier );
+		data.newSpeed += data.originalSpeed * multiplier;
 	}
 }
