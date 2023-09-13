@@ -54,6 +54,7 @@ public class Registries {
 	public static final RegistryObject< AccessoryItem > IDOL_OF_FERTILITY = ITEMS.register( "idol_of_fertility", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > LUCKY_ROCK = ITEMS.register( "lucky_rock", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > PEACE_EMBLEM = ITEMS.register( "peace_emblem", AccessoryItem::new );
+	public static final RegistryObject< AccessoryItem > PEACE_TREATY = ITEMS.register( "peace_treaty", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > PEARL_BARLEY_BUCKET = ITEMS.register( "pearl_barley_bucket", AccessoryItem::new );
 	public static final RegistryObject< BoosterItem > ONYX = ITEMS.register( "onyx", BoosterItem.basic() );
 	public static final RegistryObject< BoosterItem > OWL_FEATHER = ITEMS.register( "owl_feather", BoosterItem.basic() );

@@ -1,0 +1,8 @@
+{
+  "type": "majruszsaccessories:crafting_accessory",
+  "ingredients": [
+    "majruszsaccessories:peace_emblem",
+    "majruszsaccessories:white_flag"
+  ],
+  "result": "majruszsaccessories:peace_treaty"
+}

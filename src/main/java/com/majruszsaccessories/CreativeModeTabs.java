@@ -22,7 +22,6 @@ public class CreativeModeTabs {
 
 	private static void definePrimaryItems( CreativeModeTab.ItemDisplayParameters params, CreativeModeTab.Output output ) {
 		Stream.of(
-			// TIER I
 			Registries.ADVENTURER_GUIDE,
 			Registries.ANCIENT_SCARAB,
 			Registries.ANGLER_TROPHY,
@@ -30,17 +29,17 @@ public class CreativeModeTabs {
 			Registries.IDOL_OF_FERTILITY,
 			Registries.LUCKY_ROCK,
 			Registries.MINER_GUIDE,
+			Registries.OVERWORLD_RUNE,
 			Registries.PEACE_EMBLEM,
+			Registries.PEACE_TREATY,
 			Registries.PEARL_BARLEY_BUCKET,
 			Registries.SECRET_INGREDIENT,
 			Registries.SRIRACHA,
 			Registries.SWIMMER_GUIDE,
 			Registries.TAMED_POTATO_BEETLE,
 			Registries.TOUGH_ROCK,
-			Registries.WHITE_FLAG,
-			// TIER II
-			Registries.OVERWORLD_RUNE,
-			Registries.ULTIMATE_GUIDE
+			Registries.ULTIMATE_GUIDE,
+			Registries.WHITE_FLAG
 		).forEach( item->{
 			for( int i = 0; i < 9; ++i ) {
 				float bonus = Math.round( 100.0f * Mth.lerp( i / 8.0f, AccessoryHolder.BONUS_RANGE.from, AccessoryHolder.BONUS_RANGE.to ) ) / 100.0f;
