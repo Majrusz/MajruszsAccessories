@@ -11,32 +11,42 @@ import com.mlib.math.Range;
 
 import java.util.function.Supplier;
 
-public class ReduceDamageReceived extends AccessoryComponent {
+public class ReduceDamage extends AccessoryComponent {
 	final DoubleConfig reduction;
 
 	public static ISupplier create( double reduction ) {
-		return ( item, group )->new ReduceDamageReceived( item, group, reduction );
+		return ( item, group )->new ReduceDamage( item, group, reduction );
 	}
 
 	public static ISupplier create() {
 		return create( 0.2 );
 	}
 
-	protected ReduceDamageReceived( Supplier< AccessoryItem > item, ConfigGroup group, double reduction ) {
+	protected ReduceDamage( Supplier< AccessoryItem > item, ConfigGroup group, double reduction ) {
 		super( item );
 
 		this.reduction = new DoubleConfig( reduction, new Range<>( 0.01, 0.99 ) );
 
-		OnDamaged.listen( this::reduceDamage )
-			.addCondition( CustomConditions.hasAccessory( item, data->data.target ) )
-			.addConfig( this.reduction.name( "damage_received_reduction" ).comment( "Ratio of damage ignored while being attacked." ) )
+		OnDamaged.listen( this::reduceDamageDealt )
+			.addCondition( CustomConditions.hasAccessory( item, data->data.attacker ) )
 			.insertTo( group );
 
-		this.addTooltip( "majruszsaccessories.bonuses.reduce_damage_received", TooltipHelper.asPercent( this.reduction ) );
+		OnDamaged.listen( this::reduceDamageReceived )
+			.addCondition( CustomConditions.hasAccessory( item, data->data.target ) )
+			.insertTo( group );
+
+		group.addConfig( this.reduction.name( "damage_reduction" ).comment( "Ratio of damage ignored when dealing and receiving damage." ) );
+
+		this.addTooltip( "majruszsaccessories.bonuses.reduce_damage", TooltipHelper.asPercent( this.reduction ) );
 	}
 
-	private void reduceDamage( OnDamaged.Data data ) {
+	private void reduceDamageDealt( OnDamaged.Data data ) {
 		AccessoryHolder holder = AccessoryHolder.find( data.target, this.item.get() );
+		data.event.setAmount( data.event.getAmount() * ( 1.0f - holder.apply( this.reduction ) ) );
+	}
+
+	private void reduceDamageReceived( OnDamaged.Data data ) {
+		AccessoryHolder holder = AccessoryHolder.find( data.attacker, this.item.get() );
 		data.event.setAmount( data.event.getAmount() * ( 1.0f - holder.apply( this.reduction ) ) );
 	}
 }

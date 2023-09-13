@@ -19,7 +19,6 @@ public class OverworldRune extends AccessoryBase {
 			.add( ExtraStoneLoot.create( 0.04 ) )
 			.add( EnhancedPotions.create( 0.5, 1 ) )
 			.add( DoubleCrops.create( 0.3 ) )
-			.add( ReduceDamageReceived.create( 0.0625 ) )
 			.add( TradeOffer.create( VillagerProfession.LIBRARIAN, 5, 17 ) );
 	}
 }

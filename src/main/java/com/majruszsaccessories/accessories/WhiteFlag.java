@@ -2,20 +2,19 @@ package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.Registries;
 import com.majruszsaccessories.accessories.components.AccessoryComponent;
-import com.majruszsaccessories.accessories.components.ReduceDamageDealt;
-import com.majruszsaccessories.accessories.components.ReduceDamageReceived;
+import com.majruszsaccessories.accessories.components.ReduceDamage;
 import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.gamemodifiers.CustomConditions;
 import com.mlib.Utility;
-import com.mlib.modhelper.AutoInstance;
 import com.mlib.blocks.BlockHelper;
 import com.mlib.config.ConfigGroup;
 import com.mlib.config.DoubleConfig;
 import com.mlib.config.StringListConfig;
-import com.mlib.contexts.base.Condition;
 import com.mlib.contexts.OnLoot;
 import com.mlib.contexts.OnPlayerInteract;
+import com.mlib.contexts.base.Condition;
 import com.mlib.math.Range;
+import com.mlib.modhelper.AutoInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.npc.VillagerProfession;
@@ -31,8 +30,7 @@ public class WhiteFlag extends AccessoryBase {
 		super( Registries.WHITE_FLAG );
 
 		this.name( "WhiteFlag" )
-			.add( ReduceDamageReceived.create() )
-			.add( ReduceDamageDealt.create() )
+			.add( ReduceDamage.create() )
 			.add( TradeOffer.create( VillagerProfession.LIBRARIAN, 5 ) )
 			.add( SwingBehavior.create() )
 			.add( AddToVillageChests.create() );

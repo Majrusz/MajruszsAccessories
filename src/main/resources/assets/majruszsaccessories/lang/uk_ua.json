@@ -33,8 +33,6 @@
   "majruszsaccessories.bonuses.animal_speed": "Збільшує швидкість пересування прирученого коня на %1$s.",
   "majruszsaccessories.bonuses.animal_jump_height": "Збільшує висоту стрибка прирученого коня на %1$s.",
   "majruszsaccessories.bonuses.double_crops": "Дає шанс %1$s подвоїти врожай під час збирання.",
-  "majruszsaccessories.bonuses.reduce_damage_received": "Зменшує отриману шкоду на %1$s.",
-  "majruszsaccessories.bonuses.reduce_damage_dealt": "Зменшує завдану шкоду на %1$s.",
   "majruszsaccessories.boosters.drop_chance": "%1$sЗбільшує шанс падіння аксесуарів на %2$s.",
   "majruszsaccessories.boosters.experience_bonus": "%1$sЗбільшує отриманий досвід на %2$s.",
   "majruszsaccessories.boosters.luck_bonus": "%1$sЗбільшує вдачу на %2$s.",
