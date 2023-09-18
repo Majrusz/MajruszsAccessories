@@ -40,6 +40,7 @@ public class CreativeModeTabs {
 			Registries.TAMED_POTATO_BEETLE,
 			Registries.TOUGH_ROCK,
 			Registries.ULTIMATE_GUIDE,
+			Registries.UNBREAKABLE_FISHING_LINE,
 			Registries.WHITE_FLAG
 		).forEach( item->{
 			for( int i = 0; i < 9; ++i ) {

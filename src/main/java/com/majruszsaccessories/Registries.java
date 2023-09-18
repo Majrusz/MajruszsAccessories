@@ -67,6 +67,7 @@ public class Registries {
 	public static final RegistryObject< AccessoryItem > TAMED_POTATO_BEETLE = ITEMS.register( "tamed_potato_beetle", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > TOUGH_ROCK = ITEMS.register( "tough_rock", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > ULTIMATE_GUIDE = ITEMS.register( "ultimate_guide", AccessoryItem::new );
+	public static final RegistryObject< AccessoryItem > UNBREAKABLE_FISHING_LINE = ITEMS.register( "unbreakable_fishing_line", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > WHITE_FLAG = ITEMS.register( "white_flag", AccessoryItem::new );
 
 	// Recipes
