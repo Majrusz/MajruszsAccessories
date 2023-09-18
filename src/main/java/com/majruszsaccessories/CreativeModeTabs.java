@@ -28,6 +28,7 @@ public class CreativeModeTabs {
 			Registries.CERTIFICATE_OF_TAMING,
 			Registries.IDOL_OF_FERTILITY,
 			Registries.LUCKY_ROCK,
+			Registries.METAL_LURE,
 			Registries.MINER_GUIDE,
 			Registries.OVERWORLD_RUNE,
 			Registries.PEACE_EMBLEM,
