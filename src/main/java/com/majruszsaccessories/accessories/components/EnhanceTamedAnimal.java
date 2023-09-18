@@ -43,13 +43,10 @@ public class EnhanceTamedAnimal extends AccessoryComponent {
 
 		OnAnimalTame.listen( this::enhanceAnimal )
 			.addCondition( CustomConditions.hasAccessory( item, data->data.tamer ) )
-			.addConfig( this.bonus.name( "animal_bonus" ).comment( "Bonus health, damage, movement speed and jump height for tamed animals." ) )
+			.addConfig( this.bonus.name( "animal_bonus" ).comment( "Bonus health, damage, movement speed, and jump height for tamed animals." ) )
 			.insertTo( group );
 
-		this.addTooltip( "majruszsaccessories.bonuses.animal_health", TooltipHelper.asPercent( this.bonus ) )
-			.addTooltip( "majruszsaccessories.bonuses.animal_damage", TooltipHelper.asPercent( this.bonus ) )
-			.addTooltip( "majruszsaccessories.bonuses.animal_speed", TooltipHelper.asPercent( this.bonus ) )
-			.addTooltip( "majruszsaccessories.bonuses.animal_jump_height", TooltipHelper.asPercent( this.bonus ) );
+		this.addTooltip( "majruszsaccessories.bonuses.animal_attributes", TooltipHelper.asPercent( this.bonus ) );
 	}
 
 	private void enhanceAnimal( OnAnimalTame.Data data ) {
