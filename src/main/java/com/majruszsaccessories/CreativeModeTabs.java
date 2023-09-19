@@ -24,6 +24,7 @@ public class CreativeModeTabs {
 		Stream.of(
 			Registries.ADVENTURER_GUIDE,
 			Registries.ANCIENT_SCARAB,
+			Registries.ANGLER_TACKLE_BAG,
 			Registries.ANGLER_TROPHY,
 			Registries.CERTIFICATE_OF_TAMING,
 			Registries.IDOL_OF_FERTILITY,
