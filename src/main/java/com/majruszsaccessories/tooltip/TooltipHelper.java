@@ -4,6 +4,7 @@ import com.majruszsaccessories.accessories.AccessoryHolder;
 import com.majruszsaccessories.boosters.BoosterItem;
 import com.mlib.config.DoubleConfig;
 import com.mlib.config.IntegerConfig;
+import com.mlib.math.Range;
 import com.mlib.text.TextHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -83,6 +84,25 @@ public class TooltipHelper {
 			return TooltipHelper.asFormula( defaultValue, component.withStyle( holder.getBonusFormatting() ) );
 		}
 
+		@Override
+		public MutableComponent getRangeTooltip( AccessoryHolder holder ) {
+			Range< Float > range = holder.getBonusRange();
+			int minValue = AccessoryHolder.apply( range.from, this.config, this.bonusMultiplier ) * this.valueMultiplier;
+			int maxValue = AccessoryHolder.apply( range.to, this.config, this.bonusMultiplier ) * this.valueMultiplier;
+			int defaultValue = this.config.get() * this.valueMultiplier;
+			MutableComponent minComponent = Component.literal( "" + minValue )
+				.withStyle( minValue != defaultValue ? AccessoryHolder.getBonusFormatting( range.from ) : DEFAULT_FORMAT );
+
+			if( minValue != maxValue ) {
+				MutableComponent maxComponent = Component.literal( "" + maxValue )
+					.withStyle( maxValue != defaultValue ? AccessoryHolder.getBonusFormatting( range.to ) : DEFAULT_FORMAT );
+
+				return TooltipHelper.asRange( minComponent, maxComponent );
+			} else {
+				return minComponent;
+			}
+		}
+
 		public IntegerTooltip bonusMultiplier( int multiplier ) {
 			this.bonusMultiplier = multiplier;
 
@@ -125,6 +145,24 @@ public class TooltipHelper {
 			MutableComponent component = Math.abs( diff ) >= this.diffMargin ? Component.literal( TextHelper.signedPercent( diff, this.scale ) ) : Component.literal( "" );
 
 			return TooltipHelper.asFormula( TextHelper.percent( defaultValue, this.scale ), component.withStyle( holder.getBonusFormatting() ) );
+		}
+
+		@Override
+		public MutableComponent getRangeTooltip( AccessoryHolder holder ) {
+			Range< Float > range = holder.getBonusRange();
+			float minValue = AccessoryHolder.apply( range.from, this.config, this.bonusMultiplier ) * this.valueMultiplier;
+			float maxValue = AccessoryHolder.apply( range.to, this.config, this.bonusMultiplier ) * this.valueMultiplier;
+			MutableComponent minComponent = Component.literal( TextHelper.percent( minValue, this.scale ) )
+				.withStyle( AccessoryHolder.getBonusFormatting( range.from ) );
+
+			if( Math.abs( maxValue - minValue ) >= this.diffMargin ) {
+				return TooltipHelper.asRange(
+					minComponent,
+					Component.literal( TextHelper.percent( maxValue, this.scale ) ).withStyle( AccessoryHolder.getBonusFormatting( range.to ) )
+				);
+			} else {
+				return minComponent;
+			}
 		}
 
 		public FloatTooltip bonusMultiplier( float multiplier ) {

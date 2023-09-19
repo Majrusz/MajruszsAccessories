@@ -9,4 +9,8 @@ public interface ITooltipProvider {
 	default MutableComponent getDetailedTooltip( AccessoryHolder holder ) {
 		return this.getTooltip( holder );
 	}
+
+	default MutableComponent getRangeTooltip( AccessoryHolder holder ) {
+		return this.getTooltip( holder );
+	}
 }

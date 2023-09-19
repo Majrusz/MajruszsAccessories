@@ -70,6 +70,14 @@ public class AccessoryHolder {
 		return new AccessoryHolder( itemStack );
 	}
 
+	public static int apply( float bonus, IntegerConfig config, int multiplier ) {
+		return config.getRange().clamp( Math.round( ( 1.0f + multiplier * bonus ) * config.get() ) );
+	}
+
+	public static float apply( float bonus, DoubleConfig config, float multiplier ) {
+		return config.getRange().clamp( ( double )( 1.0f + multiplier * bonus ) * config.asFloat() ).floatValue();
+	}
+
 	public static ChatFormatting getBonusFormatting( float bonus ) {
 		if( bonus > AccessoryHolder.BONUS_RANGE.to ) {
 			return ChatFormatting.DARK_AQUA;
@@ -117,19 +125,19 @@ public class AccessoryHolder {
 	}
 
 	public int apply( IntegerConfig config, int multiplier ) {
-		return config.getRange().clamp( Math.round( ( 1.0f + multiplier * this.getBonus() ) * config.get() ) );
+		return AccessoryHolder.apply( this.getBonus(), config, multiplier );
 	}
 
 	public int apply( IntegerConfig config ) {
 		return this.apply( config, 1 );
 	}
 
-	public float apply( DoubleConfig config, double multiplier ) {
-		return config.getRange().clamp( ( 1.0f + multiplier * this.getBonus() ) * config.asFloat() ).floatValue();
+	public float apply( DoubleConfig config, float multiplier ) {
+		return AccessoryHolder.apply( this.getBonus(), config, multiplier );
 	}
 
 	public float apply( DoubleConfig config ) {
-		return this.apply( config, 1.0 );
+		return this.apply( config, 1.0f );
 	}
 
 	public AccessoryHolder setRandomBonus() {
@@ -144,6 +152,7 @@ public class AccessoryHolder {
 		return this.save( ()->{
 			this.data.baseBonus = AccessoryHolder.round( bonus );
 			this.data.extraBonus = AccessoryHolder.round( OnAccessoryExtraBonusGet.dispatch( this ).value );
+			this.data.range = new Range<>( null, null );
 		} );
 	}
 

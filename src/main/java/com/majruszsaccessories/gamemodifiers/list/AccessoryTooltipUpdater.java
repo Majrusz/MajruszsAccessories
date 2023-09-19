@@ -38,9 +38,9 @@ public class AccessoryTooltipUpdater {
 			components.addAll( this.buildBonusRangeInfo( data ) );
 		} else {
 			components.addAll( this.buildBonusInfo( data ) );
-			components.addAll( this.buildUseInfo( data ) );
-			components.addAll( this.buildEffectsInfo( data ) );
 		}
+		components.addAll( this.buildUseInfo( data ) );
+		components.addAll( this.buildEffectsInfo( data ) );
 
 		data.tooltip.addAll( 1, components );
 	}

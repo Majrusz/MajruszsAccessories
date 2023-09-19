@@ -33,6 +33,11 @@ public class ComponentBase< ItemType extends Item > {
 			public MutableComponent getDetailedTooltip( AccessoryHolder holder ) {
 				return Component.translatable( key, Stream.of( providers ).map( provider->provider.getDetailedTooltip( holder ) ).toArray() );
 			}
+
+			@Override
+			public MutableComponent getRangeTooltip( AccessoryHolder holder ) {
+				return Component.translatable( key, Stream.of( providers ).map( provider->provider.getRangeTooltip( holder ) ).toArray() );
+			}
 		} );
 
 		return this;

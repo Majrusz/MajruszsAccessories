@@ -6,7 +6,6 @@ import com.mlib.client.ClientHelper;
 import com.mlib.config.ConfigGroup;
 import com.mlib.contexts.base.ModConfigs;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -55,7 +54,15 @@ public class ItemBase< ItemType extends Item, ComponentType extends ComponentBas
 		this.components.stream()
 			.map( ComponentBase::getTooltipProviders )
 			.flatMap( List::stream )
-			.map( provider->ClientHelper.isShiftDown() ? provider.getDetailedTooltip( data.holder ) : provider.getTooltip( data.holder ) )
+			.map( provider->{
+				if( data.holder.hasBonusRangeDefined() ) {
+					return provider.getRangeTooltip( data.holder );
+				} else if( ClientHelper.isShiftDown() ) {
+					return provider.getDetailedTooltip( data.holder );
+				} else {
+					return provider.getTooltip( data.holder );
+				}
+			} )
 			.map( component->( Component )component.withStyle( ChatFormatting.GRAY ) )
 			.forEach( data.components::add );
 	}

@@ -67,7 +67,7 @@ public class EnhancedPotions extends AccessoryComponent {
 
 	private List< MobEffectInstance > getEnhancedEffects( AccessoryHolder holder, List< MobEffectInstance > effects ) {
 		List< MobEffectInstance > enhancedEffects = new ArrayList<>();
-		float durationMultiplier = 1.0f - holder.apply( this.duration, -1.0 );
+		float durationMultiplier = 1.0f - holder.apply( this.duration, -1.0f );
 		int extraAmplifier = holder.apply( this.amplifier );
 		for( MobEffectInstance effect : effects ) {
 			int duration = Math.max( Utility.secondsToTicks( 2.0 ), ( int )( effect.getDuration() * durationMultiplier ) );
