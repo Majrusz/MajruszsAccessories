@@ -33,7 +33,6 @@ public class CreativeModeTabs {
 			Registries.OVERWORLD_RUNE,
 			Registries.PEACE_EMBLEM,
 			Registries.PEACE_TREATY,
-			Registries.PEARL_BARLEY_BUCKET,
 			Registries.SECRET_INGREDIENT,
 			Registries.SRIRACHA,
 			Registries.SWIMMER_GUIDE,
