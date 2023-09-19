@@ -50,7 +50,7 @@ public class AccessoryTooltipUpdater {
 		Component min = Component.literal( TextHelper.signedPercent( range.from ) ).withStyle( AccessoryHolder.getBonusFormatting( range.from ) );
 		Component max = Component.literal( TextHelper.signedPercent( range.to ) ).withStyle( AccessoryHolder.getBonusFormatting( range.to ) );
 
-		return List.of( Component.translatable( Tooltips.BONUS_RANGE, min, max ).withStyle( ChatFormatting.GRAY ) );
+		return List.of( Component.translatable( Tooltips.BONUS, TooltipHelper.asRange( min, max ) ).withStyle( ChatFormatting.GRAY ) );
 	}
 
 	private List< Component > buildBonusInfo( OnItemTooltip.Data data ) {
@@ -113,7 +113,6 @@ public class AccessoryTooltipUpdater {
 	static final class Tooltips {
 		static final String INVENTORY = "majruszsaccessories.items.accessory_item";
 		static final String BONUS = "majruszsaccessories.items.bonus";
-		static final String BONUS_RANGE = "majruszsaccessories.items.bonus_range";
 		static final String PAGE = "majruszsaccessories.items.page";
 	}
 }

@@ -11,7 +11,6 @@
   "item.majruszsaccessories.overworld_rune": "主世界符文",
   "majruszsaccessories.items.accessory_item": "放在另一只手时生效",
   "majruszsaccessories.items.bonus": "%1$s 效果加成",
-  "majruszsaccessories.items.bonus_range": "从 %1$s 到 %2$s 的随机效果加成",
   "majruszsaccessories.items.formula": "%1$s%2$s",
   "majruszsaccessories.items.page": "--- 第 %1$s 页/共 %2$s 页 ---",
   "majruszsaccessories.bonuses.fishing_luck": "在钓鱼时增加 %1$s 的幸运",

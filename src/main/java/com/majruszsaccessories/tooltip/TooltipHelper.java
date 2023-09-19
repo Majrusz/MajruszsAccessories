@@ -19,6 +19,10 @@ public class TooltipHelper {
 		return Component.translatable( "majruszsaccessories.items.formula", base, bonus ).withStyle( DEFAULT_FORMAT );
 	}
 
+	public static MutableComponent asRange( Object base, Object bonus ) {
+		return Component.translatable( "majruszsaccessories.items.range", base, bonus ).withStyle( DEFAULT_FORMAT );
+	}
+
 	public static IntegerTooltip asValue( IntegerConfig config ) {
 		return new IntegerTooltip( config );
 	}
