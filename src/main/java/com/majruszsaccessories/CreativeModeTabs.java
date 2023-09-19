@@ -38,7 +38,6 @@ public class CreativeModeTabs {
 			Registries.SRIRACHA,
 			Registries.SWIMMER_GUIDE,
 			Registries.TAMED_POTATO_BEETLE,
-			Registries.TOUGH_ROCK,
 			Registries.ULTIMATE_GUIDE,
 			Registries.UNBREAKABLE_FISHING_LINE,
 			Registries.WHITE_FLAG
