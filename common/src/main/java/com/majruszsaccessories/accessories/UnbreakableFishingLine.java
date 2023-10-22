@@ -1,0 +1,14 @@
+package com.majruszsaccessories.accessories;
+
+import com.majruszsaccessories.MajruszsAccessories;
+import com.majruszsaccessories.accessories.components.FishingLureBonus;
+import com.mlib.annotation.AutoInstance;
+
+@AutoInstance
+public class UnbreakableFishingLine extends AccessoryHandler {
+	public UnbreakableFishingLine() {
+		super( MajruszsAccessories.UNBREAKABLE_FISHING_LINE );
+
+		this.add( FishingLureBonus.create( 0.3f ) );
+	}
+}
