@@ -25,7 +25,7 @@ import java.util.function.Consumer;
 public class MiningExtraItem extends AccessoryComponent {
 	RangedFloat chance = new RangedFloat().id( "chance" ).maxRange( Range.CHANCE );
 	Map< String, ResourceLocation > lootIds = DefaultMap.of(
-		DefaultMap.entry( "default", MajruszsAccessories.HELPER.getLocation( "gameplay/lucky_rock_overworld" ) ),
+		DefaultMap.entry( "default", MajruszsAccessories.HELPER.getLocation( "gameplay/lucky_rock_default" ) ),
 		DefaultMap.entry( "minecraft:the_nether", MajruszsAccessories.HELPER.getLocation( "gameplay/lucky_rock_nether" ) ),
 		DefaultMap.entry( "minecraft:the_end", MajruszsAccessories.HELPER.getLocation( "gameplay/lucky_rock_end" ) )
 	);
