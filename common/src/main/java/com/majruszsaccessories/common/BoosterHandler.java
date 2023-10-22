@@ -1,11 +1,12 @@
-package com.majruszsaccessories.boosters;
+package com.majruszsaccessories.common;
 
 import com.majruszsaccessories.MajruszsAccessories;
-import com.majruszsaccessories.accessories.AccessoryHolder;
+import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.contexts.OnAccessoryTooltip;
 import com.majruszsaccessories.contexts.OnBoosterTooltip;
+import com.majruszsaccessories.items.BoosterItem;
 import com.mlib.contexts.OnItemDecorationsRendered;
 import com.mlib.registry.RegistryObject;
 import net.minecraft.ChatFormatting;

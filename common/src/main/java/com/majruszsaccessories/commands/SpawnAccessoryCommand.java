@@ -1,8 +1,8 @@
 package com.majruszsaccessories.commands;
 
 import com.majruszsaccessories.MajruszsAccessories;
-import com.majruszsaccessories.accessories.AccessoryHolder;
-import com.majruszsaccessories.accessories.AccessoryItem;
+import com.majruszsaccessories.common.AccessoryHolder;
+import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.annotation.AutoInstance;
 import com.mlib.command.Command;
 import com.mlib.command.CommandData;

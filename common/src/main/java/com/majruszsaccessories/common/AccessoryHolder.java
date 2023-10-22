@@ -1,7 +1,8 @@
-package com.majruszsaccessories.accessories;
+package com.majruszsaccessories.common;
 
 import com.majruszsaccessories.MajruszsAccessories;
-import com.majruszsaccessories.boosters.BoosterItem;
+import com.majruszsaccessories.items.AccessoryItem;
+import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.config.RangedInteger;
 import com.majruszsaccessories.contexts.OnAccessoryExtraBonusGet;

@@ -3,6 +3,7 @@ package com.majruszsaccessories.accessories;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.StrongerPotions;
 import com.majruszsaccessories.accessories.components.TradeOffer;
+import com.majruszsaccessories.common.AccessoryHandler;
 import com.mlib.annotation.AutoInstance;
 import net.minecraft.world.entity.npc.VillagerProfession;
 

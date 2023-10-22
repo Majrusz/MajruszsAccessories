@@ -2,6 +2,7 @@ package com.majruszsaccessories.boosters;
 
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.boosters.components.AccessoryDropChance;
+import com.majruszsaccessories.common.BoosterHandler;
 import com.mlib.annotation.AutoInstance;
 
 @AutoInstance

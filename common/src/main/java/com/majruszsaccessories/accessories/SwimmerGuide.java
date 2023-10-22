@@ -2,6 +2,7 @@ package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.SwimmingSpeedBonus;
+import com.majruszsaccessories.common.AccessoryHandler;
 import com.mlib.annotation.AutoInstance;
 
 @AutoInstance

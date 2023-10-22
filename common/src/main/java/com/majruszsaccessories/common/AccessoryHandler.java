@@ -1,8 +1,8 @@
-package com.majruszsaccessories.accessories;
+package com.majruszsaccessories.common;
 
 import com.majruszsaccessories.MajruszsAccessories;
-import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.contexts.OnAccessoryTooltip;
+import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.contexts.OnItemDecorationsRendered;
 import com.mlib.contexts.OnTradesInitialized;
 import com.mlib.registry.RegistryObject;
