@@ -16,14 +16,14 @@ import net.minecraft.world.entity.LivingEntity;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-public class DoubleCrops extends AccessoryComponent {
+public class HarvestingDoubleCrops extends AccessoryComponent {
 	RangedFloat chance = new RangedFloat().id( "chance" ).maxRange( Range.CHANCE );
 
 	public static ISupplier< AccessoryItem > create( float chance ) {
-		return handler->new DoubleCrops( handler, chance );
+		return handler->new HarvestingDoubleCrops( handler, chance );
 	}
 
-	protected DoubleCrops( Handler< AccessoryItem > handler, float chance ) {
+	protected HarvestingDoubleCrops( Handler< AccessoryItem > handler, float chance ) {
 		super( handler );
 
 		this.chance.set( chance, Range.CHANCE );

@@ -2,7 +2,7 @@ package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.AccessoryComponent;
-import com.majruszsaccessories.accessories.components.DoubleCrops;
+import com.majruszsaccessories.accessories.components.HarvestingDoubleCrops;
 import com.majruszsaccessories.common.Handler;
 import com.majruszsaccessories.contexts.OnAccessoryDropChanceGet;
 import com.mlib.annotation.AutoInstance;
@@ -16,7 +16,7 @@ public class TamedPotatoBeetle extends AccessoryHandler {
 	public TamedPotatoBeetle() {
 		super( MajruszsAccessories.TAMED_POTATO_BEETLE );
 
-		this.add( DoubleCrops.create( 0.25f ) )
+		this.add( HarvestingDoubleCrops.create( 0.25f ) )
 			.add( DropChance.create() );
 	}
 
@@ -31,7 +31,7 @@ public class TamedPotatoBeetle extends AccessoryHandler {
 		protected DropChance( Handler< AccessoryItem > handler ) {
 			super( handler );
 
-			DoubleCrops.OnCropHarvested.listen( this::addToGeneratedLoot )
+			HarvestingDoubleCrops.OnCropHarvested.listen( this::addToGeneratedLoot )
 				.addCondition( data->{
 					float chance = this.chance;
 					if( data.blockState != null && data.blockState.getBlock().equals( Blocks.POTATOES ) ) {
