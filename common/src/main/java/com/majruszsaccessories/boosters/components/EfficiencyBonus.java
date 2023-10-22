@@ -1,10 +1,10 @@
 package com.majruszsaccessories.boosters.components;
 
-import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.contexts.OnAccessoryExtraBonusGet;
+import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.math.Range;
 

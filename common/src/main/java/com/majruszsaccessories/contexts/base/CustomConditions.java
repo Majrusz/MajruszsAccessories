@@ -1,9 +1,9 @@
 package com.majruszsaccessories.contexts.base;
 
 import com.majruszsaccessories.common.AccessoryHolder;
+import com.majruszsaccessories.contexts.OnAccessoryDropChanceGet;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.items.BoosterItem;
-import com.majruszsaccessories.contexts.OnAccessoryDropChanceGet;
 import com.mlib.contexts.base.Condition;
 import com.mlib.contexts.base.Contexts;
 import com.mlib.math.Random;

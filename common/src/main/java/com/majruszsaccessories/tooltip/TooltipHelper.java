@@ -1,9 +1,9 @@
 package com.majruszsaccessories.tooltip;
 
 import com.majruszsaccessories.common.AccessoryHolder;
-import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.config.RangedInteger;
+import com.majruszsaccessories.items.BoosterItem;
 import com.mlib.math.Range;
 import com.mlib.text.TextHelper;
 import net.minecraft.ChatFormatting;

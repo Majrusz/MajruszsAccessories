@@ -1,8 +1,8 @@
 package com.majruszsaccessories.accessories.components;
 
-import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
+import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.data.Serializable;
 import com.mlib.math.Range;
 import net.minecraft.world.entity.npc.VillagerProfession;

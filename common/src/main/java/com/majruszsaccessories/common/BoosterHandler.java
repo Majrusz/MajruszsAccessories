@@ -1,9 +1,6 @@
 package com.majruszsaccessories.common;
 
 import com.majruszsaccessories.MajruszsAccessories;
-import com.majruszsaccessories.common.AccessoryHolder;
-import com.majruszsaccessories.common.BonusComponent;
-import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.contexts.OnAccessoryTooltip;
 import com.majruszsaccessories.contexts.OnBoosterTooltip;
 import com.majruszsaccessories.items.BoosterItem;

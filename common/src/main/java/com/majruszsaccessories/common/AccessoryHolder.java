@@ -1,11 +1,11 @@
 package com.majruszsaccessories.common;
 
 import com.majruszsaccessories.MajruszsAccessories;
-import com.majruszsaccessories.items.AccessoryItem;
-import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.config.RangedInteger;
 import com.majruszsaccessories.contexts.OnAccessoryExtraBonusGet;
+import com.majruszsaccessories.items.AccessoryItem;
+import com.majruszsaccessories.items.BoosterItem;
 import com.mlib.contexts.base.Contexts;
 import com.mlib.data.Serializable;
 import com.mlib.data.SerializableHelper;

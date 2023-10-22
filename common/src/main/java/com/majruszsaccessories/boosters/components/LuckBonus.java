@@ -1,10 +1,10 @@
 package com.majruszsaccessories.boosters.components;
 
 import com.majruszsaccessories.common.AccessoryHolder;
-import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedInteger;
+import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.contexts.OnPlayerTicked;
 import com.mlib.contexts.base.Condition;

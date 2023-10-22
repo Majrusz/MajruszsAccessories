@@ -1,7 +1,7 @@
 package com.majruszsaccessories.listeners;
 
-import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.contexts.OnBoosterTooltip;
+import com.majruszsaccessories.items.BoosterItem;
 import com.mlib.annotation.AutoInstance;
 import com.mlib.contexts.OnItemTooltip;
 import com.mlib.contexts.base.Condition;

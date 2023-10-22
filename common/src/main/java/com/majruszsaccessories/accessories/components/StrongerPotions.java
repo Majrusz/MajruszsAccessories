@@ -1,12 +1,12 @@
 package com.majruszsaccessories.accessories.components;
 
 import com.majruszsaccessories.common.AccessoryHolder;
-import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.config.RangedInteger;
 import com.majruszsaccessories.contexts.base.CustomConditions;
+import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.contexts.OnItemBrewed;
 import com.mlib.data.Serializable;
