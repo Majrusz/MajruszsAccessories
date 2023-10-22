@@ -28,7 +28,9 @@ public class RangedInteger {
 
 	public void define( Serializable serializable ) {
 		serializable.defineInteger( this.id, ()->this.value, x->this.value = this.range.clamp( x ) );
-		serializable.defineIntegerRange( "%s_range".formatted( this.id ), ()->this.range, x->this.range = this.maxRange.clamp( x ) );
+		if( this.maxRange != null ) {
+			serializable.defineIntegerRange( "%s_range".formatted( this.id ), ()->this.range, x->this.range = this.maxRange.clamp( x ) );
+		}
 	}
 
 	public int get() {
