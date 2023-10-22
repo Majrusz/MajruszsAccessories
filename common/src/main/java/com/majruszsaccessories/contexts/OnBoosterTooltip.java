@@ -1,6 +1,6 @@
 package com.majruszsaccessories.contexts;
 
-import com.majruszsaccessories.boosters.BoosterItem;
+import com.majruszsaccessories.items.BoosterItem;
 import com.mlib.contexts.base.Context;
 import com.mlib.contexts.base.Contexts;
 import net.minecraft.network.chat.Component;

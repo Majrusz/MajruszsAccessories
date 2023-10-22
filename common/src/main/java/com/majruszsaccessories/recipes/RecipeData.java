@@ -1,8 +1,8 @@
 package com.majruszsaccessories.recipes;
 
-import com.majruszsaccessories.accessories.AccessoryHolder;
-import com.majruszsaccessories.accessories.AccessoryItem;
-import com.majruszsaccessories.boosters.BoosterItem;
+import com.majruszsaccessories.common.AccessoryHolder;
+import com.majruszsaccessories.items.AccessoryItem;
+import com.majruszsaccessories.items.BoosterItem;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 

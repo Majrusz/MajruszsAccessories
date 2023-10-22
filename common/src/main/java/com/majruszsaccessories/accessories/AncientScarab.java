@@ -2,9 +2,11 @@ package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.BrushingExtraItem;
+import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.contexts.base.CustomConditions;
+import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.annotation.AutoInstance;
 import com.mlib.contexts.OnLootGenerated;
 import com.mlib.contexts.base.Condition;

@@ -1,8 +1,8 @@
 package com.majruszsaccessories.contexts.base;
 
-import com.majruszsaccessories.accessories.AccessoryHolder;
-import com.majruszsaccessories.accessories.AccessoryItem;
-import com.majruszsaccessories.boosters.BoosterItem;
+import com.majruszsaccessories.common.AccessoryHolder;
+import com.majruszsaccessories.items.AccessoryItem;
+import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.contexts.OnAccessoryDropChanceGet;
 import com.mlib.contexts.base.Condition;
 import com.mlib.contexts.base.Contexts;

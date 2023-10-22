@@ -1,7 +1,7 @@
 package com.majruszsaccessories.recipes;
 
 import com.majruszsaccessories.MajruszsAccessories;
-import com.majruszsaccessories.accessories.AccessoryHolder;
+import com.majruszsaccessories.common.AccessoryHolder;
 import com.mlib.math.Range;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;

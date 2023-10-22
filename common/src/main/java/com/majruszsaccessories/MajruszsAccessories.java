@@ -1,8 +1,8 @@
 package com.majruszsaccessories;
 
-import com.majruszsaccessories.accessories.AccessoryItem;
+import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.accessories.components.MoreChestLoot;
-import com.majruszsaccessories.boosters.BoosterItem;
+import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.config.Config;
 import com.majruszsaccessories.items.BoosterOverlay;
 import com.majruszsaccessories.items.CreativeModeTabs;

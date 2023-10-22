@@ -1,7 +1,7 @@
 package com.majruszsaccessories.listeners;
 
 import com.majruszsaccessories.MajruszsAccessories;
-import com.majruszsaccessories.accessories.AccessoryHolder;
+import com.majruszsaccessories.common.AccessoryHolder;
 import com.mlib.annotation.AutoInstance;
 import com.mlib.contexts.OnItemCrafted;
 import com.mlib.contexts.OnLootGenerated;

@@ -1,6 +1,6 @@
 package com.majruszsaccessories.listeners;
 
-import com.majruszsaccessories.boosters.BoosterItem;
+import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.contexts.OnBoosterTooltip;
 import com.mlib.annotation.AutoInstance;
 import com.mlib.contexts.OnItemTooltip;

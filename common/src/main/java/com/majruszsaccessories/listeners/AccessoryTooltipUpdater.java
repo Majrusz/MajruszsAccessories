@@ -1,7 +1,7 @@
 package com.majruszsaccessories.listeners;
 
-import com.majruszsaccessories.accessories.AccessoryHolder;
-import com.majruszsaccessories.accessories.AccessoryItem;
+import com.majruszsaccessories.common.AccessoryHolder;
+import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.contexts.OnAccessoryTooltip;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.annotation.AutoInstance;

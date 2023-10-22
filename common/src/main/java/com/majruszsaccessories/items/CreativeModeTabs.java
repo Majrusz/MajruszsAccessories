@@ -1,9 +1,7 @@
 package com.majruszsaccessories.items;
 
 import com.majruszsaccessories.MajruszsAccessories;
-import com.majruszsaccessories.accessories.AccessoryHolder;
-import com.majruszsaccessories.accessories.AccessoryItem;
-import com.majruszsaccessories.boosters.BoosterItem;
+import com.majruszsaccessories.common.AccessoryHolder;
 import com.mlib.item.CreativeModeTabHelper;
 import com.mlib.registry.Registries;
 import com.mlib.text.TextHelper;

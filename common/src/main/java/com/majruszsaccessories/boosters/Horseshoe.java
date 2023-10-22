@@ -4,6 +4,8 @@ import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.boosters.components.LuckBonus;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
+import com.majruszsaccessories.common.BoosterHandler;
+import com.majruszsaccessories.items.BoosterItem;
 import com.mlib.annotation.AutoInstance;
 import com.mlib.contexts.OnLootGenerated;
 import com.mlib.contexts.base.Condition;

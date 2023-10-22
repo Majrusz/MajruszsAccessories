@@ -1,7 +1,7 @@
 package com.majruszsaccessories.tooltip;
 
-import com.majruszsaccessories.accessories.AccessoryHolder;
-import com.majruszsaccessories.boosters.BoosterItem;
+import com.majruszsaccessories.common.AccessoryHolder;
+import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.config.RangedInteger;
 import com.mlib.math.Range;

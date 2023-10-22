@@ -1,6 +1,6 @@
 package com.majruszsaccessories.tooltip;
 
-import com.majruszsaccessories.accessories.AccessoryHolder;
+import com.majruszsaccessories.common.AccessoryHolder;
 import net.minecraft.network.chat.MutableComponent;
 
 public interface ITooltipProvider {

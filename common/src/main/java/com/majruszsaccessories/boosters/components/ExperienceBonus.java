@@ -1,6 +1,6 @@
 package com.majruszsaccessories.boosters.components;
 
-import com.majruszsaccessories.boosters.BoosterItem;
+import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;

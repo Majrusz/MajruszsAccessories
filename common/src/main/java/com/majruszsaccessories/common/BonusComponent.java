@@ -1,6 +1,5 @@
 package com.majruszsaccessories.common;
 
-import com.majruszsaccessories.accessories.AccessoryHolder;
 import com.majruszsaccessories.tooltip.ITooltipProvider;
 import com.mlib.contexts.OnLootGenerated;
 import com.mlib.level.LevelHelper;
