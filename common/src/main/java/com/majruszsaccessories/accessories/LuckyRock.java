@@ -1,10 +1,10 @@
 package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.MajruszsAccessories;
-import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.MiningExtraItem;
 import com.majruszsaccessories.accessories.components.TradeOffer;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.mlib.annotation.AutoInstance;
 import com.mlib.data.Serializable;
@@ -21,14 +21,14 @@ public class LuckyRock extends AccessoryHandler {
 			.add( TradeOffer.create( VillagerProfession.MASON, 5 ) );
 	}
 
-	static class MiningDropChance extends AccessoryComponent {
+	static class MiningDropChance extends BonusComponent< AccessoryItem > {
 		float chance = 0.0005f;
 
 		public static ISupplier< AccessoryItem > create() {
 			return MiningDropChance::new;
 		}
 
-		protected MiningDropChance( Handler< AccessoryItem > handler ) {
+		protected MiningDropChance( BonusHandler< AccessoryItem > handler ) {
 			super( handler );
 
 			MiningExtraItem.OnStoneMined.listen( this::addToGeneratedLoot )

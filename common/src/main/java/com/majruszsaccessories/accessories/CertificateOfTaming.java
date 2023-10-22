@@ -1,10 +1,10 @@
 package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.MajruszsAccessories;
-import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.TamingStrongerAnimals;
 import com.majruszsaccessories.accessories.components.TradeOffer;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.mlib.annotation.AutoInstance;
 import com.mlib.contexts.OnAnimalTamed;
@@ -22,14 +22,14 @@ public class CertificateOfTaming extends AccessoryHandler {
 			.add( TradeOffer.create( VillagerProfession.SHEPHERD, 5 ) );
 	}
 
-	static class TamingDropChance extends AccessoryComponent {
+	static class TamingDropChance extends BonusComponent< AccessoryItem > {
 		float chance = 0.1f;
 
 		public static ISupplier< AccessoryItem > create() {
 			return TamingDropChance::new;
 		}
 
-		protected TamingDropChance( Handler< AccessoryItem > handler ) {
+		protected TamingDropChance( BonusHandler< AccessoryItem > handler ) {
 			super( handler );
 
 			OnAnimalTamed.listen( this::spawnCertificate )

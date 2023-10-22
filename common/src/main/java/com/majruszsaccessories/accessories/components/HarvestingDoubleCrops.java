@@ -1,7 +1,8 @@
 package com.majruszsaccessories.accessories.components;
 
 import com.majruszsaccessories.accessories.AccessoryItem;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.tooltip.TooltipHelper;
@@ -16,14 +17,14 @@ import net.minecraft.world.entity.LivingEntity;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-public class HarvestingDoubleCrops extends AccessoryComponent {
+public class HarvestingDoubleCrops extends BonusComponent< AccessoryItem > {
 	RangedFloat chance = new RangedFloat().id( "chance" ).maxRange( Range.CHANCE );
 
 	public static ISupplier< AccessoryItem > create( float chance ) {
 		return handler->new HarvestingDoubleCrops( handler, chance );
 	}
 
-	protected HarvestingDoubleCrops( Handler< AccessoryItem > handler, float chance ) {
+	protected HarvestingDoubleCrops( BonusHandler< AccessoryItem > handler, float chance ) {
 		super( handler );
 
 		this.chance.set( chance, Range.CHANCE );

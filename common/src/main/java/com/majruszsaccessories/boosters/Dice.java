@@ -2,8 +2,8 @@ package com.majruszsaccessories.boosters;
 
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.boosters.components.AccessoryDropChance;
-import com.majruszsaccessories.common.Component;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.mlib.annotation.AutoInstance;
 import com.mlib.contexts.OnLootGenerated;
 import com.mlib.contexts.base.Condition;
@@ -19,14 +19,14 @@ public class Dice extends BoosterHandler {
 			.add( GuardianDropChance.create() );
 	}
 
-	static class GuardianDropChance extends Component< BoosterItem > {
+	static class GuardianDropChance extends BonusComponent< BoosterItem > {
 		float chance = 0.05f;
 
 		public static ISupplier< BoosterItem > create() {
 			return GuardianDropChance::new;
 		}
 
-		protected GuardianDropChance( Handler< BoosterItem > handler ) {
+		protected GuardianDropChance( BonusHandler< BoosterItem > handler ) {
 			super( handler );
 
 			OnLootGenerated.listen( this::addToGeneratedLoot )

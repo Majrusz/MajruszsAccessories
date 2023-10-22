@@ -1,10 +1,10 @@
 package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.MajruszsAccessories;
-import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.ReduceDamage;
 import com.majruszsaccessories.accessories.components.TradeOffer;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.mlib.annotation.AutoInstance;
 import com.mlib.contexts.OnPlayerInteracted;
 import com.mlib.time.TimeHelper;
@@ -20,12 +20,12 @@ public class WhiteFlag extends AccessoryHandler {
 			.add( TradeOffer.create( VillagerProfession.LIBRARIAN, 5 ) );
 	}
 
-	static class SwingBehavior extends AccessoryComponent {
+	static class SwingBehavior extends BonusComponent< AccessoryItem > {
 		public static ISupplier< AccessoryItem > create() {
 			return SwingBehavior::new;
 		}
 
-		protected SwingBehavior( Handler< AccessoryItem > handler ) {
+		protected SwingBehavior( BonusHandler< AccessoryItem > handler ) {
 			super( handler );
 
 			OnPlayerInteracted.listen( this::swing )

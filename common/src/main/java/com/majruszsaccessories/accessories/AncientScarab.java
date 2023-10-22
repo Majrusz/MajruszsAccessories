@@ -1,9 +1,9 @@
 package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.MajruszsAccessories;
-import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.BrushingExtraItem;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.mlib.annotation.AutoInstance;
 import com.mlib.contexts.OnLootGenerated;
@@ -25,7 +25,7 @@ public class AncientScarab extends AccessoryHandler {
 			.add( AddToSuspiciousBlocks.create() );
 	}
 
-	static class AddToSuspiciousBlocks extends AccessoryComponent {
+	static class AddToSuspiciousBlocks extends BonusComponent< AccessoryItem > {
 		float chance = 0.125f;
 		List< ResourceLocation > locations = List.of(
 			BuiltInLootTables.DESERT_WELL_ARCHAEOLOGY,
@@ -40,7 +40,7 @@ public class AncientScarab extends AccessoryHandler {
 			return AddToSuspiciousBlocks::new;
 		}
 
-		protected AddToSuspiciousBlocks( Handler< AccessoryItem > handler ) {
+		protected AddToSuspiciousBlocks( BonusHandler< AccessoryItem > handler ) {
 			super( handler );
 
 			OnLootGenerated.listen( this::replaceGeneratedLoot )

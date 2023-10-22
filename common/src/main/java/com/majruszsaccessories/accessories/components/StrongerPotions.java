@@ -2,7 +2,8 @@ package com.majruszsaccessories.accessories.components;
 
 import com.majruszsaccessories.accessories.AccessoryHolder;
 import com.majruszsaccessories.accessories.AccessoryItem;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.config.RangedInteger;
 import com.majruszsaccessories.contexts.base.CustomConditions;
@@ -19,7 +20,7 @@ import net.minecraft.world.item.alchemy.PotionUtils;
 
 import java.util.List;
 
-public class StrongerPotions extends AccessoryComponent {
+public class StrongerPotions extends BonusComponent< AccessoryItem > {
 	RangedFloat durationPenalty = new RangedFloat().id( "duration_penalty" ).maxRange( Range.of( 0.0f, 1.0f ) );
 	RangedInteger amplifier = new RangedInteger().id( "amplifier" ).maxRange( Range.of( 1, 20 ) );
 
@@ -27,7 +28,7 @@ public class StrongerPotions extends AccessoryComponent {
 		return handler->new StrongerPotions( handler, durationPenalty, amplifier );
 	}
 
-	protected StrongerPotions( Handler< AccessoryItem > handler, float durationPenalty, int amplifier ) {
+	protected StrongerPotions( BonusHandler< AccessoryItem > handler, float durationPenalty, int amplifier ) {
 		super( handler );
 
 		this.durationPenalty.set( durationPenalty, Range.of( 0.0f, 1.0f ) );

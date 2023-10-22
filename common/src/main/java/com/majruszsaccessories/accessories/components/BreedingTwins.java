@@ -1,7 +1,8 @@
 package com.majruszsaccessories.accessories.components;
 
 import com.majruszsaccessories.accessories.AccessoryItem;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.tooltip.TooltipHelper;
@@ -12,14 +13,14 @@ import com.mlib.math.AnyPos;
 import com.mlib.math.Range;
 import net.minecraft.world.entity.AgeableMob;
 
-public class BreedingTwins extends AccessoryComponent {
+public class BreedingTwins extends BonusComponent< AccessoryItem > {
 	RangedFloat chance = new RangedFloat().id( "chance" ).maxRange( Range.CHANCE );
 
 	public static ISupplier< AccessoryItem > create( float chance ) {
 		return handler->new BreedingTwins( handler, chance );
 	}
 
-	protected BreedingTwins( Handler< AccessoryItem > handler, float chance ) {
+	protected BreedingTwins( BonusHandler< AccessoryItem > handler, float chance ) {
 		super( handler );
 
 		this.chance.set( chance, Range.CHANCE );

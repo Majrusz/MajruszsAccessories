@@ -2,18 +2,18 @@ package com.majruszsaccessories.boosters.components;
 
 import com.majruszsaccessories.accessories.AccessoryHolder;
 import com.majruszsaccessories.boosters.BoosterItem;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedInteger;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.contexts.OnPlayerTicked;
 import com.mlib.contexts.base.Condition;
-import com.mlib.data.Serializable;
 import com.mlib.entity.AttributeHandler;
 import com.mlib.math.Range;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 
-public class LuckBonus extends BoosterComponent {
+public class LuckBonus extends BonusComponent< BoosterItem > {
 	final AttributeHandler attribute;
 	final RangedInteger bonus = new RangedInteger().id( "luck_bonus" );
 
@@ -21,7 +21,7 @@ public class LuckBonus extends BoosterComponent {
 		return handler->new LuckBonus( handler, luck );
 	}
 
-	protected LuckBonus( Handler< BoosterItem > handler, int luck ) {
+	protected LuckBonus( BonusHandler< BoosterItem > handler, int luck ) {
 		super( handler );
 
 		this.attribute = new AttributeHandler( "%s_luck_bonus".formatted( handler.getId() ), ()->Attributes.LUCK, AttributeModifier.Operation.ADDITION );

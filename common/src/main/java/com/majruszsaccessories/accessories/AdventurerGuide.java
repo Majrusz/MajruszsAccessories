@@ -1,10 +1,10 @@
 package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.MajruszsAccessories;
-import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.MoreChestLoot;
 import com.majruszsaccessories.accessories.components.TradeOffer;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.mlib.annotation.AutoInstance;
 import com.mlib.data.Serializable;
@@ -21,14 +21,14 @@ public class AdventurerGuide extends AccessoryHandler {
 			.add( TradeOffer.create( VillagerProfession.CARTOGRAPHER, 5 ) );
 	}
 
-	static class AddToAllChests extends AccessoryComponent {
+	static class AddToAllChests extends BonusComponent< AccessoryItem > {
 		float chance = 0.025f;
 
 		public static ISupplier< AccessoryItem > create() {
 			return AddToAllChests::new;
 		}
 
-		protected AddToAllChests( Handler< AccessoryItem > handler ) {
+		protected AddToAllChests( BonusHandler< AccessoryItem > handler ) {
 			super( handler );
 
 			MoreChestLoot.OnChestOpened.listen( this::addToGeneratedLoot )

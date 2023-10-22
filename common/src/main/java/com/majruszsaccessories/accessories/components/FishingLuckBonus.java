@@ -2,7 +2,8 @@ package com.majruszsaccessories.accessories.components;
 
 import com.majruszsaccessories.accessories.AccessoryHolder;
 import com.majruszsaccessories.accessories.AccessoryItem;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedInteger;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.tooltip.TooltipHelper;
@@ -20,7 +21,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 
-public class FishingLuckBonus extends AccessoryComponent {
+public class FishingLuckBonus extends BonusComponent< AccessoryItem > {
 	final AttributeHandler attribute;
 	RangedInteger luck = new RangedInteger().id( "bonus" ).maxRange( Range.of( 1, 100 ) );
 
@@ -28,7 +29,7 @@ public class FishingLuckBonus extends AccessoryComponent {
 		return handler->new FishingLuckBonus( handler, luck );
 	}
 
-	protected FishingLuckBonus( Handler< AccessoryItem > handler, int luck ) {
+	protected FishingLuckBonus( BonusHandler< AccessoryItem > handler, int luck ) {
 		super( handler );
 
 		this.attribute = new AttributeHandler( "%s_fishing_luck_bonus".formatted( handler.getId() ), ()->Attributes.LUCK, AttributeModifier.Operation.ADDITION );

@@ -1,10 +1,10 @@
 package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.MajruszsAccessories;
-import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.HarvestingDoubleCrops;
 import com.majruszsaccessories.accessories.components.TradeOffer;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.contexts.OnAccessoryDropChanceGet;
 import com.mlib.annotation.AutoInstance;
 import com.mlib.contexts.base.Contexts;
@@ -23,7 +23,7 @@ public class TamedPotatoBeetle extends AccessoryHandler {
 			.add( TradeOffer.create( VillagerProfession.FARMER, 5 ) );
 	}
 
-	static class DropChance extends AccessoryComponent {
+	static class DropChance extends BonusComponent< AccessoryItem > {
 		float chance = 0.002f;
 		float potatoMultiplier = 2.5f;
 
@@ -31,7 +31,7 @@ public class TamedPotatoBeetle extends AccessoryHandler {
 			return DropChance::new;
 		}
 
-		protected DropChance( Handler< AccessoryItem > handler ) {
+		protected DropChance( BonusHandler< AccessoryItem > handler ) {
 			super( handler );
 
 			HarvestingDoubleCrops.OnCropHarvested.listen( this::addToGeneratedLoot )

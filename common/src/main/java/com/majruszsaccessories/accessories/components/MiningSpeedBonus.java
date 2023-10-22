@@ -1,7 +1,8 @@
 package com.majruszsaccessories.accessories.components;
 
 import com.majruszsaccessories.accessories.AccessoryItem;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.tooltip.TooltipHelper;
@@ -11,14 +12,14 @@ import com.mlib.data.Serializable;
 import com.mlib.math.Random;
 import com.mlib.math.Range;
 
-public class MiningSpeedBonus extends AccessoryComponent {
+public class MiningSpeedBonus extends BonusComponent< AccessoryItem > {
 	RangedFloat speedMultiplier = new RangedFloat().id( "multiplier" ).maxRange( Range.of( 0.0f, 10.0f ) );
 
 	public static ISupplier< AccessoryItem > create( float bonus ) {
 		return handler->new MiningSpeedBonus( handler, bonus );
 	}
 
-	protected MiningSpeedBonus( Handler< AccessoryItem > handler, float bonus ) {
+	protected MiningSpeedBonus( BonusHandler< AccessoryItem > handler, float bonus ) {
 		super( handler );
 
 		this.speedMultiplier.set( bonus, Range.of( 0.0f, 10.0f ) );

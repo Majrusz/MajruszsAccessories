@@ -2,7 +2,8 @@ package com.majruszsaccessories.accessories.components;
 
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.AccessoryItem;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.tooltip.TooltipHelper;
@@ -22,7 +23,7 @@ import net.minecraft.world.level.block.Blocks;
 import java.util.Map;
 import java.util.function.Consumer;
 
-public class MiningExtraItem extends AccessoryComponent {
+public class MiningExtraItem extends BonusComponent< AccessoryItem > {
 	RangedFloat chance = new RangedFloat().id( "chance" ).maxRange( Range.CHANCE );
 	Map< String, ResourceLocation > lootIds = DefaultMap.of(
 		DefaultMap.entry( "default", MajruszsAccessories.HELPER.getLocation( "gameplay/lucky_rock_default" ) ),
@@ -34,7 +35,7 @@ public class MiningExtraItem extends AccessoryComponent {
 		return handler->new MiningExtraItem( handler, chance );
 	}
 
-	protected MiningExtraItem( Handler< AccessoryItem > handler, float chance ) {
+	protected MiningExtraItem( BonusHandler< AccessoryItem > handler, float chance ) {
 		super( handler );
 
 		this.chance.set( chance, Range.CHANCE );

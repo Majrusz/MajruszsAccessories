@@ -16,6 +16,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 
@@ -51,7 +52,7 @@ public class AccessoryHolder {
 		return AccessoryHolder.find( entity, item ).isValid();
 	}
 
-	public static AccessoryHolder create( AccessoryItem item ) {
+	public static AccessoryHolder create( Item item ) {
 		return new AccessoryHolder( new ItemStack( item ) );
 	}
 

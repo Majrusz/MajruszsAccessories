@@ -1,13 +1,13 @@
 package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.MajruszsAccessories;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.contexts.OnAccessoryTooltip;
 import com.mlib.contexts.OnItemDecorationsRendered;
 import com.mlib.contexts.OnTradesInitialized;
 import com.mlib.registry.RegistryObject;
 
-public class AccessoryHandler extends Handler< AccessoryItem > {
+public class AccessoryHandler extends BonusHandler< AccessoryItem > {
 	public AccessoryHandler( RegistryObject< AccessoryItem > item ) {
 		super( item, MajruszsAccessories.CONFIG.accessories, item.getId() );
 

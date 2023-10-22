@@ -1,7 +1,8 @@
 package com.majruszsaccessories.accessories.components;
 
 import com.majruszsaccessories.accessories.AccessoryItem;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.tooltip.TooltipHelper;
@@ -9,14 +10,14 @@ import com.mlib.contexts.OnEntityPreDamaged;
 import com.mlib.data.Serializable;
 import com.mlib.math.Range;
 
-public class ReduceDamage extends AccessoryComponent {
+public class ReduceDamage extends BonusComponent< AccessoryItem > {
 	RangedFloat reduction = new RangedFloat().id( "reduction" ).maxRange( Range.of( 0.0f, 1.0f ) );
 
 	public static ISupplier< AccessoryItem > create( float reduction ) {
 		return handler->new ReduceDamage( handler, reduction );
 	}
 
-	protected ReduceDamage( Handler< AccessoryItem > handler, float reduction ) {
+	protected ReduceDamage( BonusHandler< AccessoryItem > handler, float reduction ) {
 		super( handler );
 
 		this.reduction.set( reduction, Range.of( 0.0f, 1.0f ) );

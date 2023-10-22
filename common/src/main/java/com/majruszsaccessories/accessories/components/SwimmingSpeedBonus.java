@@ -1,7 +1,8 @@
 package com.majruszsaccessories.accessories.components;
 
 import com.majruszsaccessories.accessories.AccessoryItem;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.tooltip.TooltipHelper;
@@ -9,14 +10,14 @@ import com.mlib.contexts.OnEntitySwimSpeedMultiplierGet;
 import com.mlib.data.Serializable;
 import com.mlib.math.Range;
 
-public class SwimmingSpeedBonus extends AccessoryComponent {
+public class SwimmingSpeedBonus extends BonusComponent< AccessoryItem > {
 	RangedFloat multiplier = new RangedFloat().id( "multiplier" ).maxRange( Range.of( 0.0f, 10.0f ) );
 
 	public static ISupplier< AccessoryItem > create( float bonus ) {
 		return handler->new SwimmingSpeedBonus( handler, bonus );
 	}
 
-	protected SwimmingSpeedBonus( Handler< AccessoryItem > handler, float bonus ) {
+	protected SwimmingSpeedBonus( BonusHandler< AccessoryItem > handler, float bonus ) {
 		super( handler );
 
 		this.multiplier.set( bonus, Range.of( 0.0f, 10.0f ) );

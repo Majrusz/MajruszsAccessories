@@ -2,8 +2,8 @@ package com.majruszsaccessories.boosters;
 
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.boosters.components.EfficiencyBonus;
-import com.majruszsaccessories.common.Component;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.mlib.annotation.AutoInstance;
 import com.mlib.contexts.OnLootGenerated;
 import com.mlib.contexts.base.Condition;
@@ -19,14 +19,14 @@ public class Onyx extends BoosterHandler {
 			.add( WardenDropChance.create() );
 	}
 
-	static class WardenDropChance extends Component< BoosterItem > {
+	static class WardenDropChance extends BonusComponent< BoosterItem > {
 		float chance = 1.0f;
 
 		public static ISupplier< BoosterItem > create() {
 			return WardenDropChance::new;
 		}
 
-		protected WardenDropChance( Handler< BoosterItem > handler ) {
+		protected WardenDropChance( BonusHandler< BoosterItem > handler ) {
 			super( handler );
 
 			OnLootGenerated.listen( this::addToGeneratedLoot )

@@ -2,7 +2,8 @@ package com.majruszsaccessories.accessories.components;
 
 import com.majruszsaccessories.accessories.AccessoryHolder;
 import com.majruszsaccessories.accessories.AccessoryItem;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.contexts.OnMobSpawnLimitGet;
@@ -14,7 +15,7 @@ import com.mlib.math.Range;
 import com.mlib.platform.Side;
 import net.minecraft.world.entity.MobCategory;
 
-public class LowerSpawnRate extends AccessoryComponent {
+public class LowerSpawnRate extends BonusComponent< AccessoryItem > {
 	RangedFloat reduction = new RangedFloat().id( "reduction" ).maxRange( Range.of( 0.0f, 1.0f ) );
 	float currentMultiplier = 1.0f;
 
@@ -22,7 +23,7 @@ public class LowerSpawnRate extends AccessoryComponent {
 		return handler->new LowerSpawnRate( handler, reduction );
 	}
 
-	protected LowerSpawnRate( Handler< AccessoryItem > handler, float reduction ) {
+	protected LowerSpawnRate( BonusHandler< AccessoryItem > handler, float reduction ) {
 		super( handler );
 
 		this.reduction.set( reduction, Range.of( 0.0f, 1.0f ) );

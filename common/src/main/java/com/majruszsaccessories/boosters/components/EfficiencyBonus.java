@@ -1,20 +1,21 @@
 package com.majruszsaccessories.boosters.components;
 
 import com.majruszsaccessories.boosters.BoosterItem;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.contexts.OnAccessoryExtraBonusGet;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.math.Range;
 
-public class EfficiencyBonus extends BoosterComponent {
+public class EfficiencyBonus extends BonusComponent< BoosterItem > {
 	RangedFloat bonus = new RangedFloat().id( "efficiency_bonus" );
 
 	public static ISupplier< BoosterItem > create( float bonus ) {
 		return handler->new EfficiencyBonus( handler, bonus );
 	}
 
-	protected EfficiencyBonus( Handler< BoosterItem > handler, float bonus ) {
+	protected EfficiencyBonus( BonusHandler< BoosterItem > handler, float bonus ) {
 		super( handler );
 
 		this.bonus.set( bonus, Range.of( 0.0f, 1.0f ) );

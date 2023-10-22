@@ -1,7 +1,8 @@
 package com.majruszsaccessories.accessories.components;
 
 import com.majruszsaccessories.accessories.AccessoryItem;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.config.RangedInteger;
 import com.majruszsaccessories.contexts.base.CustomConditions;
@@ -16,7 +17,7 @@ import com.mlib.math.Range;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 
-public class FishingExtraItems extends AccessoryComponent {
+public class FishingExtraItems extends BonusComponent< AccessoryItem > {
 	RangedFloat chance = new RangedFloat().id( "chance" ).maxRange( Range.CHANCE );
 	RangedInteger count = new RangedInteger().id( "count" ).maxRange( Range.of( 2, 10 ) );
 
@@ -24,7 +25,7 @@ public class FishingExtraItems extends AccessoryComponent {
 		return handler->new FishingExtraItems( handler, chance, count );
 	}
 
-	protected FishingExtraItems( Handler< AccessoryItem > handler, float chance, int count ) {
+	protected FishingExtraItems( BonusHandler< AccessoryItem > handler, float chance, int count ) {
 		super( handler );
 
 		this.chance.set( chance, Range.CHANCE );

@@ -1,7 +1,8 @@
 package com.majruszsaccessories.accessories.components;
 
 import com.majruszsaccessories.accessories.AccessoryItem;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.tooltip.TooltipHelper;
@@ -13,14 +14,14 @@ import com.mlib.math.AnyPos;
 import com.mlib.math.Range;
 import net.minecraft.core.BlockPos;
 
-public class FishingLureBonus extends AccessoryComponent {
+public class FishingLureBonus extends BonusComponent< AccessoryItem > {
 	RangedFloat multiplier = new RangedFloat().id( "multiplier" ).maxRange( Range.of( 0.0f, 1.0f ) );
 
 	public static ISupplier< AccessoryItem > create( float bonus ) {
 		return handler->new FishingLureBonus( handler, bonus );
 	}
 
-	protected FishingLureBonus( Handler< AccessoryItem > handler, float bonus ) {
+	protected FishingLureBonus( BonusHandler< AccessoryItem > handler, float bonus ) {
 		super( handler );
 
 		this.multiplier.set( bonus, Range.of( 0.0f, 1.0f ) );

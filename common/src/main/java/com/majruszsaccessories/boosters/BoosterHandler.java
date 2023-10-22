@@ -2,8 +2,8 @@ package com.majruszsaccessories.boosters;
 
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.AccessoryHolder;
-import com.majruszsaccessories.common.Component;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.contexts.OnAccessoryTooltip;
 import com.majruszsaccessories.contexts.OnBoosterTooltip;
 import com.mlib.contexts.OnItemDecorationsRendered;
@@ -13,7 +13,7 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
-public class BoosterHandler extends Handler< BoosterItem > {
+public class BoosterHandler extends BonusHandler< BoosterItem > {
 	public BoosterHandler( RegistryObject< BoosterItem > item ) {
 		super( item, MajruszsAccessories.CONFIG.boosters, item.getId() );
 
@@ -29,7 +29,7 @@ public class BoosterHandler extends Handler< BoosterItem > {
 
 	protected void addTooltip( OnBoosterTooltip data ) {
 		this.components.stream()
-			.map( Component::getTooltipProviders )
+			.map( BonusComponent::getTooltipProviders )
 			.flatMap( List::stream )
 			.map( provider->provider.getTooltip( AccessoryHolder.create( ItemStack.EMPTY ) ) )
 			.map( component->component.withStyle( ChatFormatting.GRAY ) )

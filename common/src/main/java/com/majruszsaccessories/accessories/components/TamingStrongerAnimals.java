@@ -1,7 +1,8 @@
 package com.majruszsaccessories.accessories.components;
 
 import com.majruszsaccessories.accessories.AccessoryItem;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.tooltip.TooltipHelper;
@@ -15,7 +16,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.horse.Horse;
 
-public class TamingStrongerAnimals extends AccessoryComponent {
+public class TamingStrongerAnimals extends BonusComponent< AccessoryItem > {
 	final AttributeHandler health;
 	final AttributeHandler damage;
 	final AttributeHandler speed;
@@ -26,7 +27,7 @@ public class TamingStrongerAnimals extends AccessoryComponent {
 		return handler->new TamingStrongerAnimals( handler, bonus );
 	}
 
-	protected TamingStrongerAnimals( Handler< AccessoryItem > handler, float bonus ) {
+	protected TamingStrongerAnimals( BonusHandler< AccessoryItem > handler, float bonus ) {
 		super( handler );
 
 		this.health = new AttributeHandler( "%s_health_multiplier".formatted( handler.getId() ), ()->Attributes.MAX_HEALTH, AttributeModifier.Operation.MULTIPLY_BASE );

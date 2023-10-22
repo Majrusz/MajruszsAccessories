@@ -2,14 +2,13 @@ package com.majruszsaccessories.boosters;
 
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.boosters.components.ExperienceBonus;
-import com.majruszsaccessories.common.Component;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.mlib.annotation.AutoInstance;
 import com.mlib.contexts.OnLootGenerated;
 import com.mlib.contexts.base.Condition;
 import com.mlib.data.Serializable;
 import net.minecraft.world.entity.monster.Vex;
-import net.minecraft.world.entity.monster.warden.Warden;
 
 @AutoInstance
 public class OwlFeather extends BoosterHandler {
@@ -20,14 +19,14 @@ public class OwlFeather extends BoosterHandler {
 			.add( VexDropChance.create() );
 	}
 
-	static class VexDropChance extends Component< BoosterItem > {
+	static class VexDropChance extends BonusComponent< BoosterItem > {
 		float chance = 0.1f;
 
 		public static ISupplier< BoosterItem > create() {
 			return VexDropChance::new;
 		}
 
-		protected VexDropChance( Handler< BoosterItem > handler ) {
+		protected VexDropChance( BonusHandler< BoosterItem > handler ) {
 			super( handler );
 
 			OnLootGenerated.listen( this::addToGeneratedLoot )

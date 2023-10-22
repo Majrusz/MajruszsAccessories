@@ -1,10 +1,10 @@
 package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.MajruszsAccessories;
-import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.BreedingTwins;
 import com.majruszsaccessories.accessories.components.TradeOffer;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.mlib.annotation.AutoInstance;
 import com.mlib.contexts.OnBabySpawned;
@@ -23,14 +23,14 @@ public class IdolOfFertility extends AccessoryHandler {
 			.add( TradeOffer.create( VillagerProfession.BUTCHER, 5 ) );
 	}
 
-	static class BreedingDropChance extends AccessoryComponent {
+	static class BreedingDropChance extends BonusComponent< AccessoryItem > {
 		float chance = 0.01f;
 
 		public static ISupplier< AccessoryItem > create() {
 			return BreedingDropChance::new;
 		}
 
-		protected BreedingDropChance( Handler< AccessoryItem > handler ) {
+		protected BreedingDropChance( BonusHandler< AccessoryItem > handler ) {
 			super( handler );
 
 			OnBabySpawned.listen( this::spawnTotem )

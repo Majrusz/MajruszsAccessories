@@ -2,7 +2,8 @@ package com.majruszsaccessories.accessories.components;
 
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.AccessoryItem;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.tooltip.ITooltipProvider;
@@ -30,7 +31,7 @@ import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-public class MoreChestLoot extends AccessoryComponent {
+public class MoreChestLoot extends BonusComponent< AccessoryItem > {
 	static final int BLOCKS_DISTANCE = 6000;
 	RangedFloat sizeMultiplier = new RangedFloat().id( "multiplier" ).maxRange( Range.of( 0.0f, 10.0f ) );
 
@@ -38,7 +39,7 @@ public class MoreChestLoot extends AccessoryComponent {
 		return handler->new MoreChestLoot( handler, sizeMultiplier );
 	}
 
-	protected MoreChestLoot( Handler< AccessoryItem > handler, float sizeMultiplier ) {
+	protected MoreChestLoot( BonusHandler< AccessoryItem > handler, float sizeMultiplier ) {
 		super( handler );
 
 		this.sizeMultiplier.set( sizeMultiplier, Range.of( 0.0f, 10.0f ) );

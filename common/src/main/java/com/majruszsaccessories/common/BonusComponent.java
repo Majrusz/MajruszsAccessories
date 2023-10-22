@@ -3,25 +3,28 @@ package com.majruszsaccessories.common;
 import com.majruszsaccessories.accessories.AccessoryHolder;
 import com.majruszsaccessories.tooltip.ITooltipProvider;
 import com.mlib.contexts.OnLootGenerated;
+import com.mlib.level.LevelHelper;
 import com.mlib.text.TextHelper;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class Component< Type extends Item > {
-	protected final Handler< Type > handler;
+public class BonusComponent< Type extends Item > {
+	protected final BonusHandler< Type > handler;
 	final List< ITooltipProvider > tooltipProviders = new ArrayList<>();
 
-	public Component( Handler< Type > handler ) {
+	public BonusComponent( BonusHandler< Type > handler ) {
 		this.handler = handler;
 	}
 
-	public Component< Type > addTooltip( String key, ITooltipProvider... providers ) {
+	public BonusComponent< Type > addTooltip( String key, ITooltipProvider... providers ) {
 		this.tooltipProviders.add( new ITooltipProvider() {
 			@Override
 			public MutableComponent getTooltip( AccessoryHolder holder ) {
@@ -55,9 +58,19 @@ public class Component< Type extends Item > {
 		data.generatedLoot.add( this.constructItemStack() );
 	}
 
-	protected ItemStack constructItemStack() {
-		return new ItemStack( this.handler.getItem() );
+	protected void spawnFlyingItem( Level level, Vec3 from, Vec3 to ) {
+		LevelHelper.spawnItemEntityFlyingTowardsDirection( this.constructItemStack(), level, from, to );
 	}
+
+	protected ItemStack constructItemStack() {
+		AccessoryHolder holder = AccessoryHolder.create( this.handler.getItem() );
+		if( holder.isValid() ) {
+			holder.setRandomBonus();
+		}
+
+		return holder.getItemStack();
+	}
+
 
 	protected Type getItem() {
 		return this.handler.getItem();
@@ -65,6 +78,6 @@ public class Component< Type extends Item > {
 
 	@FunctionalInterface
 	public interface ISupplier< Type extends Item > {
-		Component< Type > apply( Handler< Type > handler );
+		BonusComponent< Type > apply( BonusHandler< Type > handler );
 	}
 }

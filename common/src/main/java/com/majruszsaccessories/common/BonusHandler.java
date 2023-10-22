@@ -16,13 +16,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class Handler< Type extends Item > {
-	protected final List< Component< Type > > components = new ArrayList<>();
+public class BonusHandler< Type extends Item > {
+	protected final List< BonusComponent< Type > > components = new ArrayList<>();
 	protected final Supplier< Type > item;
 	protected final Serializable config;
 	protected final String id;
 
-	public Handler( Supplier< Type > item, Serializable config, String id ) {
+	public BonusHandler( Supplier< Type > item, Serializable config, String id ) {
 		this.item = item;
 		this.config = new Serializable();
 		this.id = id;
@@ -30,13 +30,13 @@ public class Handler< Type extends Item > {
 		config.defineCustom( id, ()->this.config );
 	}
 
-	public Handler< Type > add( Component.ISupplier< Type > supplier ) {
+	public BonusHandler< Type > add( BonusComponent.ISupplier< Type > supplier ) {
 		this.components.add( supplier.apply( this ) );
 
 		return this;
 	}
 
-	public List< ? extends Component< Type > > getComponents() {
+	public List< ? extends BonusComponent< Type > > getComponents() {
 		return Collections.unmodifiableList( this.components );
 	}
 
@@ -54,7 +54,7 @@ public class Handler< Type extends Item > {
 
 	protected void addTooltip( OnAccessoryTooltip data ) {
 		this.components.stream()
-			.map( Component::getTooltipProviders )
+			.map( BonusComponent::getTooltipProviders )
 			.flatMap( List::stream )
 			.map( provider->{
 				if( data.holder.hasBonusRangeDefined() ) {

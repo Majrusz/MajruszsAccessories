@@ -1,10 +1,10 @@
 package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.MajruszsAccessories;
-import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.FishingLuckBonus;
 import com.majruszsaccessories.accessories.components.TradeOffer;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.mlib.annotation.AutoInstance;
 import com.mlib.contexts.OnItemFished;
@@ -22,14 +22,14 @@ public class AnglerTrophy extends AccessoryHandler {
 			.add( TradeOffer.create( VillagerProfession.FISHERMAN, 5 ) );
 	}
 
-	static class FishingDropChance extends AccessoryComponent {
+	static class FishingDropChance extends BonusComponent< AccessoryItem > {
 		float chance = 0.015f;
 
 		public static ISupplier< AccessoryItem > create() {
 			return FishingDropChance::new;
 		}
 
-		protected FishingDropChance( Handler< AccessoryItem > handler ) {
+		protected FishingDropChance( BonusHandler< AccessoryItem > handler ) {
 			super( handler );
 
 			OnItemFished.listen( this::onFished )

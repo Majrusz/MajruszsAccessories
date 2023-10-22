@@ -1,22 +1,22 @@
 package com.majruszsaccessories.boosters.components;
 
 import com.majruszsaccessories.boosters.BoosterItem;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.contexts.OnExpOrbPickedUp;
-import com.mlib.data.Serializable;
 import com.mlib.math.Range;
 
-public class ExperienceBonus extends BoosterComponent {
+public class ExperienceBonus extends BonusComponent< BoosterItem > {
 	RangedFloat bonus = new RangedFloat().id( "experience_bonus" );
 
 	public static ISupplier< BoosterItem > create( float bonus ) {
 		return handler->new ExperienceBonus( handler, bonus );
 	}
 
-	protected ExperienceBonus( Handler< BoosterItem > handler, float bonus ) {
+	protected ExperienceBonus( BonusHandler< BoosterItem > handler, float bonus ) {
 		super( handler );
 
 		this.bonus.set( bonus, Range.of( 0.0f, 1.0f ) );

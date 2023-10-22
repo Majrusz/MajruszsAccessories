@@ -2,8 +2,8 @@ package com.majruszsaccessories.boosters;
 
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.boosters.components.LuckBonus;
-import com.majruszsaccessories.common.Component;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.mlib.annotation.AutoInstance;
 import com.mlib.contexts.OnLootGenerated;
 import com.mlib.contexts.base.Condition;
@@ -20,14 +20,14 @@ public class Horseshoe extends BoosterHandler {
 			.add( SkeletonHorsemanDropChance.create() );
 	}
 
-	static class SkeletonHorsemanDropChance extends Component< BoosterItem > {
+	static class SkeletonHorsemanDropChance extends BonusComponent< BoosterItem > {
 		float chance = 0.334f;
 
 		public static ISupplier< BoosterItem > create() {
 			return SkeletonHorsemanDropChance::new;
 		}
 
-		protected SkeletonHorsemanDropChance( Handler< BoosterItem > handler ) {
+		protected SkeletonHorsemanDropChance( BonusHandler< BoosterItem > handler ) {
 			super( handler );
 
 			OnLootGenerated.listen( this::addToGeneratedLoot )

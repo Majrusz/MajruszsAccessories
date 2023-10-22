@@ -1,7 +1,8 @@
 package com.majruszsaccessories.accessories.components;
 
 import com.majruszsaccessories.accessories.AccessoryItem;
-import com.majruszsaccessories.common.Handler;
+import com.majruszsaccessories.common.BonusComponent;
+import com.majruszsaccessories.common.BonusHandler;
 import com.mlib.data.Serializable;
 import com.mlib.math.Range;
 import net.minecraft.world.entity.npc.VillagerProfession;
@@ -9,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
 
-public class TradeOffer extends AccessoryComponent {
+public class TradeOffer extends BonusComponent< AccessoryItem > {
 	final VillagerProfession profession;
 	final int tier;
 	int price;
@@ -22,7 +23,7 @@ public class TradeOffer extends AccessoryComponent {
 		return TradeOffer.create( profession, tier, 7 );
 	}
 
-	protected TradeOffer( Handler< AccessoryItem > handler, VillagerProfession profession, int tier, int price ) {
+	protected TradeOffer( BonusHandler< AccessoryItem > handler, VillagerProfession profession, int tier, int price ) {
 		super( handler );
 
 		this.profession = profession;
