@@ -3,12 +3,14 @@ package com.majruszsaccessories.accessories;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.HarvestingDoubleCrops;
+import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.common.Handler;
 import com.majruszsaccessories.contexts.OnAccessoryDropChanceGet;
 import com.mlib.annotation.AutoInstance;
 import com.mlib.contexts.base.Contexts;
 import com.mlib.data.Serializable;
 import com.mlib.math.Range;
+import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.block.Blocks;
 
 @AutoInstance
@@ -17,7 +19,8 @@ public class TamedPotatoBeetle extends AccessoryHandler {
 		super( MajruszsAccessories.TAMED_POTATO_BEETLE );
 
 		this.add( HarvestingDoubleCrops.create( 0.25f ) )
-			.add( DropChance.create() );
+			.add( DropChance.create() )
+			.add( TradeOffer.create( VillagerProfession.FARMER, 5 ) );
 	}
 
 	static class DropChance extends AccessoryComponent {

@@ -3,12 +3,14 @@ package com.majruszsaccessories.accessories;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.TamingStrongerAnimals;
+import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.common.Handler;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.mlib.annotation.AutoInstance;
 import com.mlib.contexts.OnAnimalTamed;
 import com.mlib.data.Serializable;
 import com.mlib.math.Range;
+import net.minecraft.world.entity.npc.VillagerProfession;
 
 @AutoInstance
 public class CertificateOfTaming extends AccessoryHandler {
@@ -16,7 +18,8 @@ public class CertificateOfTaming extends AccessoryHandler {
 		super( MajruszsAccessories.CERTIFICATE_OF_TAMING );
 
 		this.add( TamingStrongerAnimals.create( 0.2f ) )
-			.add( TamingDropChance.create() );
+			.add( TamingDropChance.create() )
+			.add( TradeOffer.create( VillagerProfession.SHEPHERD, 5 ) );
 	}
 
 	static class TamingDropChance extends AccessoryComponent {

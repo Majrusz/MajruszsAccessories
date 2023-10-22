@@ -3,11 +3,13 @@ package com.majruszsaccessories.accessories;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.MiningExtraItem;
+import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.common.Handler;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.mlib.annotation.AutoInstance;
 import com.mlib.data.Serializable;
 import com.mlib.math.Range;
+import net.minecraft.world.entity.npc.VillagerProfession;
 
 @AutoInstance
 public class LuckyRock extends AccessoryHandler {
@@ -15,7 +17,8 @@ public class LuckyRock extends AccessoryHandler {
 		super( MajruszsAccessories.LUCKY_ROCK );
 
 		this.add( MiningExtraItem.create( 0.03f ) )
-			.add( MiningDropChance.create() );
+			.add( MiningDropChance.create() )
+			.add( TradeOffer.create( VillagerProfession.MASON, 5 ) );
 	}
 
 	static class MiningDropChance extends AccessoryComponent {

@@ -4,6 +4,7 @@ import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.common.Handler;
 import com.majruszsaccessories.contexts.OnAccessoryTooltip;
 import com.mlib.contexts.OnItemDecorationsRendered;
+import com.mlib.contexts.OnTradesInitialized;
 import com.mlib.registry.RegistryObject;
 
 public class AccessoryHandler extends Handler< AccessoryItem > {
@@ -12,6 +13,8 @@ public class AccessoryHandler extends Handler< AccessoryItem > {
 
 		OnAccessoryTooltip.listen( this::addTooltip )
 			.addCondition( data->data.holder.getItem().equals( this.getItem() ) );
+
+		OnTradesInitialized.listen( this::addTrades );
 
 		OnItemDecorationsRendered.listen( this::addBoosterIcon )
 			.addCondition( data->AccessoryHolder.create( data.itemStack ).hasBooster() );

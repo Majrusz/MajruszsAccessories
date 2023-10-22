@@ -3,6 +3,7 @@ package com.majruszsaccessories.accessories;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.BreedingTwins;
+import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.common.Handler;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.mlib.annotation.AutoInstance;
@@ -10,6 +11,7 @@ import com.mlib.contexts.OnBabySpawned;
 import com.mlib.contexts.base.Condition;
 import com.mlib.data.Serializable;
 import com.mlib.math.Range;
+import net.minecraft.world.entity.npc.VillagerProfession;
 
 @AutoInstance
 public class IdolOfFertility extends AccessoryHandler {
@@ -17,7 +19,8 @@ public class IdolOfFertility extends AccessoryHandler {
 		super( MajruszsAccessories.IDOL_OF_FERTILITY );
 
 		this.add( BreedingTwins.create( 0.25f ) )
-			.add( BreedingDropChance.create() );
+			.add( BreedingDropChance.create() )
+			.add( TradeOffer.create( VillagerProfession.BUTCHER, 5 ) );
 	}
 
 	static class BreedingDropChance extends AccessoryComponent {

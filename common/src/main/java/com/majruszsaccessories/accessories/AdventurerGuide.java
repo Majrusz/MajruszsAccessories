@@ -3,11 +3,13 @@ package com.majruszsaccessories.accessories;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.MoreChestLoot;
+import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.common.Handler;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.mlib.annotation.AutoInstance;
 import com.mlib.data.Serializable;
 import com.mlib.math.Range;
+import net.minecraft.world.entity.npc.VillagerProfession;
 
 @AutoInstance
 public class AdventurerGuide extends AccessoryHandler {
@@ -15,7 +17,8 @@ public class AdventurerGuide extends AccessoryHandler {
 		super( MajruszsAccessories.ADVENTURER_GUIDE );
 
 		this.add( MoreChestLoot.create( 1.2f ) )
-			.add( AddToAllChests.create() );
+			.add( AddToAllChests.create() )
+			.add( TradeOffer.create( VillagerProfession.CARTOGRAPHER, 5 ) );
 	}
 
 	static class AddToAllChests extends AccessoryComponent {

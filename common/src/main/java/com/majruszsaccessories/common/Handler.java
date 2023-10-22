@@ -1,9 +1,11 @@
 package com.majruszsaccessories.common;
 
 import com.majruszsaccessories.MajruszsAccessories;
+import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.contexts.OnAccessoryTooltip;
 import com.mlib.client.ClientHelper;
 import com.mlib.contexts.OnItemDecorationsRendered;
+import com.mlib.contexts.OnTradesInitialized;
 import com.mlib.data.Serializable;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.Item;
@@ -65,6 +67,14 @@ public class Handler< Type extends Item > {
 			} )
 			.map( component->component.withStyle( ChatFormatting.GRAY ) )
 			.forEach( data.components::add );
+	}
+
+	protected void addTrades( OnTradesInitialized data ) {
+		this.components.stream()
+			.filter( TradeOffer.class::isInstance )
+			.map( TradeOffer.class::cast )
+			.filter( offer->offer.getProfession() == data.profession )
+			.forEach( offer->data.getTrades( offer.getTier() ).add( ( trader, random )->offer.toMerchantOffer() ) );
 	}
 
 	protected void addBoosterIcon( OnItemDecorationsRendered data ) {

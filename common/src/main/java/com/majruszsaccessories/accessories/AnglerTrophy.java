@@ -3,12 +3,14 @@ package com.majruszsaccessories.accessories;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.AccessoryComponent;
 import com.majruszsaccessories.accessories.components.FishingLuckBonus;
+import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.common.Handler;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.mlib.annotation.AutoInstance;
 import com.mlib.contexts.OnItemFished;
 import com.mlib.data.Serializable;
 import com.mlib.math.Range;
+import net.minecraft.world.entity.npc.VillagerProfession;
 
 @AutoInstance
 public class AnglerTrophy extends AccessoryHandler {
@@ -16,7 +18,8 @@ public class AnglerTrophy extends AccessoryHandler {
 		super( MajruszsAccessories.ANGLER_TROPHY );
 
 		this.add( FishingLuckBonus.create( 3 ) )
-			.add( FishingDropChance.create() );
+			.add( FishingDropChance.create() )
+			.add( TradeOffer.create( VillagerProfession.FISHERMAN, 5 ) );
 	}
 
 	static class FishingDropChance extends AccessoryComponent {

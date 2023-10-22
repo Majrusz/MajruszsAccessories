@@ -7,7 +7,7 @@ public class RangedFloat {
 	private float value;
 	private Range< Float > range;
 	private String id = "value";
-	private Range< Float > maxRange = Range.of( 0.0f, 1.0f );
+	private Range< Float > maxRange = null;
 
 	public RangedFloat id( String id ) {
 		this.id = id;

@@ -7,7 +7,7 @@ public class RangedInteger {
 	private Integer value;
 	private Range< Integer > range;
 	private String id = "value";
-	private Range< Integer > maxRange = Range.of( 0, 10 );
+	private Range< Integer > maxRange = null;
 
 	public RangedInteger id( String id ) {
 		this.id = id;
