@@ -2,13 +2,13 @@ package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.MiningSpeedBonus;
-import com.majruszsaccessories.accessories.components.MoreChestLoot;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.annotation.AutoInstance;
+import com.mlib.contexts.OnLootGenerated;
 import com.mlib.data.Serializable;
 import com.mlib.math.Range;
 
@@ -31,7 +31,7 @@ public class MinerGuide extends AccessoryHandler {
 		protected UndergroundChestDropChance( BonusHandler< AccessoryItem > handler ) {
 			super( handler );
 
-			MoreChestLoot.OnChestOpened.listen( this::addToGeneratedLoot )
+			OnLootGenerated.listen( this::addToGeneratedLoot )
 				.addCondition( data->data.origin != null && data.origin.y < 50.0f )
 				.addCondition( CustomConditions.dropChance( ()->this.chance, data->data.entity ) );
 
