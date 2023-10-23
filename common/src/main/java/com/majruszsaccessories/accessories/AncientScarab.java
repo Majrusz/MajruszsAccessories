@@ -24,10 +24,10 @@ public class AncientScarab extends AccessoryHandler {
 		super( MajruszsAccessories.ANCIENT_SCARAB );
 
 		this.add( BrushingExtraItem.create( 0.15f ) )
-			.add( AddToSuspiciousBlocks.create() );
+			.add( SuspiciousBlocksDropChance.create() );
 	}
 
-	static class AddToSuspiciousBlocks extends BonusComponent< AccessoryItem > {
+	static class SuspiciousBlocksDropChance extends BonusComponent< AccessoryItem > {
 		float chance = 0.125f;
 		List< ResourceLocation > locations = List.of(
 			BuiltInLootTables.DESERT_WELL_ARCHAEOLOGY,
@@ -39,10 +39,10 @@ public class AncientScarab extends AccessoryHandler {
 		);
 
 		public static ISupplier< AccessoryItem > create() {
-			return AddToSuspiciousBlocks::new;
+			return SuspiciousBlocksDropChance::new;
 		}
 
-		protected AddToSuspiciousBlocks( BonusHandler< AccessoryItem > handler ) {
+		protected SuspiciousBlocksDropChance( BonusHandler< AccessoryItem > handler ) {
 			super( handler );
 
 			OnLootGenerated.listen( this::replaceGeneratedLoot )

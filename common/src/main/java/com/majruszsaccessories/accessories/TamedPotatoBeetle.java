@@ -21,19 +21,19 @@ public class TamedPotatoBeetle extends AccessoryHandler {
 		super( MajruszsAccessories.TAMED_POTATO_BEETLE );
 
 		this.add( HarvestingDoubleCrops.create( 0.25f ) )
-			.add( DropChance.create() )
+			.add( HarvestingDropChance.create() )
 			.add( TradeOffer.create( VillagerProfession.FARMER, 5 ) );
 	}
 
-	static class DropChance extends BonusComponent< AccessoryItem > {
+	static class HarvestingDropChance extends BonusComponent< AccessoryItem > {
 		float chance = 0.002f;
 		float potatoMultiplier = 2.5f;
 
 		public static ISupplier< AccessoryItem > create() {
-			return DropChance::new;
+			return HarvestingDropChance::new;
 		}
 
-		protected DropChance( BonusHandler< AccessoryItem > handler ) {
+		protected HarvestingDropChance( BonusHandler< AccessoryItem > handler ) {
 			super( handler );
 
 			HarvestingDoubleCrops.OnCropHarvested.listen( this::addToGeneratedLoot )

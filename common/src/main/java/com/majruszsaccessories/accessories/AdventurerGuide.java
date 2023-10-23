@@ -19,18 +19,18 @@ public class AdventurerGuide extends AccessoryHandler {
 		super( MajruszsAccessories.ADVENTURER_GUIDE );
 
 		this.add( MoreChestLoot.create( 1.2f ) )
-			.add( AddToAllChests.create() )
+			.add( AnyChestDropChance.create() )
 			.add( TradeOffer.create( VillagerProfession.CARTOGRAPHER, 5 ) );
 	}
 
-	static class AddToAllChests extends BonusComponent< AccessoryItem > {
+	static class AnyChestDropChance extends BonusComponent< AccessoryItem > {
 		float chance = 0.025f;
 
 		public static ISupplier< AccessoryItem > create() {
-			return AddToAllChests::new;
+			return AnyChestDropChance::new;
 		}
 
-		protected AddToAllChests( BonusHandler< AccessoryItem > handler ) {
+		protected AnyChestDropChance( BonusHandler< AccessoryItem > handler ) {
 			super( handler );
 
 			MoreChestLoot.OnChestOpened.listen( this::addToGeneratedLoot )

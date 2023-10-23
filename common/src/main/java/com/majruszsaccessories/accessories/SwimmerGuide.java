@@ -21,17 +21,17 @@ public class SwimmerGuide extends AccessoryHandler {
 		super( MajruszsAccessories.SWIMMER_GUIDE );
 
 		this.add( SwimmingSpeedBonus.create( 0.2f ) )
-			.add( AddToUnderwaterChests.create() );
+			.add( UnderwaterChestDropChance.create() );
 	}
 
-	static class AddToUnderwaterChests extends BonusComponent< AccessoryItem > {
+	static class UnderwaterChestDropChance extends BonusComponent< AccessoryItem > {
 		float chance = 0.05f;
 
 		public static ISupplier< AccessoryItem > create() {
-			return AddToUnderwaterChests::new;
+			return UnderwaterChestDropChance::new;
 		}
 
-		protected AddToUnderwaterChests( BonusHandler< AccessoryItem > handler ) {
+		protected UnderwaterChestDropChance( BonusHandler< AccessoryItem > handler ) {
 			super( handler );
 
 			MoreChestLoot.OnChestOpened.listen( this::addToGeneratedLoot )

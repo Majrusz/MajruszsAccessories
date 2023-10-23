@@ -18,17 +18,17 @@ public class MinerGuide extends AccessoryHandler {
 		super( MajruszsAccessories.MINER_GUIDE );
 
 		this.add( MiningSpeedBonus.create( 0.1f ) )
-			.add( AddToUndergroundChests.create() );
+			.add( UndergroundChestDropChance.create() );
 	}
 
-	static class AddToUndergroundChests extends BonusComponent< AccessoryItem > {
+	static class UndergroundChestDropChance extends BonusComponent< AccessoryItem > {
 		float chance = 0.05f;
 
 		public static ISupplier< AccessoryItem > create() {
-			return AddToUndergroundChests::new;
+			return UndergroundChestDropChance::new;
 		}
 
-		protected AddToUndergroundChests( BonusHandler< AccessoryItem > handler ) {
+		protected UndergroundChestDropChance( BonusHandler< AccessoryItem > handler ) {
 			super( handler );
 
 			MoreChestLoot.OnChestOpened.listen( this::addToGeneratedLoot )
