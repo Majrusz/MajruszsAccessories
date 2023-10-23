@@ -8,7 +8,10 @@ import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.contexts.OnEntityPreDamaged;
 import com.mlib.data.Serializable;
+import com.mlib.math.AnyPos;
 import com.mlib.math.Range;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
 
 public class ReduceDamage extends BonusComponent< AccessoryItem > {
 	RangedFloat reduction = new RangedFloat().id( "reduction" ).maxRange( Range.of( 0.0f, 1.0f ) );
@@ -36,9 +39,22 @@ public class ReduceDamage extends BonusComponent< AccessoryItem > {
 
 	private void reduceDamageDealt( OnEntityPreDamaged data ) {
 		data.damage *= 1.0f - CustomConditions.getLastHolder().apply( this.reduction );
+		this.spawnEffects( data.target );
 	}
 
 	private void reduceDamageReceived( OnEntityPreDamaged data ) {
 		data.damage *= 1.0f - CustomConditions.getLastHolder().apply( this.reduction );
+		this.spawnEffects( data.target );
+	}
+
+	private void spawnEffects( Entity entity ) {
+		float width = entity.getBbWidth();
+		float height = entity.getBbHeight();
+
+		CustomConditions.getLastHolder()
+			.getParticleEmitter()
+			.count( 2 )
+			.offset( ()->AnyPos.from( width, height, width ).mul( 0.5 ).vec3() )
+			.emit( ( ServerLevel )entity.level(), AnyPos.from( entity.position() ).add( 0.0, height * 0.5, 0.0 ).vec3() );
 	}
 }
