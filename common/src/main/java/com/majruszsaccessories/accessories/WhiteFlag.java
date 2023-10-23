@@ -13,8 +13,10 @@ import com.mlib.contexts.OnLootGenerated;
 import com.mlib.contexts.OnPlayerInteracted;
 import com.mlib.data.Serializable;
 import com.mlib.math.Range;
+import com.mlib.platform.Side;
 import com.mlib.time.TimeHelper;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 
@@ -45,8 +47,12 @@ public class WhiteFlag extends AccessoryHandler {
 		}
 
 		private void swing( OnPlayerInteracted data ) {
-			data.player.swing( data.hand );
-			data.player.getCooldowns().addCooldown( data.itemStack.getItem(), TimeHelper.toTicks( 0.5 ) );
+			if( Side.isLogicalServer() ) {
+				data.player.getCooldowns().addCooldown( data.itemStack.getItem(), TimeHelper.toTicks( 0.5 ) );
+				data.cancelInteraction( InteractionResult.CONSUME );
+			} else {
+				data.player.swing( data.hand );
+			}
 		}
 	}
 
