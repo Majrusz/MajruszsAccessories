@@ -18,7 +18,6 @@ import com.mlib.emitter.ParticleEmitter;
 import com.mlib.math.Random;
 import com.mlib.modhelper.ModHelper;
 import com.mlib.network.NetworkObject;
-import com.mlib.platform.Side;
 import com.mlib.registry.RegistryGroup;
 import com.mlib.registry.RegistryObject;
 import net.minecraft.core.particles.ParticleType;
@@ -92,15 +91,7 @@ public class MajruszsAccessories {
 	public static final NetworkObject< MoreChestLoot.BonusInfo > MORE_CHEST_LOOT = HELPER.create( "more_chest_loot", MoreChestLoot.BonusInfo.class );
 
 	static {
-		Side.runOnClient( ()->MajruszsAccessories::register );
 		OnGameInitialized.listen( MajruszsAccessories::setDefaultEmitters );
-	}
-
-	@OnlyIn( Dist.CLIENT )
-	private static void register() {
-		OnParticlesRegistered.listen( data->data.register( BONUS_WEAK_PARTICLE.get(), spriteSet->new BonusParticle.Factory( spriteSet, Rarity.UNCOMMON.color.getColor() ) ) );
-		OnParticlesRegistered.listen( data->data.register( BONUS_NORMAL_PARTICLE.get(), spriteSet->new BonusParticle.Factory( spriteSet, Rarity.RARE.color.getColor() ) ) );
-		OnParticlesRegistered.listen( data->data.register( BONUS_STRONG_PARTICLE.get(), spriteSet->new BonusParticle.Factory( spriteSet, Rarity.EPIC.color.getColor() ) ) );
 	}
 
 	private static void setDefaultEmitters( OnGameInitialized data ) {
@@ -110,4 +101,13 @@ public class MajruszsAccessories {
 	}
 
 	private MajruszsAccessories() {}
+
+	@OnlyIn( Dist.CLIENT )
+	public static class Client {
+		static {
+			OnParticlesRegistered.listen( data->data.register( BONUS_WEAK_PARTICLE.get(), spriteSet->new BonusParticle.Factory( spriteSet, Rarity.UNCOMMON.color.getColor() ) ) );
+			OnParticlesRegistered.listen( data->data.register( BONUS_NORMAL_PARTICLE.get(), spriteSet->new BonusParticle.Factory( spriteSet, Rarity.RARE.color.getColor() ) ) );
+			OnParticlesRegistered.listen( data->data.register( BONUS_STRONG_PARTICLE.get(), spriteSet->new BonusParticle.Factory( spriteSet, Rarity.EPIC.color.getColor() ) ) );
+		}
+	}
 }
