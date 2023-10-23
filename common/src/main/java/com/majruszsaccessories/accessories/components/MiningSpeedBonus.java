@@ -9,8 +9,12 @@ import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.contexts.OnBreakSpeedGet;
 import com.mlib.contexts.OnItemSwingDurationGet;
 import com.mlib.data.Serializable;
+import com.mlib.emitter.ParticleEmitter;
+import com.mlib.math.AnyPos;
 import com.mlib.math.Random;
 import com.mlib.math.Range;
+import com.mlib.time.TimeHelper;
+import net.minecraft.server.level.ServerLevel;
 
 public class MiningSpeedBonus extends BonusComponent< AccessoryItem > {
 	RangedFloat speedMultiplier = new RangedFloat().id( "multiplier" ).maxRange( Range.of( 0.0f, 10.0f ) );
@@ -38,11 +42,22 @@ public class MiningSpeedBonus extends BonusComponent< AccessoryItem > {
 
 	private void increaseMineSpeed( OnBreakSpeedGet data ) {
 		data.speed += data.original * CustomConditions.getLastHolder().apply( this.speedMultiplier );
+		if( data.getLevel() instanceof ServerLevel && TimeHelper.haveTicksPassed( 10 ) ) {
+			this.spawnEffects( data );
+		}
 	}
 
 	private void decreaseSwingDuration( OnItemSwingDurationGet data ) {
 		float bonus = CustomConditions.getLastHolder().apply( this.speedMultiplier );
 
 		data.duration -= Random.round( data.original * bonus / ( 1.0f + bonus ) );
+	}
+
+	private void spawnEffects( OnBreakSpeedGet data ) {
+		CustomConditions.getLastHolder()
+			.getParticleEmitter()
+			.count( 1 )
+			.offset( ParticleEmitter.offset( 0.4f ) )
+			.emit( data.getServerLevel(), AnyPos.from( data.player.position() ).add( 0.0f, 0.5f * data.player.getBbHeight(), 0.0f ).vec3() );
 	}
 }
