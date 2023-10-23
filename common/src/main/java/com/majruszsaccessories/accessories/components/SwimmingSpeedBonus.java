@@ -42,9 +42,13 @@ public class SwimmingSpeedBonus extends BonusComponent< AccessoryItem > {
 	}
 
 	private void spawnEffects( OnEntitySwimSpeedMultiplierGet data ) {
+		float width = data.entity.getBbWidth();
+		float height = data.entity.getBbHeight();
+
 		CustomConditions.getLastHolder()
 			.getParticleEmitter()
 			.count( 1 )
-			.emit( data.getServerLevel(), AnyPos.from( data.entity.position() ).add( 0.0f, 0.5f * data.entity.getBbHeight(), 0.0f ).vec3() );
+			.offset( ()->AnyPos.from( width, height, width ).mul( 0.5 ).vec3() )
+			.emit( data.getServerLevel(), AnyPos.from( data.entity.position() ).add( 0.0, height * 0.5, 0.0 ).vec3() );
 	}
 }
