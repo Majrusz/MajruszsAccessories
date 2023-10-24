@@ -36,8 +36,12 @@ public class CustomConditions {
 		} );
 	}
 
+	public static < DataType > Condition< DataType > dropChance( Function< DataType, Float > chance, Function< DataType, Entity > entity ) {
+		return Condition.predicate( data->Contexts.dispatch( new OnAccessoryDropChanceGet( chance.apply( data ), entity.apply( data ) ) ).check() );
+	}
+
 	public static < DataType > Condition< DataType > dropChance( Supplier< Float > chance, Function< DataType, Entity > entity ) {
-		return Condition.predicate( data->Contexts.dispatch( new OnAccessoryDropChanceGet( chance.get(), entity.apply( data ) ) ).check() );
+		return CustomConditions.dropChance( data->chance.get(), entity );
 	}
 
 	public static AccessoryHolder getLastHolder() {

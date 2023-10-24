@@ -60,6 +60,7 @@ public class MajruszsAccessories {
 	public static final RegistryObject< AccessoryItem > SECRET_INGREDIENT = ITEMS.create( "secret_ingredient", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > SWIMMER_GUIDE = ITEMS.create( "swimmer_guide", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > TAMED_POTATO_BEETLE = ITEMS.create( "tamed_potato_beetle", AccessoryItem::new );
+	public static final RegistryObject< AccessoryItem > TOOL_SCRAPS = ITEMS.create( "tool_scraps", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > ULTIMATE_GUIDE = ITEMS.create( "ultimate_guide", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > UNBREAKABLE_FISHING_LINE = ITEMS.create( "unbreakable_fishing_line", AccessoryItem::new );
 	public static final RegistryObject< AccessoryItem > WHITE_FLAG = ITEMS.create( "white_flag", AccessoryItem::new );
