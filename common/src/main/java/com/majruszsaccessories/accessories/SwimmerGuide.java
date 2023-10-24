@@ -38,6 +38,7 @@ public class SwimmerGuide extends AccessoryHandler {
 				.addCondition( Condition.hasLevel() )
 				.addCondition( data->data.origin != null )
 				.addCondition( data->BlockHelper.getState( data.getLevel(), data.origin ).getFluidState().isSourceOfType( Fluids.WATER ) )
+				.addCondition( data->data.lootId.toString().contains( "chest" ) )
 				.addCondition( CustomConditions.dropChance( ()->this.chance, data->data.entity ) );
 
 			Serializable config = handler.getConfig();
