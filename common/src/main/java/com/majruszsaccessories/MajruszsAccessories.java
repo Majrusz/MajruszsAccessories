@@ -67,8 +67,8 @@ public class MajruszsAccessories {
 	// Items (Boosters)
 	public static final RegistryObject< BoosterItem > DICE = ITEMS.create( "dice", BoosterItem.basic() );
 	public static final RegistryObject< BoosterItem > GOLDEN_DICE = ITEMS.create( "golden_dice", BoosterItem.rare() );
-	public static final RegistryObject< BoosterItem > HORSESHOE = ITEMS.create( "horseshoe", BoosterItem.basic() );
 	public static final RegistryObject< BoosterItem > GOLDEN_HORSESHOE = ITEMS.create( "golden_horseshoe", BoosterItem.rare() );
+	public static final RegistryObject< BoosterItem > HORSESHOE = ITEMS.create( "horseshoe", BoosterItem.basic() );
 	public static final RegistryObject< BoosterItem > ONYX = ITEMS.create( "onyx", BoosterItem.basic() );
 	public static final RegistryObject< BoosterItem > OWL_FEATHER = ITEMS.create( "owl_feather", BoosterItem.basic() );
 

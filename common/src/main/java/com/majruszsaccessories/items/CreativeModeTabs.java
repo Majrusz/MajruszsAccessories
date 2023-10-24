@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public class CreativeModeTabs {
 	private static final Component PRIMARY = TextHelper.translatable( "itemGroup.majruszsaccessories.primary" );
@@ -49,10 +50,13 @@ public class CreativeModeTabs {
 			}
 		}
 
-		for( Item item : Registries.getItems() ) {
-			if( item instanceof BoosterItem ) {
-				output.accept( new ItemStack( item ) );
-			}
-		}
+		Stream.of(
+			MajruszsAccessories.DICE,
+			MajruszsAccessories.GOLDEN_DICE,
+			MajruszsAccessories.OWL_FEATHER,
+			MajruszsAccessories.HORSESHOE,
+			MajruszsAccessories.GOLDEN_HORSESHOE,
+			MajruszsAccessories.ONYX
+		).map( item->new ItemStack( item.get() ) ).forEach( output::accept );
 	}
 }
