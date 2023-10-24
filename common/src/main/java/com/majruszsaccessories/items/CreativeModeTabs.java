@@ -56,7 +56,8 @@ public class CreativeModeTabs {
 			MajruszsAccessories.OWL_FEATHER,
 			MajruszsAccessories.HORSESHOE,
 			MajruszsAccessories.GOLDEN_HORSESHOE,
-			MajruszsAccessories.ONYX
+			MajruszsAccessories.ONYX,
+			MajruszsAccessories.JADEITE
 		).map( item->new ItemStack( item.get() ) ).forEach( output::accept );
 	}
 }
