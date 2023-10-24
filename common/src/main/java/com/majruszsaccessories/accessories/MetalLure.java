@@ -10,6 +10,7 @@ public class MetalLure extends AccessoryHandler {
 	public MetalLure() {
 		super( MajruszsAccessories.METAL_LURE );
 
-		this.add( FishingExtraItems.create( 0.2f, 2 ) );
+		this.add( FishingExtraItems.create( 0.2f, 2 ) )
+			.add( AnglerTrophy.FishingDropChance.create() );
 	}
 }
