@@ -80,7 +80,8 @@ public class SleepingBonuses extends BonusComponent< AccessoryItem > {
 		CustomConditions.getLastHolder()
 			.getParticleEmitter()
 			.count( 5 )
-			.emit( data.getServerLevel(), data.player.position() );
+			.position( data.player.position() )
+			.emit( data.getServerLevel() );
 	}
 
 	private static class EffectDef extends Serializable {

@@ -47,6 +47,7 @@ public class FishingLureBonus extends BonusComponent< AccessoryItem > {
 			.getParticleEmitter()
 			.count( 4 )
 			.offset( ParticleEmitter.offset( 0.125f ) )
-			.emit( data.getServerLevel(), AnyPos.from( data.hook.getX(), position.getY() + 0.25, data.hook.getZ() ).vec3() );
+			.position( AnyPos.from( data.hook.getX(), position.getY() + 0.25, data.hook.getZ() ).vec3() )
+			.emit( data.getServerLevel() );
 	}
 }

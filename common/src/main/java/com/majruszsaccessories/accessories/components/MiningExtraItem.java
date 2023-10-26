@@ -65,7 +65,8 @@ public class MiningExtraItem extends BonusComponent< AccessoryItem > {
 			.getParticleEmitter()
 			.count( 3 )
 			.offset( ParticleEmitter.offset( 0.2f ) )
-			.emit( data.getServerLevel(), data.origin );
+			.position( data.origin )
+			.emit( data.getServerLevel() );
 	}
 
 	public static class OnStoneMined {

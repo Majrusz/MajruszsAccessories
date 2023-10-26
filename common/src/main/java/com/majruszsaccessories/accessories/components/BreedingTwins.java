@@ -9,7 +9,6 @@ import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.contexts.OnBabySpawned;
 import com.mlib.contexts.base.Condition;
 import com.mlib.data.Serializable;
-import com.mlib.math.AnyPos;
 import com.mlib.math.Range;
 import net.minecraft.world.entity.AgeableMob;
 
@@ -49,13 +48,10 @@ public class BreedingTwins extends BonusComponent< AccessoryItem > {
 	}
 
 	private void spawnEffects( OnBabySpawned data, AgeableMob child ) {
-		float width = data.parentA.getBbWidth();
-		float height = data.parentA.getBbHeight();
-
 		CustomConditions.getLastHolder()
 			.getParticleEmitter()
-			.count( Math.round( 4 * ( 1.0f + width + height ) ) )
-			.offset( ()->AnyPos.from( width, height, width ).mul( 0.5 ).vec3() )
-			.emit( data.getServerLevel(), AnyPos.from( child.position() ).add( 0.0, height * 0.5, 0.0 ).vec3() );
+			.count( 4 )
+			.sizeBased( data.child )
+			.emit( data.getServerLevel() );
 	}
 }

@@ -57,6 +57,7 @@ public class BrushingExtraItem extends BonusComponent< AccessoryItem > {
 		CustomConditions.getLastHolder()
 			.getParticleEmitter()
 			.count( 8 )
-			.emit( data.getServerLevel(), AnyPos.from( data.blockEntity.getBlockPos() ).center().add( data.direction ).vec3() );
+			.position( AnyPos.from( data.blockEntity.getBlockPos() ).center().add( data.direction ).vec3() )
+			.emit( data.getServerLevel() );
 	}
 }

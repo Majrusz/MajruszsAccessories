@@ -47,7 +47,8 @@ public class HarvestingDoubleCrops extends BonusComponent< AccessoryItem > {
 		CustomConditions.getLastHolder()
 			.getParticleEmitter()
 			.count( 5 )
-			.emit( data.getServerLevel(), data.origin );
+			.position( data.origin )
+			.emit( data.getServerLevel() );
 	}
 
 	public static class OnCropHarvested {

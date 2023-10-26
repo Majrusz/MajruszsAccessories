@@ -8,7 +8,6 @@ import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.contexts.OnItemDamaged;
 import com.mlib.data.Serializable;
-import com.mlib.math.AnyPos;
 import com.mlib.math.Range;
 
 public class MiningDurabilityBonus extends BonusComponent< AccessoryItem > {
@@ -38,13 +37,10 @@ public class MiningDurabilityBonus extends BonusComponent< AccessoryItem > {
 	}
 
 	private void spawnEffects( OnItemDamaged data ) {
-		float width = data.player.getBbWidth();
-		float height = data.player.getBbHeight();
-
 		CustomConditions.getLastHolder()
 			.getParticleEmitter()
 			.count( 3 )
-			.offset( ()->AnyPos.from( width, height, width ).mul( 0.5 ).vec3() )
-			.emit( data.getServerLevel(), AnyPos.from( data.player.position() ).add( 0.0f, 0.5f * height, 0.0f ).vec3() );
+			.sizeBased( data.player )
+			.emit( data.getServerLevel() );
 	}
 }

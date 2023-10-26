@@ -79,7 +79,8 @@ public class StrongerPotions extends BonusComponent< AccessoryItem > {
 		CustomConditions.getLastHolder()
 			.getParticleEmitter()
 			.count( 6 )
-			.emit( data.getServerLevel(), AnyPos.from( data.blockPos ).center().vec3() );
+			.position( AnyPos.from( data.blockPos ).center().vec3() )
+			.emit( data.getServerLevel() );
 	}
 
 	private static class Data extends Serializable {

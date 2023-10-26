@@ -10,7 +10,6 @@ import com.mlib.contexts.OnAnimalTamed;
 import com.mlib.contexts.base.Condition;
 import com.mlib.data.Serializable;
 import com.mlib.entity.AttributeHandler;
-import com.mlib.math.AnyPos;
 import com.mlib.math.Range;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -61,13 +60,10 @@ public class TamingStrongerAnimals extends BonusComponent< AccessoryItem > {
 	}
 
 	private void spawnEffects( OnAnimalTamed data ) {
-		float width = data.animal.getBbWidth();
-		float height = data.animal.getBbHeight();
-
 		CustomConditions.getLastHolder()
 			.getParticleEmitter()
-			.count( Math.round( 4 * ( 1.0f + width + height ) ) )
-			.offset( ()->AnyPos.from( width, height, width ).mul( 0.5 ).vec3() )
-			.emit( data.getServerLevel(), AnyPos.from( data.animal.position() ).add( 0.0, height * 0.5, 0.0 ).vec3() );
+			.count( 4 )
+			.sizeBased( data.animal )
+			.emit( data.getServerLevel() );
 	}
 }

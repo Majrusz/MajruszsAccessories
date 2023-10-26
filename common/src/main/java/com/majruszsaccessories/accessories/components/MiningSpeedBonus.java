@@ -9,7 +9,6 @@ import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.contexts.OnBreakSpeedGet;
 import com.mlib.contexts.OnItemSwingDurationGet;
 import com.mlib.data.Serializable;
-import com.mlib.math.AnyPos;
 import com.mlib.math.Random;
 import com.mlib.math.Range;
 import com.mlib.time.TimeHelper;
@@ -53,13 +52,10 @@ public class MiningSpeedBonus extends BonusComponent< AccessoryItem > {
 	}
 
 	private void spawnEffects( OnBreakSpeedGet data ) {
-		float width = data.player.getBbWidth();
-		float height = data.player.getBbHeight();
-
 		CustomConditions.getLastHolder()
 			.getParticleEmitter()
 			.count( 1 )
-			.offset( ()->AnyPos.from( width, height, width ).mul( 0.5 ).vec3() )
-			.emit( data.getServerLevel(), AnyPos.from( data.player.position() ).add( 0.0f, 0.5f * height, 0.0f ).vec3() );
+			.sizeBased( data.player )
+			.emit( data.getServerLevel() );
 	}
 }

@@ -8,7 +8,6 @@ import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.contexts.OnEntitySwimSpeedMultiplierGet;
 import com.mlib.data.Serializable;
-import com.mlib.math.AnyPos;
 import com.mlib.math.Range;
 import com.mlib.time.TimeHelper;
 import net.minecraft.server.level.ServerLevel;
@@ -42,13 +41,10 @@ public class SwimmingSpeedBonus extends BonusComponent< AccessoryItem > {
 	}
 
 	private void spawnEffects( OnEntitySwimSpeedMultiplierGet data ) {
-		float width = data.entity.getBbWidth();
-		float height = data.entity.getBbHeight();
-
 		CustomConditions.getLastHolder()
 			.getParticleEmitter()
 			.count( 1 )
-			.offset( ()->AnyPos.from( width, height, width ).mul( 0.5 ).vec3() )
-			.emit( data.getServerLevel(), AnyPos.from( data.entity.position() ).add( 0.0, height * 0.5, 0.0 ).vec3() );
+			.sizeBased( data.entity )
+			.emit( data.getServerLevel() );
 	}
 }

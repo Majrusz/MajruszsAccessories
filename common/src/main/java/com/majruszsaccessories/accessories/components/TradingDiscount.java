@@ -8,7 +8,6 @@ import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.contexts.OnTradesUpdated;
 import com.mlib.data.Serializable;
-import com.mlib.math.AnyPos;
 import com.mlib.math.Range;
 import net.minecraft.world.item.trading.MerchantOffer;
 
@@ -44,13 +43,10 @@ public class TradingDiscount extends BonusComponent< AccessoryItem > {
 	}
 
 	private void spawnEffects( OnTradesUpdated data ) {
-		float width = data.villager.getBbWidth();
-		float height = data.villager.getBbHeight();
-
 		CustomConditions.getLastHolder()
 			.getParticleEmitter()
 			.count( 6 )
-			.offset( ()->AnyPos.from( width, height, width ).mul( 0.5 ).vec3() )
-			.emit( data.getServerLevel(), AnyPos.from( data.villager.position() ).add( 0.0, height * 0.5, 0.0 ).vec3() );
+			.sizeBased( data.villager )
+			.emit( data.getServerLevel() );
 	}
 }

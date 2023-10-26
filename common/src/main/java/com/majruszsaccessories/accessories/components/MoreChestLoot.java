@@ -73,7 +73,8 @@ public class MoreChestLoot extends BonusComponent< AccessoryItem > {
 			.getParticleEmitter()
 			.count( 24 )
 			.offset( ParticleEmitter.offset( 0.4f ) )
-			.emit( data.getServerLevel(), data.origin );
+			.position( data.origin )
+			.emit( data.getServerLevel() );
 	}
 
 	private ITooltipProvider getPerPercentInfo() {
