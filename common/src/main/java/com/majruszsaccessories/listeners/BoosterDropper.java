@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 public class BoosterDropper {
 	private ResourceLocation lootTable = MajruszsAccessories.HELPER.getLocation( "gameplay/nether_accessories" );
 	private float chestChance = 0.1f;
-	private float mobChance = 0.001f;
+	private float mobChance = 0.005f;
 
 	public BoosterDropper() {
 		OnLootGenerated.listen( this::spawnBoosterInChest )
