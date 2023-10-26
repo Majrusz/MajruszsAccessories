@@ -31,7 +31,7 @@ public class LuckBonus extends BonusComponent< BoosterItem > {
 			.addCondition( Condition.isLogicalServer() )
 			.addCondition( Condition.cooldown( 0.2f ) );
 
-		this.addTooltip( "majruszsaccessories.boosters.luck_bonus", TooltipHelper.asItem( this::getItem ), TooltipHelper.asFixedValue( this.bonus ) );
+		this.addTooltip( "majruszsaccessories.boosters.luck_bonus", TooltipHelper.asBooster( this::getItem ), TooltipHelper.asFixedValue( this.bonus ) );
 
 		this.bonus.define( handler.getConfig() );
 	}

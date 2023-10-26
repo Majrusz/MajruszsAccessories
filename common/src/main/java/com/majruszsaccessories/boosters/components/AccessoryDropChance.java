@@ -24,7 +24,7 @@ public class AccessoryDropChance extends BonusComponent< BoosterItem > {
 		OnAccessoryDropChanceGet.listen( this::increaseChance )
 			.addCondition( CustomConditions.hasBooster( this::getItem, data->data.player ) );
 
-		this.addTooltip( "majruszsaccessories.boosters.drop_chance", TooltipHelper.asItem( this::getItem ), TooltipHelper.asFixedPercent( this.multiplier ) );
+		this.addTooltip( "majruszsaccessories.boosters.drop_chance", TooltipHelper.asBooster( this::getItem ), TooltipHelper.asFixedPercent( this.multiplier ) );
 
 		this.multiplier.define( handler.getConfig() );
 	}

@@ -24,7 +24,7 @@ public class ExperienceBonus extends BonusComponent< BoosterItem > {
 		OnExpOrbPickedUp.listen( this::increaseExperience )
 			.addCondition( CustomConditions.hasBooster( this::getItem, data->data.player ) );
 
-		this.addTooltip( "majruszsaccessories.boosters.experience_bonus", TooltipHelper.asItem( this::getItem ), TooltipHelper.asFixedPercent( this.bonus ) );
+		this.addTooltip( "majruszsaccessories.boosters.experience_bonus", TooltipHelper.asBooster( this::getItem ), TooltipHelper.asFixedPercent( this.bonus ) );
 
 		this.bonus.define( handler.getConfig() );
 	}

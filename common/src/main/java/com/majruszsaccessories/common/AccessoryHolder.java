@@ -250,7 +250,7 @@ public class AccessoryHolder {
 				subconfig.defineFloat( "ValueMin", ()->this.range.from, x->this.range.from = x );
 				subconfig.defineFloat( "ValueMax", ()->this.range.to, x->this.range.to = x );
 				subconfig.defineLocation( "Booster", ()->this.boosterId, x->{
-					this.booster = ( BoosterItem )Registries.getItem( x );
+					this.booster = Registries.getItem( x ) instanceof BoosterItem booster ? booster : null;
 					this.boosterId = x;
 				} );
 			} );

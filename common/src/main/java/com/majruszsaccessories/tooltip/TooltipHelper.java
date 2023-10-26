@@ -8,6 +8,8 @@ import com.mlib.math.Range;
 import com.mlib.text.TextHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.function.Supplier;
@@ -39,7 +41,7 @@ public class TooltipHelper {
 		return new FloatTooltip( value ).bonusMultiplier( 0.0f );
 	}
 
-	public static ITooltipProvider asItem( Supplier< BoosterItem > item ) {
+	public static ITooltipProvider asBooster( Supplier< BoosterItem > item ) {
 		return new ITooltipProvider() {
 			@Override
 			public MutableComponent getTooltip( AccessoryHolder holder ) {
@@ -50,6 +52,24 @@ public class TooltipHelper {
 				return TextHelper.translatable( "majruszsaccessories.items.booster_name", item.get().getDescription() )
 					.withStyle( item.get().getRarity( ItemStack.EMPTY ).color )
 					.append( " " );
+			}
+		};
+	}
+
+	public static ITooltipProvider asItem( Supplier< Item > item ) {
+		return new ITooltipProvider() {
+			@Override
+			public MutableComponent getTooltip( AccessoryHolder holder ) {
+				return item.get().getDescription().copy();
+			}
+		};
+	}
+
+	public static ITooltipProvider asEntity( Supplier< EntityType< ? > > type ) {
+		return new ITooltipProvider() {
+			@Override
+			public MutableComponent getTooltip( AccessoryHolder holder ) {
+				return type.get().getDescription().copy();
 			}
 		};
 	}

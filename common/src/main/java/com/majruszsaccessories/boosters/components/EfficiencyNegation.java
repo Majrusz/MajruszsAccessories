@@ -17,7 +17,7 @@ public class EfficiencyNegation extends BonusComponent< BoosterItem > {
 		OnAccessoryExtraBonusGet.listen( this::negateEfficiency )
 			.addCondition( data->data.holder.hasBooster( this.getItem() ) );
 
-		this.addTooltip( "majruszsaccessories.boosters.efficiency_negation", TooltipHelper.asItem( this::getItem ) );
+		this.addTooltip( "majruszsaccessories.boosters.efficiency_negation", TooltipHelper.asBooster( this::getItem ) );
 	}
 
 	private void negateEfficiency( OnAccessoryExtraBonusGet data ) {
