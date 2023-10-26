@@ -2,9 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "group": "horseshoe",
   "pattern": [
-    "ggg",
+    " g ",
     "gdg",
-    "ggg"
+    " g "
   ],
   "key": {
     "g": {
