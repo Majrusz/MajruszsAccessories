@@ -3,6 +3,7 @@ package com.majruszsaccessories.common;
 import com.majruszsaccessories.tooltip.ITooltipProvider;
 import com.mlib.contexts.OnLootGenerated;
 import com.mlib.level.LevelHelper;
+import com.mlib.math.AnyPos;
 import com.mlib.text.TextHelper;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.Item;
@@ -59,6 +60,10 @@ public class BonusComponent< Type extends Item > {
 
 	protected void spawnFlyingItem( Level level, Vec3 from, Vec3 to ) {
 		LevelHelper.spawnItemEntityFlyingTowardsDirection( this.constructItemStack(), level, from, to );
+	}
+
+	protected void spawnFlyingItem( Level level, Vec3 position ) {
+		LevelHelper.spawnItemEntityFlyingTowardsDirection( this.constructItemStack(), level, position, AnyPos.from( position ).add( 0.0, 1.0, 0.0 ).vec3() );
 	}
 
 	protected ItemStack constructItemStack() {
