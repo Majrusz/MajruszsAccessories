@@ -49,6 +49,7 @@ public class MajruszsAccessories {
 
 	// Items (Accessories)
 	public static final RegistryObject< AccessoryItem > ADVENTURER_GUIDE = ITEMS.create( "adventurer_guide", AccessoryItem.tier1() );
+	public static final RegistryObject< AccessoryItem > ADVENTURER_KIT = ITEMS.create( "adventurer_kit", AccessoryItem.tier2() );
 	public static final RegistryObject< AccessoryItem > ANCIENT_SCARAB = ITEMS.create( "ancient_scarab", AccessoryItem.tier1() );
 	public static final RegistryObject< AccessoryItem > ANGLER_TACKLE_BAG = ITEMS.create( "angler_tackle_bag", AccessoryItem.tier1() );
 	public static final RegistryObject< AccessoryItem > ANGLER_TROPHY = ITEMS.create( "angler_trophy", AccessoryItem.tier1() );
