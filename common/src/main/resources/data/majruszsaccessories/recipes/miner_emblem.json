@@ -1,0 +1,9 @@
+{
+  "type": "majruszsaccessories:crafting_accessory",
+  "ingredients": [
+    "majruszsaccessories:lucky_rock",
+    "majruszsaccessories:miner_guide",
+    "majruszsaccessories:tool_scraps"
+  ],
+  "result": "majruszsaccessories:miner_emblem"
+}
