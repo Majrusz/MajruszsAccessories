@@ -51,12 +51,12 @@ public class CreativeModeTabs {
 		}
 
 		Stream.of(
+			MajruszsAccessories.OWL_FEATHER,
 			MajruszsAccessories.DICE,
 			MajruszsAccessories.GOLDEN_DICE,
-			MajruszsAccessories.OWL_FEATHER,
+			MajruszsAccessories.ONYX,
 			MajruszsAccessories.HORSESHOE,
 			MajruszsAccessories.GOLDEN_HORSESHOE,
-			MajruszsAccessories.ONYX,
 			MajruszsAccessories.JADEITE
 		).map( item->new ItemStack( item.get() ) ).forEach( output::accept );
 	}
