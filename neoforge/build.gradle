@@ -12,7 +12,14 @@ base {
 }
 
 repositories {
-    maven { url 'https://www.cursemaven.com' }
+    maven {
+        name = 'CurseMaven'
+        url = 'https://www.cursemaven.com'
+    }
+    maven {
+        name = 'Curios'
+        url = 'https://maven.theillusivec4.top/'
+    }
     flatDir { dirs 'libs' }
 }
 
@@ -97,6 +104,9 @@ dependencies {
     minecraft "net.neoforged:forge:${neoforge_version}"
     implementation fg.deobf("com.mlib:majrusz-library-neoforge:${mlib_version}")
     compileOnly project(':common')
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${neoforge_curios_version}")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${neoforge_curios_version}:api")
+
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 

@@ -12,7 +12,18 @@ base {
 
 repositories {
     mavenCentral()
-    maven { url 'https://www.cursemaven.com' }
+    maven {
+        name = 'CurseMaven'
+        url = 'https://www.cursemaven.com'
+    }
+    maven {
+        name = 'TerraformersMC'
+        url = 'https://maven.terraformersmc.com/'
+    }
+    maven {
+        name = 'Ladysnake Libs'
+        url = 'https://maven.ladysnake.org/releases'
+    }
     flatDir { dirs 'libs' }
 }
 
@@ -58,6 +69,9 @@ dependencies {
     modImplementation "com.mlib:majrusz-library-fabric:${mlib_version}"
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
+    modImplementation "dev.emi:trinkets:${fabric_trinkets_version}"
+    modApi "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${fabric_cca_version}"
+    modApi "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${fabric_cca_version}"
 
     compileOnly project(':common')
 }

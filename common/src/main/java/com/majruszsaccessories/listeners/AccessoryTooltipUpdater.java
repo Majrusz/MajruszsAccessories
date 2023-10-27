@@ -1,5 +1,6 @@
 package com.majruszsaccessories.listeners;
 
+import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.contexts.OnAccessoryTooltip;
 import com.majruszsaccessories.items.AccessoryItem;
@@ -10,7 +11,6 @@ import com.mlib.contexts.OnItemTooltip;
 import com.mlib.contexts.base.Condition;
 import com.mlib.contexts.base.Contexts;
 import com.mlib.math.Range;
-import com.mlib.platform.Integration;
 import com.mlib.text.TextHelper;
 import com.mlib.time.TimeHelper;
 import net.minecraft.ChatFormatting;
@@ -33,16 +33,13 @@ public class AccessoryTooltipUpdater {
 
 	private void addTooltip( OnItemTooltip data ) {
 		AccessoryHolder holder = AccessoryHolder.create( data.itemStack );
-		List< Component > components = new ArrayList<>();
 		if( holder.hasBonusRangeDefined() && !holder.hasBonusDefined() ) {
-			components.addAll( this.buildBonusRangeInfo( holder ) );
+			data.components.addAll( this.buildBonusRangeInfo( holder ) );
 		} else {
-			components.addAll( this.buildBonusInfo( holder ) );
+			data.components.addAll( this.buildBonusInfo( holder ) );
 		}
-		components.addAll( this.buildUseInfo( holder, data.player ) );
-		components.addAll( this.buildEffectsInfo( holder ) );
-
-		data.components.addAll( 1, components );
+		data.components.addAll( this.buildUseInfo( holder, data.player ) );
+		data.components.addAll( this.buildEffectsInfo( holder ) );
 	}
 
 	private List< Component > buildBonusRangeInfo( AccessoryHolder holder ) {
@@ -73,7 +70,7 @@ public class AccessoryTooltipUpdater {
 	}
 
 	private List< Component > buildUseInfo( AccessoryHolder holder, @Nullable Player player ) {
-		if( Integration.isLoaded( "curios" ) ) {
+		if( MajruszsAccessories.SLOT_INTEGRATION.isInstalled() ) {
 			return List.of();
 		}
 

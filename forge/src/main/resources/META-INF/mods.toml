@@ -34,3 +34,10 @@ issueTrackerURL = "${mod_issues}"
     versionRange = "${mlib_version_range_forge}"
     ordering = "NONE"
     side = "BOTH"
+
+[[dependencies.${ mod_id }]]
+    modId="curios"
+    mandatory=false
+    versionRange="${forge_curios_version_range}"
+    ordering="AFTER"
+    side="BOTH"

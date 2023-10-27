@@ -10,7 +10,6 @@ import com.mlib.text.TextHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @AutoInstance
@@ -21,11 +20,8 @@ public class BoosterTooltipUpdater {
 	}
 
 	private void addTooltip( OnItemTooltip data ) {
-		List< Component > components = new ArrayList<>();
-		components.addAll( this.buildGenericInfo() );
-		components.addAll( this.buildEffectsInfo( data ) );
-
-		data.components.addAll( 1, components );
+		data.components.addAll( this.buildGenericInfo() );
+		data.components.addAll( this.buildEffectsInfo( data ) );
 	}
 
 	private List< Component > buildGenericInfo() {

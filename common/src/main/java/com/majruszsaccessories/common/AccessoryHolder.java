@@ -29,12 +29,16 @@ public class AccessoryHolder {
 	final Data data;
 
 	public static AccessoryHolder find( LivingEntity entity, Predicate< ItemStack > predicate ) {
-		ItemStack itemStack = entity.getOffhandItem();
-		if( predicate.test( itemStack ) ) {
-			return new AccessoryHolder( itemStack );
-		}
+		if( MajruszsAccessories.SLOT_INTEGRATION.isInstalled() ) {
+			return new AccessoryHolder( MajruszsAccessories.SLOT_INTEGRATION.find( entity, predicate ) );
+		} else {
+			ItemStack itemStack = entity.getOffhandItem();
+			if( predicate.test( itemStack ) ) {
+				return new AccessoryHolder( itemStack );
+			}
 
-		return new AccessoryHolder( ItemStack.EMPTY );
+			return new AccessoryHolder( ItemStack.EMPTY );
+		}
 	}
 
 	public static AccessoryHolder find( LivingEntity entity, AccessoryItem item ) {

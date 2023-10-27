@@ -2,6 +2,7 @@ package com.majruszsaccessories;
 
 import com.majruszsaccessories.accessories.components.MoreChestLoot;
 import com.majruszsaccessories.config.Config;
+import com.majruszsaccessories.integration.ISlotPlatform;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.items.BoosterOverlay;
@@ -18,11 +19,13 @@ import com.mlib.emitter.ParticleEmitter;
 import com.mlib.math.Random;
 import com.mlib.modhelper.ModHelper;
 import com.mlib.network.NetworkObject;
+import com.mlib.platform.Services;
 import com.mlib.registry.RegistryGroup;
 import com.mlib.registry.RegistryObject;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -94,6 +97,12 @@ public class MajruszsAccessories {
 
 	// Network
 	public static final NetworkObject< MoreChestLoot.BonusInfo > MORE_CHEST_LOOT = HELPER.create( "more_chest_loot", MoreChestLoot.BonusInfo.class );
+
+	// Integration
+	public static final ISlotPlatform SLOT_INTEGRATION = Services.load( ISlotPlatform.class );
+
+	// Textures
+	public static final ResourceLocation POCKET_SLOT_TEXTURE = HELPER.getLocation( "slot/pocket" );
 
 	static {
 		OnGameInitialized.listen( MajruszsAccessories::setDefaultEmitters );

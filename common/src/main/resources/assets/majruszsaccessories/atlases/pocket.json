@@ -2,7 +2,7 @@
   "sources": [
     {
       "type": "single",
-      "resource": "item/empty_accessory_slot"
+      "resource": "majruszsaccessories:slot/pocket"
     }
   ]
 }
