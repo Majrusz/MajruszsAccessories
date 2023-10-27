@@ -79,5 +79,4 @@ public record RecipeData( List< AccessoryHolder > accessories, List< BoosterItem
 	boolean hasIdenticalItemTypes() {
 		return this.accessories.stream().allMatch( holder->holder.getItem().equals( this.accessories.get( 0 ).getItem() ) );
 	}
-
 }

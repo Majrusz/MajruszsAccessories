@@ -21,6 +21,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 public class AccessoryHolder {
@@ -150,7 +152,7 @@ public class AccessoryHolder {
 		return this.save( ()->{
 			this.data.baseBonus = AccessoryHolder.round( bonus );
 			this.data.extraBonus = AccessoryHolder.round( Contexts.dispatch( new OnAccessoryExtraBonusGet( this ) ).bonus );
-			this.data.range = Range.of( null, null );
+			this.data.range = null;
 		} );
 	}
 
@@ -162,8 +164,8 @@ public class AccessoryHolder {
 		}
 	}
 
-	public AccessoryHolder setBooster( BoosterItem item ) {
-		return this.save( ()->this.data.boosterId = Registries.get( item ) );
+	public AccessoryHolder addBooster( BoosterItem item ) {
+		return this.save( ()->this.data.boosters.add( new BoosterDef( item ) ) );
 	}
 
 	public float getBonus() {
@@ -190,8 +192,12 @@ public class AccessoryHolder {
 		return this.item;
 	}
 
-	public BoosterItem getBooster() {
-		return this.data.booster;
+	public List< BoosterItem > getBoosters() {
+		return this.data.boosters.stream().map( booster->booster.item ).toList();
+	}
+
+	public int getBoosterSlotsLeft() {
+		return Math.max( this.item.getBoosterSlotsCount() - this.data.boosters.size(), 0 );
 	}
 
 	public ChatFormatting getBonusFormatting() {
@@ -215,7 +221,7 @@ public class AccessoryHolder {
 	}
 
 	public boolean hasBonusRangeDefined() {
-		return this.data.range.from != null && this.data.range.to != null;
+		return this.data.range != null;
 	}
 
 	public boolean hasMaxBonus() {
@@ -223,11 +229,11 @@ public class AccessoryHolder {
 	}
 
 	public boolean hasBooster( BoosterItem item ) {
-		return this.data.booster == item;
+		return this.data.boosters.stream().anyMatch( booster->booster.item == item );
 	}
 
 	public boolean hasBooster() {
-		return this.data.boosterId != null;
+		return !this.data.boosters.isEmpty();
 	}
 
 	private AccessoryHolder save( Runnable runnable ) {
@@ -244,19 +250,14 @@ public class AccessoryHolder {
 	private static class Data extends Serializable {
 		Float baseBonus = null;
 		Float extraBonus = 0.0f;
-		Range< Float > range = Range.of( null, null );
-		BoosterItem booster = null;
-		ResourceLocation boosterId = null;
+		Range< Float > range = null;
+		List< BoosterDef > boosters = List.of();
 
 		public Data() {
 			this.defineCustom( "Bonus", subconfig->{
 				subconfig.defineFloat( "Value", ()->this.baseBonus, x->this.baseBonus = x );
-				subconfig.defineFloat( "ValueMin", ()->this.range.from, x->this.range.from = x );
-				subconfig.defineFloat( "ValueMax", ()->this.range.to, x->this.range.to = x );
-				subconfig.defineLocation( "Booster", ()->this.boosterId, x->{
-					this.booster = Registries.getItem( x ) instanceof BoosterItem booster ? booster : null;
-					this.boosterId = x;
-				} );
+				subconfig.defineFloatRange( "ValueRange", ()->this.range, x->this.range = x );
+				subconfig.defineCustom( "Boosters", ()->this.boosters, x->this.boosters = x, BoosterDef::new );
 			} );
 		}
 
@@ -264,8 +265,27 @@ public class AccessoryHolder {
 			this();
 
 			this.baseBonus = data.baseBonus;
-			this.range = Range.of( data.range.from, data.range.to );
-			this.boosterId = data.boosterId;
+			this.range = data.range != null ? Range.of( data.range.from, data.range.to ) : null;
+			this.boosters = new ArrayList<>( data.boosters );
+		}
+	}
+
+	private static class BoosterDef extends Serializable {
+		BoosterItem item = null;
+		ResourceLocation id = null;
+
+		public BoosterDef() {
+			this.defineLocation( "Id", ()->this.id, x->{
+				this.item = Registries.getItem( x ) instanceof BoosterItem booster ? booster : null;
+				this.id = x;
+			} );
+		}
+
+		public BoosterDef( BoosterItem item ) {
+			this();
+
+			this.item = item;
+			this.id = Registries.get( item );
 		}
 	}
 }

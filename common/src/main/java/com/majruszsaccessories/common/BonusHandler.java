@@ -3,6 +3,7 @@ package com.majruszsaccessories.common;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.contexts.OnAccessoryTooltip;
+import com.majruszsaccessories.items.BoosterItem;
 import com.mlib.client.ClientHelper;
 import com.mlib.contexts.OnItemDecorationsRendered;
 import com.mlib.contexts.OnTradesInitialized;
@@ -78,6 +79,23 @@ public class BonusHandler< Type extends Item > {
 	}
 
 	protected void addBoosterIcon( OnItemDecorationsRendered data ) {
-		data.gui.renderItem( new ItemStack( MajruszsAccessories.BOOSTER_OVERLAY.get() ), data.x, data.y );
+		ItemStack overlay = BonusHandler.getOverlay( data.itemStack );
+		if( !overlay.isEmpty() ) {
+			data.gui.renderItem( overlay, data.x, data.y );
+		}
+	}
+
+	private static ItemStack getOverlay( ItemStack itemStack ) {
+		if( itemStack.getItem() instanceof BoosterItem ) {
+			return new ItemStack( MajruszsAccessories.BOOSTER_OVERLAY_SINGLE.get() );
+		}
+
+		AccessoryHolder holder = AccessoryHolder.create( itemStack );
+		return switch( holder.getBoosters().size() ) {
+			case 1 -> new ItemStack( MajruszsAccessories.BOOSTER_OVERLAY_SINGLE.get() );
+			case 2 -> new ItemStack( MajruszsAccessories.BOOSTER_OVERLAY_DOUBLE.get() );
+			case 3 -> new ItemStack( MajruszsAccessories.BOOSTER_OVERLAY_TRIPLE.get() );
+			default -> ItemStack.EMPTY;
+		};
 	}
 }

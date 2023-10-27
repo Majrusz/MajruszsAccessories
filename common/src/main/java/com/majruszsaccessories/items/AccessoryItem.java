@@ -5,9 +5,23 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 
+import java.util.function.Supplier;
+
 public class AccessoryItem extends Item {
-	public AccessoryItem() {
+	private final int boosterSlotsCount;
+
+	public static Supplier< AccessoryItem > tier1() {
+		return ()->new AccessoryItem( 1 );
+	}
+
+	public static Supplier< AccessoryItem > tier2() {
+		return ()->new AccessoryItem( 2 );
+	}
+
+	protected AccessoryItem( int boosterSlotsCount ) {
 		super( new Properties().stacksTo( 1 ) );
+
+		this.boosterSlotsCount = boosterSlotsCount;
 	}
 
 	@Override
@@ -18,5 +32,9 @@ public class AccessoryItem extends Item {
 	@Override
 	public Rarity getRarity( ItemStack itemStack ) {
 		return AccessoryHolder.create( itemStack ).getRarity();
+	}
+
+	public int getBoosterSlotsCount() {
+		return this.boosterSlotsCount;
 	}
 }

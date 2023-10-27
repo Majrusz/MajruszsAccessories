@@ -48,27 +48,27 @@ public class MajruszsAccessories {
 	public static final RegistryGroup< ParticleType< ? > > PARTICLES = HELPER.create( BuiltInRegistries.PARTICLE_TYPE );
 
 	// Items (Accessories)
-	public static final RegistryObject< AccessoryItem > ADVENTURER_GUIDE = ITEMS.create( "adventurer_guide", AccessoryItem::new );
-	public static final RegistryObject< AccessoryItem > ANCIENT_SCARAB = ITEMS.create( "ancient_scarab", AccessoryItem::new );
-	public static final RegistryObject< AccessoryItem > ANGLER_TACKLE_BAG = ITEMS.create( "angler_tackle_bag", AccessoryItem::new );
-	public static final RegistryObject< AccessoryItem > ANGLER_TROPHY = ITEMS.create( "angler_trophy", AccessoryItem::new );
-	public static final RegistryObject< AccessoryItem > CERTIFICATE_OF_TAMING = ITEMS.create( "certificate_of_taming", AccessoryItem::new );
-	public static final RegistryObject< AccessoryItem > DISCOUNT_VOUCHER = ITEMS.create( "discount_voucher", AccessoryItem::new );
-	public static final RegistryObject< AccessoryItem > DREAM_CATCHER = ITEMS.create( "dream_catcher", AccessoryItem::new );
-	public static final RegistryObject< AccessoryItem > IDOL_OF_FERTILITY = ITEMS.create( "idol_of_fertility", AccessoryItem::new );
-	public static final RegistryObject< AccessoryItem > LUCKY_ROCK = ITEMS.create( "lucky_rock", AccessoryItem::new );
-	public static final RegistryObject< AccessoryItem > METAL_LURE = ITEMS.create( "metal_lure", AccessoryItem::new );
-	public static final RegistryObject< AccessoryItem > MINER_EMBLEM = ITEMS.create( "miner_emblem", AccessoryItem::new );
-	public static final RegistryObject< AccessoryItem > MINER_GUIDE = ITEMS.create( "miner_guide", AccessoryItem::new );
-	public static final RegistryObject< AccessoryItem > PEACE_EMBLEM = ITEMS.create( "peace_emblem", AccessoryItem::new );
-	public static final RegistryObject< AccessoryItem > PEACE_TREATY = ITEMS.create( "peace_treaty", AccessoryItem::new );
-	public static final RegistryObject< AccessoryItem > SECRET_INGREDIENT = ITEMS.create( "secret_ingredient", AccessoryItem::new );
-	public static final RegistryObject< AccessoryItem > SWIMMER_GUIDE = ITEMS.create( "swimmer_guide", AccessoryItem::new );
-	public static final RegistryObject< AccessoryItem > TAMED_POTATO_BEETLE = ITEMS.create( "tamed_potato_beetle", AccessoryItem::new );
-	public static final RegistryObject< AccessoryItem > TOOL_SCRAPS = ITEMS.create( "tool_scraps", AccessoryItem::new );
-	public static final RegistryObject< AccessoryItem > ULTIMATE_GUIDE = ITEMS.create( "ultimate_guide", AccessoryItem::new );
-	public static final RegistryObject< AccessoryItem > UNBREAKABLE_FISHING_LINE = ITEMS.create( "unbreakable_fishing_line", AccessoryItem::new );
-	public static final RegistryObject< AccessoryItem > WHITE_FLAG = ITEMS.create( "white_flag", AccessoryItem::new );
+	public static final RegistryObject< AccessoryItem > ADVENTURER_GUIDE = ITEMS.create( "adventurer_guide", AccessoryItem.tier1() );
+	public static final RegistryObject< AccessoryItem > ANCIENT_SCARAB = ITEMS.create( "ancient_scarab", AccessoryItem.tier1() );
+	public static final RegistryObject< AccessoryItem > ANGLER_TACKLE_BAG = ITEMS.create( "angler_tackle_bag", AccessoryItem.tier1() );
+	public static final RegistryObject< AccessoryItem > ANGLER_TROPHY = ITEMS.create( "angler_trophy", AccessoryItem.tier1() );
+	public static final RegistryObject< AccessoryItem > CERTIFICATE_OF_TAMING = ITEMS.create( "certificate_of_taming", AccessoryItem.tier1() );
+	public static final RegistryObject< AccessoryItem > DISCOUNT_VOUCHER = ITEMS.create( "discount_voucher", AccessoryItem.tier1() );
+	public static final RegistryObject< AccessoryItem > DREAM_CATCHER = ITEMS.create( "dream_catcher", AccessoryItem.tier1() );
+	public static final RegistryObject< AccessoryItem > IDOL_OF_FERTILITY = ITEMS.create( "idol_of_fertility", AccessoryItem.tier1() );
+	public static final RegistryObject< AccessoryItem > LUCKY_ROCK = ITEMS.create( "lucky_rock", AccessoryItem.tier1() );
+	public static final RegistryObject< AccessoryItem > METAL_LURE = ITEMS.create( "metal_lure", AccessoryItem.tier1() );
+	public static final RegistryObject< AccessoryItem > MINER_EMBLEM = ITEMS.create( "miner_emblem", AccessoryItem.tier2() );
+	public static final RegistryObject< AccessoryItem > MINER_GUIDE = ITEMS.create( "miner_guide", AccessoryItem.tier1() );
+	public static final RegistryObject< AccessoryItem > PEACE_EMBLEM = ITEMS.create( "peace_emblem", AccessoryItem.tier1() );
+	public static final RegistryObject< AccessoryItem > PEACE_TREATY = ITEMS.create( "peace_treaty", AccessoryItem.tier2() );
+	public static final RegistryObject< AccessoryItem > SECRET_INGREDIENT = ITEMS.create( "secret_ingredient", AccessoryItem.tier1() );
+	public static final RegistryObject< AccessoryItem > SWIMMER_GUIDE = ITEMS.create( "swimmer_guide", AccessoryItem.tier1() );
+	public static final RegistryObject< AccessoryItem > TAMED_POTATO_BEETLE = ITEMS.create( "tamed_potato_beetle", AccessoryItem.tier1() );
+	public static final RegistryObject< AccessoryItem > TOOL_SCRAPS = ITEMS.create( "tool_scraps", AccessoryItem.tier1() );
+	public static final RegistryObject< AccessoryItem > ULTIMATE_GUIDE = ITEMS.create( "ultimate_guide", AccessoryItem.tier1() );
+	public static final RegistryObject< AccessoryItem > UNBREAKABLE_FISHING_LINE = ITEMS.create( "unbreakable_fishing_line", AccessoryItem.tier1() );
+	public static final RegistryObject< AccessoryItem > WHITE_FLAG = ITEMS.create( "white_flag", AccessoryItem.tier1() );
 
 	// Items (Boosters)
 	public static final RegistryObject< BoosterItem > DICE = ITEMS.create( "dice", BoosterItem.basic() );
@@ -80,7 +80,9 @@ public class MajruszsAccessories {
 	public static final RegistryObject< BoosterItem > OWL_FEATHER = ITEMS.create( "owl_feather", BoosterItem.basic() );
 
 	// Items (Fake)
-	public static final RegistryObject< BoosterOverlay > BOOSTER_OVERLAY = ITEMS.create( "booster_overlay", BoosterOverlay::new );
+	public static final RegistryObject< BoosterOverlay > BOOSTER_OVERLAY_SINGLE = ITEMS.create( "booster_overlay_single", BoosterOverlay::new );
+	public static final RegistryObject< BoosterOverlay > BOOSTER_OVERLAY_DOUBLE = ITEMS.create( "booster_overlay_double", BoosterOverlay::new );
+	public static final RegistryObject< BoosterOverlay > BOOSTER_OVERLAY_TRIPLE = ITEMS.create( "booster_overlay_triple", BoosterOverlay::new );
 
 	// Recipes
 	public static final RegistryObject< RecipeSerializer< ? > > ACCESSORY_RECIPE = RECIPES.create( "crafting_accessory", AccessoryRecipe.create() );
