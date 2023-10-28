@@ -8,9 +8,9 @@ import com.majruszsaccessories.common.AccessoryHandler;
 import com.mlib.annotation.AutoInstance;
 
 @AutoInstance
-public class AnglerTackleBag extends AccessoryHandler {
-	public AnglerTackleBag() {
-		super( MajruszsAccessories.ANGLER_TACKLE_BAG );
+public class AnglerRune extends AccessoryHandler {
+	public AnglerRune() {
+		super( MajruszsAccessories.ANGLER_RUNE );
 
 		this.add( FishingLuckBonus.create( 3 ) )
 			.add( FishingLureBonus.create( 0.25f ) )
