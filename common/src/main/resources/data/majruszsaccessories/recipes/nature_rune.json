@@ -1,0 +1,9 @@
+{
+  "type": "majruszsaccessories:crafting_accessory",
+  "ingredients": [
+    "majruszsaccessories:certificate_of_taming",
+    "majruszsaccessories:idol_of_fertility",
+    "majruszsaccessories:tamed_potato_beetle"
+  ],
+  "result": "majruszsaccessories:nature_rune"
+}

@@ -62,6 +62,7 @@ public class MajruszsAccessories {
 	public static final RegistryObject< AccessoryItem > METAL_LURE = ITEMS.create( "metal_lure", AccessoryItem.tier1() );
 	public static final RegistryObject< AccessoryItem > MINER_GUIDE = ITEMS.create( "miner_guide", AccessoryItem.tier1() );
 	public static final RegistryObject< AccessoryItem > MINER_RUNE = ITEMS.create( "miner_rune", AccessoryItem.tier2() );
+	public static final RegistryObject< AccessoryItem > NATURE_RUNE = ITEMS.create( "nature_rune", AccessoryItem.tier2() );
 	public static final RegistryObject< AccessoryItem > PEACE_EMBLEM = ITEMS.create( "peace_emblem", AccessoryItem.tier1() );
 	public static final RegistryObject< AccessoryItem > PEACE_TREATY = ITEMS.create( "peace_treaty", AccessoryItem.tier2() );
 	public static final RegistryObject< AccessoryItem > SECRET_INGREDIENT = ITEMS.create( "secret_ingredient", AccessoryItem.tier1() );
