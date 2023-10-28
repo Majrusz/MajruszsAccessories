@@ -19,6 +19,6 @@
   "depends": {
     "fabric": "*",
     "minecraft": ">=${minecraft_version}",
-    "mlib": "${mlib_version_range_fabric}"
+    "mlib": "${fabric_mlib_version_range}"
   }
 }
