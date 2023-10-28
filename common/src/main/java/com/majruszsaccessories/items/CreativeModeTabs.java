@@ -12,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -40,13 +41,18 @@ public class CreativeModeTabs {
 	}
 
 	private static void definePrimaryItems( CreativeModeTab.ItemDisplayParameters params, CreativeModeTab.Output output ) {
+		List< AccessoryItem > accessories = new ArrayList<>();
 		for( Item item : Registries.getItems() ) {
 			if( item instanceof AccessoryItem accessory ) {
-				for( int i = 0; i < 9; ++i ) {
-					float bonus = Mth.lerp( i / 8.0f, MajruszsAccessories.CONFIG.efficiency.range.from, MajruszsAccessories.CONFIG.efficiency.range.to );
+				accessories.add( accessory );
+			}
+		}
+		accessories.sort( Comparator.comparingInt( AccessoryItem::getBoosterSlotsCount ) );
+		for( AccessoryItem accessory : accessories ) {
+			for( int i = 0; i < 9; ++i ) {
+				float bonus = Mth.lerp( i / 8.0f, MajruszsAccessories.CONFIG.efficiency.range.from, MajruszsAccessories.CONFIG.efficiency.range.to );
 
-					output.accept( AccessoryHolder.create( accessory ).setBonus( bonus ).getItemStack() );
-				}
+				output.accept( AccessoryHolder.create( accessory ).setBonus( bonus ).getItemStack() );
 			}
 		}
 
