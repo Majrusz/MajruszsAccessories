@@ -56,6 +56,7 @@ public class MajruszsAccessories {
 	public static final RegistryObject< AccessoryItem > CERTIFICATE_OF_TAMING = ITEMS.create( "certificate_of_taming", AccessoryItem.tier1() );
 	public static final RegistryObject< AccessoryItem > DISCOUNT_VOUCHER = ITEMS.create( "discount_voucher", AccessoryItem.tier1() );
 	public static final RegistryObject< AccessoryItem > DREAM_CATCHER = ITEMS.create( "dream_catcher", AccessoryItem.tier1() );
+	public static final RegistryObject< AccessoryItem > HOUSEHOLD_RUNE = ITEMS.create( "household_rune", AccessoryItem.tier2() );
 	public static final RegistryObject< AccessoryItem > IDOL_OF_FERTILITY = ITEMS.create( "idol_of_fertility", AccessoryItem.tier1() );
 	public static final RegistryObject< AccessoryItem > LUCKY_ROCK = ITEMS.create( "lucky_rock", AccessoryItem.tier1() );
 	public static final RegistryObject< AccessoryItem > METAL_LURE = ITEMS.create( "metal_lure", AccessoryItem.tier1() );
