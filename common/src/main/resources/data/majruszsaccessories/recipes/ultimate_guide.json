@@ -1,9 +1,0 @@
-{
-  "type": "majruszsaccessories:crafting_accessory",
-  "ingredients": [
-    "majruszsaccessories:adventurer_guide",
-    "majruszsaccessories:miner_guide",
-    "majruszsaccessories:swimmer_guide"
-  ],
-  "result": "majruszsaccessories:ultimate_guide"
-}

@@ -1,7 +1,7 @@
 {
   "type": "majruszsaccessories:crafting_accessory",
   "ingredients": [
-    "majruszsaccessories:adventurer_guide",
+    "majruszsaccessories:adventurer_kit",
     "majruszsaccessories:ancient_scarab",
     "majruszsaccessories:swimmer_guide"
   ],

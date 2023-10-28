@@ -63,14 +63,11 @@ public class MajruszsAccessories {
 	public static final RegistryObject< AccessoryItem > MINER_GUIDE = ITEMS.create( "miner_guide", AccessoryItem.tier1() );
 	public static final RegistryObject< AccessoryItem > MINER_RUNE = ITEMS.create( "miner_rune", AccessoryItem.tier2() );
 	public static final RegistryObject< AccessoryItem > NATURE_RUNE = ITEMS.create( "nature_rune", AccessoryItem.tier2() );
-	public static final RegistryObject< AccessoryItem > PEACE_EMBLEM = ITEMS.create( "peace_emblem", AccessoryItem.tier1() );
-	public static final RegistryObject< AccessoryItem > PEACE_TREATY = ITEMS.create( "peace_treaty", AccessoryItem.tier2() );
 	public static final RegistryObject< AccessoryItem > SECRET_INGREDIENT = ITEMS.create( "secret_ingredient", AccessoryItem.tier1() );
 	public static final RegistryObject< AccessoryItem > SWIMMER_GUIDE = ITEMS.create( "swimmer_guide", AccessoryItem.tier1() );
 	public static final RegistryObject< AccessoryItem > TAMED_POTATO_BEETLE = ITEMS.create( "tamed_potato_beetle", AccessoryItem.tier1() );
 	public static final RegistryObject< AccessoryItem > TOOL_SCRAPS = ITEMS.create( "tool_scraps", AccessoryItem.tier1() );
 	public static final RegistryObject< AccessoryItem > UNBREAKABLE_FISHING_LINE = ITEMS.create( "unbreakable_fishing_line", AccessoryItem.tier1() );
-	public static final RegistryObject< AccessoryItem > WHITE_FLAG = ITEMS.create( "white_flag", AccessoryItem.tier1() );
 
 	// Items (Boosters)
 	public static final RegistryObject< BoosterItem > DICE = ITEMS.create( "dice", BoosterItem.basic() );
