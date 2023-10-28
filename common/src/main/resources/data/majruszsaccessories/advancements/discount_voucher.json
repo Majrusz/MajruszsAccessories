@@ -1,14 +1,14 @@
 {
-  "parent": "minecraft:nether/brew_potion",
+  "parent": "minecraft:adventure/trade",
   "display": {
     "icon": {
-      "item": "majruszsaccessories:secret_ingredient"
+      "item": "majruszsaccessories:discount_voucher"
     },
     "title": {
-      "translate": "advancements.majruszsaccessories.secret_ingredient.title"
+      "translate": "advancements.majruszsaccessories.discount_voucher.title"
     },
     "description": {
-      "translate": "advancements.majruszsaccessories.secret_ingredient.description"
+      "translate": "advancements.majruszsaccessories.discount_voucher.description"
     },
     "frame": "goal",
     "show_toast": true,
@@ -25,7 +25,7 @@
         "items": [
           {
             "items": [
-              "majruszsaccessories:secret_ingredient"
+              "majruszsaccessories:discount_voucher"
             ]
           }
         ]

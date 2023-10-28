@@ -1,14 +1,14 @@
 {
-  "parent": "minecraft:nether/brew_potion",
+  "parent": "minecraft:story/mine_stone",
   "display": {
     "icon": {
-      "item": "majruszsaccessories:secret_ingredient"
+      "item": "majruszsaccessories:tool_scraps"
     },
     "title": {
-      "translate": "advancements.majruszsaccessories.secret_ingredient.title"
+      "translate": "advancements.majruszsaccessories.tool_scraps.title"
     },
     "description": {
-      "translate": "advancements.majruszsaccessories.secret_ingredient.description"
+      "translate": "advancements.majruszsaccessories.tool_scraps.description"
     },
     "frame": "goal",
     "show_toast": true,
@@ -25,7 +25,7 @@
         "items": [
           {
             "items": [
-              "majruszsaccessories:secret_ingredient"
+              "majruszsaccessories:tool_scraps"
             ]
           }
         ]

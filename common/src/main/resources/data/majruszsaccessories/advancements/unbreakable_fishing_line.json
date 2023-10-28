@@ -1,14 +1,14 @@
 {
-  "parent": "minecraft:nether/brew_potion",
+  "parent": "minecraft:husbandry/fishy_business",
   "display": {
     "icon": {
-      "item": "majruszsaccessories:secret_ingredient"
+      "item": "majruszsaccessories:unbreakable_fishing_line"
     },
     "title": {
-      "translate": "advancements.majruszsaccessories.secret_ingredient.title"
+      "translate": "advancements.majruszsaccessories.unbreakable_fishing_line.title"
     },
     "description": {
-      "translate": "advancements.majruszsaccessories.secret_ingredient.description"
+      "translate": "advancements.majruszsaccessories.unbreakable_fishing_line.description"
     },
     "frame": "goal",
     "show_toast": true,
@@ -25,7 +25,7 @@
         "items": [
           {
             "items": [
-              "majruszsaccessories:secret_ingredient"
+              "majruszsaccessories:unbreakable_fishing_line"
             ]
           }
         ]

@@ -1,14 +1,14 @@
 {
-  "parent": "minecraft:adventure/root",
+  "parent": "minecraft:adventure/salvage_sherd",
   "display": {
     "icon": {
-      "item": "majruszsaccessories:adventurer_guide"
+      "item": "majruszsaccessories:ancient_scarab"
     },
     "title": {
-      "translate": "advancements.majruszsaccessories.adventurer_guide.title"
+      "translate": "advancements.majruszsaccessories.ancient_scarab.title"
     },
     "description": {
-      "translate": "advancements.majruszsaccessories.adventurer_guide.description"
+      "translate": "advancements.majruszsaccessories.ancient_scarab.description"
     },
     "frame": "goal",
     "show_toast": true,
@@ -25,7 +25,7 @@
         "items": [
           {
             "items": [
-              "majruszsaccessories:adventurer_guide"
+              "majruszsaccessories:ancient_scarab"
             ]
           }
         ]
