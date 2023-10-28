@@ -13,7 +13,6 @@ import com.mlib.contexts.OnBabySpawned;
 import com.mlib.contexts.base.Condition;
 import com.mlib.data.Serializable;
 import com.mlib.math.Range;
-import net.minecraft.world.entity.npc.VillagerProfession;
 
 @AutoInstance
 public class IdolOfFertility extends AccessoryHandler {
@@ -22,7 +21,7 @@ public class IdolOfFertility extends AccessoryHandler {
 
 		this.add( BreedingTwins.create( 0.25f ) )
 			.add( BreedingDropChance.create() )
-			.add( TradeOffer.create( VillagerProfession.BUTCHER, 5 ) );
+			.add( TradeOffer.create( 7 ) );
 	}
 
 	static class BreedingDropChance extends BonusComponent< AccessoryItem > {

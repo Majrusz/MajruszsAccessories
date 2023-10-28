@@ -2,6 +2,7 @@ package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.SwimmingSpeedBonus;
+import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
@@ -21,7 +22,8 @@ public class SwimmerGuide extends AccessoryHandler {
 		super( MajruszsAccessories.SWIMMER_GUIDE );
 
 		this.add( SwimmingSpeedBonus.create( 0.2f ) )
-			.add( UnderwaterChestDropChance.create() );
+			.add( UnderwaterChestDropChance.create() )
+			.add( TradeOffer.create( 7 ) );
 	}
 
 	static class UnderwaterChestDropChance extends BonusComponent< AccessoryItem > {

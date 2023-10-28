@@ -2,6 +2,7 @@ package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.SleepingBonuses;
+import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
@@ -19,7 +20,8 @@ public class DreamCatcher extends AccessoryHandler {
 		super( MajruszsAccessories.DREAM_CATCHER );
 
 		this.add( SleepingBonuses.create( 1, 300 ) )
-			.add( SleepingDropChance.create() );
+			.add( SleepingDropChance.create() )
+			.add( TradeOffer.create( 7 ) );
 	}
 
 	static class SleepingDropChance extends BonusComponent< AccessoryItem > {

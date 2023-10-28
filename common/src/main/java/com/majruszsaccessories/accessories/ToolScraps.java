@@ -2,6 +2,7 @@ package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.MiningDurabilityBonus;
+import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
@@ -20,7 +21,8 @@ public class ToolScraps extends AccessoryHandler {
 		super( MajruszsAccessories.TOOL_SCRAPS );
 
 		this.add( MiningDurabilityBonus.create( 0.1f ) )
-			.add( MiningDropChance.create() );
+			.add( MiningDropChance.create() )
+			.add( TradeOffer.create( 7 ) );
 	}
 
 	static class MiningDropChance extends BonusComponent< AccessoryItem > {

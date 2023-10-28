@@ -4,6 +4,7 @@ import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.BreedingTwins;
 import com.majruszsaccessories.accessories.components.HarvestingDoubleCrops;
 import com.majruszsaccessories.accessories.components.TamingStrongerAnimals;
+import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.mlib.annotation.AutoInstance;
 
@@ -14,6 +15,7 @@ public class NatureRune extends AccessoryHandler {
 
 		this.add( TamingStrongerAnimals.create( 0.24f ) )
 			.add( BreedingTwins.create( 0.3f ) )
-			.add( HarvestingDoubleCrops.create( 0.3f ) );
+			.add( HarvestingDoubleCrops.create( 0.3f ) )
+			.add( TradeOffer.create( 17 ) );
 	}
 }

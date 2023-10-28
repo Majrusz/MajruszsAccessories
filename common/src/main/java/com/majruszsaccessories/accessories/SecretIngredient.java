@@ -14,7 +14,6 @@ import com.mlib.data.Serializable;
 import com.mlib.level.LevelHelper;
 import com.mlib.math.AnyPos;
 import com.mlib.math.Range;
-import net.minecraft.world.entity.npc.VillagerProfession;
 
 @AutoInstance
 public class SecretIngredient extends AccessoryHandler {
@@ -23,7 +22,7 @@ public class SecretIngredient extends AccessoryHandler {
 
 		this.add( StrongerPotions.create( 0.6f, 1 ) )
 			.add( BrewingDropChance.create() )
-			.add( TradeOffer.create( VillagerProfession.CLERIC, 5 ) );
+			.add( TradeOffer.create( 7 ) );
 	}
 
 	static class BrewingDropChance extends BonusComponent< AccessoryItem > {

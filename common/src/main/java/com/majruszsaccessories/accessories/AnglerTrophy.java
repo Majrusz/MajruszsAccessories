@@ -15,7 +15,6 @@ import com.mlib.data.Serializable;
 import com.mlib.math.Range;
 import com.mlib.registry.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.npc.VillagerProfession;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -27,7 +26,7 @@ public class AnglerTrophy extends AccessoryHandler {
 
 		this.add( FishingLuckBonus.create( 3 ) )
 			.add( FishingDropChance.create() )
-			.add( TradeOffer.create( VillagerProfession.FISHERMAN, 5 ) );
+			.add( TradeOffer.create( 7 ) );
 	}
 
 	public static class FishingDropChance extends BonusComponent< AccessoryItem > {

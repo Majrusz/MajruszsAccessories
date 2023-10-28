@@ -12,7 +12,6 @@ import com.mlib.annotation.AutoInstance;
 import com.mlib.contexts.base.Contexts;
 import com.mlib.data.Serializable;
 import com.mlib.math.Range;
-import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.block.Blocks;
 
 @AutoInstance
@@ -22,7 +21,7 @@ public class TamedPotatoBeetle extends AccessoryHandler {
 
 		this.add( HarvestingDoubleCrops.create( 0.25f ) )
 			.add( HarvestingDropChance.create() )
-			.add( TradeOffer.create( VillagerProfession.FARMER, 5 ) );
+			.add( TradeOffer.create( 7 ) );
 	}
 
 	static class HarvestingDropChance extends BonusComponent< AccessoryItem > {

@@ -2,6 +2,7 @@ package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.BrushingExtraItem;
+import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
@@ -24,7 +25,8 @@ public class AncientScarab extends AccessoryHandler {
 		super( MajruszsAccessories.ANCIENT_SCARAB );
 
 		this.add( BrushingExtraItem.create( 0.15f ) )
-			.add( SuspiciousBlocksDropChance.create() );
+			.add( SuspiciousBlocksDropChance.create() )
+			.add( TradeOffer.create( 7 ) );
 	}
 
 	static class SuspiciousBlocksDropChance extends BonusComponent< AccessoryItem > {

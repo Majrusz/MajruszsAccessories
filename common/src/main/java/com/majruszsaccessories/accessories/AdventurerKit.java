@@ -11,7 +11,6 @@ import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.annotation.AutoInstance;
 import com.mlib.data.Serializable;
 import com.mlib.math.Range;
-import net.minecraft.world.entity.npc.VillagerProfession;
 
 @AutoInstance
 public class AdventurerKit extends AccessoryHandler {
@@ -20,7 +19,7 @@ public class AdventurerKit extends AccessoryHandler {
 
 		this.add( MoreChestLoot.create( 1.2f ) )
 			.add( AnyChestDropChance.create() )
-			.add( TradeOffer.create( VillagerProfession.CARTOGRAPHER, 5 ) );
+			.add( TradeOffer.create( 7 ) );
 	}
 
 	static class AnyChestDropChance extends BonusComponent< AccessoryItem > {

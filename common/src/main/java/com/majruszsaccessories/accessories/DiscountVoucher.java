@@ -1,6 +1,7 @@
 package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.MajruszsAccessories;
+import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.accessories.components.TradingDiscount;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
@@ -19,7 +20,8 @@ public class DiscountVoucher extends AccessoryHandler {
 		super( MajruszsAccessories.DISCOUNT_VOUCHER );
 
 		this.add( TradingDiscount.create( 0.12f ) )
-			.add( TradingDropChance.create() );
+			.add( TradingDropChance.create() )
+			.add( TradeOffer.create( 7 ) );
 	}
 
 	static class TradingDropChance extends BonusComponent< AccessoryItem > {

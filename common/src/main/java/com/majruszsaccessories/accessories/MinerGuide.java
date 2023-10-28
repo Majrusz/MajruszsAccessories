@@ -2,6 +2,7 @@ package com.majruszsaccessories.accessories;
 
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.MiningSpeedBonus;
+import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
@@ -18,7 +19,8 @@ public class MinerGuide extends AccessoryHandler {
 		super( MajruszsAccessories.MINER_GUIDE );
 
 		this.add( MiningSpeedBonus.create( 0.1f ) )
-			.add( UndergroundChestDropChance.create() );
+			.add( UndergroundChestDropChance.create() )
+			.add( TradeOffer.create( 7 ) );
 	}
 
 	static class UndergroundChestDropChance extends BonusComponent< AccessoryItem > {

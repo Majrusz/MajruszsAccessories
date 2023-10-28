@@ -11,7 +11,6 @@ import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.annotation.AutoInstance;
 import com.mlib.data.Serializable;
 import com.mlib.math.Range;
-import net.minecraft.world.entity.npc.VillagerProfession;
 
 @AutoInstance
 public class LuckyRock extends AccessoryHandler {
@@ -20,7 +19,7 @@ public class LuckyRock extends AccessoryHandler {
 
 		this.add( MiningExtraItem.create( 0.03f ) )
 			.add( MiningDropChance.create() )
-			.add( TradeOffer.create( VillagerProfession.MASON, 5 ) );
+			.add( TradeOffer.create( 7 ) );
 	}
 
 	static class MiningDropChance extends BonusComponent< AccessoryItem > {

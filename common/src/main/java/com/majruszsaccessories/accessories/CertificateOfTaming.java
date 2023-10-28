@@ -12,7 +12,6 @@ import com.mlib.annotation.AutoInstance;
 import com.mlib.contexts.OnAnimalTamed;
 import com.mlib.data.Serializable;
 import com.mlib.math.Range;
-import net.minecraft.world.entity.npc.VillagerProfession;
 
 @AutoInstance
 public class CertificateOfTaming extends AccessoryHandler {
@@ -21,7 +20,7 @@ public class CertificateOfTaming extends AccessoryHandler {
 
 		this.add( TamingStrongerAnimals.create( 0.2f ) )
 			.add( TamingDropChance.create() )
-			.add( TradeOffer.create( VillagerProfession.SHEPHERD, 5 ) );
+			.add( TradeOffer.create( 7 ) );
 	}
 
 	static class TamingDropChance extends BonusComponent< AccessoryItem > {
