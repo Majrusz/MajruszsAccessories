@@ -8,9 +8,9 @@ import com.majruszsaccessories.common.AccessoryHandler;
 import com.mlib.annotation.AutoInstance;
 
 @AutoInstance
-public class MinerEmblem extends AccessoryHandler {
-	public MinerEmblem() {
-		super( MajruszsAccessories.MINER_EMBLEM );
+public class MinerRune extends AccessoryHandler {
+	public MinerRune() {
+		super( MajruszsAccessories.MINER_RUNE );
 
 		this.add( MiningExtraItem.create( 0.04f ) )
 			.add( MiningSpeedBonus.create( 0.12f ) )
