@@ -18,6 +18,10 @@ public class AccessoryItem extends Item {
 		return ()->new AccessoryItem( 2 );
 	}
 
+	public static Supplier< AccessoryItem > tier3() {
+		return ()->new AccessoryItem( 3 );
+	}
+
 	protected AccessoryItem( int boosterSlotsCount ) {
 		super( new Properties().stacksTo( 1 ) );
 

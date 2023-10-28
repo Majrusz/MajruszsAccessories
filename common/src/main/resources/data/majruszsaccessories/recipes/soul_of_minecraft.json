@@ -1,0 +1,11 @@
+{
+  "type": "majruszsaccessories:crafting_accessory",
+  "ingredients": [
+    "majruszsaccessories:adventurer_rune",
+    "majruszsaccessories:angler_rune",
+    "majruszsaccessories:household_rune",
+    "majruszsaccessories:miner_rune",
+    "majruszsaccessories:nature_rune"
+  ],
+  "result": "majruszsaccessories:soul_of_minecraft"
+}
