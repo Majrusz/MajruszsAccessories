@@ -10,11 +10,19 @@
         },
         {
           "type": "minecraft:item",
-          "name": "majruszsaccessories:owl_feather"
+          "name": "majruszsaccessories:horseshoe"
         },
         {
           "type": "minecraft:item",
-          "name": "majruszsaccessories:horseshoe"
+          "name": "majruszsaccessories:jadeite"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "majruszsaccessories:onyx"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "majruszsaccessories:owl_feather"
         }
       ]
     }
