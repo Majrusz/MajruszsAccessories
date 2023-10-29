@@ -12,7 +12,8 @@ public class UnbreakableFishingLine extends AccessoryHandler {
 		super( MajruszsAccessories.UNBREAKABLE_FISHING_LINE );
 
 		this.add( FishingLureBonus.create( 0.3f ) )
-			.add( AnglerTrophy.FishingDropChance.create() )
+			.add( AnglerTrophy.FishingDropChance.create( 0.005f ) )
+			.add( AnglerTrophy.FishDropChance.create( 0.005f ) )
 			.add( TradeOffer.create( 7 ) );
 	}
 }
