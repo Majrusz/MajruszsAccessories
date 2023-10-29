@@ -13,7 +13,7 @@ public class NatureRune extends AccessoryHandler {
 	public NatureRune() {
 		super( MajruszsAccessories.NATURE_RUNE );
 
-		this.add( TamingStrongerAnimals.create( 0.24f ) )
+		this.add( TamingStrongerAnimals.create( 0.25f ) )
 			.add( BreedingTwins.create( 0.3f ) )
 			.add( HarvestingDoubleCrops.create( 0.3f ) )
 			.add( TradeOffer.create( 17 ) );

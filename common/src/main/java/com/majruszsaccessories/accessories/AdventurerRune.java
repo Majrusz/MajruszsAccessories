@@ -15,7 +15,7 @@ public class AdventurerRune extends AccessoryHandler {
 
 		this.add( MoreChestLoot.create( 1.5f ) )
 			.add( BrushingExtraItem.create( 0.2f ) )
-			.add( SwimmingSpeedBonus.create( 0.24f ) )
+			.add( SwimmingSpeedBonus.create( 0.25f ) )
 			.add( TradeOffer.create( 17 ) );
 	}
 }

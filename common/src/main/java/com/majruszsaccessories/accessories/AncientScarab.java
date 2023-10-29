@@ -24,7 +24,7 @@ public class AncientScarab extends AccessoryHandler {
 	public AncientScarab() {
 		super( MajruszsAccessories.ANCIENT_SCARAB );
 
-		this.add( BrushingExtraItem.create( 0.15f ) )
+		this.add( BrushingExtraItem.create( 0.16f ) )
 			.add( SuspiciousBlocksDropChance.create() )
 			.add( TradeOffer.create( 7 ) );
 	}
