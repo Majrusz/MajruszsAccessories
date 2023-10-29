@@ -36,7 +36,7 @@ public class ToolScraps extends AccessoryHandler {
 			super( handler );
 
 			OnItemDamaged.listen( this::spawnScraps )
-				.priority( Priority.HIGHEST )
+				.priority( Priority.LOWEST )
 				.addCondition( OnItemDamaged::isAboutToBroke )
 				.addCondition( CustomConditions.dropChance( data->this.multiplier * data.itemStack.getMaxDamage(), data->data.player ) );
 
