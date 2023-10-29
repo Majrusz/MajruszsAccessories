@@ -20,5 +20,8 @@
     "fabric": "*",
     "minecraft": ">=${minecraft_version}",
     "mlib": "${fabric_mlib_version_range}"
+  },
+  "custom": {
+    "update": "${mod_update}"
   }
 }
