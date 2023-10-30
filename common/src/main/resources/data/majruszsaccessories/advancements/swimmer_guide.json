@@ -1,0 +1,40 @@
+{
+  "parent": "minecraft:adventure/root",
+  "display": {
+    "icon": {
+      "item": "majruszsaccessories:swimmer_guide"
+    },
+    "title": {
+      "translate": "advancements.majruszsaccessories.swimmer_guide.title"
+    },
+    "description": {
+      "translate": "advancements.majruszsaccessories.swimmer_guide.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "rewards": {
+    "experience": 100
+  },
+  "criteria": {
+    "picked_up_accessory": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "majruszsaccessories:swimmer_guide"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "picked_up_accessory"
+    ]
+  ]
+}

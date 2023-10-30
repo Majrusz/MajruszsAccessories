@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:gift",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "majruszsaccessories:dice"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "majruszsaccessories:horseshoe"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "majruszsaccessories:jadeite"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "majruszsaccessories:onyx"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "majruszsaccessories:owl_feather"
+        }
+      ]
+    }
+  ]
+}

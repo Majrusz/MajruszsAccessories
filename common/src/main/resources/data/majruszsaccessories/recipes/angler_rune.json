@@ -1,0 +1,9 @@
+{
+  "type": "majruszsaccessories:crafting_accessory",
+  "ingredients": [
+    "majruszsaccessories:angler_trophy",
+    "majruszsaccessories:metal_lure",
+    "majruszsaccessories:unbreakable_fishing_line"
+  ],
+  "result": "majruszsaccessories:angler_rune"
+}

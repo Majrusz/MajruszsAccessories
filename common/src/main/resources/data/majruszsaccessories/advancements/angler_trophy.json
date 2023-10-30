@@ -1,0 +1,40 @@
+{
+  "parent": "minecraft:husbandry/fishy_business",
+  "display": {
+    "icon": {
+      "item": "majruszsaccessories:angler_trophy"
+    },
+    "title": {
+      "translate": "advancements.majruszsaccessories.angler_trophy.title"
+    },
+    "description": {
+      "translate": "advancements.majruszsaccessories.angler_trophy.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "rewards": {
+    "experience": 100
+  },
+  "criteria": {
+    "picked_up_accessory": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "majruszsaccessories:angler_trophy"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "picked_up_accessory"
+    ]
+  ]
+}

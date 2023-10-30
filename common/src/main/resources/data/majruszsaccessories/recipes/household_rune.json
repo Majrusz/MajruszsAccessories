@@ -1,0 +1,9 @@
+{
+  "type": "majruszsaccessories:crafting_accessory",
+  "ingredients": [
+    "majruszsaccessories:discount_voucher",
+    "majruszsaccessories:dream_catcher",
+    "majruszsaccessories:secret_ingredient"
+  ],
+  "result": "majruszsaccessories:household_rune"
+}

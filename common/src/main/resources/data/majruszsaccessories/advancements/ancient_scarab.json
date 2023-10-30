@@ -1,0 +1,40 @@
+{
+  "parent": "minecraft:adventure/salvage_sherd",
+  "display": {
+    "icon": {
+      "item": "majruszsaccessories:ancient_scarab"
+    },
+    "title": {
+      "translate": "advancements.majruszsaccessories.ancient_scarab.title"
+    },
+    "description": {
+      "translate": "advancements.majruszsaccessories.ancient_scarab.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "rewards": {
+    "experience": 100
+  },
+  "criteria": {
+    "picked_up_accessory": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "majruszsaccessories:ancient_scarab"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "picked_up_accessory"
+    ]
+  ]
+}
