@@ -48,3 +48,5 @@
 - fixed bug with Adventurer Kit tooltip when holding SHIFT button
 - fixed bug with Golden Horseshoe not applying luck bonus properly
 - fixed bug with efficiency distribution not being calculated properly
+- fixed bug when combining accessories (reported by @R3TR0xSN1P3R, @RECCASTWIN)
+- fixed server crash caused by incompatibility with Kintsugi mod (reported by @GolfinhoVoador)
