@@ -6,7 +6,6 @@ import com.majruszsaccessories.contexts.OnBoosterCompatibilityGet;
 import com.majruszsaccessories.items.BoosterItem;
 import com.mlib.contexts.base.Contexts;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
@@ -24,8 +23,8 @@ public class BoostAccessoriesRecipe extends CustomRecipe {
 		return ()->new SimpleCraftingRecipeSerializer<>( BoostAccessoriesRecipe::new );
 	}
 
-	public BoostAccessoriesRecipe( ResourceLocation id, CraftingBookCategory category ) {
-		super( id, category );
+	public BoostAccessoriesRecipe( CraftingBookCategory category ) {
+		super( category );
 	}
 
 	@Override

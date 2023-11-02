@@ -4,7 +4,6 @@ import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.common.AccessoryHolder;
 import com.mlib.math.Range;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
@@ -20,8 +19,8 @@ public class CombineAccessoriesRecipe extends CustomRecipe {
 		return ()->new SimpleCraftingRecipeSerializer<>( CombineAccessoriesRecipe::new );
 	}
 
-	public CombineAccessoriesRecipe( ResourceLocation id, CraftingBookCategory category ) {
-		super( id, category );
+	public CombineAccessoriesRecipe( CraftingBookCategory category ) {
+		super( category );
 	}
 
 	@Override

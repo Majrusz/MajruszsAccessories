@@ -1,20 +1,22 @@
 package com.majruszsaccessories.recipes;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.math.Range;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
@@ -30,8 +32,12 @@ public class AccessoryRecipe extends CustomRecipe {
 		return Serializer::new;
 	}
 
-	public AccessoryRecipe( ResourceLocation id, AccessoryItem result, List< AccessoryItem > ingredients ) {
-		super( id, CraftingBookCategory.EQUIPMENT );
+	public AccessoryRecipe( Item result, List< Item > ingredients ) {
+		this( ( AccessoryItem )result, ingredients.stream().map( item->( AccessoryItem )item ).toList() );
+	}
+
+	public AccessoryRecipe( AccessoryItem result, List< AccessoryItem > ingredients ) {
+		super( CraftingBookCategory.EQUIPMENT );
 
 		this.result = result;
 		this.ingredients = ingredients;
@@ -65,18 +71,29 @@ public class AccessoryRecipe extends CustomRecipe {
 		return MajruszsAccessories.ACCESSORY_RECIPE.get();
 	}
 
-	public static class Serializer implements RecipeSerializer< AccessoryRecipe > {
-		public AccessoryRecipe fromJson( ResourceLocation id, JsonObject object ) {
-			AccessoryItem result = ( AccessoryItem )GsonHelper.getAsItem( object, "result" );
-			List< AccessoryItem > ingredients = serializeIngredients( GsonHelper.getAsJsonArray( object, "ingredients" ) );
-			if( ingredients.isEmpty() ) {
-				throw new JsonParseException( "No ingredients for accessory recipe" );
-			}
+	public List< Ingredient > asIngredients() {
+		return this.ingredients.stream().map( item->Ingredient.of( new ItemStack( item ) ) ).toList();
+	}
 
-			return new AccessoryRecipe( id, result, ingredients );
+	public static class Serializer implements RecipeSerializer< AccessoryRecipe > {
+		static final Codec< Item > ACCESSORY = BuiltInRegistries.ITEM.byNameCodec();
+		final Codec< AccessoryRecipe > codec;
+
+		public Serializer() {
+			this.codec = RecordCodecBuilder.create( builder->{
+				return builder.group(
+					ACCESSORY.fieldOf( "result" ).forGetter( recipe->recipe.result ),
+					ACCESSORY.listOf().fieldOf( "ingredients" ).forGetter( recipe->recipe.ingredients.stream().map( item->( Item )item ).toList() )
+				).apply( builder, AccessoryRecipe::new );
+			} );
 		}
 
-		public AccessoryRecipe fromNetwork( ResourceLocation id, FriendlyByteBuf buffer ) {
+		@Override
+		public Codec< AccessoryRecipe > codec() {
+			return this.codec;
+		}
+
+		public AccessoryRecipe fromNetwork( FriendlyByteBuf buffer ) {
 			int size = buffer.readVarInt();
 			List< AccessoryItem > ingredients = new ArrayList<>();
 			for( int idx = 0; idx < size; ++idx ) {
@@ -84,7 +101,7 @@ public class AccessoryRecipe extends CustomRecipe {
 			}
 
 			AccessoryItem result = ( AccessoryItem )buffer.readItem().getItem();
-			return new AccessoryRecipe( id, result, ingredients );
+			return new AccessoryRecipe( result, ingredients );
 		}
 
 		public void toNetwork( FriendlyByteBuf buffer, AccessoryRecipe recipe ) {
