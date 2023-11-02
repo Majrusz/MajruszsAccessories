@@ -15,8 +15,12 @@ base {
 
 repositories {
     maven {
-        name = 'CurseMaven'
-        url = 'https://www.cursemaven.com'
+        name = 'CurseForge'
+        url 'https://www.cursemaven.com'
+    }
+    maven {
+        name = 'Modrinth'
+        url = 'https://api.modrinth.com/maven'
     }
     maven {
         name = 'Curios'
@@ -48,12 +52,13 @@ project(':common') {
 }
 
 task copyMods {
-    ['client', 'client2', 'server'].forEach( destination ->
+    ['client', 'client2', 'server'].forEach( destination -> {
+        delete "runs/${destination}/libs/"
         copy {
             from 'libs'
             into "runs/${destination}/libs"
         }
-    )
+    } )
 }
 
 tasks.withType(JavaCompile) {
@@ -148,7 +153,7 @@ modrinth {
     projectId.set(modrinth_project_id)
     changelog.set(changelogText)
     versionNumber.set(mod_version)
-    versionName.set("${mod_archives_name}-forge-${minecraft_version}-${mod_version}")
+    versionName.set("${mod_display_name} ${mod_version}")
     versionType.set('release')
     uploadFile.set(file("build/libs/${mod_archives_name}-forge-${minecraft_version}-${mod_version}.jar"))
     gameVersions.set([minecraft_version])
@@ -165,7 +170,7 @@ task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
     apiToken = System.getenv('CURSEFORGE_TOKEN')
 
     def file = upload(curseforge_project_id, file("build/libs/${mod_archives_name}-forge-${minecraft_version}-${mod_version}.jar"))
-    file.displayName = "${mod_archives_name}-forge-${minecraft_version}-${mod_version}"
+    file.displayName = "${mod_display_name} ${mod_version} (Forge)"
     file.changelog = changelogText
     file.changelogType = 'markdown'
     file.addModLoader('Forge')

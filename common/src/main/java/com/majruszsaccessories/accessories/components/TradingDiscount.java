@@ -9,6 +9,7 @@ import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.contexts.OnTradesUpdated;
 import com.mlib.data.Serializable;
 import com.mlib.math.Range;
+import com.mlib.platform.Side;
 import net.minecraft.world.item.trading.MerchantOffer;
 
 public class TradingDiscount extends BonusComponent< AccessoryItem > {
@@ -39,7 +40,9 @@ public class TradingDiscount extends BonusComponent< AccessoryItem > {
 			float currentDiscount = ( float )offer.getSpecialPriceDiff() / price;
 			offer.addToSpecialPriceDiff( Math.round( -( 1.0f + currentDiscount ) * discount * price ) );
 		}
-		this.spawnEffects( data );
+		if( Side.isLogicalServer() ) {
+			this.spawnEffects( data );
+		}
 	}
 
 	private void spawnEffects( OnTradesUpdated data ) {
