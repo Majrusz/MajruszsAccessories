@@ -51,7 +51,7 @@ public class BreedingTwins extends BonusComponent< AccessoryItem > {
 		CustomConditions.getLastHolder()
 			.getParticleEmitter()
 			.count( 4 )
-			.sizeBased( data.child )
+			.sizeBased( child )
 			.emit( data.getServerLevel() );
 	}
 }
