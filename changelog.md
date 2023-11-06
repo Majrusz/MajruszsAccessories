@@ -1,2 +1,0 @@
-- fixed compatibility crash with Easy Villagers (reported by @Clonephaze)
-- fixed bug with accessory particles being spawned on wrong child when breeding with Idol of Fertility
