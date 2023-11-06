@@ -8,6 +8,7 @@ import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.items.BoosterOverlay;
 import com.majruszsaccessories.items.CreativeModeTabs;
 import com.majruszsaccessories.particles.BonusParticle;
+import com.majruszsaccessories.particles.BonusParticleType;
 import com.majruszsaccessories.recipes.AccessoryRecipe;
 import com.majruszsaccessories.recipes.BoostAccessoriesRecipe;
 import com.majruszsaccessories.recipes.CombineAccessoriesRecipe;
@@ -86,7 +87,7 @@ public class MajruszsAccessories {
 	public static final RegistryObject< RecipeSerializer< ? > > BOOST_ACCESSORIES_RECIPE = RECIPES.create( "crafting_boost_accessories", BoostAccessoriesRecipe.create() );
 
 	// Particles
-	public static final RegistryObject< SimpleParticleType > BONUS_PARTICLE = PARTICLES.create( "bonus_normal", ()->new SimpleParticleType( true ) {} );
+	public static final RegistryObject< BonusParticleType > BONUS_PARTICLE = PARTICLES.create( "bonus_normal", BonusParticleType::new );
 
 	// Creative Mode Tabs
 	public static final RegistryObject< CreativeModeTab > CREATIVE_MODE_TAB = CREATIVE_MODE_TABS.create( "primary", CreativeModeTabs.primary() );
