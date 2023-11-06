@@ -34,10 +34,10 @@ public class CertificateOfTaming extends AccessoryHandler {
 			super( handler );
 
 			OnAnimalTamed.listen( this::spawnCertificate )
-				.addCondition( CustomConditions.dropChance( ()->this.chance, data->data.tamer ) );
+				.addCondition( CustomConditions.dropChance( s->this.chance, data->data.tamer ) );
 
-			Serializable config = handler.getConfig();
-			config.defineFloat( "taming_drop_chance", ()->this.chance, x->this.chance = Range.CHANCE.clamp( x ) );
+			Serializable< ? > config = handler.getConfig();
+			config.defineFloat( "taming_drop_chance", s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
 		}
 
 		private void spawnCertificate( OnAnimalTamed data ) {

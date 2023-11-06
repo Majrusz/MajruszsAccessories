@@ -54,9 +54,9 @@ public class AncientScarab extends AccessoryHandler {
 				.addCondition( data->this.locations.contains( data.lootId ) )
 				.addCondition( data->data.origin != null );
 
-			Serializable config = handler.getConfig();
-			config.defineFloat( "suspicious_block_spawn_chance", ()->this.chance, x->this.chance = Range.CHANCE.clamp( x ) );
-			config.defineLocation( "suspicious_block_ids", ()->this.locations, x->this.locations = x );
+			Serializable< ? > config = handler.getConfig();
+			config.defineFloat( "suspicious_block_spawn_chance", s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
+			config.defineLocationList( "suspicious_block_ids", s->this.locations, ( s, v )->this.locations = v );
 		}
 	}
 }

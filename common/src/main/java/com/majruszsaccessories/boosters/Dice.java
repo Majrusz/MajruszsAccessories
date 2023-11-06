@@ -37,8 +37,8 @@ public class Dice extends BoosterHandler {
 				.addCondition( data->data.lastDamagePlayer != null )
 				.addCondition( data->data.entity instanceof Guardian );
 
-			Serializable config = handler.getConfig();
-			config.defineFloat( "guardian_drop_chance", ()->this.chance, x->this.chance = x );
+			Serializable< ? > config = handler.getConfig();
+			config.defineFloat( "guardian_drop_chance", s->this.chance, ( s, v )->this.chance = v );
 		}
 	}
 }

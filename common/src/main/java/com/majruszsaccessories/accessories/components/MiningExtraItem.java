@@ -26,7 +26,7 @@ import java.util.function.Consumer;
 public class MiningExtraItem extends BonusComponent< AccessoryItem > {
 	RangedFloat chance = new RangedFloat().id( "chance" ).maxRange( Range.CHANCE );
 	Map< String, ResourceLocation > lootIds = DefaultMap.of(
-		DefaultMap.entry( "default", MajruszsAccessories.HELPER.getLocation( "gameplay/lucky_rock_default" ) ),
+		DefaultMap.defaultEntry( MajruszsAccessories.HELPER.getLocation( "gameplay/lucky_rock_default" ) ),
 		DefaultMap.entry( "minecraft:the_nether", MajruszsAccessories.HELPER.getLocation( "gameplay/lucky_rock_nether" ) ),
 		DefaultMap.entry( "minecraft:the_end", MajruszsAccessories.HELPER.getLocation( "gameplay/lucky_rock_end" ) )
 	);
@@ -45,10 +45,10 @@ public class MiningExtraItem extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.extra_stone_loot", TooltipHelper.asPercent( this.chance ) );
 
-		Serializable config = handler.getConfig();
-		config.defineCustom( "extra_mining_item", subconfig->{
+		Serializable< ? > config = handler.getConfig();
+		config.define( "extra_mining_item", subconfig->{
 			this.chance.define( subconfig );
-			subconfig.defineLocation( "loot_ids", ()->this.lootIds, x->this.lootIds = DefaultMap.of( x ) );
+			subconfig.defineLocationMap( "loot_ids", s->this.lootIds, ( s, v )->this.lootIds = DefaultMap.of( v ) );
 		} );
 	}
 

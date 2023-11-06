@@ -31,8 +31,8 @@ public class BreedingTwins extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.spawn_twins", TooltipHelper.asPercent( this.chance ) );
 
-		Serializable config = handler.getConfig();
-		config.defineCustom( "breeding_twins", this.chance::define );
+		Serializable< ? > config = handler.getConfig();
+		config.define( "breeding_twins", this.chance::define );
 	}
 
 	private void spawnTwins( OnBabySpawned data ) {

@@ -3,17 +3,7 @@ package com.majruszsaccessories.accessories;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.*;
 import com.majruszsaccessories.common.AccessoryHandler;
-import com.majruszsaccessories.common.BonusComponent;
-import com.majruszsaccessories.common.BonusHandler;
-import com.majruszsaccessories.contexts.base.CustomConditions;
-import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.annotation.AutoInstance;
-import com.mlib.contexts.OnLootGenerated;
-import com.mlib.contexts.base.Condition;
-import com.mlib.data.Serializable;
-import com.mlib.level.BlockHelper;
-import com.mlib.math.Range;
-import net.minecraft.world.level.material.Fluids;
 
 @AutoInstance
 public class SoulOfMinecraft extends AccessoryHandler {

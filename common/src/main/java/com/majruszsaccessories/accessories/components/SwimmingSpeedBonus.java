@@ -29,8 +29,8 @@ public class SwimmingSpeedBonus extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.swim_bonus", TooltipHelper.asPercent( this.multiplier ) );
 
-		Serializable config = handler.getConfig();
-		config.defineCustom( "swim_speed", this.multiplier::define );
+		Serializable< ? > config = handler.getConfig();
+		config.define( "swim_speed", this.multiplier::define );
 	}
 
 	private void increaseSwimSpeed( OnEntitySwimSpeedMultiplierGet data ) {

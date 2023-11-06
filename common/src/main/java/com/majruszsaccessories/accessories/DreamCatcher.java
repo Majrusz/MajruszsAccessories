@@ -37,10 +37,10 @@ public class DreamCatcher extends AccessoryHandler {
 			OnPlayerWakedUp.listen( this::spawnAccessory )
 				.addCondition( Condition.isLogicalServer() )
 				.addCondition( data->!data.wasSleepStoppedManually )
-				.addCondition( CustomConditions.dropChance( ()->this.chance, data->data.player ) );
+				.addCondition( CustomConditions.dropChance( s->this.chance, data->data.player ) );
 
-			Serializable config = handler.getConfig();
-			config.defineFloat( "sleeping_drop_chance", ()->this.chance, x->this.chance = Range.CHANCE.clamp( x ) );
+			Serializable< ? > config = handler.getConfig();
+			config.defineFloat( "sleeping_drop_chance", s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
 		}
 
 		private void spawnAccessory( OnPlayerWakedUp data ) {

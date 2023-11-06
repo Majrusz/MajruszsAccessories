@@ -31,8 +31,8 @@ public class FishingLureBonus extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.fishing_lure", TooltipHelper.asPercent( this.multiplier ) );
 
-		Serializable config = handler.getConfig();
-		config.defineCustom( "fishing_time", this.multiplier::define );
+		Serializable< ? > config = handler.getConfig();
+		config.define( "fishing_time", this.multiplier::define );
 	}
 
 	private void decreaseFishingTime( OnFishingTimeGet data ) {

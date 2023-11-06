@@ -6,9 +6,9 @@ import com.majruszsaccessories.config.RangedInteger;
 import com.majruszsaccessories.contexts.OnAccessoryExtraBonusGet;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.items.BoosterItem;
+import com.majruszsaccessories.particles.BonusParticleType;
 import com.mlib.contexts.base.Contexts;
-import com.mlib.data.Serializable;
-import com.mlib.data.SerializableHelper;
+import com.mlib.data.Serializables;
 import com.mlib.emitter.ParticleEmitter;
 import com.mlib.math.Random;
 import com.mlib.math.Range;
@@ -100,13 +100,7 @@ public class AccessoryHolder {
 	}
 
 	public static ParticleEmitter getParticleEmitter( float bonus ) {
-		if( bonus >= MajruszsAccessories.CONFIG.efficiency.range.to ) {
-			return ParticleEmitter.of( MajruszsAccessories.BONUS_STRONG_PARTICLE );
-		} else if( bonus >= 0.0f ) {
-			return ParticleEmitter.of( MajruszsAccessories.BONUS_NORMAL_PARTICLE );
-		} else {
-			return ParticleEmitter.of( MajruszsAccessories.BONUS_WEAK_PARTICLE );
-		}
+		return ParticleEmitter.of( new BonusParticleType.Options( AccessoryHolder.getRarity( bonus ).color.getColor() ) );
 	}
 
 	private AccessoryHolder( ItemStack itemStack, Data data ) {
@@ -117,7 +111,7 @@ public class AccessoryHolder {
 	}
 
 	private AccessoryHolder( ItemStack itemStack ) {
-		this( itemStack, itemStack.getTag() != null ? SerializableHelper.read( Data::new, itemStack.getTag() ) : new Data() );
+		this( itemStack, itemStack.getTag() != null ? Serializables.read( new Data(), itemStack.getTag() ) : new Data() );
 	}
 
 	public AccessoryHolder copy() {
@@ -238,7 +232,7 @@ public class AccessoryHolder {
 
 	private AccessoryHolder save( Runnable runnable ) {
 		runnable.run();
-		this.data.write( this.itemStack.getOrCreateTag() );
+		Serializables.write( this.data, this.itemStack.getOrCreateTag() );
 
 		return this;
 	}
@@ -247,45 +241,47 @@ public class AccessoryHolder {
 		return Math.round( 100.0f * value ) / 100.0f;
 	}
 
-	private static class Data extends Serializable {
+	private static class Data {
+		static {
+			Serializables.get( Data.class )
+				.define( "Bonus", subconfig->{
+					subconfig.defineFloat( "Value", s->s.baseBonus, ( s, v )->s.baseBonus = v );
+					subconfig.defineFloatRange( "ValueRange", s->s.range, ( s, v )->s.range = v );
+					subconfig.defineCustomList( "Boosters", s->s.boosters, ( s, v )->s.boosters = v, BoosterDef::new );
+				} );
+		}
+
 		Float baseBonus = null;
 		Float extraBonus = 0.0f;
 		Range< Float > range = null;
 		List< BoosterDef > boosters = List.of();
 
-		public Data() {
-			this.defineCustom( "Bonus", subconfig->{
-				subconfig.defineFloat( "Value", ()->this.baseBonus, x->this.baseBonus = x );
-				subconfig.defineFloatRange( "ValueRange", ()->this.range, x->this.range = x );
-				subconfig.defineCustom( "Boosters", ()->this.boosters, x->this.boosters = x, BoosterDef::new );
-			} );
-		}
-
 		public Data( Data data ) {
-			this();
-
 			this.baseBonus = data.baseBonus;
 			this.range = data.range != null ? Range.of( data.range.from, data.range.to ) : null;
 			this.boosters = new ArrayList<>( data.boosters );
 		}
+
+		public Data() {}
 	}
 
-	private static class BoosterDef extends Serializable {
+	private static class BoosterDef {
+		static {
+			Serializables.get( BoosterDef.class )
+				.defineLocation( "Id", s->s.id, ( s, v )->{
+					s.item = Registries.getItem( v ) instanceof BoosterItem booster ? booster : null;
+					s.id = v;
+				} );
+		}
+
 		BoosterItem item = null;
 		ResourceLocation id = null;
 
-		public BoosterDef() {
-			this.defineLocation( "Id", ()->this.id, x->{
-				this.item = Registries.getItem( x ) instanceof BoosterItem booster ? booster : null;
-				this.id = x;
-			} );
-		}
-
 		public BoosterDef( BoosterItem item ) {
-			this();
-
 			this.item = item;
 			this.id = Registries.get( item );
 		}
+
+		public BoosterDef() {}
 	}
 }

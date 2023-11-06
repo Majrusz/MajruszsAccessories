@@ -36,10 +36,10 @@ public class MinerGuide extends AccessoryHandler {
 			OnLootGenerated.listen( this::addToGeneratedLoot )
 				.addCondition( data->data.origin != null && data.origin.y < 50.0f )
 				.addCondition( data->data.lootId.toString().contains( "chest" ) )
-				.addCondition( CustomConditions.dropChance( ()->this.chance, data->data.entity ) );
+				.addCondition( CustomConditions.dropChance( s->this.chance, data->data.entity ) );
 
-			Serializable config = handler.getConfig();
-			config.defineFloat( "underground_chest_spawn_chance", ()->this.chance, x->this.chance = Range.CHANCE.clamp( x ) );
+			Serializable< ? > config = handler.getConfig();
+			config.defineFloat( "underground_chest_spawn_chance", s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
 		}
 	}
 }

@@ -40,8 +40,8 @@ public class ToolScraps extends AccessoryHandler {
 				.addCondition( OnItemDamaged::isAboutToBroke )
 				.addCondition( CustomConditions.dropChance( data->this.multiplier * data.itemStack.getMaxDamage(), data->data.player ) );
 
-			Serializable config = handler.getConfig();
-			config.defineFloat( "durability_drop_chance_multiplier", ()->this.multiplier, x->this.multiplier = Range.CHANCE.clamp( x ) );
+			Serializable< ? > config = handler.getConfig();
+			config.defineFloat( "durability_drop_chance_multiplier", s->this.multiplier, ( s, v )->this.multiplier = Range.CHANCE.clamp( v ) );
 		}
 
 		private void spawnScraps( OnItemDamaged data ) {

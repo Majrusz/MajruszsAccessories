@@ -1,6 +1,6 @@
 package com.majruszsaccessories.common;
 
-import com.majruszsaccessories.MajruszsAccessories;
+import com.majruszsaccessories.config.Config;
 import com.majruszsaccessories.contexts.OnAccessoryTooltip;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.mlib.contexts.OnItemDecorationsRendered;
@@ -11,7 +11,7 @@ import net.minecraft.ChatFormatting;
 
 public class AccessoryHandler extends BonusHandler< AccessoryItem > {
 	public AccessoryHandler( RegistryObject< AccessoryItem > item ) {
-		super( item, MajruszsAccessories.CONFIG.accessories, item.getId() );
+		super( item, Config.Accessories.class, item.getId() );
 
 		OnAccessoryTooltip.listen( this::addTooltip )
 			.addCondition( data->data.holder.getItem().equals( this.getItem() ) );

@@ -16,11 +16,13 @@ import com.mlib.contexts.OnPlayerTicked;
 import com.mlib.contexts.base.Condition;
 import com.mlib.contexts.base.Context;
 import com.mlib.data.Serializable;
+import com.mlib.data.Serializables;
 import com.mlib.emitter.ParticleEmitter;
 import com.mlib.level.BlockHelper;
 import com.mlib.level.LevelHelper;
 import com.mlib.math.Random;
 import com.mlib.math.Range;
+import com.mlib.platform.Side;
 import com.mlib.text.TextHelper;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
@@ -49,8 +51,8 @@ public class MoreChestLoot extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.more_chest_loot", this.getPerPercentInfo(), this.getPercentInfo(), this.getCurrentInfo() );
 
-		Serializable config = handler.getConfig();
-		config.defineCustom( "chest_size_bonus", this.sizeMultiplier::define );
+		Serializable< ? > config = handler.getConfig();
+		config.define( "chest_size_bonus", this.sizeMultiplier::define );
 	}
 
 	private void addExtraLoot( OnLootGenerated data ) {
@@ -110,24 +112,28 @@ public class MoreChestLoot extends BonusComponent< AccessoryItem > {
 		}
 	}
 
-	public static class BonusInfo extends Serializable {
+	public static class BonusInfo {
+		static {
+			Serializables.get( BonusInfo.class )
+				.defineFloat( "bonus", s->s.bonus, ( s, v )->s.bonus = v );
+
+			Side.runOnClient( ()->()->MajruszsAccessories.MORE_CHEST_LOOT.addClientCallback( BonusInfo::onClient ) );
+		}
+
 		static float CURRENT_BONUS = 0.0f;
 		float bonus;
 
 		public BonusInfo( float bonus ) {
 			this.bonus = bonus;
-
-			this.defineFloat( "bonus", ()->this.bonus, x->this.bonus = x );
 		}
 
 		public BonusInfo() {
 			this( 0.0f );
 		}
 
-		@Override
 		@OnlyIn( Dist.CLIENT )
-		public void onClient() {
-			CURRENT_BONUS = this.bonus;
+		private static void onClient( BonusInfo data ) {
+			CURRENT_BONUS = data.bonus;
 		}
 	}
 

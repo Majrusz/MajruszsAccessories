@@ -36,10 +36,10 @@ public class SecretIngredient extends AccessoryHandler {
 			super( handler );
 
 			OnItemBrewed.listen( this::spawnAccessory )
-				.addCondition( CustomConditions.dropChance( ()->this.chance, data->LevelHelper.getNearestPlayer( data.getLevel(), data.blockPos, 30.0f ) ) );
+				.addCondition( CustomConditions.dropChance( s->this.chance, data->LevelHelper.getNearestPlayer( data.getLevel(), data.blockPos, 30.0f ) ) );
 
-			Serializable config = handler.getConfig();
-			config.defineFloat( "brewing_drop_chance", ()->this.chance, x->this.chance = Range.CHANCE.clamp( x ) );
+			Serializable< ? > config = handler.getConfig();
+			config.defineFloat( "brewing_drop_chance", s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
 		}
 
 		private void spawnAccessory( OnItemBrewed data ) {

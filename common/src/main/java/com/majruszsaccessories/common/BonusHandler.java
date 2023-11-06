@@ -6,6 +6,7 @@ import com.majruszsaccessories.items.BoosterItem;
 import com.mlib.client.ClientHelper;
 import com.mlib.contexts.OnItemDecorationsRendered;
 import com.mlib.data.Serializable;
+import com.mlib.data.Serializables;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -18,15 +19,16 @@ import java.util.function.Supplier;
 public class BonusHandler< Type extends Item > {
 	protected final List< BonusComponent< Type > > components = new ArrayList<>();
 	protected final Supplier< Type > item;
-	protected final Serializable config;
+	protected final Serializable< ? > config;
 	protected final String id;
 
-	public BonusHandler( Supplier< Type > item, Serializable config, String id ) {
+	public BonusHandler( Supplier< Type > item, Class< ? > config, String id ) {
 		this.item = item;
-		this.config = new Serializable();
+		this.config = new Serializable<>();
 		this.id = id;
 
-		config.defineCustom( id, ()->this.config );
+		Serializables.get( config )
+			.defineCustom( id, ()->this.config );
 	}
 
 	public BonusHandler< Type > add( BonusComponent.ISupplier< Type > supplier ) {
@@ -43,7 +45,7 @@ public class BonusHandler< Type extends Item > {
 		return this.item.get();
 	}
 
-	public Serializable getConfig() {
+	public Serializable< ? > getConfig() {
 		return this.config;
 	}
 

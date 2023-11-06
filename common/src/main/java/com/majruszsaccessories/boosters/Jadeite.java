@@ -37,8 +37,8 @@ public class Jadeite extends BoosterHandler {
 				.addCondition( data->data.lastDamagePlayer != null )
 				.addCondition( data->data.entity instanceof ElderGuardian );
 
-			Serializable config = handler.getConfig();
-			config.defineFloat( "elder_guardian_drop_chance", ()->this.chance, x->this.chance = x );
+			Serializable< ? > config = handler.getConfig();
+			config.defineFloat( "elder_guardian_drop_chance", s->this.chance, ( s, v )->this.chance = v );
 		}
 	}
 }
