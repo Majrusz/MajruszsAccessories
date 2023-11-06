@@ -29,8 +29,8 @@ public class TradingDiscount extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.trading_discount", TooltipHelper.asPercent( this.multiplier ) );
 
-		Serializable config = handler.getConfig();
-		config.defineCustom( "trading_discount", this.multiplier::define );
+		Serializable< ? > config = handler.getConfig();
+		config.define( "trading_discount", this.multiplier::define );
 	}
 
 	private void decreasePrices( OnTradesUpdated data ) {

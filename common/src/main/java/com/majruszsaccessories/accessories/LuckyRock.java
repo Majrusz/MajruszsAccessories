@@ -33,10 +33,10 @@ public class LuckyRock extends AccessoryHandler {
 			super( handler );
 
 			MiningExtraItem.OnStoneMined.listen( this::addToGeneratedLoot )
-				.addCondition( CustomConditions.dropChance( ()->this.chance, data->data.entity ) );
+				.addCondition( CustomConditions.dropChance( s->this.chance, data->data.entity ) );
 
-			Serializable config = handler.getConfig();
-			config.defineFloat( "mining_drop_chance", ()->this.chance, x->this.chance = Range.CHANCE.clamp( x ) );
+			Serializable< ? > config = handler.getConfig();
+			config.defineFloat( "mining_drop_chance", s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
 		}
 	}
 }

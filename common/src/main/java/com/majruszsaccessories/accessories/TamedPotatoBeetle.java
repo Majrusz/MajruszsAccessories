@@ -45,10 +45,10 @@ public class TamedPotatoBeetle extends AccessoryHandler {
 					return Contexts.dispatch( new OnAccessoryDropChanceGet( chance, data.entity ) ).check();
 				} );
 
-			Serializable config = handler.getConfig();
-			config.defineCustom( "harvesting_drop", subconfig->{
-				subconfig.defineFloat( "chance", ()->this.chance, x->this.chance = Range.CHANCE.clamp( x ) );
-				subconfig.defineFloat( "potato_multiplier", ()->this.potatoMultiplier, x->this.potatoMultiplier = Range.of( 1.0f, 10.0f ).clamp( x ) );
+			Serializable< ? > config = handler.getConfig();
+			config.define( "harvesting_drop", subconfig->{
+				subconfig.defineFloat( "chance", s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
+				subconfig.defineFloat( "potato_multiplier", s->this.potatoMultiplier, ( s, v )->this.potatoMultiplier = Range.of( 1.0f, 10.0f ).clamp( v ) );
 			} );
 		}
 	}

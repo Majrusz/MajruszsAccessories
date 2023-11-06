@@ -35,8 +35,8 @@ public class BrushingExtraItem extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.extra_archaeology_item", TooltipHelper.asPercent( this.chance ) );
 
-		Serializable config = handler.getConfig();
-		config.defineCustom( "extra_archaeology_item", this.chance::define );
+		Serializable< ? > config = handler.getConfig();
+		config.define( "extra_archaeology_item", this.chance::define );
 	}
 
 	private void addExtraLoot( OnItemBrushed data ) {

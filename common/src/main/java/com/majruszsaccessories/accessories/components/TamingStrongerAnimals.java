@@ -41,8 +41,8 @@ public class TamingStrongerAnimals extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.animal_attributes", TooltipHelper.asPercent( this.bonus ) );
 
-		Serializable config = handler.getConfig();
-		config.defineCustom( "animal_bonus", this.bonus::define );
+		Serializable< ? > config = handler.getConfig();
+		config.define( "animal_bonus", this.bonus::define );
 	}
 
 	private void applyBonuses( OnAnimalTamed data ) {

@@ -45,8 +45,8 @@ public class FishingLuckBonus extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.fishing_luck", TooltipHelper.asValue( this.luck ) );
 
-		Serializable config = handler.getConfig();
-		config.defineCustom( "fishing_luck", this.luck::define );
+		Serializable< ? > config = handler.getConfig();
+		config.define( "fishing_luck", this.luck::define );
 	}
 
 	private void updateLuck( OnPlayerTicked data ) {

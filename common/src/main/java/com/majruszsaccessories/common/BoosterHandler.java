@@ -1,6 +1,6 @@
 package com.majruszsaccessories.common;
 
-import com.majruszsaccessories.MajruszsAccessories;
+import com.majruszsaccessories.config.Config;
 import com.majruszsaccessories.contexts.OnAccessoryTooltip;
 import com.majruszsaccessories.contexts.OnBoosterTooltip;
 import com.majruszsaccessories.items.BoosterItem;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class BoosterHandler extends BonusHandler< BoosterItem > {
 	public BoosterHandler( RegistryObject< BoosterItem > item ) {
-		super( item, MajruszsAccessories.CONFIG.boosters, item.getId() );
+		super( item, Config.Boosters.class, item.getId() );
 
 		OnAccessoryTooltip.listen( this::addTooltip )
 			.addCondition( data->data.holder.hasBooster( this.getItem() ) );

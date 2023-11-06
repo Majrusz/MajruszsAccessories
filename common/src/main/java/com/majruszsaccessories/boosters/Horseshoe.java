@@ -38,8 +38,8 @@ public class Horseshoe extends BoosterHandler {
 				.addCondition( data->data.lastDamagePlayer != null )
 				.addCondition( data->data.entity instanceof Skeleton skeleton && skeleton.getRootVehicle() instanceof SkeletonHorse );
 
-			Serializable config = handler.getConfig();
-			config.defineFloat( "skeleton_horseman_drop_chance", ()->this.chance, x->this.chance = x );
+			Serializable< ? > config = handler.getConfig();
+			config.defineFloat( "skeleton_horseman_drop_chance", s->this.chance, ( s, v )->this.chance = v );
 		}
 	}
 }

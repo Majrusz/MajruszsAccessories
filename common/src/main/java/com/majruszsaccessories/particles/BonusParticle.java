@@ -13,7 +13,7 @@ import net.minecraft.client.particle.SpriteSet;
 public class BonusParticle extends CustomParticle {
 	private final SpriteSet spriteSet;
 
-	public BonusParticle( ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, SpriteSet spriteSet, int color ) {
+	public BonusParticle( ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, SpriteSet spriteSet ) {
 		super( level, x, y, z, xSpeed, ySpeed, zSpeed );
 
 		this.spriteSet = spriteSet;
@@ -27,8 +27,12 @@ public class BonusParticle extends CustomParticle {
 		this.age = 0;
 		this.scaleFormula = lifetime->0.5f;
 
-		float colorRatio = Random.nextFloat( 0.8f, 1.0f );
 		this.setSpriteFromAge( this.spriteSet );
+	}
+
+	public void update( BonusParticleType.Options options ) {
+		int color = options.color;
+		float colorRatio = Random.nextFloat( 0.8f, 1.0f );
 		this.setColor( ( color >> 16 & 0xff ) / 255.0f * colorRatio, ( color >> 8 & 0xff ) / 255.0f * colorRatio, ( color & 0xff ) / 255.0f * colorRatio );
 	}
 
@@ -48,11 +52,9 @@ public class BonusParticle extends CustomParticle {
 	}
 
 	@OnlyIn( Dist.CLIENT )
-	public static class Factory extends SimpleFactory {
-		public Factory( SpriteSet sprite, int color ) {
-			super( sprite, ( ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, SpriteSet spriteSet )->{
-				return new BonusParticle( level, x, y, z, xSpeed, ySpeed, zSpeed, spriteSet, color );
-			} );
+	public static class Factory extends CustomParticle.Factory< BonusParticle, BonusParticleType.Options > {
+		public Factory( SpriteSet sprite ) {
+			super( sprite, BonusParticle::new, BonusParticle::update );
 		}
 	}
 }

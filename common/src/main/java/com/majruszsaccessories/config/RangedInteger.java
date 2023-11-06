@@ -26,10 +26,10 @@ public class RangedInteger {
 		this.range = range;
 	}
 
-	public void define( Serializable serializable ) {
-		serializable.defineInteger( this.id, ()->this.value, x->this.value = this.range.clamp( x ) );
+	public void define( Serializable< ? > serializable ) {
+		serializable.defineInteger( this.id, s->this.value, ( s, v )->this.value = this.range.clamp( v ) );
 		if( this.maxRange != null ) {
-			serializable.defineIntegerRange( "%s_range".formatted( this.id ), ()->this.range, x->this.range = this.maxRange.clamp( x ) );
+			serializable.defineIntegerRange( "%s_range".formatted( this.id ), s->this.range, ( s, v )->this.range = this.maxRange.clamp( v ) );
 		}
 	}
 

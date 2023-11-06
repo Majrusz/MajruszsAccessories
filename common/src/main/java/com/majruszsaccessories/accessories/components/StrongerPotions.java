@@ -10,6 +10,7 @@ import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.contexts.OnItemBrewed;
 import com.mlib.data.Serializable;
+import com.mlib.data.Serializables;
 import com.mlib.level.LevelHelper;
 import com.mlib.math.AnyPos;
 import com.mlib.math.Range;
@@ -41,8 +42,8 @@ public class StrongerPotions extends BonusComponent< AccessoryItem > {
 		this.addTooltip( "majruszsaccessories.bonuses.potion_amplifier", TooltipHelper.asValue( this.amplifier ) );
 		this.addTooltip( "majruszsaccessories.bonuses.potion_duration", TooltipHelper.asPercent( this.durationPenalty ).bonusMultiplier( -1.0f ) );
 
-		Serializable config = handler.getConfig();
-		config.defineCustom( "stronger_potion", subconfig->{
+		Serializable< ? > config = handler.getConfig();
+		config.define( "stronger_potion", subconfig->{
 			this.durationPenalty.define( subconfig );
 			this.amplifier.define( subconfig );
 		} );
@@ -62,7 +63,7 @@ public class StrongerPotions extends BonusComponent< AccessoryItem > {
 					}
 
 					ItemStack potion = new ItemStack( Items.POTION );
-					new Data().write( potion.getOrCreateTag() );
+					Serializables.write( new Data(), potion.getOrCreateTag() );
 
 					return PotionUtils.setCustomEffects( potion, PotionUtils.getMobEffects( itemStack )
 						.stream()
@@ -83,11 +84,14 @@ public class StrongerPotions extends BonusComponent< AccessoryItem > {
 			.emit( data.getServerLevel() );
 	}
 
-	private static class Data extends Serializable {
-		private String name = "{\"translate\":\"majruszsaccessories.bonuses.potion_name\",\"italic\":false}";
-
-		public Data() {
-			this.defineCustom( "display", config->config.defineString( "Name", ()->this.name, x->this.name = x ) );
+	private static class Data {
+		static {
+			Serializables.get( Data.class )
+				.define( "display", config->{
+					config.defineString( "Name", s->s.name, ( s, v )->s.name = v );
+				} );
 		}
+
+		private String name = "{\"translate\":\"majruszsaccessories.bonuses.potion_name\",\"italic\":false}";
 	}
 }

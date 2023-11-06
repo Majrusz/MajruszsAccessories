@@ -29,8 +29,8 @@ public class TradeOffer extends BonusComponent< AccessoryItem > {
 
 		this.price = price;
 
-		Serializable config = handler.getConfig();
-		config.defineInteger( "trade_price", ()->this.price, x->this.price = Range.of( 1, 32 ).clamp( x ) );
+		Serializable< ? > config = handler.getConfig();
+		config.defineInteger( "trade_price", s->this.price, ( s, v )->this.price = Range.of( 1, 32 ).clamp( v ) );
 
 		OFFERS.add( this );
 	}

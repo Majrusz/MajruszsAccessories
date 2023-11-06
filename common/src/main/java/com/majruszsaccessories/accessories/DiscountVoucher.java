@@ -35,10 +35,10 @@ public class DiscountVoucher extends AccessoryHandler {
 			super( handler );
 
 			OnItemTraded.listen( this::spawnAccessory )
-				.addCondition( CustomConditions.dropChance( ()->this.chance, data->data.player ) );
+				.addCondition( CustomConditions.dropChance( s->this.chance, data->data.player ) );
 
-			Serializable config = handler.getConfig();
-			config.defineFloat( "trading_drop_chance", ()->this.chance, x->this.chance = Range.CHANCE.clamp( x ) );
+			Serializable< ? > config = handler.getConfig();
+			config.defineFloat( "trading_drop_chance", s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
 		}
 
 		private void spawnAccessory( OnItemTraded data ) {

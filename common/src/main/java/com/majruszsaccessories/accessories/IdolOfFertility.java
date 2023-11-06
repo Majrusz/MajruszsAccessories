@@ -37,10 +37,10 @@ public class IdolOfFertility extends AccessoryHandler {
 			OnBabySpawned.listen( this::spawnTotem )
 				.addCondition( Condition.isLogicalServer() )
 				.addCondition( Condition.predicate( data->data.player != null ) )
-				.addCondition( CustomConditions.dropChance( ()->this.chance, data->data.player ) );
+				.addCondition( CustomConditions.dropChance( s->this.chance, data->data.player ) );
 
-			Serializable config = handler.getConfig();
-			config.defineFloat( "breeding_drop_chance", ()->this.chance, x->this.chance = Range.CHANCE.clamp( x ) );
+			Serializable< ? > config = handler.getConfig();
+			config.defineFloat( "breeding_drop_chance", s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
 		}
 
 		private void spawnTotem( OnBabySpawned data ) {

@@ -34,8 +34,8 @@ public class MiningSpeedBonus extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.mine_bonus", TooltipHelper.asPercent( this.speedMultiplier ) );
 
-		Serializable config = handler.getConfig();
-		config.defineCustom( "mining_speed_bonus", this.speedMultiplier::define );
+		Serializable< ? > config = handler.getConfig();
+		config.define( "mining_speed_bonus", this.speedMultiplier::define );
 	}
 
 	private void increaseMineSpeed( OnBreakSpeedGet data ) {

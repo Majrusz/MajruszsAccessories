@@ -34,8 +34,8 @@ public class HarvestingDoubleCrops extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.double_crops", TooltipHelper.asPercent( this.chance ) );
 
-		Serializable config = handler.getConfig();
-		config.defineCustom( "double_crops", this.chance::define );
+		Serializable< ? > config = handler.getConfig();
+		config.define( "double_crops", this.chance::define );
 	}
 
 	private void doubleLoot( OnLootGenerated data ) {

@@ -42,10 +42,10 @@ public class AnglerTrophy extends AccessoryHandler {
 			this.fishingChance = chance;
 
 			OnItemFished.listen( this::onFished )
-				.addCondition( CustomConditions.dropChance( ()->this.fishingChance, data->data.player ) );
+				.addCondition( CustomConditions.dropChance( s->this.fishingChance, data->data.player ) );
 
-			Serializable config = handler.getConfig();
-			config.defineFloat( "fishing_drop_chance", ()->this.fishingChance, x->this.fishingChance = Range.CHANCE.clamp( x ) );
+			Serializable< ? > config = handler.getConfig();
+			config.defineFloat( "fishing_drop_chance", s->this.fishingChance, ( s, v )->this.fishingChance = Range.CHANCE.clamp( v ) );
 		}
 
 		private void onFished( OnItemFished data ) {
@@ -74,11 +74,11 @@ public class AnglerTrophy extends AccessoryHandler {
 			OnLootGenerated.listen( this::addToGeneratedLoot )
 				.addCondition( data->data.entity != null )
 				.addCondition( data->this.lootIds.contains( Registries.get( data.entity.getType() ) ) )
-				.addCondition( CustomConditions.dropChance( ()->this.fishChance, data->data.killer ) );
+				.addCondition( CustomConditions.dropChance( s->this.fishChance, data->data.killer ) );
 
-			Serializable config = handler.getConfig();
-			config.defineFloat( "fish_drop_chance", ()->this.fishChance, x->this.fishChance = Range.CHANCE.clamp( x ) );
-			config.defineLocation( "fish_ids", ()->this.lootIds, x->this.lootIds = x );
+			Serializable< ? > config = handler.getConfig();
+			config.defineFloat( "fish_drop_chance", s->this.fishChance, ( s, v )->this.fishChance = Range.CHANCE.clamp( v ) );
+			config.defineLocationList( "fish_ids", s->this.lootIds, ( s, v )->this.lootIds = v );
 		}
 	}
 }

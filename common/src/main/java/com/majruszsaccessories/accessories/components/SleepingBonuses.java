@@ -10,6 +10,7 @@ import com.majruszsaccessories.tooltip.TooltipHelper;
 import com.mlib.contexts.OnPlayerWakedUp;
 import com.mlib.contexts.base.Condition;
 import com.mlib.data.Serializable;
+import com.mlib.data.Serializables;
 import com.mlib.math.Random;
 import com.mlib.math.Range;
 import com.mlib.time.TimeHelper;
@@ -49,11 +50,11 @@ public class SleepingBonuses extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.sleep_bonuses", TooltipHelper.asValue( this.count ), TooltipHelper.asValue( this.duration ) );
 
-		Serializable config = handler.getConfig();
-		config.defineCustom( "sleep_bonuses", subconfig->{
+		Serializable< ? > config = handler.getConfig();
+		config.define( "sleep_bonuses", subconfig->{
 			this.count.define( subconfig );
 			this.duration.define( subconfig );
-			subconfig.defineCustom( "effects", ()->this.effects, x->this.effects = x, EffectDef::new );
+			subconfig.defineCustomList( "effects", s->this.effects, ( s, v )->this.effects = v, EffectDef::new );
 		} );
 	}
 
@@ -84,20 +85,21 @@ public class SleepingBonuses extends BonusComponent< AccessoryItem > {
 			.emit( data.getServerLevel() );
 	}
 
-	private static class EffectDef extends Serializable {
+	private static class EffectDef {
+		static {
+			Serializables.get( EffectDef.class )
+				.defineEffect( "id", s->s.effect, ( s, v )->s.effect = v )
+				.defineInteger( "amplifier", s->s.amplifier, ( s, v )->s.amplifier = v );
+		}
+
 		private MobEffect effect;
 		private int amplifier;
 
-		public EffectDef() {
-			this.defineEffect( "id", ()->this.effect, x->this.effect = x );
-			this.defineInteger( "amplifier", ()->this.amplifier, x->this.amplifier = x );
-		}
-
 		public EffectDef( MobEffect effect, int amplifier ) {
-			this();
-
 			this.effect = effect;
 			this.amplifier = amplifier;
 		}
+
+		public EffectDef() {}
 	}
 }

@@ -36,8 +36,8 @@ public class FishingExtraItems extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.extra_fishing_items", TooltipHelper.asPercent( this.chance ), TooltipHelper.asValue( this.count ) );
 
-		Serializable config = handler.getConfig();
-		config.defineCustom( "extra_fishing_item", subconfig->{
+		Serializable< ? > config = handler.getConfig();
+		config.define( "extra_fishing_item", subconfig->{
 			this.chance.define( subconfig );
 			this.count.define( subconfig );
 		} );

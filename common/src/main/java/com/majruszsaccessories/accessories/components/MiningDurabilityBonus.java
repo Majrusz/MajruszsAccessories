@@ -27,8 +27,8 @@ public class MiningDurabilityBonus extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.free_durability_cost", TooltipHelper.asPercent( this.chance ) );
 
-		Serializable config = handler.getConfig();
-		config.defineCustom( "mining_free_durability_use", this.chance::define );
+		Serializable< ? > config = handler.getConfig();
+		config.define( "mining_free_durability_use", this.chance::define );
 	}
 
 	private void decreaseDurabilityCost( OnItemDamaged data ) {

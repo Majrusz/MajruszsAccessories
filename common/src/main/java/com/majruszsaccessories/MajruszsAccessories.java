@@ -8,6 +8,7 @@ import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.items.BoosterOverlay;
 import com.majruszsaccessories.items.CreativeModeTabs;
 import com.majruszsaccessories.particles.BonusParticle;
+import com.majruszsaccessories.particles.BonusParticleType;
 import com.majruszsaccessories.recipes.AccessoryRecipe;
 import com.majruszsaccessories.recipes.BoostAccessoriesRecipe;
 import com.majruszsaccessories.recipes.CombineAccessoriesRecipe;
@@ -28,11 +29,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-
-import java.util.List;
-import java.util.function.Supplier;
 
 public class MajruszsAccessories {
 	public static final String MOD_ID = "majruszsaccessories";
@@ -90,9 +87,7 @@ public class MajruszsAccessories {
 	public static final RegistryObject< RecipeSerializer< ? > > BOOST_ACCESSORIES_RECIPE = RECIPES.create( "crafting_boost_accessories", BoostAccessoriesRecipe.create() );
 
 	// Particles
-	public static final RegistryObject< SimpleParticleType > BONUS_WEAK_PARTICLE = PARTICLES.create( "bonus_weak", ()->new SimpleParticleType( true ) {} );
-	public static final RegistryObject< SimpleParticleType > BONUS_NORMAL_PARTICLE = PARTICLES.create( "bonus_normal", ()->new SimpleParticleType( true ) {} );
-	public static final RegistryObject< SimpleParticleType > BONUS_STRONG_PARTICLE = PARTICLES.create( "bonus_strong", ()->new SimpleParticleType( true ) {} );
+	public static final RegistryObject< BonusParticleType > BONUS_PARTICLE = PARTICLES.create( "bonus_normal", BonusParticleType::new );
 
 	// Creative Mode Tabs
 	public static final RegistryObject< CreativeModeTab > CREATIVE_MODE_TAB = CREATIVE_MODE_TABS.create( "primary", CreativeModeTabs.primary() );
@@ -111,9 +106,7 @@ public class MajruszsAccessories {
 	}
 
 	private static void setDefaultEmitters( OnGameInitialized data ) {
-		for( Supplier< SimpleParticleType > particle : List.of( BONUS_WEAK_PARTICLE, BONUS_NORMAL_PARTICLE, BONUS_STRONG_PARTICLE ) ) {
-			ParticleEmitter.setDefault( particle.get(), new ParticleEmitter.Properties( ParticleEmitter.offset( 0.25f ), ()->Random.nextSign() * Random.nextFloat( 0.005f, 0.001f ) ) );
-		}
+		ParticleEmitter.setDefault( BONUS_PARTICLE.get(), new ParticleEmitter.Properties( ParticleEmitter.offset( 0.25f ), ()->Random.nextSign() * Random.nextFloat( 0.005f, 0.001f ) ) );
 	}
 
 	private MajruszsAccessories() {}
@@ -121,9 +114,7 @@ public class MajruszsAccessories {
 	@OnlyIn( Dist.CLIENT )
 	public static class Client {
 		static {
-			OnParticlesRegistered.listen( data->data.register( BONUS_WEAK_PARTICLE.get(), spriteSet->new BonusParticle.Factory( spriteSet, Rarity.UNCOMMON.color.getColor() ) ) );
-			OnParticlesRegistered.listen( data->data.register( BONUS_NORMAL_PARTICLE.get(), spriteSet->new BonusParticle.Factory( spriteSet, Rarity.RARE.color.getColor() ) ) );
-			OnParticlesRegistered.listen( data->data.register( BONUS_STRONG_PARTICLE.get(), spriteSet->new BonusParticle.Factory( spriteSet, Rarity.EPIC.color.getColor() ) ) );
+			OnParticlesRegistered.listen( data->data.register( BONUS_PARTICLE.get(), BonusParticle.Factory::new ) );
 		}
 	}
 }
