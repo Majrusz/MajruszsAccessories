@@ -15,16 +15,15 @@ import com.majruszsaccessories.recipes.CombineAccessoriesRecipe;
 import com.mlib.annotation.Dist;
 import com.mlib.annotation.OnlyIn;
 import com.mlib.contexts.OnGameInitialized;
-import com.mlib.contexts.OnParticlesRegistered;
 import com.mlib.emitter.ParticleEmitter;
 import com.mlib.math.Random;
 import com.mlib.modhelper.ModHelper;
 import com.mlib.network.NetworkObject;
 import com.mlib.platform.Services;
+import com.mlib.registry.Custom;
 import com.mlib.registry.RegistryGroup;
 import com.mlib.registry.RegistryObject;
 import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -114,7 +113,9 @@ public class MajruszsAccessories {
 	@OnlyIn( Dist.CLIENT )
 	public static class Client {
 		static {
-			OnParticlesRegistered.listen( data->data.register( BONUS_PARTICLE.get(), BonusParticle.Factory::new ) );
+			HELPER.create( Custom.Particles.class, particles->{
+				particles.register( BONUS_PARTICLE.get(), BonusParticle.Factory::new );
+			} );
 		}
 	}
 }

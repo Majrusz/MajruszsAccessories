@@ -18,7 +18,6 @@ import com.mlib.contexts.base.Context;
 import com.mlib.data.Serializable;
 import com.mlib.data.Serializables;
 import com.mlib.emitter.ParticleEmitter;
-import com.mlib.level.BlockHelper;
 import com.mlib.level.LevelHelper;
 import com.mlib.math.Random;
 import com.mlib.math.Range;
@@ -26,9 +25,7 @@ import com.mlib.platform.Side;
 import com.mlib.text.TextHelper;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -47,7 +44,7 @@ public class MoreChestLoot extends BonusComponent< AccessoryItem > {
 		this.sizeMultiplier.set( sizeMultiplier, Range.of( 0.0f, 10.0f ) );
 
 		OnChestOpened.listen( this::addExtraLoot )
-			.addCondition( CustomConditions.hasAccessory( this::getItem, data->( LivingEntity )data.entity ) );
+			.addCondition( CustomConditions.hasAccessory( this::getItem, data->OnChestOpened.findPlayer( data ).orElse( null ) ) );
 
 		this.addTooltip( "majruszsaccessories.bonuses.more_chest_loot", this.getPerPercentInfo(), this.getPercentInfo(), this.getCurrentInfo() );
 
@@ -56,7 +53,7 @@ public class MoreChestLoot extends BonusComponent< AccessoryItem > {
 	}
 
 	private void addExtraLoot( OnLootGenerated data ) {
-		ServerPlayer player = ( ServerPlayer )data.entity;
+		ServerPlayer player = OnChestOpened.findPlayer( data ).orElseThrow();
 		float sizeMultiplier = 1.0f + CustomConditions.getLastHolder().apply( this.sizeMultiplier ) * MoreChestLoot.getDistanceBonus( player );
 		boolean hasIncreasedLoot = false;
 		for( ItemStack itemStack : data.generatedLoot ) {
@@ -102,13 +99,19 @@ public class MoreChestLoot extends BonusComponent< AccessoryItem > {
 		public static Context< OnLootGenerated > listen( Consumer< OnLootGenerated > consumer ) {
 			return OnLootGenerated.listen( consumer )
 				.addCondition( Condition.isLogicalServer() )
-				.addCondition( Condition.hasLevel() )
-				.addCondition( data->data.origin != null )
-				.addCondition( data->data.entity instanceof ServerPlayer )
-				.addCondition( data->{
-					return BlockHelper.getEntity( data.getLevel(), data.origin ) instanceof RandomizableContainerBlockEntity
-						|| data.lootId.toString().contains( "chest" );
-				} );
+				.addCondition( data->data.lootId.toString().contains( "chests/" ) );
+		}
+
+		public static Optional< ServerPlayer > findPlayer( OnLootGenerated data ) {
+			if( data.entity instanceof ServerPlayer player ) {
+				return Optional.of( player );
+			}
+
+			if( data.origin != null && data.level.getNearestPlayer( data.origin.x, data.origin.y, data.origin.z, 5.0f, true ) instanceof ServerPlayer player ) {
+				return Optional.of( player );
+			}
+
+			return Optional.empty();
 		}
 	}
 
