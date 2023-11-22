@@ -33,7 +33,7 @@ public class AdventurerKit extends AccessoryHandler {
 			super( handler );
 
 			MoreChestLoot.OnChestOpened.listen( this::addToGeneratedLoot )
-				.addCondition( CustomConditions.dropChance( ()->this.chance, data->data.entity ) );
+				.addCondition( CustomConditions.dropChance( ()->this.chance, data->MoreChestLoot.OnChestOpened.findPlayer( data ).orElse( null ) ) );
 
 			Serializable< ? > config = handler.getConfig();
 			config.defineFloat( "any_chest_spawn_chance", s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
