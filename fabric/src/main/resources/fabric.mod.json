@@ -18,7 +18,7 @@
   },
   "depends": {
     "fabric": "*",
-    "minecraft": ">=${minecraft_version}",
+    "minecraft": "${fabric_minecraft_version_range}",
     "mlib": "${fabric_mlib_version_range}"
   },
   "custom": {
