@@ -1,8 +1,8 @@
 package com.majruszsaccessories.contexts;
 
+import com.majruszlibrary.events.base.Event;
+import com.majruszlibrary.events.base.Events;
 import com.majruszsaccessories.items.BoosterItem;
-import com.mlib.contexts.base.Context;
-import com.mlib.contexts.base.Contexts;
 
 import java.util.function.Consumer;
 
@@ -11,8 +11,8 @@ public class OnBoosterCompatibilityGet {
 	public final BoosterItem b;
 	private boolean areIncompatible;
 
-	public static Context< OnBoosterCompatibilityGet > listen( Consumer< OnBoosterCompatibilityGet > consumer ) {
-		return Contexts.get( OnBoosterCompatibilityGet.class ).add( consumer );
+	public static Event< OnBoosterCompatibilityGet > listen( Consumer< OnBoosterCompatibilityGet > consumer ) {
+		return Events.get( OnBoosterCompatibilityGet.class ).add( consumer );
 	}
 
 	public OnBoosterCompatibilityGet( BoosterItem a, BoosterItem b ) {

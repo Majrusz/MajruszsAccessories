@@ -1,15 +1,14 @@
 package com.majruszsaccessories.accessories.components;
 
+import com.majruszlibrary.events.OnBabySpawned;
+import com.majruszlibrary.events.base.Condition;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
-import com.mlib.contexts.OnBabySpawned;
-import com.mlib.contexts.base.Condition;
-import com.mlib.data.Serializable;
-import com.mlib.math.Range;
 import net.minecraft.world.entity.AgeableMob;
 
 public class BreedingTwins extends BonusComponent< AccessoryItem > {
@@ -31,8 +30,8 @@ public class BreedingTwins extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.spawn_twins", TooltipHelper.asPercent( this.chance ) );
 
-		Serializable< ? > config = handler.getConfig();
-		config.define( "breeding_twins", this.chance::define );
+		handler.getConfig()
+			.define( "breeding_twins", this.chance::define );
 	}
 
 	private void spawnTwins( OnBabySpawned data ) {

@@ -1,5 +1,9 @@
 package com.majruszsaccessories.accessories;
 
+import com.majruszlibrary.annotation.AutoInstance;
+import com.majruszlibrary.data.Reader;
+import com.majruszlibrary.events.OnAnimalTamed;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.TamingStrongerAnimals;
 import com.majruszsaccessories.accessories.components.TradeOffer;
@@ -8,15 +12,11 @@ import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
-import com.mlib.annotation.AutoInstance;
-import com.mlib.contexts.OnAnimalTamed;
-import com.mlib.data.Serializable;
-import com.mlib.math.Range;
 
 @AutoInstance
 public class CertificateOfTaming extends AccessoryHandler {
 	public CertificateOfTaming() {
-		super( MajruszsAccessories.CERTIFICATE_OF_TAMING );
+		super( MajruszsAccessories.CERTIFICATE_OF_TAMING, CertificateOfTaming.class );
 
 		this.add( TamingStrongerAnimals.create( 0.2f ) )
 			.add( TamingDropChance.create() )
@@ -36,8 +36,8 @@ public class CertificateOfTaming extends AccessoryHandler {
 			OnAnimalTamed.listen( this::spawnCertificate )
 				.addCondition( CustomConditions.dropChance( s->this.chance, data->data.tamer ) );
 
-			Serializable< ? > config = handler.getConfig();
-			config.defineFloat( "taming_drop_chance", s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
+			handler.getConfig()
+				.define( "taming_drop_chance", Reader.number(), s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
 		}
 
 		private void spawnCertificate( OnAnimalTamed data ) {

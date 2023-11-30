@@ -1,12 +1,12 @@
 package com.majruszsaccessories.common;
 
+import com.majruszlibrary.client.ClientHelper;
+import com.majruszlibrary.data.SerializableClass;
+import com.majruszlibrary.data.Serializables;
+import com.majruszlibrary.events.OnItemDecorationsRendered;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.contexts.OnAccessoryTooltip;
 import com.majruszsaccessories.items.BoosterItem;
-import com.mlib.client.ClientHelper;
-import com.mlib.contexts.OnItemDecorationsRendered;
-import com.mlib.data.Serializable;
-import com.mlib.data.Serializables;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -19,16 +19,13 @@ import java.util.function.Supplier;
 public class BonusHandler< Type extends Item > {
 	protected final List< BonusComponent< Type > > components = new ArrayList<>();
 	protected final Supplier< Type > item;
-	protected final Serializable< ? > config;
+	protected final Class< ? > clazz;
 	protected final String id;
 
-	public BonusHandler( Supplier< Type > item, Class< ? > config, String id ) {
+	public BonusHandler( Supplier< Type > item, Class< ? > clazz, String id ) {
 		this.item = item;
-		this.config = new Serializable<>();
+		this.clazz = clazz;
 		this.id = id;
-
-		Serializables.get( config )
-			.defineCustom( id, ()->this.config );
 	}
 
 	public BonusHandler< Type > add( BonusComponent.ISupplier< Type > supplier ) {
@@ -45,8 +42,8 @@ public class BonusHandler< Type extends Item > {
 		return this.item.get();
 	}
 
-	public Serializable< ? > getConfig() {
-		return this.config;
+	public SerializableClass< ? > getConfig() {
+		return Serializables.getStatic( this.clazz );
 	}
 
 	public String getId() {

@@ -41,8 +41,8 @@ project(':common') {
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
 
         filter {
-            String line ->  line.replaceAll('com.mlib.annotation.Dist', 'net.minecraftforge.api.distmarker.Dist')
-                    .replaceAll('com.mlib.annotation.OnlyIn', 'net.minecraftforge.api.distmarker.OnlyIn')
+            String line ->  line.replaceAll('com.majruszlibrary.annotation.Dist', 'net.minecraftforge.api.distmarker.Dist')
+                    .replaceAll('com.majruszlibrary.annotation.OnlyIn', 'net.minecraftforge.api.distmarker.OnlyIn')
         }
     }
 
@@ -111,7 +111,7 @@ java {
 dependencies {
     minecraft "net.minecraftforge:forge:${forge_version}"
     compileOnly project(':common')
-    implementation fg.deobf("com.mlib:majrusz-library-forge:${mlib_version}")
+    implementation fg.deobf("com.majruszlibrary:majrusz-library-forge:${majruszlibrary_version}")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${forge_curios_version}")
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${forge_curios_version}:api")
 

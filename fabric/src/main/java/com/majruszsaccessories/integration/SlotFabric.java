@@ -1,6 +1,6 @@
 package com.majruszsaccessories.integration;
 
-import com.mlib.platform.Integration;
+import com.majruszlibrary.platform.Integration;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.util.Tuple;

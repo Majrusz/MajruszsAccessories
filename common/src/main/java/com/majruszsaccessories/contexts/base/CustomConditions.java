@@ -1,13 +1,13 @@
 package com.majruszsaccessories.contexts.base;
 
+import com.majruszlibrary.events.base.Condition;
+import com.majruszlibrary.events.base.Events;
+import com.majruszlibrary.math.Random;
+import com.majruszlibrary.platform.LogicalSafe;
 import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.contexts.OnAccessoryDropChanceGet;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.items.BoosterItem;
-import com.mlib.contexts.base.Condition;
-import com.mlib.contexts.base.Contexts;
-import com.mlib.math.Random;
-import com.mlib.platform.LogicalSafe;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -37,7 +37,7 @@ public class CustomConditions {
 	}
 
 	public static < DataType > Condition< DataType > dropChance( Function< DataType, Float > chance, Function< DataType, Entity > entity ) {
-		return Condition.predicate( data->Contexts.dispatch( new OnAccessoryDropChanceGet( chance.apply( data ), entity.apply( data ) ) ).check() );
+		return Condition.predicate( data->Events.dispatch( new OnAccessoryDropChanceGet( chance.apply( data ), entity.apply( data ) ) ).check() );
 	}
 
 	public static < DataType > Condition< DataType > dropChance( Supplier< Float > chance, Function< DataType, Entity > entity ) {

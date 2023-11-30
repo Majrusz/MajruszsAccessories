@@ -1,14 +1,13 @@
 package com.majruszsaccessories.accessories.components;
 
+import com.majruszlibrary.events.OnItemDamaged;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
-import com.mlib.contexts.OnItemDamaged;
-import com.mlib.data.Serializable;
-import com.mlib.math.Range;
 
 public class MiningDurabilityBonus extends BonusComponent< AccessoryItem > {
 	RangedFloat chance = new RangedFloat().id( "chance" ).maxRange( Range.CHANCE );
@@ -27,8 +26,8 @@ public class MiningDurabilityBonus extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.free_durability_cost", TooltipHelper.asPercent( this.chance ) );
 
-		Serializable< ? > config = handler.getConfig();
-		config.define( "mining_free_durability_use", this.chance::define );
+		handler.getConfig()
+			.define( "mining_free_durability_use", this.chance::define );
 	}
 
 	private void decreaseDurabilityCost( OnItemDamaged data ) {

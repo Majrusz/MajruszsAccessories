@@ -3,10 +3,11 @@ package com.majruszsaccessories.recipes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.common.AccessoryHolder;
+import com.majruszsaccessories.config.Config;
 import com.majruszsaccessories.items.AccessoryItem;
-import com.mlib.math.Range;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -49,8 +50,8 @@ public class AccessoryRecipe extends CustomRecipe {
 		RecipeData data = RecipeData.build( container );
 		float average = data.getAverageBonus();
 		float std = data.getStandardDeviation();
-		float minBonus = MajruszsAccessories.CONFIG.efficiency.range.clamp( average - std );
-		float maxBonus = MajruszsAccessories.CONFIG.efficiency.range.clamp( average + std );
+		float minBonus = Config.Efficiency.RANGE.clamp( average - std );
+		float maxBonus = Config.Efficiency.RANGE.clamp( average + std );
 
 		return AccessoryHolder.create( this.result ).setBonus( Range.of( minBonus, maxBonus ) ).getItemStack();
 	}

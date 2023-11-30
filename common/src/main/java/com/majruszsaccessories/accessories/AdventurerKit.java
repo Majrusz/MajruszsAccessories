@@ -1,5 +1,8 @@
 package com.majruszsaccessories.accessories;
 
+import com.majruszlibrary.annotation.AutoInstance;
+import com.majruszlibrary.data.Reader;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.MoreChestLoot;
 import com.majruszsaccessories.accessories.components.TradeOffer;
@@ -8,14 +11,11 @@ import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
-import com.mlib.annotation.AutoInstance;
-import com.mlib.data.Serializable;
-import com.mlib.math.Range;
 
 @AutoInstance
 public class AdventurerKit extends AccessoryHandler {
 	public AdventurerKit() {
-		super( MajruszsAccessories.ADVENTURER_KIT );
+		super( MajruszsAccessories.ADVENTURER_KIT, AdventurerKit.class );
 
 		this.add( MoreChestLoot.create( 1.2f ) )
 			.add( AnyChestDropChance.create() )
@@ -35,8 +35,8 @@ public class AdventurerKit extends AccessoryHandler {
 			MoreChestLoot.OnChestOpened.listen( this::addToGeneratedLoot )
 				.addCondition( CustomConditions.dropChance( ()->this.chance, data->MoreChestLoot.OnChestOpened.findPlayer( data ).orElse( null ) ) );
 
-			Serializable< ? > config = handler.getConfig();
-			config.defineFloat( "any_chest_spawn_chance", s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
+			handler.getConfig()
+				.define( "any_chest_spawn_chance", Reader.number(), s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
 		}
 	}
 }

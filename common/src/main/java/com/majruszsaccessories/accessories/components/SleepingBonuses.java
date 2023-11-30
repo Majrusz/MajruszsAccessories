@@ -1,5 +1,12 @@
 package com.majruszsaccessories.accessories.components;
 
+import com.majruszlibrary.data.Reader;
+import com.majruszlibrary.data.Serializables;
+import com.majruszlibrary.events.OnPlayerWakedUp;
+import com.majruszlibrary.events.base.Condition;
+import com.majruszlibrary.math.Random;
+import com.majruszlibrary.math.Range;
+import com.majruszlibrary.time.TimeHelper;
 import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
@@ -7,13 +14,6 @@ import com.majruszsaccessories.config.RangedInteger;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
-import com.mlib.contexts.OnPlayerWakedUp;
-import com.mlib.contexts.base.Condition;
-import com.mlib.data.Serializable;
-import com.mlib.data.Serializables;
-import com.mlib.math.Random;
-import com.mlib.math.Range;
-import com.mlib.time.TimeHelper;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -50,12 +50,12 @@ public class SleepingBonuses extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.sleep_bonuses", TooltipHelper.asValue( this.count ), TooltipHelper.asValue( this.duration ) );
 
-		Serializable< ? > config = handler.getConfig();
-		config.define( "sleep_bonuses", subconfig->{
-			this.count.define( subconfig );
-			this.duration.define( subconfig );
-			subconfig.defineCustomList( "effects", s->this.effects, ( s, v )->this.effects = v, EffectDef::new );
-		} );
+		handler.getConfig()
+			.define( "sleep_bonuses", subconfig->{
+				this.count.define( subconfig );
+				this.duration.define( subconfig );
+				subconfig.define( "effects", Reader.list( Reader.custom( EffectDef::new ) ), s->this.effects, ( s, v )->this.effects = v );
+			} );
 	}
 
 	private void applyBonuses( OnPlayerWakedUp data ) {
@@ -88,8 +88,8 @@ public class SleepingBonuses extends BonusComponent< AccessoryItem > {
 	private static class EffectDef {
 		static {
 			Serializables.get( EffectDef.class )
-				.defineEffect( "id", s->s.effect, ( s, v )->s.effect = v )
-				.defineInteger( "amplifier", s->s.amplifier, ( s, v )->s.amplifier = v );
+				.define( "id", Reader.mobEffect(), s->s.effect, ( s, v )->s.effect = v )
+				.define( "amplifier", Reader.integer(), s->s.amplifier, ( s, v )->s.amplifier = v );
 		}
 
 		private MobEffect effect;

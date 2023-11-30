@@ -1,8 +1,8 @@
 package com.majruszsaccessories.contexts;
 
-import com.mlib.contexts.base.Context;
-import com.mlib.contexts.base.Contexts;
-import com.mlib.math.Random;
+import com.majruszlibrary.events.base.Event;
+import com.majruszlibrary.events.base.Events;
+import com.majruszlibrary.math.Random;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -15,8 +15,8 @@ public class OnAccessoryDropChanceGet {
 	public float chance;
 	public final @Nullable Player player;
 
-	public static Context< OnAccessoryDropChanceGet > listen( Consumer< OnAccessoryDropChanceGet > consumer ) {
-		return Contexts.get( OnAccessoryDropChanceGet.class ).add( consumer );
+	public static Event< OnAccessoryDropChanceGet > listen( Consumer< OnAccessoryDropChanceGet > consumer ) {
+		return Events.get( OnAccessoryDropChanceGet.class ).add( consumer );
 	}
 
 	public OnAccessoryDropChanceGet( float chance, @Nullable Entity entity ) {

@@ -1,16 +1,15 @@
 package com.majruszsaccessories.accessories.components;
 
+import com.majruszlibrary.entity.AttributeHandler;
+import com.majruszlibrary.events.OnAnimalTamed;
+import com.majruszlibrary.events.base.Condition;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
-import com.mlib.contexts.OnAnimalTamed;
-import com.mlib.contexts.base.Condition;
-import com.mlib.data.Serializable;
-import com.mlib.entity.AttributeHandler;
-import com.mlib.math.Range;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.horse.Horse;
@@ -41,8 +40,8 @@ public class TamingStrongerAnimals extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.animal_attributes", TooltipHelper.asPercent( this.bonus ) );
 
-		Serializable< ? > config = handler.getConfig();
-		config.define( "animal_bonus", this.bonus::define );
+		handler.getConfig()
+			.define( "animal_bonus", this.bonus::define );
 	}
 
 	private void applyBonuses( OnAnimalTamed data ) {

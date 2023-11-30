@@ -1,21 +1,22 @@
 package com.majruszsaccessories.boosters;
 
+import com.majruszlibrary.annotation.AutoInstance;
+import com.majruszlibrary.data.Reader;
+import com.majruszlibrary.events.OnLootGenerated;
+import com.majruszlibrary.events.base.Condition;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.boosters.components.EfficiencyBonus;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.common.BoosterHandler;
 import com.majruszsaccessories.items.BoosterItem;
-import com.mlib.annotation.AutoInstance;
-import com.mlib.contexts.OnLootGenerated;
-import com.mlib.contexts.base.Condition;
-import com.mlib.data.Serializable;
 import net.minecraft.world.entity.monster.warden.Warden;
 
 @AutoInstance
 public class Onyx extends BoosterHandler {
 	public Onyx() {
-		super( MajruszsAccessories.ONYX );
+		super( MajruszsAccessories.ONYX, Onyx.class );
 
 		this.add( EfficiencyBonus.create( 0.09f ) )
 			.add( WardenDropChance.create() );
@@ -37,8 +38,8 @@ public class Onyx extends BoosterHandler {
 				.addCondition( data->data.lastDamagePlayer != null )
 				.addCondition( data->data.entity instanceof Warden );
 
-			Serializable< ? > config = handler.getConfig();
-			config.defineFloat( "warden_drop_chance", s->this.chance, ( s, v )->this.chance = v );
+			handler.getConfig()
+				.define( "warden_drop_chance", Reader.number(), s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
 		}
 	}
 }

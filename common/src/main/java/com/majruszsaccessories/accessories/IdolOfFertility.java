@@ -1,5 +1,10 @@
 package com.majruszsaccessories.accessories;
 
+import com.majruszlibrary.annotation.AutoInstance;
+import com.majruszlibrary.data.Reader;
+import com.majruszlibrary.events.OnBabySpawned;
+import com.majruszlibrary.events.base.Condition;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.BreedingTwins;
 import com.majruszsaccessories.accessories.components.TradeOffer;
@@ -8,16 +13,11 @@ import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
-import com.mlib.annotation.AutoInstance;
-import com.mlib.contexts.OnBabySpawned;
-import com.mlib.contexts.base.Condition;
-import com.mlib.data.Serializable;
-import com.mlib.math.Range;
 
 @AutoInstance
 public class IdolOfFertility extends AccessoryHandler {
 	public IdolOfFertility() {
-		super( MajruszsAccessories.IDOL_OF_FERTILITY );
+		super( MajruszsAccessories.IDOL_OF_FERTILITY, IdolOfFertility.class );
 
 		this.add( BreedingTwins.create( 0.25f ) )
 			.add( BreedingDropChance.create() )
@@ -39,8 +39,8 @@ public class IdolOfFertility extends AccessoryHandler {
 				.addCondition( Condition.predicate( data->data.player != null ) )
 				.addCondition( CustomConditions.dropChance( s->this.chance, data->data.player ) );
 
-			Serializable< ? > config = handler.getConfig();
-			config.defineFloat( "breeding_drop_chance", s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
+			handler.getConfig()
+				.define( "breeding_drop_chance", Reader.number(), s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
 		}
 
 		private void spawnTotem( OnBabySpawned data ) {

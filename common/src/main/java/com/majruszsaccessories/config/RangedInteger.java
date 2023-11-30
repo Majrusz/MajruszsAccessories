@@ -1,7 +1,8 @@
 package com.majruszsaccessories.config;
 
-import com.mlib.data.Serializable;
-import com.mlib.math.Range;
+import com.majruszlibrary.data.Reader;
+import com.majruszlibrary.data.SerializableObject;
+import com.majruszlibrary.math.Range;
 
 public class RangedInteger {
 	private Integer value;
@@ -26,10 +27,10 @@ public class RangedInteger {
 		this.range = range;
 	}
 
-	public void define( Serializable< ? > serializable ) {
-		serializable.defineInteger( this.id, s->this.value, ( s, v )->this.value = this.range.clamp( v ) );
+	public void define( SerializableObject< ? > serializable ) {
+		serializable.define( this.id, Reader.integer(), s->this.value, ( s, v )->this.value = this.range.clamp( v ) );
 		if( this.maxRange != null ) {
-			serializable.defineIntegerRange( "%s_range".formatted( this.id ), s->this.range, ( s, v )->this.range = this.maxRange.clamp( v ) );
+			serializable.define( "%s_range".formatted( this.id ), Reader.range( Reader.integer() ), s->this.range, ( s, v )->this.range = this.maxRange.clamp( v ) );
 		}
 	}
 

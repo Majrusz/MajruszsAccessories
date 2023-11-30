@@ -1,8 +1,9 @@
 package com.majruszsaccessories.recipes;
 
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.common.AccessoryHolder;
-import com.mlib.math.Range;
+import com.majruszsaccessories.config.Config;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -30,7 +31,7 @@ public class CombineAccessoriesRecipe extends CustomRecipe {
 
 		return data.getAccessoriesSize() > 1
 			&& data.hasIdenticalItemTypes()
-			&& data.getMaxBonus() < MajruszsAccessories.CONFIG.efficiency.range.to
+			&& data.getMaxBonus() < Config.Efficiency.RANGE.to
 			&& data.getBoostersSize() == 0;
 	}
 
@@ -38,8 +39,8 @@ public class CombineAccessoriesRecipe extends CustomRecipe {
 	public ItemStack assemble( CraftingContainer container, RegistryAccess registryAccess ) {
 		RecipeData data = RecipeData.build( container );
 		float craftingMaxBonus = data.getMaxBonus();
-		float minBonus = MajruszsAccessories.CONFIG.efficiency.range.clamp( craftingMaxBonus - 0.02f * ( data.getAccessoriesSize() - 1 ) );
-		float maxBonus = MajruszsAccessories.CONFIG.efficiency.range.clamp( craftingMaxBonus + 0.07f * ( data.getAccessoriesSize() - 1 ) );
+		float minBonus = Config.Efficiency.RANGE.clamp( craftingMaxBonus - 0.02f * ( data.getAccessoriesSize() - 1 ) );
+		float maxBonus = Config.Efficiency.RANGE.clamp( craftingMaxBonus + 0.07f * ( data.getAccessoriesSize() - 1 ) );
 
 		return AccessoryHolder.create( data.getAccessory( 0 ).getItem() ).setBonus( Range.of( minBonus, maxBonus ) ).getItemStack();
 	}

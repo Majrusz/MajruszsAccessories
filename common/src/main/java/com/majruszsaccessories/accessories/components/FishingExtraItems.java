@@ -1,5 +1,11 @@
 package com.majruszsaccessories.accessories.components;
 
+import com.majruszlibrary.emitter.ParticleEmitter;
+import com.majruszlibrary.events.OnFishingExtraItemsGet;
+import com.majruszlibrary.item.LootHelper;
+import com.majruszlibrary.level.LevelHelper;
+import com.majruszlibrary.math.AnyPos;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
@@ -7,13 +13,6 @@ import com.majruszsaccessories.config.RangedInteger;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
-import com.mlib.contexts.OnFishingExtraItemsGet;
-import com.mlib.data.Serializable;
-import com.mlib.emitter.ParticleEmitter;
-import com.mlib.item.LootHelper;
-import com.mlib.level.LevelHelper;
-import com.mlib.math.AnyPos;
-import com.mlib.math.Range;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 
@@ -36,11 +35,11 @@ public class FishingExtraItems extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.extra_fishing_items", TooltipHelper.asPercent( this.chance ), TooltipHelper.asValue( this.count ) );
 
-		Serializable< ? > config = handler.getConfig();
-		config.define( "extra_fishing_item", subconfig->{
-			this.chance.define( subconfig );
-			this.count.define( subconfig );
-		} );
+		handler.getConfig()
+			.define( "extra_fishing_item", subconfig->{
+				this.chance.define( subconfig );
+				this.count.define( subconfig );
+			} );
 	}
 
 	private void addExtraFishes( OnFishingExtraItemsGet data ) {

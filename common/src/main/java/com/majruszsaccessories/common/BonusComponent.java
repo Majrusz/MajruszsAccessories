@@ -1,10 +1,10 @@
 package com.majruszsaccessories.common;
 
+import com.majruszlibrary.events.OnLootGenerated;
+import com.majruszlibrary.level.LevelHelper;
+import com.majruszlibrary.math.AnyPos;
+import com.majruszlibrary.text.TextHelper;
 import com.majruszsaccessories.tooltip.ITooltipProvider;
-import com.mlib.contexts.OnLootGenerated;
-import com.mlib.level.LevelHelper;
-import com.mlib.math.AnyPos;
-import com.mlib.text.TextHelper;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

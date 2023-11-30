@@ -1,5 +1,9 @@
 package com.majruszsaccessories.accessories;
 
+import com.majruszlibrary.annotation.AutoInstance;
+import com.majruszlibrary.data.Reader;
+import com.majruszlibrary.events.OnLootGenerated;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.MiningSpeedBonus;
 import com.majruszsaccessories.accessories.components.TradeOffer;
@@ -8,15 +12,11 @@ import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
-import com.mlib.annotation.AutoInstance;
-import com.mlib.contexts.OnLootGenerated;
-import com.mlib.data.Serializable;
-import com.mlib.math.Range;
 
 @AutoInstance
 public class MinerGuide extends AccessoryHandler {
 	public MinerGuide() {
-		super( MajruszsAccessories.MINER_GUIDE );
+		super( MajruszsAccessories.MINER_GUIDE, MinerGuide.class );
 
 		this.add( MiningSpeedBonus.create( 0.1f ) )
 			.add( UndergroundChestDropChance.create() )
@@ -38,8 +38,8 @@ public class MinerGuide extends AccessoryHandler {
 				.addCondition( data->data.lootId.toString().contains( "chest" ) )
 				.addCondition( CustomConditions.dropChance( s->this.chance, data->data.entity ) );
 
-			Serializable< ? > config = handler.getConfig();
-			config.defineFloat( "underground_chest_spawn_chance", s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
+			handler.getConfig()
+				.define( "underground_chest_spawn_chance", Reader.number(), s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
 		}
 	}
 }

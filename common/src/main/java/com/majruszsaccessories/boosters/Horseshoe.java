@@ -1,22 +1,23 @@
 package com.majruszsaccessories.boosters;
 
+import com.majruszlibrary.annotation.AutoInstance;
+import com.majruszlibrary.data.Reader;
+import com.majruszlibrary.events.OnLootGenerated;
+import com.majruszlibrary.events.base.Condition;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.boosters.components.LuckBonus;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.common.BoosterHandler;
 import com.majruszsaccessories.items.BoosterItem;
-import com.mlib.annotation.AutoInstance;
-import com.mlib.contexts.OnLootGenerated;
-import com.mlib.contexts.base.Condition;
-import com.mlib.data.Serializable;
 import net.minecraft.world.entity.animal.horse.SkeletonHorse;
 import net.minecraft.world.entity.monster.Skeleton;
 
 @AutoInstance
 public class Horseshoe extends BoosterHandler {
 	public Horseshoe() {
-		super( MajruszsAccessories.HORSESHOE );
+		super( MajruszsAccessories.HORSESHOE, Horseshoe.class );
 
 		this.add( LuckBonus.create( 1 ) )
 			.add( SkeletonHorsemanDropChance.create() );
@@ -38,8 +39,8 @@ public class Horseshoe extends BoosterHandler {
 				.addCondition( data->data.lastDamagePlayer != null )
 				.addCondition( data->data.entity instanceof Skeleton skeleton && skeleton.getRootVehicle() instanceof SkeletonHorse );
 
-			Serializable< ? > config = handler.getConfig();
-			config.defineFloat( "skeleton_horseman_drop_chance", s->this.chance, ( s, v )->this.chance = v );
+			handler.getConfig()
+				.define( "skeleton_horseman_drop_chance", Reader.number(), s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
 		}
 	}
 }

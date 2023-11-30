@@ -1,17 +1,16 @@
 package com.majruszsaccessories.accessories.components;
 
+import com.majruszlibrary.events.OnItemBrushed;
+import com.majruszlibrary.item.LootHelper;
+import com.majruszlibrary.level.LevelHelper;
+import com.majruszlibrary.math.AnyPos;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
-import com.mlib.contexts.OnItemBrushed;
-import com.mlib.data.Serializable;
-import com.mlib.item.LootHelper;
-import com.mlib.level.LevelHelper;
-import com.mlib.math.AnyPos;
-import com.mlib.math.Range;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
@@ -35,8 +34,8 @@ public class BrushingExtraItem extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.extra_archaeology_item", TooltipHelper.asPercent( this.chance ) );
 
-		Serializable< ? > config = handler.getConfig();
-		config.define( "extra_archaeology_item", this.chance::define );
+		handler.getConfig()
+			.define( "extra_archaeology_item", this.chance::define );
 	}
 
 	private void addExtraLoot( OnItemBrushed data ) {

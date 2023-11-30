@@ -1,15 +1,16 @@
 package com.majruszsaccessories.listeners;
 
+import com.majruszlibrary.annotation.AutoInstance;
+import com.majruszlibrary.data.Reader;
+import com.majruszlibrary.data.Serializables;
+import com.majruszlibrary.entity.EntityHelper;
+import com.majruszlibrary.events.OnLootGenerated;
+import com.majruszlibrary.events.base.Condition;
+import com.majruszlibrary.item.LootHelper;
+import com.majruszlibrary.level.BlockHelper;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.config.Config;
-import com.mlib.annotation.AutoInstance;
-import com.mlib.contexts.OnLootGenerated;
-import com.mlib.contexts.base.Condition;
-import com.mlib.data.Serializables;
-import com.mlib.entity.EntityHelper;
-import com.mlib.item.LootHelper;
-import com.mlib.level.BlockHelper;
-import com.mlib.math.Range;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -42,9 +43,9 @@ public class BoosterDropper {
 			.addCondition( Condition.predicate( data->EntityHelper.isIn( data.killer, Level.NETHER ) ) );
 
 		Serializables.get( Config.Boosters.class )
-			.defineLocation( "loot_table", s->this.lootTable, ( s, v )->this.lootTable = v )
-			.defineFloat( "nether_chest_chance", s->this.chestChance, ( s, v )->this.chestChance = Range.CHANCE.clamp( v ) )
-			.defineFloat( "nether_mob_chance", s->this.mobChance, ( s, v )->this.mobChance = Range.CHANCE.clamp( v ) );
+			.define( "loot_table", Reader.location(), s->this.lootTable, ( s, v )->this.lootTable = v )
+			.define( "nether_chest_chance", Reader.number(), s->this.chestChance, ( s, v )->this.chestChance = Range.CHANCE.clamp( v ) )
+			.define( "nether_mob_chance", Reader.number(), s->this.mobChance, ( s, v )->this.mobChance = Range.CHANCE.clamp( v ) );
 	}
 
 	private void spawnBoosterInChest( OnLootGenerated data ) {

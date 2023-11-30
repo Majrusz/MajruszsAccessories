@@ -1,11 +1,11 @@
 package com.majruszsaccessories.tooltip;
 
+import com.majruszlibrary.math.Range;
+import com.majruszlibrary.text.TextHelper;
 import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.config.RangedInteger;
 import com.majruszsaccessories.items.BoosterItem;
-import com.mlib.math.Range;
-import com.mlib.text.TextHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.EntityType;

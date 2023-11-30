@@ -1,5 +1,11 @@
 package com.majruszsaccessories.accessories;
 
+import com.majruszlibrary.annotation.AutoInstance;
+import com.majruszlibrary.data.Reader;
+import com.majruszlibrary.events.OnLootGenerated;
+import com.majruszlibrary.events.base.Condition;
+import com.majruszlibrary.level.BlockHelper;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.SwimmingSpeedBonus;
 import com.majruszsaccessories.accessories.components.TradeOffer;
@@ -8,18 +14,12 @@ import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
-import com.mlib.annotation.AutoInstance;
-import com.mlib.contexts.OnLootGenerated;
-import com.mlib.contexts.base.Condition;
-import com.mlib.data.Serializable;
-import com.mlib.level.BlockHelper;
-import com.mlib.math.Range;
 import net.minecraft.world.level.material.Fluids;
 
 @AutoInstance
 public class SwimmerGuide extends AccessoryHandler {
 	public SwimmerGuide() {
-		super( MajruszsAccessories.SWIMMER_GUIDE );
+		super( MajruszsAccessories.SWIMMER_GUIDE, SwimmerGuide.class );
 
 		this.add( SwimmingSpeedBonus.create( 0.2f ) )
 			.add( UnderwaterChestDropChance.create() )
@@ -43,8 +43,8 @@ public class SwimmerGuide extends AccessoryHandler {
 				.addCondition( data->data.lootId.toString().contains( "chest" ) )
 				.addCondition( CustomConditions.dropChance( s->this.chance, data->data.entity ) );
 
-			Serializable< ? > config = handler.getConfig();
-			config.defineFloat( "underwater_chest_spawn_chance", s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
+			handler.getConfig()
+				.define( "underwater_chest_spawn_chance", Reader.number(), s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
 		}
 	}
 }

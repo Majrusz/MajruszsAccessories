@@ -1,5 +1,11 @@
 package com.majruszsaccessories.accessories;
 
+import com.majruszlibrary.annotation.AutoInstance;
+import com.majruszlibrary.data.Reader;
+import com.majruszlibrary.events.OnItemFished;
+import com.majruszlibrary.events.OnLootGenerated;
+import com.majruszlibrary.math.Range;
+import com.majruszlibrary.registry.Registries;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.FishingLuckBonus;
 import com.majruszsaccessories.accessories.components.TradeOffer;
@@ -8,12 +14,6 @@ import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
-import com.mlib.annotation.AutoInstance;
-import com.mlib.contexts.OnItemFished;
-import com.mlib.contexts.OnLootGenerated;
-import com.mlib.data.Serializable;
-import com.mlib.math.Range;
-import com.mlib.registry.Registries;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.stream.Stream;
 @AutoInstance
 public class AnglerTrophy extends AccessoryHandler {
 	public AnglerTrophy() {
-		super( MajruszsAccessories.ANGLER_TROPHY );
+		super( MajruszsAccessories.ANGLER_TROPHY, AnglerTrophy.class );
 
 		this.add( FishingLuckBonus.create( 3 ) )
 			.add( FishingDropChance.create( 0.01f ) )
@@ -44,8 +44,8 @@ public class AnglerTrophy extends AccessoryHandler {
 			OnItemFished.listen( this::onFished )
 				.addCondition( CustomConditions.dropChance( s->this.fishingChance, data->data.player ) );
 
-			Serializable< ? > config = handler.getConfig();
-			config.defineFloat( "fishing_drop_chance", s->this.fishingChance, ( s, v )->this.fishingChance = Range.CHANCE.clamp( v ) );
+			handler.getConfig()
+				.define( "fishing_drop_chance", Reader.number(), s->this.fishingChance, ( s, v )->this.fishingChance = Range.CHANCE.clamp( v ) );
 		}
 
 		private void onFished( OnItemFished data ) {
@@ -73,12 +73,12 @@ public class AnglerTrophy extends AccessoryHandler {
 
 			OnLootGenerated.listen( this::addToGeneratedLoot )
 				.addCondition( data->data.entity != null )
-				.addCondition( data->this.lootIds.contains( Registries.get( data.entity.getType() ) ) )
+				.addCondition( data->this.lootIds.contains( Registries.ENTITY_TYPES.getId( data.entity.getType() ) ) )
 				.addCondition( CustomConditions.dropChance( s->this.fishChance, data->data.killer ) );
 
-			Serializable< ? > config = handler.getConfig();
-			config.defineFloat( "fish_drop_chance", s->this.fishChance, ( s, v )->this.fishChance = Range.CHANCE.clamp( v ) );
-			config.defineLocationList( "fish_ids", s->this.lootIds, ( s, v )->this.lootIds = v );
+			handler.getConfig()
+				.define( "fish_drop_chance", Reader.number(), s->this.fishChance, ( s, v )->this.fishChance = Range.CHANCE.clamp( v ) )
+				.define( "fish_ids", Reader.list( Reader.location() ), s->this.lootIds, ( s, v )->this.lootIds = v );
 		}
 	}
 }

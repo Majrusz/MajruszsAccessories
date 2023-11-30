@@ -1,21 +1,22 @@
 package com.majruszsaccessories.boosters;
 
+import com.majruszlibrary.annotation.AutoInstance;
+import com.majruszlibrary.data.Reader;
+import com.majruszlibrary.events.OnLootGenerated;
+import com.majruszlibrary.events.base.Condition;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.boosters.components.AccessoryDropChance;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.common.BoosterHandler;
 import com.majruszsaccessories.items.BoosterItem;
-import com.mlib.annotation.AutoInstance;
-import com.mlib.contexts.OnLootGenerated;
-import com.mlib.contexts.base.Condition;
-import com.mlib.data.Serializable;
 import net.minecraft.world.entity.monster.Guardian;
 
 @AutoInstance
 public class Dice extends BoosterHandler {
 	public Dice() {
-		super( MajruszsAccessories.DICE );
+		super( MajruszsAccessories.DICE, Dice.class );
 
 		this.add( AccessoryDropChance.create( 0.2f ) )
 			.add( GuardianDropChance.create() );
@@ -37,8 +38,8 @@ public class Dice extends BoosterHandler {
 				.addCondition( data->data.lastDamagePlayer != null )
 				.addCondition( data->data.entity instanceof Guardian );
 
-			Serializable< ? > config = handler.getConfig();
-			config.defineFloat( "guardian_drop_chance", s->this.chance, ( s, v )->this.chance = v );
+			handler.getConfig()
+				.define( "guardian_drop_chance", Reader.number(), s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
 		}
 	}
 }

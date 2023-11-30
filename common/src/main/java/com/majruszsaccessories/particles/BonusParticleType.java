@@ -1,25 +1,26 @@
 package com.majruszsaccessories.particles;
 
+import com.majruszlibrary.data.Reader;
+import com.majruszlibrary.data.Serializables;
+import com.majruszlibrary.particles.CustomParticleOptions;
+import com.majruszlibrary.particles.CustomParticleType;
 import com.majruszsaccessories.MajruszsAccessories;
-import com.mlib.data.Serializables;
-import com.mlib.particles.CustomParticleOptions;
-import com.mlib.particles.CustomParticleType;
 
 public class BonusParticleType extends CustomParticleType< BonusParticleType.Options > {
 	static {
 		Serializables.get( Options.class )
-			.defineInteger( "color", s->s.color, ( s, v )->s.color = v );
+			.define( "color", Reader.integer(), s->s.color, ( s, v )->s.color = v );
 	}
 
 	public BonusParticleType() {
-		super( Options.class, Options::new );
+		super( Options::new );
 	}
 
 	public static class Options extends CustomParticleOptions< Options > {
 		public int color;
 
 		public Options() {
-			super( Options.class, MajruszsAccessories.BONUS_PARTICLE );
+			super( MajruszsAccessories.BONUS_PARTICLE );
 		}
 
 		public Options( int color ) {

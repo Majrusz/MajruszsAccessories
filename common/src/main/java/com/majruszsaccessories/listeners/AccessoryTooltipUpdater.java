@@ -1,18 +1,18 @@
 package com.majruszsaccessories.listeners;
 
+import com.majruszlibrary.annotation.AutoInstance;
+import com.majruszlibrary.client.ClientHelper;
+import com.majruszlibrary.events.OnItemTooltip;
+import com.majruszlibrary.events.base.Condition;
+import com.majruszlibrary.events.base.Events;
+import com.majruszlibrary.math.Range;
+import com.majruszlibrary.text.TextHelper;
+import com.majruszlibrary.time.TimeHelper;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.contexts.OnAccessoryTooltip;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
-import com.mlib.annotation.AutoInstance;
-import com.mlib.client.ClientHelper;
-import com.mlib.contexts.OnItemTooltip;
-import com.mlib.contexts.base.Condition;
-import com.mlib.contexts.base.Contexts;
-import com.mlib.math.Range;
-import com.mlib.text.TextHelper;
-import com.mlib.time.TimeHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -86,7 +86,7 @@ public class AccessoryTooltipUpdater {
 	}
 
 	private List< Component > buildEffectsInfo( AccessoryHolder holder ) {
-		OnAccessoryTooltip tooltipData = Contexts.dispatch( new OnAccessoryTooltip( holder ) );
+		OnAccessoryTooltip tooltipData = Events.dispatch( new OnAccessoryTooltip( holder ) );
 		boolean cannotFitSinglePage = tooltipData.components.size() > PAGE_SIZE;
 		if( cannotFitSinglePage ) {
 			return this.getCurrentPageSublist( tooltipData.components );

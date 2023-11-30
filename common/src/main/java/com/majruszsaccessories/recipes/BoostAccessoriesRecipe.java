@@ -1,10 +1,10 @@
 package com.majruszsaccessories.recipes;
 
+import com.majruszlibrary.events.base.Events;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.contexts.OnBoosterCompatibilityGet;
 import com.majruszsaccessories.items.BoosterItem;
-import com.mlib.contexts.base.Contexts;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -65,7 +65,7 @@ public class BoostAccessoriesRecipe extends CustomRecipe {
 		items.addAll( b );
 		for( int i = 0; i < items.size(); ++i ) {
 			for( int j = i + 1; j < items.size(); ++j ) {
-				if( Contexts.dispatch( new OnBoosterCompatibilityGet( items.get( i ), items.get( j ) ) ).areIncompatible() ) {
+				if( Events.dispatch( new OnBoosterCompatibilityGet( items.get( i ), items.get( j ) ) ).areIncompatible() ) {
 					return false;
 				}
 			}
