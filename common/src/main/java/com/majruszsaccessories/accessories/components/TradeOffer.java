@@ -1,13 +1,13 @@
 package com.majruszsaccessories.accessories.components;
 
+import com.majruszlibrary.annotation.AutoInstance;
+import com.majruszlibrary.data.Reader;
+import com.majruszlibrary.events.OnWanderingTradesUpdated;
+import com.majruszlibrary.math.Random;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.items.AccessoryItem;
-import com.mlib.annotation.AutoInstance;
-import com.mlib.contexts.OnWanderingTradesUpdated;
-import com.mlib.data.Serializable;
-import com.mlib.math.Random;
-import com.mlib.math.Range;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
@@ -29,8 +29,8 @@ public class TradeOffer extends BonusComponent< AccessoryItem > {
 
 		this.price = price;
 
-		Serializable< ? > config = handler.getConfig();
-		config.defineInteger( "trade_price", s->this.price, ( s, v )->this.price = Range.of( 1, 32 ).clamp( v ) );
+		handler.getConfig()
+			.define( "trade_price", Reader.integer(), s->this.price, ( s, v )->this.price = Range.of( 1, 32 ).clamp( v ) );
 
 		OFFERS.add( this );
 	}

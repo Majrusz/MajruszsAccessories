@@ -1,17 +1,16 @@
 package com.majruszsaccessories.accessories.components;
 
+import com.majruszlibrary.emitter.ParticleEmitter;
+import com.majruszlibrary.events.OnFishingTimeGet;
+import com.majruszlibrary.level.LevelHelper;
+import com.majruszlibrary.math.AnyPos;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
-import com.mlib.contexts.OnFishingTimeGet;
-import com.mlib.data.Serializable;
-import com.mlib.emitter.ParticleEmitter;
-import com.mlib.level.LevelHelper;
-import com.mlib.math.AnyPos;
-import com.mlib.math.Range;
 import net.minecraft.core.BlockPos;
 
 public class FishingLureBonus extends BonusComponent< AccessoryItem > {
@@ -31,8 +30,8 @@ public class FishingLureBonus extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.fishing_lure", TooltipHelper.asPercent( this.multiplier ) );
 
-		Serializable< ? > config = handler.getConfig();
-		config.define( "fishing_time", this.multiplier::define );
+		handler.getConfig()
+			.define( "fishing_time", this.multiplier::define );
 	}
 
 	private void decreaseFishingTime( OnFishingTimeGet data ) {

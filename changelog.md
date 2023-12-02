@@ -1,3 +1,1 @@
-- changed required Majrusz Library version from 6.1.0+ to 6.1.7+
-- fixed game crash `java.lang.NullPointerException: Registry Object not present` (reported by @Note, @PlayfulPiano)
-- fixed exploit with duplicating items and chests (reported by @Ladocterus, @HeavyDeception)
+- changed required Majrusz Library version from 6.1.7+ to 7.0.0+

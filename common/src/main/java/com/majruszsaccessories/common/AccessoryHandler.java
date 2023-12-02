@@ -1,17 +1,18 @@
 package com.majruszsaccessories.common;
 
+import com.majruszlibrary.data.Serializables;
+import com.majruszlibrary.events.OnItemDecorationsRendered;
+import com.majruszlibrary.events.base.Priority;
+import com.majruszlibrary.registry.RegistryObject;
+import com.majruszlibrary.text.TextHelper;
 import com.majruszsaccessories.config.Config;
 import com.majruszsaccessories.contexts.OnAccessoryTooltip;
 import com.majruszsaccessories.items.AccessoryItem;
-import com.mlib.contexts.OnItemDecorationsRendered;
-import com.mlib.contexts.base.Priority;
-import com.mlib.registry.RegistryObject;
-import com.mlib.text.TextHelper;
 import net.minecraft.ChatFormatting;
 
 public class AccessoryHandler extends BonusHandler< AccessoryItem > {
-	public AccessoryHandler( RegistryObject< AccessoryItem > item ) {
-		super( item, Config.Accessories.class, item.getId() );
+	public AccessoryHandler( RegistryObject< AccessoryItem > item, Class< ? extends AccessoryHandler > clazz ) {
+		super( item, clazz, item.getId() );
 
 		OnAccessoryTooltip.listen( this::addTooltip )
 			.addCondition( data->data.holder.getItem().equals( this.getItem() ) );
@@ -22,6 +23,9 @@ public class AccessoryHandler extends BonusHandler< AccessoryItem > {
 
 		OnItemDecorationsRendered.listen( this::addBoosterIcon )
 			.addCondition( data->data.itemStack.is( this.getItem() ) );
+
+		Serializables.getStatic( Config.Accessories.class )
+			.define( item.getId(), clazz );
 	}
 
 	private void addEmptyBoostersTooltip( OnAccessoryTooltip data ) {

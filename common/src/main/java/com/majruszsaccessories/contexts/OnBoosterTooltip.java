@@ -1,8 +1,8 @@
 package com.majruszsaccessories.contexts;
 
+import com.majruszlibrary.events.base.Event;
+import com.majruszlibrary.events.base.Events;
 import com.majruszsaccessories.items.BoosterItem;
-import com.mlib.contexts.base.Context;
-import com.mlib.contexts.base.Contexts;
 import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
@@ -13,8 +13,8 @@ public class OnBoosterTooltip {
 	public final List< Component > components = new ArrayList<>();
 	public final BoosterItem booster;
 
-	public static Context< OnBoosterTooltip > listen( Consumer< OnBoosterTooltip > consumer ) {
-		return Contexts.get( OnBoosterTooltip.class ).add( consumer );
+	public static Event< OnBoosterTooltip > listen( Consumer< OnBoosterTooltip > consumer ) {
+		return Events.get( OnBoosterTooltip.class ).add( consumer );
 	}
 
 	public OnBoosterTooltip( BoosterItem booster ) {

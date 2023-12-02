@@ -1,5 +1,9 @@
 package com.majruszsaccessories.accessories;
 
+import com.majruszlibrary.annotation.AutoInstance;
+import com.majruszlibrary.data.Reader;
+import com.majruszlibrary.events.base.Events;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.HarvestingDoubleCrops;
 import com.majruszsaccessories.accessories.components.TradeOffer;
@@ -8,16 +12,12 @@ import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.contexts.OnAccessoryDropChanceGet;
 import com.majruszsaccessories.items.AccessoryItem;
-import com.mlib.annotation.AutoInstance;
-import com.mlib.contexts.base.Contexts;
-import com.mlib.data.Serializable;
-import com.mlib.math.Range;
 import net.minecraft.world.level.block.Blocks;
 
 @AutoInstance
 public class TamedPotatoBeetle extends AccessoryHandler {
 	public TamedPotatoBeetle() {
-		super( MajruszsAccessories.TAMED_POTATO_BEETLE );
+		super( MajruszsAccessories.TAMED_POTATO_BEETLE, TamedPotatoBeetle.class );
 
 		this.add( HarvestingDoubleCrops.create( 0.25f ) )
 			.add( HarvestingDropChance.create() )
@@ -42,14 +42,15 @@ public class TamedPotatoBeetle extends AccessoryHandler {
 						chance *= this.potatoMultiplier;
 					}
 
-					return Contexts.dispatch( new OnAccessoryDropChanceGet( chance, data.entity ) ).check();
+					return Events.dispatch( new OnAccessoryDropChanceGet( chance, data.entity ) ).check();
 				} );
 
-			Serializable< ? > config = handler.getConfig();
-			config.define( "harvesting_drop", subconfig->{
-				subconfig.defineFloat( "chance", s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
-				subconfig.defineFloat( "potato_multiplier", s->this.potatoMultiplier, ( s, v )->this.potatoMultiplier = Range.of( 1.0f, 10.0f ).clamp( v ) );
-			} );
+			handler.getConfig()
+				.define( "harvesting_drop", subconfig->{
+					subconfig.define( "harvesting_chance", Reader.number(), s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
+					subconfig.define( "potato_multiplier", Reader.number(), s->this.potatoMultiplier, ( s, v )->this.potatoMultiplier = Range.of( 1.0f, 10.0f )
+						.clamp( v ) );
+				} );
 		}
 	}
 }

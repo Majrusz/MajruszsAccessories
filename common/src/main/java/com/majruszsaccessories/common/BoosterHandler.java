@@ -1,19 +1,20 @@
 package com.majruszsaccessories.common;
 
+import com.majruszlibrary.data.Serializables;
+import com.majruszlibrary.events.OnItemDecorationsRendered;
+import com.majruszlibrary.registry.RegistryObject;
 import com.majruszsaccessories.config.Config;
 import com.majruszsaccessories.contexts.OnAccessoryTooltip;
 import com.majruszsaccessories.contexts.OnBoosterTooltip;
 import com.majruszsaccessories.items.BoosterItem;
-import com.mlib.contexts.OnItemDecorationsRendered;
-import com.mlib.registry.RegistryObject;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
 public class BoosterHandler extends BonusHandler< BoosterItem > {
-	public BoosterHandler( RegistryObject< BoosterItem > item ) {
-		super( item, Config.Boosters.class, item.getId() );
+	public BoosterHandler( RegistryObject< BoosterItem > item, Class< ? extends BoosterHandler > clazz ) {
+		super( item, clazz, item.getId() );
 
 		OnAccessoryTooltip.listen( this::addTooltip )
 			.addCondition( data->data.holder.hasBooster( this.getItem() ) );
@@ -23,6 +24,9 @@ public class BoosterHandler extends BonusHandler< BoosterItem > {
 
 		OnItemDecorationsRendered.listen( this::addBoosterIcon )
 			.addCondition( data->data.itemStack.is( this.getItem() ) );
+
+		Serializables.getStatic( Config.Boosters.class )
+			.define( item.getId(), clazz );
 	}
 
 	protected void addTooltip( OnBoosterTooltip data ) {

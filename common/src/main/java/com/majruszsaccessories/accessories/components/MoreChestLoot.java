@@ -1,5 +1,20 @@
 package com.majruszsaccessories.accessories.components;
 
+import com.majruszlibrary.annotation.AutoInstance;
+import com.majruszlibrary.annotation.Dist;
+import com.majruszlibrary.annotation.OnlyIn;
+import com.majruszlibrary.data.Reader;
+import com.majruszlibrary.data.Serializables;
+import com.majruszlibrary.emitter.ParticleEmitter;
+import com.majruszlibrary.events.OnLootGenerated;
+import com.majruszlibrary.events.OnPlayerTicked;
+import com.majruszlibrary.events.base.Condition;
+import com.majruszlibrary.events.base.Event;
+import com.majruszlibrary.level.LevelHelper;
+import com.majruszlibrary.math.Random;
+import com.majruszlibrary.math.Range;
+import com.majruszlibrary.platform.Side;
+import com.majruszlibrary.text.TextHelper;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
@@ -8,21 +23,6 @@ import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.ITooltipProvider;
 import com.majruszsaccessories.tooltip.TooltipHelper;
-import com.mlib.annotation.AutoInstance;
-import com.mlib.annotation.Dist;
-import com.mlib.annotation.OnlyIn;
-import com.mlib.contexts.OnLootGenerated;
-import com.mlib.contexts.OnPlayerTicked;
-import com.mlib.contexts.base.Condition;
-import com.mlib.contexts.base.Context;
-import com.mlib.data.Serializable;
-import com.mlib.data.Serializables;
-import com.mlib.emitter.ParticleEmitter;
-import com.mlib.level.LevelHelper;
-import com.mlib.math.Random;
-import com.mlib.math.Range;
-import com.mlib.platform.Side;
-import com.mlib.text.TextHelper;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
@@ -48,8 +48,8 @@ public class MoreChestLoot extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.more_chest_loot", this.getPerPercentInfo(), this.getPercentInfo(), this.getCurrentInfo() );
 
-		Serializable< ? > config = handler.getConfig();
-		config.define( "chest_size_bonus", this.sizeMultiplier::define );
+		handler.getConfig()
+			.define( "chest_size_bonus", this.sizeMultiplier::define );
 	}
 
 	private void addExtraLoot( OnLootGenerated data ) {
@@ -96,7 +96,7 @@ public class MoreChestLoot extends BonusComponent< AccessoryItem > {
 	}
 
 	public static class OnChestOpened {
-		public static Context< OnLootGenerated > listen( Consumer< OnLootGenerated > consumer ) {
+		public static Event< OnLootGenerated > listen( Consumer< OnLootGenerated > consumer ) {
 			return OnLootGenerated.listen( consumer )
 				.addCondition( Condition.isLogicalServer() )
 				.addCondition( data->data.lootId.toString().contains( "chests/" ) );
@@ -118,7 +118,7 @@ public class MoreChestLoot extends BonusComponent< AccessoryItem > {
 	public static class BonusInfo {
 		static {
 			Serializables.get( BonusInfo.class )
-				.defineFloat( "bonus", s->s.bonus, ( s, v )->s.bonus = v );
+				.define( "bonus", Reader.number(), s->s.bonus, ( s, v )->s.bonus = v );
 
 			Side.runOnClient( ()->()->MajruszsAccessories.MORE_CHEST_LOOT.addClientCallback( BonusInfo::onClient ) );
 		}

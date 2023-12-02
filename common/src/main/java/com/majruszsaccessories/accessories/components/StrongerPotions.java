@@ -1,5 +1,11 @@
 package com.majruszsaccessories.accessories.components;
 
+import com.majruszlibrary.data.Reader;
+import com.majruszlibrary.data.Serializables;
+import com.majruszlibrary.events.OnItemBrewed;
+import com.majruszlibrary.level.LevelHelper;
+import com.majruszlibrary.math.AnyPos;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
@@ -8,12 +14,6 @@ import com.majruszsaccessories.config.RangedInteger;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
-import com.mlib.contexts.OnItemBrewed;
-import com.mlib.data.Serializable;
-import com.mlib.data.Serializables;
-import com.mlib.level.LevelHelper;
-import com.mlib.math.AnyPos;
-import com.mlib.math.Range;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -42,11 +42,11 @@ public class StrongerPotions extends BonusComponent< AccessoryItem > {
 		this.addTooltip( "majruszsaccessories.bonuses.potion_amplifier", TooltipHelper.asValue( this.amplifier ) );
 		this.addTooltip( "majruszsaccessories.bonuses.potion_duration", TooltipHelper.asPercent( this.durationPenalty ).bonusMultiplier( -1.0f ) );
 
-		Serializable< ? > config = handler.getConfig();
-		config.define( "stronger_potion", subconfig->{
-			this.durationPenalty.define( subconfig );
-			this.amplifier.define( subconfig );
-		} );
+		handler.getConfig()
+			.define( "stronger_potion", subconfig->{
+				this.durationPenalty.define( subconfig );
+				this.amplifier.define( subconfig );
+			} );
 	}
 
 	private void boostPotions( OnItemBrewed data ) {
@@ -88,7 +88,7 @@ public class StrongerPotions extends BonusComponent< AccessoryItem > {
 		static {
 			Serializables.get( Data.class )
 				.define( "display", config->{
-					config.defineString( "Name", s->s.name, ( s, v )->s.name = v );
+					config.define( "Name", Reader.string(), s->s.name, ( s, v )->s.name = v );
 				} );
 		}
 

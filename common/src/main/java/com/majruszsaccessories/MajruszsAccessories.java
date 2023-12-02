@@ -1,5 +1,16 @@
 package com.majruszsaccessories;
 
+import com.majruszlibrary.annotation.Dist;
+import com.majruszlibrary.annotation.OnlyIn;
+import com.majruszlibrary.emitter.ParticleEmitter;
+import com.majruszlibrary.events.OnGameInitialized;
+import com.majruszlibrary.math.Random;
+import com.majruszlibrary.modhelper.ModHelper;
+import com.majruszlibrary.network.NetworkObject;
+import com.majruszlibrary.platform.Services;
+import com.majruszlibrary.registry.Custom;
+import com.majruszlibrary.registry.RegistryGroup;
+import com.majruszlibrary.registry.RegistryObject;
 import com.majruszsaccessories.accessories.components.MoreChestLoot;
 import com.majruszsaccessories.config.Config;
 import com.majruszsaccessories.integration.ISlotPlatform;
@@ -12,17 +23,6 @@ import com.majruszsaccessories.particles.BonusParticleType;
 import com.majruszsaccessories.recipes.AccessoryRecipe;
 import com.majruszsaccessories.recipes.BoostAccessoriesRecipe;
 import com.majruszsaccessories.recipes.CombineAccessoriesRecipe;
-import com.mlib.annotation.Dist;
-import com.mlib.annotation.OnlyIn;
-import com.mlib.contexts.OnGameInitialized;
-import com.mlib.emitter.ParticleEmitter;
-import com.mlib.math.Random;
-import com.mlib.modhelper.ModHelper;
-import com.mlib.network.NetworkObject;
-import com.mlib.platform.Services;
-import com.mlib.registry.Custom;
-import com.mlib.registry.RegistryGroup;
-import com.mlib.registry.RegistryObject;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -35,7 +35,9 @@ public class MajruszsAccessories {
 	public static final ModHelper HELPER = ModHelper.create( MOD_ID );
 
 	// Configs
-	public static final Config CONFIG = HELPER.config( Config::new ).autoSync().create();
+	static {
+		HELPER.config( Config.class ).autoSync().create();
+	}
 
 	// Registry Groups
 	public static final RegistryGroup< Item > ITEMS = HELPER.create( BuiltInRegistries.ITEM );

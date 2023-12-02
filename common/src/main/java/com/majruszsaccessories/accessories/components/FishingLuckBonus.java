@@ -1,5 +1,13 @@
 package com.majruszsaccessories.accessories.components;
 
+import com.majruszlibrary.emitter.ParticleEmitter;
+import com.majruszlibrary.entity.AttributeHandler;
+import com.majruszlibrary.events.OnItemFished;
+import com.majruszlibrary.events.OnPlayerTicked;
+import com.majruszlibrary.events.base.Condition;
+import com.majruszlibrary.level.LevelHelper;
+import com.majruszlibrary.math.AnyPos;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
@@ -7,15 +15,6 @@ import com.majruszsaccessories.config.RangedInteger;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
-import com.mlib.contexts.OnItemFished;
-import com.mlib.contexts.OnPlayerTicked;
-import com.mlib.contexts.base.Condition;
-import com.mlib.data.Serializable;
-import com.mlib.emitter.ParticleEmitter;
-import com.mlib.entity.AttributeHandler;
-import com.mlib.level.LevelHelper;
-import com.mlib.math.AnyPos;
-import com.mlib.math.Range;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -45,8 +44,8 @@ public class FishingLuckBonus extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.fishing_luck", TooltipHelper.asValue( this.luck ) );
 
-		Serializable< ? > config = handler.getConfig();
-		config.define( "fishing_luck", this.luck::define );
+		handler.getConfig()
+			.define( "fishing_luck", this.luck::define );
 	}
 
 	private void updateLuck( OnPlayerTicked data ) {

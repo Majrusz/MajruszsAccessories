@@ -1,17 +1,16 @@
 package com.majruszsaccessories.accessories.components;
 
+import com.majruszlibrary.events.OnBreakSpeedGet;
+import com.majruszlibrary.events.OnItemSwingDurationGet;
+import com.majruszlibrary.math.Random;
+import com.majruszlibrary.math.Range;
+import com.majruszlibrary.time.TimeHelper;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
-import com.mlib.contexts.OnBreakSpeedGet;
-import com.mlib.contexts.OnItemSwingDurationGet;
-import com.mlib.data.Serializable;
-import com.mlib.math.Random;
-import com.mlib.math.Range;
-import com.mlib.time.TimeHelper;
 import net.minecraft.server.level.ServerLevel;
 
 public class MiningSpeedBonus extends BonusComponent< AccessoryItem > {
@@ -34,8 +33,8 @@ public class MiningSpeedBonus extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.mine_bonus", TooltipHelper.asPercent( this.speedMultiplier ) );
 
-		Serializable< ? > config = handler.getConfig();
-		config.define( "mining_speed_bonus", this.speedMultiplier::define );
+		handler.getConfig()
+			.define( "mining_speed_bonus", this.speedMultiplier::define );
 	}
 
 	private void increaseMineSpeed( OnBreakSpeedGet data ) {

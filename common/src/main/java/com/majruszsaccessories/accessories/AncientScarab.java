@@ -1,5 +1,10 @@
 package com.majruszsaccessories.accessories;
 
+import com.majruszlibrary.annotation.AutoInstance;
+import com.majruszlibrary.data.Reader;
+import com.majruszlibrary.events.OnLootGenerated;
+import com.majruszlibrary.events.base.Condition;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.BrushingExtraItem;
 import com.majruszsaccessories.accessories.components.TradeOffer;
@@ -8,11 +13,6 @@ import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
-import com.mlib.annotation.AutoInstance;
-import com.mlib.contexts.OnLootGenerated;
-import com.mlib.contexts.base.Condition;
-import com.mlib.data.Serializable;
-import com.mlib.math.Range;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
@@ -22,7 +22,7 @@ import java.util.List;
 @AutoInstance
 public class AncientScarab extends AccessoryHandler {
 	public AncientScarab() {
-		super( MajruszsAccessories.ANCIENT_SCARAB );
+		super( MajruszsAccessories.ANCIENT_SCARAB, AncientScarab.class );
 
 		this.add( BrushingExtraItem.create( 0.16f ) )
 			.add( SuspiciousBlocksDropChance.create() )
@@ -54,9 +54,9 @@ public class AncientScarab extends AccessoryHandler {
 				.addCondition( data->this.locations.contains( data.lootId ) )
 				.addCondition( data->data.origin != null );
 
-			Serializable< ? > config = handler.getConfig();
-			config.defineFloat( "suspicious_block_spawn_chance", s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
-			config.defineLocationList( "suspicious_block_ids", s->this.locations, ( s, v )->this.locations = v );
+			handler.getConfig()
+				.define( "suspicious_block_spawn_chance", Reader.number(), s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) )
+				.define( "suspicious_block_ids", Reader.list( Reader.location() ), s->this.locations, ( s, v )->this.locations = v );
 		}
 	}
 }

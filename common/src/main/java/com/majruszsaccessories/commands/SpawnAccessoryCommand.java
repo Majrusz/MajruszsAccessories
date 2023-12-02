@@ -1,16 +1,17 @@
 package com.majruszsaccessories.commands;
 
+import com.majruszlibrary.annotation.AutoInstance;
+import com.majruszlibrary.command.Command;
+import com.majruszlibrary.command.CommandData;
+import com.majruszlibrary.command.IParameter;
+import com.majruszlibrary.events.OnGameInitialized;
+import com.majruszlibrary.item.ItemHelper;
+import com.majruszlibrary.math.Range;
+import com.majruszlibrary.registry.Registries;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.common.AccessoryHolder;
+import com.majruszsaccessories.config.Config;
 import com.majruszsaccessories.items.AccessoryItem;
-import com.mlib.annotation.AutoInstance;
-import com.mlib.command.Command;
-import com.mlib.command.CommandData;
-import com.mlib.command.IParameter;
-import com.mlib.contexts.OnGameInitialized;
-import com.mlib.item.ItemHelper;
-import com.mlib.math.Range;
-import com.mlib.registry.Registries;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -49,16 +50,16 @@ public class SpawnAccessoryCommand {
 
 	private int giveAccessory( CommandData data ) throws CommandSyntaxException {
 		List< ? extends Entity > entities = data.get( ENTITIES );
-		Item item = Registries.getItem( data.get( ID ) );
+		Item item = Registries.ITEMS.get( data.get( ID ) );
 		Optional< Float > bonus = data.getOptional( BONUS );
 		int count = data.getOptional( COUNT ).orElse( 1 );
 		for( Entity entity : entities ) {
 			if( entity instanceof Player player ) {
 				for( int i = 0; i < count; ++i ) {
 					AccessoryHolder holder = AccessoryHolder.create( new ItemStack( item ) );
-					holder.setBonus( bonus.orElseGet( ()->MajruszsAccessories.CONFIG.efficiency.getRandom() ) );
+					holder.setBonus( bonus.orElseGet( Config.Efficiency::getRandom ) );
 
-					ItemHelper.giveToPlayer( holder.getItemStack(), player, player.level() );
+					ItemHelper.giveToPlayer( holder.getItemStack(), player );
 				}
 			}
 		}
@@ -67,9 +68,9 @@ public class SpawnAccessoryCommand {
 	}
 
 	private void createSuggestions( OnGameInitialized data ) {
-		for( Item item : Registries.getItems() ) {
+		for( Item item : Registries.ITEMS ) {
 			if( item instanceof AccessoryItem ) {
-				ID_SUGGESTIONS.add( Registries.get( item ) );
+				ID_SUGGESTIONS.add( Registries.ITEMS.getId( item ) );
 			}
 		}
 	}

@@ -1,5 +1,10 @@
 package com.majruszsaccessories.accessories;
 
+import com.majruszlibrary.annotation.AutoInstance;
+import com.majruszlibrary.data.Reader;
+import com.majruszlibrary.events.OnPlayerWakedUp;
+import com.majruszlibrary.events.base.Condition;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.SleepingBonuses;
 import com.majruszsaccessories.accessories.components.TradeOffer;
@@ -8,16 +13,11 @@ import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
-import com.mlib.annotation.AutoInstance;
-import com.mlib.contexts.OnPlayerWakedUp;
-import com.mlib.contexts.base.Condition;
-import com.mlib.data.Serializable;
-import com.mlib.math.Range;
 
 @AutoInstance
 public class DreamCatcher extends AccessoryHandler {
 	public DreamCatcher() {
-		super( MajruszsAccessories.DREAM_CATCHER );
+		super( MajruszsAccessories.DREAM_CATCHER, DreamCatcher.class );
 
 		this.add( SleepingBonuses.create( 1, 300 ) )
 			.add( SleepingDropChance.create() )
@@ -39,8 +39,8 @@ public class DreamCatcher extends AccessoryHandler {
 				.addCondition( data->!data.wasSleepStoppedManually )
 				.addCondition( CustomConditions.dropChance( s->this.chance, data->data.player ) );
 
-			Serializable< ? > config = handler.getConfig();
-			config.defineFloat( "sleeping_drop_chance", s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
+			handler.getConfig()
+				.define( "sleeping_drop_chance", Reader.number(), s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
 		}
 
 		private void spawnAccessory( OnPlayerWakedUp data ) {

@@ -1,10 +1,10 @@
 package com.majruszsaccessories.boosters.components;
 
+import com.majruszlibrary.events.base.Condition;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.contexts.OnBoosterCompatibilityGet;
 import com.majruszsaccessories.items.BoosterItem;
-import com.mlib.contexts.base.Condition;
 
 import java.util.function.Supplier;
 

@@ -1,5 +1,13 @@
 package com.majruszsaccessories.accessories.components;
 
+import com.majruszlibrary.collection.DefaultMap;
+import com.majruszlibrary.data.Reader;
+import com.majruszlibrary.emitter.ParticleEmitter;
+import com.majruszlibrary.events.OnLootGenerated;
+import com.majruszlibrary.events.base.Condition;
+import com.majruszlibrary.events.base.Event;
+import com.majruszlibrary.item.LootHelper;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
@@ -7,14 +15,6 @@ import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
-import com.mlib.collection.DefaultMap;
-import com.mlib.contexts.OnLootGenerated;
-import com.mlib.contexts.base.Condition;
-import com.mlib.contexts.base.Context;
-import com.mlib.data.Serializable;
-import com.mlib.emitter.ParticleEmitter;
-import com.mlib.item.LootHelper;
-import com.mlib.math.Range;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.LivingEntity;
@@ -45,11 +45,11 @@ public class MiningExtraItem extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.extra_stone_loot", TooltipHelper.asPercent( this.chance ) );
 
-		Serializable< ? > config = handler.getConfig();
-		config.define( "extra_mining_item", subconfig->{
-			this.chance.define( subconfig );
-			subconfig.defineLocationMap( "loot_ids", s->this.lootIds, ( s, v )->this.lootIds = DefaultMap.of( v ) );
-		} );
+		handler.getConfig()
+			.define( "extra_mining_item", subconfig->{
+				this.chance.define( subconfig );
+				subconfig.define( "loot_ids", Reader.map( Reader.location() ), s->this.lootIds, ( s, v )->this.lootIds = DefaultMap.of( v ) );
+			} );
 	}
 
 	private void addExtraLoot( OnLootGenerated data ) {
@@ -70,7 +70,7 @@ public class MiningExtraItem extends BonusComponent< AccessoryItem > {
 	}
 
 	public static class OnStoneMined {
-		public static Context< OnLootGenerated > listen( Consumer< OnLootGenerated > consumer ) {
+		public static Event< OnLootGenerated > listen( Consumer< OnLootGenerated > consumer ) {
 			return OnLootGenerated.listen( consumer )
 				.addCondition( Condition.isLogicalServer() )
 				.addCondition( data->data.blockState != null )

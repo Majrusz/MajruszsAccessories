@@ -1,17 +1,16 @@
 package com.majruszsaccessories.accessories.components;
 
+import com.majruszlibrary.events.OnLootGenerated;
+import com.majruszlibrary.events.base.Condition;
+import com.majruszlibrary.events.base.Event;
+import com.majruszlibrary.level.BlockHelper;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
-import com.mlib.contexts.OnLootGenerated;
-import com.mlib.contexts.base.Condition;
-import com.mlib.contexts.base.Context;
-import com.mlib.data.Serializable;
-import com.mlib.level.BlockHelper;
-import com.mlib.math.Range;
 import net.minecraft.world.entity.LivingEntity;
 
 import java.util.ArrayList;
@@ -34,8 +33,8 @@ public class HarvestingDoubleCrops extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.double_crops", TooltipHelper.asPercent( this.chance ) );
 
-		Serializable< ? > config = handler.getConfig();
-		config.define( "double_crops", this.chance::define );
+		handler.getConfig()
+			.define( "double_crops", this.chance::define );
 	}
 
 	private void doubleLoot( OnLootGenerated data ) {
@@ -52,7 +51,7 @@ public class HarvestingDoubleCrops extends BonusComponent< AccessoryItem > {
 	}
 
 	public static class OnCropHarvested {
-		public static Context< OnLootGenerated > listen( Consumer< OnLootGenerated > consumer ) {
+		public static Event< OnLootGenerated > listen( Consumer< OnLootGenerated > consumer ) {
 			return OnLootGenerated.listen( consumer )
 				.addCondition( Condition.isLogicalServer() )
 				.addCondition( data->data.origin != null )

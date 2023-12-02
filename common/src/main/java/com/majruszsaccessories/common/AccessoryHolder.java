@@ -1,18 +1,20 @@
 package com.majruszsaccessories.common;
 
+import com.majruszlibrary.data.Reader;
+import com.majruszlibrary.data.Serializables;
+import com.majruszlibrary.emitter.ParticleEmitter;
+import com.majruszlibrary.events.base.Events;
+import com.majruszlibrary.math.Random;
+import com.majruszlibrary.math.Range;
+import com.majruszlibrary.registry.Registries;
 import com.majruszsaccessories.MajruszsAccessories;
+import com.majruszsaccessories.config.Config;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.config.RangedInteger;
 import com.majruszsaccessories.contexts.OnAccessoryExtraBonusGet;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.particles.BonusParticleType;
-import com.mlib.contexts.base.Contexts;
-import com.mlib.data.Serializables;
-import com.mlib.emitter.ParticleEmitter;
-import com.mlib.math.Random;
-import com.mlib.math.Range;
-import com.mlib.registry.Registries;
 import net.minecraft.ChatFormatting;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -76,9 +78,9 @@ public class AccessoryHolder {
 	}
 
 	public static ChatFormatting getBonusFormatting( float bonus ) {
-		if( bonus > MajruszsAccessories.CONFIG.efficiency.range.to ) {
+		if( bonus > Config.Efficiency.RANGE.to ) {
 			return ChatFormatting.DARK_AQUA;
-		} else if( bonus == MajruszsAccessories.CONFIG.efficiency.range.to ) {
+		} else if( bonus == Config.Efficiency.RANGE.to ) {
 			return ChatFormatting.GOLD;
 		} else if( bonus > 0.0f ) {
 			return ChatFormatting.GREEN;
@@ -90,7 +92,7 @@ public class AccessoryHolder {
 	}
 
 	public static Rarity getRarity( float bonus ) {
-		if( bonus >= MajruszsAccessories.CONFIG.efficiency.range.to ) {
+		if( bonus >= Config.Efficiency.RANGE.to ) {
 			return Rarity.EPIC;
 		} else if( bonus >= 0.0f ) {
 			return Rarity.RARE;
@@ -107,7 +109,7 @@ public class AccessoryHolder {
 		this.itemStack = itemStack;
 		this.item = itemStack.getItem() instanceof AccessoryItem item ? item : null;
 		this.data = data;
-		this.data.extraBonus = AccessoryHolder.round( Contexts.dispatch( new OnAccessoryExtraBonusGet( this ) ).bonus );
+		this.data.extraBonus = AccessoryHolder.round( Events.dispatch( new OnAccessoryExtraBonusGet( this ) ).bonus );
 	}
 
 	private AccessoryHolder( ItemStack itemStack ) {
@@ -138,14 +140,14 @@ public class AccessoryHolder {
 		if( this.hasBonusRangeDefined() ) {
 			return this.setBonus( Mth.lerp( Random.nextFloat( 0.0f, 1.0f ), this.data.range.from, this.data.range.to ) );
 		} else {
-			return this.setBonus( MajruszsAccessories.CONFIG.efficiency.getRandom() );
+			return this.setBonus( Config.Efficiency.getRandom() );
 		}
 	}
 
 	public AccessoryHolder setBonus( float bonus ) {
 		return this.save( ()->{
 			this.data.baseBonus = AccessoryHolder.round( bonus );
-			this.data.extraBonus = AccessoryHolder.round( Contexts.dispatch( new OnAccessoryExtraBonusGet( this ) ).bonus );
+			this.data.extraBonus = AccessoryHolder.round( Events.dispatch( new OnAccessoryExtraBonusGet( this ) ).bonus );
 			this.data.range = null;
 		} );
 	}
@@ -219,7 +221,7 @@ public class AccessoryHolder {
 	}
 
 	public boolean hasMaxBonus() {
-		return this.getBaseBonus() == MajruszsAccessories.CONFIG.efficiency.range.to;
+		return this.getBaseBonus() == Config.Efficiency.RANGE.to;
 	}
 
 	public boolean hasBooster( BoosterItem item ) {
@@ -245,9 +247,9 @@ public class AccessoryHolder {
 		static {
 			Serializables.get( Data.class )
 				.define( "Bonus", subconfig->{
-					subconfig.defineFloat( "Value", s->s.baseBonus, ( s, v )->s.baseBonus = v );
-					subconfig.defineFloatRange( "ValueRange", s->s.range, ( s, v )->s.range = v );
-					subconfig.defineCustomList( "Boosters", s->s.boosters, ( s, v )->s.boosters = v, BoosterDef::new );
+					subconfig.define( "Value", Reader.optional( Reader.number() ), s->s.baseBonus, ( s, v )->s.baseBonus = v );
+					subconfig.define( "ValueRange", Reader.optional( Reader.range( Reader.number() ) ), s->s.range, ( s, v )->s.range = v );
+					subconfig.define( "Boosters", Reader.list( Reader.custom( BoosterDef::new ) ), s->s.boosters, ( s, v )->s.boosters = v );
 				} );
 		}
 
@@ -268,8 +270,8 @@ public class AccessoryHolder {
 	private static class BoosterDef {
 		static {
 			Serializables.get( BoosterDef.class )
-				.defineLocation( "Id", s->s.id, ( s, v )->{
-					s.item = Registries.getItem( v ) instanceof BoosterItem booster ? booster : null;
+				.define( "Id", Reader.location(), s->s.id, ( s, v )->{
+					s.item = Registries.ITEMS.get( v ) instanceof BoosterItem booster ? booster : null;
 					s.id = v;
 				} );
 		}
@@ -279,7 +281,7 @@ public class AccessoryHolder {
 
 		public BoosterDef( BoosterItem item ) {
 			this.item = item;
-			this.id = Registries.get( item );
+			this.id = Registries.ITEMS.getId( item );
 		}
 
 		public BoosterDef() {}

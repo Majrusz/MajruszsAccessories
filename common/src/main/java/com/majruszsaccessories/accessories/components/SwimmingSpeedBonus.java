@@ -1,15 +1,14 @@
 package com.majruszsaccessories.accessories.components;
 
+import com.majruszlibrary.events.OnEntitySwimSpeedMultiplierGet;
+import com.majruszlibrary.math.Range;
+import com.majruszlibrary.time.TimeHelper;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
-import com.mlib.contexts.OnEntitySwimSpeedMultiplierGet;
-import com.mlib.data.Serializable;
-import com.mlib.math.Range;
-import com.mlib.time.TimeHelper;
 import net.minecraft.server.level.ServerLevel;
 
 public class SwimmingSpeedBonus extends BonusComponent< AccessoryItem > {
@@ -29,8 +28,8 @@ public class SwimmingSpeedBonus extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.swim_bonus", TooltipHelper.asPercent( this.multiplier ) );
 
-		Serializable< ? > config = handler.getConfig();
-		config.define( "swim_speed", this.multiplier::define );
+		handler.getConfig()
+			.define( "swim_speed", this.multiplier::define );
 	}
 
 	private void increaseSwimSpeed( OnEntitySwimSpeedMultiplierGet data ) {

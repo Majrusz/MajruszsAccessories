@@ -1,14 +1,14 @@
 package com.majruszsaccessories.accessories;
 
+import com.majruszlibrary.annotation.AutoInstance;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.*;
 import com.majruszsaccessories.common.AccessoryHandler;
-import com.mlib.annotation.AutoInstance;
 
 @AutoInstance
 public class SoulOfMinecraft extends AccessoryHandler {
 	public SoulOfMinecraft() {
-		super( MajruszsAccessories.SOUL_OF_MINECRAFT );
+		super( MajruszsAccessories.SOUL_OF_MINECRAFT, SoulOfMinecraft.class );
 
 		this.add( MoreChestLoot.create( 1.8f ) )
 			.add( BrushingExtraItem.create( 0.24f ) )

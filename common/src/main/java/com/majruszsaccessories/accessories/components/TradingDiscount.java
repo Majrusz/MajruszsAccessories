@@ -1,15 +1,14 @@
 package com.majruszsaccessories.accessories.components;
 
+import com.majruszlibrary.events.OnTradesUpdated;
+import com.majruszlibrary.math.Range;
+import com.majruszlibrary.platform.Side;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
-import com.mlib.contexts.OnTradesUpdated;
-import com.mlib.data.Serializable;
-import com.mlib.math.Range;
-import com.mlib.platform.Side;
 import net.minecraft.world.item.trading.MerchantOffer;
 
 public class TradingDiscount extends BonusComponent< AccessoryItem > {
@@ -29,8 +28,8 @@ public class TradingDiscount extends BonusComponent< AccessoryItem > {
 
 		this.addTooltip( "majruszsaccessories.bonuses.trading_discount", TooltipHelper.asPercent( this.multiplier ) );
 
-		Serializable< ? > config = handler.getConfig();
-		config.define( "trading_discount", this.multiplier::define );
+		handler.getConfig()
+			.define( "trading_discount", this.multiplier::define );
 	}
 
 	private void decreasePrices( OnTradesUpdated data ) {

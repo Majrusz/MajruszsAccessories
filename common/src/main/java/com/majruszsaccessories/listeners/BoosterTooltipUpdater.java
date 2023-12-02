@@ -1,12 +1,12 @@
 package com.majruszsaccessories.listeners;
 
+import com.majruszlibrary.annotation.AutoInstance;
+import com.majruszlibrary.events.OnItemTooltip;
+import com.majruszlibrary.events.base.Condition;
+import com.majruszlibrary.events.base.Events;
+import com.majruszlibrary.text.TextHelper;
 import com.majruszsaccessories.contexts.OnBoosterTooltip;
 import com.majruszsaccessories.items.BoosterItem;
-import com.mlib.annotation.AutoInstance;
-import com.mlib.contexts.OnItemTooltip;
-import com.mlib.contexts.base.Condition;
-import com.mlib.contexts.base.Contexts;
-import com.mlib.text.TextHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 
@@ -29,7 +29,7 @@ public class BoosterTooltipUpdater {
 	}
 
 	private List< Component > buildEffectsInfo( OnItemTooltip data ) {
-		return Contexts.dispatch( new OnBoosterTooltip( ( BoosterItem )data.itemStack.getItem() ) ).components;
+		return Events.dispatch( new OnBoosterTooltip( ( BoosterItem )data.itemStack.getItem() ) ).components;
 	}
 
 	static final class Tooltips {

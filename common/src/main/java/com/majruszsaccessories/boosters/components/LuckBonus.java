@@ -1,15 +1,15 @@
 package com.majruszsaccessories.boosters.components;
 
+import com.majruszlibrary.entity.AttributeHandler;
+import com.majruszlibrary.events.OnPlayerTicked;
+import com.majruszlibrary.events.base.Condition;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedInteger;
 import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
-import com.mlib.contexts.OnPlayerTicked;
-import com.mlib.contexts.base.Condition;
-import com.mlib.entity.AttributeHandler;
-import com.mlib.math.Range;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 

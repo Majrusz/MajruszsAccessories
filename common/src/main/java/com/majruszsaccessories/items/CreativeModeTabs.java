@@ -1,10 +1,11 @@
 package com.majruszsaccessories.items;
 
+import com.majruszlibrary.item.CreativeModeTabHelper;
+import com.majruszlibrary.registry.Registries;
+import com.majruszlibrary.text.TextHelper;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.common.AccessoryHolder;
-import com.mlib.item.CreativeModeTabHelper;
-import com.mlib.registry.Registries;
-import com.mlib.text.TextHelper;
+import com.majruszsaccessories.config.Config;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.CreativeModeTab;
@@ -31,7 +32,7 @@ public class CreativeModeTabs {
 
 	private static List< Item > getPrimaryIcons() {
 		List< Item > items = new ArrayList<>();
-		for( Item item : Registries.getItems() ) {
+		for( Item item : Registries.ITEMS ) {
 			if( item instanceof AccessoryItem ) {
 				items.add( item );
 			}
@@ -42,7 +43,7 @@ public class CreativeModeTabs {
 
 	private static void definePrimaryItems( CreativeModeTab.ItemDisplayParameters params, CreativeModeTab.Output output ) {
 		List< AccessoryItem > accessories = new ArrayList<>();
-		for( Item item : Registries.getItems() ) {
+		for( Item item : Registries.ITEMS ) {
 			if( item instanceof AccessoryItem accessory ) {
 				accessories.add( accessory );
 			}
@@ -50,7 +51,7 @@ public class CreativeModeTabs {
 		accessories.sort( Comparator.comparingInt( AccessoryItem::getBoosterSlotsCount ) );
 		for( AccessoryItem accessory : accessories ) {
 			for( int i = 0; i < 9; ++i ) {
-				float bonus = Mth.lerp( i / 8.0f, MajruszsAccessories.CONFIG.efficiency.range.from, MajruszsAccessories.CONFIG.efficiency.range.to );
+				float bonus = Mth.lerp( i / 8.0f, Config.Efficiency.RANGE.from, Config.Efficiency.RANGE.to );
 
 				output.accept( AccessoryHolder.create( accessory ).setBonus( bonus ).getItemStack() );
 			}

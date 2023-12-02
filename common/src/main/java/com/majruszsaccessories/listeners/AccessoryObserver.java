@@ -1,12 +1,12 @@
 package com.majruszsaccessories.listeners;
 
+import com.majruszlibrary.annotation.AutoInstance;
+import com.majruszlibrary.events.OnItemCrafted;
+import com.majruszlibrary.events.OnLootGenerated;
+import com.majruszlibrary.events.base.Condition;
+import com.majruszlibrary.events.base.Priority;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.common.AccessoryHolder;
-import com.mlib.annotation.AutoInstance;
-import com.mlib.contexts.OnItemCrafted;
-import com.mlib.contexts.OnLootGenerated;
-import com.mlib.contexts.base.Condition;
-import com.mlib.contexts.base.Priority;
 import net.minecraft.server.level.ServerPlayer;
 
 @AutoInstance

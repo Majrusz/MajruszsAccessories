@@ -1,5 +1,11 @@
 package com.majruszsaccessories.accessories;
 
+import com.majruszlibrary.annotation.AutoInstance;
+import com.majruszlibrary.data.Reader;
+import com.majruszlibrary.events.OnItemDamaged;
+import com.majruszlibrary.events.base.Priority;
+import com.majruszlibrary.math.AnyPos;
+import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.MiningDurabilityBonus;
 import com.majruszsaccessories.accessories.components.TradeOffer;
@@ -8,17 +14,11 @@ import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
-import com.mlib.annotation.AutoInstance;
-import com.mlib.contexts.OnItemDamaged;
-import com.mlib.contexts.base.Priority;
-import com.mlib.data.Serializable;
-import com.mlib.math.AnyPos;
-import com.mlib.math.Range;
 
 @AutoInstance
 public class ToolScraps extends AccessoryHandler {
 	public ToolScraps() {
-		super( MajruszsAccessories.TOOL_SCRAPS );
+		super( MajruszsAccessories.TOOL_SCRAPS, ToolScraps.class );
 
 		this.add( MiningDurabilityBonus.create( 0.1f ) )
 			.add( MiningDropChance.create() )
@@ -40,8 +40,8 @@ public class ToolScraps extends AccessoryHandler {
 				.addCondition( OnItemDamaged::isAboutToBroke )
 				.addCondition( CustomConditions.dropChance( data->this.multiplier * data.itemStack.getMaxDamage(), data->data.player ) );
 
-			Serializable< ? > config = handler.getConfig();
-			config.defineFloat( "durability_drop_chance_multiplier", s->this.multiplier, ( s, v )->this.multiplier = Range.CHANCE.clamp( v ) );
+			handler.getConfig()
+				.define( "durability_drop_chance_multiplier", Reader.number(), s->this.multiplier, ( s, v )->this.multiplier = Range.CHANCE.clamp( v ) );
 		}
 
 		private void spawnScraps( OnItemDamaged data ) {
