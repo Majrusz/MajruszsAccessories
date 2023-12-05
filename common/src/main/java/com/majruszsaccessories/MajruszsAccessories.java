@@ -12,6 +12,7 @@ import com.majruszlibrary.registry.Custom;
 import com.majruszlibrary.registry.RegistryGroup;
 import com.majruszlibrary.registry.RegistryObject;
 import com.majruszsaccessories.accessories.components.MoreChestLoot;
+import com.majruszsaccessories.cards.ReverseCard;
 import com.majruszsaccessories.cards.RedrawCard;
 import com.majruszsaccessories.config.Config;
 import com.majruszsaccessories.integration.ISlotPlatform;
@@ -19,9 +20,9 @@ import com.majruszsaccessories.items.*;
 import com.majruszsaccessories.particles.BonusParticle;
 import com.majruszsaccessories.particles.BonusParticleType;
 import com.majruszsaccessories.recipes.AccessoryRecipe;
-import com.majruszsaccessories.recipes.UseCardRecipe;
 import com.majruszsaccessories.recipes.BoostAccessoryRecipe;
 import com.majruszsaccessories.recipes.CombineAccessoriesRecipe;
+import com.majruszsaccessories.recipes.UseCardRecipe;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -72,12 +73,12 @@ public class MajruszsAccessories {
 	public static final RegistryObject< BoosterItem > GOLDEN_DICE = ITEMS.create( "golden_dice", BoosterItem.rare() );
 	public static final RegistryObject< BoosterItem > GOLDEN_HORSESHOE = ITEMS.create( "golden_horseshoe", BoosterItem.rare() );
 	public static final RegistryObject< BoosterItem > HORSESHOE = ITEMS.create( "horseshoe", BoosterItem.basic() );
-	public static final RegistryObject< BoosterItem > JADEITE = ITEMS.create( "jadeite", BoosterItem.basic() );
 	public static final RegistryObject< BoosterItem > ONYX = ITEMS.create( "onyx", BoosterItem.basic() );
 	public static final RegistryObject< BoosterItem > OWL_FEATHER = ITEMS.create( "owl_feather", BoosterItem.basic() );
 
-	// Items
+	// Items (Cards)
 	public static final RegistryObject< CardItem > REDRAW_CARD = ITEMS.create( "redraw_card", RedrawCard::new );
+	public static final RegistryObject< CardItem > REVERSE_CARD = ITEMS.create( "reverse_card", ReverseCard::new );
 
 	// Items (Fake)
 	public static final RegistryObject< BoosterOverlay > BOOSTER_OVERLAY_SINGLE = ITEMS.create( "booster_overlay_single", BoosterOverlay::new );

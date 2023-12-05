@@ -1,3 +1,5 @@
 - added Redraw Card
+- added Reverse Card
+- removed Jadeite
 - optimized accessory checks
 - fixed compatibility crash with MineColonies (reported by @Ryus Lightworks)

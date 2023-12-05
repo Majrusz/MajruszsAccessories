@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "majruszsaccessories:item/jadeite"
+    "layer0": "majruszsaccessories:item/reverse_card"
   }
 }
