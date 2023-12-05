@@ -5,7 +5,6 @@ import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.items.CardItem;
 import net.minecraft.world.inventory.CraftingContainer;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;

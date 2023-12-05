@@ -8,10 +8,10 @@ import com.majruszlibrary.math.AnyPos;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.StrongerPotions;
-import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
+import com.majruszsaccessories.common.components.TradeOffer;
 import com.majruszsaccessories.events.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 
@@ -22,7 +22,7 @@ public class SecretIngredient extends AccessoryHandler {
 
 		this.add( StrongerPotions.create( 0.6f, 1 ) )
 			.add( BrewingDropChance.create() )
-			.add( TradeOffer.create( 7 ) );
+			.add( TradeOffer.create( MajruszsAccessories.GAMBLING_CARD, 1 ) );
 	}
 
 	static class BrewingDropChance extends BonusComponent< AccessoryItem > {

@@ -7,10 +7,10 @@ import com.majruszlibrary.events.base.Condition;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.BreedingTwins;
-import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
+import com.majruszsaccessories.common.components.TradeOffer;
 import com.majruszsaccessories.events.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 
@@ -21,7 +21,7 @@ public class IdolOfFertility extends AccessoryHandler {
 
 		this.add( BreedingTwins.create( 0.25f ) )
 			.add( BreedingDropChance.create() )
-			.add( TradeOffer.create( 7 ) );
+			.add( TradeOffer.create( MajruszsAccessories.GAMBLING_CARD, 1 ) );
 	}
 
 	static class BreedingDropChance extends BonusComponent< AccessoryItem > {

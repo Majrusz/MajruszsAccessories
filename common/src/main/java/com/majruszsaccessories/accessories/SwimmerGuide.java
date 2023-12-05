@@ -8,10 +8,10 @@ import com.majruszlibrary.level.BlockHelper;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.SwimmingSpeedBonus;
-import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
+import com.majruszsaccessories.common.components.TradeOffer;
 import com.majruszsaccessories.events.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import net.minecraft.world.level.material.Fluids;
@@ -23,7 +23,7 @@ public class SwimmerGuide extends AccessoryHandler {
 
 		this.add( SwimmingSpeedBonus.create( 0.2f ) )
 			.add( UnderwaterChestDropChance.create() )
-			.add( TradeOffer.create( 7 ) );
+			.add( TradeOffer.create( MajruszsAccessories.GAMBLING_CARD, 1 ) );
 	}
 
 	static class UnderwaterChestDropChance extends BonusComponent< AccessoryItem > {

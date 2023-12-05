@@ -10,6 +10,7 @@ import com.majruszsaccessories.boosters.components.AccessoryDropChance;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.common.BoosterHandler;
+import com.majruszsaccessories.common.components.TradeOffer;
 import com.majruszsaccessories.items.BoosterItem;
 import net.minecraft.world.entity.monster.Guardian;
 
@@ -19,7 +20,8 @@ public class Dice extends BoosterHandler {
 		super( MajruszsAccessories.DICE, Dice.class );
 
 		this.add( AccessoryDropChance.create( 0.2f ) )
-			.add( GuardianDropChance.create() );
+			.add( GuardianDropChance.create() )
+			.add( TradeOffer.create( MajruszsAccessories.REVERSE_CARD, 1 ) );
 	}
 
 	static class GuardianDropChance extends BonusComponent< BoosterItem > {
