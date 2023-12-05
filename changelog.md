@@ -5,3 +5,4 @@
 - optimized accessory checks
 - fixed compatibility crash with MineColonies (reported by @Ryus Lightworks)
 - fixed bug with Onyx not granting advancement
+- fixed bug with current loot bonus displaying invalid value

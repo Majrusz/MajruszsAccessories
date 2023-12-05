@@ -45,6 +45,9 @@ public class MajruszsAccessories {
 	public static final RegistryGroup< RecipeSerializer< ? > > RECIPES = HELPER.create( BuiltInRegistries.RECIPE_SERIALIZER );
 	public static final RegistryGroup< ParticleType< ? > > PARTICLES = HELPER.create( BuiltInRegistries.PARTICLE_TYPE );
 
+	// Network
+	public static final NetworkObject< MoreChestLoot.BonusInfo > MORE_CHEST_LOOT = HELPER.create( "more_chest_loot", MoreChestLoot.BonusInfo.class );
+
 	// Items (Accessories)
 	public static final RegistryObject< AccessoryItem > ADVENTURER_KIT = ITEMS.create( "adventurer_kit", AccessoryItem.tier1() );
 	public static final RegistryObject< AccessoryItem > ADVENTURER_RUNE = ITEMS.create( "adventurer_rune", AccessoryItem.tier2() );
@@ -96,9 +99,6 @@ public class MajruszsAccessories {
 
 	// Creative Mode Tabs
 	public static final RegistryObject< CreativeModeTab > CREATIVE_MODE_TAB = CREATIVE_MODE_TABS.create( "primary", CreativeModeTabs.primary() );
-
-	// Network
-	public static final NetworkObject< MoreChestLoot.BonusInfo > MORE_CHEST_LOOT = HELPER.create( "more_chest_loot", MoreChestLoot.BonusInfo.class );
 
 	// Integration
 	public static final ISlotPlatform SLOT_INTEGRATION = Services.load( ISlotPlatform.class );
