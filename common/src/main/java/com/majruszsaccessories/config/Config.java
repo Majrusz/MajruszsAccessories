@@ -37,9 +37,11 @@ public class Config {
 				return RANGE.from;
 			}
 
-			float ratio = ( float )( ( Random.nextGaussian() * STD + AVG - RANGE.from ) / ( RANGE.to - RANGE.from ) );
+			return RANGE.lerp( Efficiency.getGaussianRatio() );
+		}
 
-			return RANGE.lerp( Mth.clamp( ratio, 0.0f, 1.0f ) );
+		public static float getGaussianRatio() {
+			return Mth.clamp( ( float )( ( Random.nextGaussian() * STD + AVG - RANGE.from ) / ( RANGE.to - RANGE.from ) ), 0.0f, 1.0f );
 		}
 	}
 }

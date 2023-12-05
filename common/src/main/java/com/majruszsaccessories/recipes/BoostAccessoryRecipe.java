@@ -19,12 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class BoostAccessoriesRecipe extends CustomRecipe {
+public class BoostAccessoryRecipe extends CustomRecipe {
 	public static Supplier< RecipeSerializer< ? > > create() {
-		return ()->new SimpleCraftingRecipeSerializer<>( BoostAccessoriesRecipe::new );
+		return ()->new SimpleCraftingRecipeSerializer<>( BoostAccessoryRecipe::new );
 	}
 
-	public BoostAccessoriesRecipe( ResourceLocation id, CraftingBookCategory category ) {
+	public BoostAccessoryRecipe( ResourceLocation id, CraftingBookCategory category ) {
 		super( id, category );
 	}
 
@@ -36,9 +36,10 @@ public class BoostAccessoriesRecipe extends CustomRecipe {
 		}
 
 		AccessoryHolder holder = data.getAccessory( 0 );
-		return data.getBoostersSize() > 0
+		return data.getCardsSize() == 0
+			&& data.getBoostersSize() > 0
 			&& data.getBoostersSize() <= holder.getBoosterSlotsLeft()
-			&& BoostAccessoriesRecipe.areCompatible( data.boosters(), holder.getBoosters() );
+			&& BoostAccessoryRecipe.areCompatible( data.boosters(), holder.getBoosters() );
 	}
 
 	@Override
@@ -57,7 +58,7 @@ public class BoostAccessoriesRecipe extends CustomRecipe {
 
 	@Override
 	public RecipeSerializer< ? > getSerializer() {
-		return MajruszsAccessories.BOOST_ACCESSORIES_RECIPE.get();
+		return MajruszsAccessories.BOOST_ACCESSORY_RECIPE.get();
 	}
 
 	private static boolean areCompatible( List< BoosterItem > a, List< BoosterItem > b ) {

@@ -42,7 +42,10 @@ public class AccessoryRecipe extends CustomRecipe {
 	public boolean matches( CraftingContainer container, Level level ) {
 		RecipeData data = RecipeData.build( container );
 
-		return this.ingredients.stream().allMatch( data::hasAccessory );
+		return data.getCardsSize() == 0
+			&& data.getBoostersSize() == 0
+			&& data.getAccessoriesSize() == this.ingredients.size()
+			&& this.ingredients.stream().allMatch( data::hasAccessory );
 	}
 
 	@Override

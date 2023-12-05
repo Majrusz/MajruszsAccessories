@@ -1,9 +1,7 @@
 package com.majruszsaccessories.recipes;
 
-import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.common.AccessoryHolder;
-import com.majruszsaccessories.config.Config;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -16,12 +14,12 @@ import net.minecraft.world.level.Level;
 
 import java.util.function.Supplier;
 
-public class CombineAccessoriesRecipe extends CustomRecipe {
+public class UseCardRecipe extends CustomRecipe {
 	public static Supplier< RecipeSerializer< ? > > create() {
-		return ()->new SimpleCraftingRecipeSerializer<>( CombineAccessoriesRecipe::new );
+		return ()->new SimpleCraftingRecipeSerializer<>( UseCardRecipe::new );
 	}
 
-	public CombineAccessoriesRecipe( ResourceLocation id, CraftingBookCategory category ) {
+	public UseCardRecipe( ResourceLocation id, CraftingBookCategory category ) {
 		super( id, category );
 	}
 
@@ -29,21 +27,17 @@ public class CombineAccessoriesRecipe extends CustomRecipe {
 	public boolean matches( CraftingContainer container, Level level ) {
 		RecipeData data = RecipeData.build( container );
 
-		return data.getAccessoriesSize() > 1
-			&& data.hasIdenticalItemTypes()
-			&& data.getMaxBonus() < Config.Efficiency.RANGE.to
-			&& data.getBoostersSize() == 0
-			&& data.getCardsSize() == 0;
+		return data.getAccessoriesSize() == 1
+			&& data.getCardsSize() == 1;
 	}
 
 	@Override
 	public ItemStack assemble( CraftingContainer container, RegistryAccess registryAccess ) {
 		RecipeData data = RecipeData.build( container );
-		float craftingMaxBonus = data.getMaxBonus();
-		float minBonus = Config.Efficiency.RANGE.clamp( craftingMaxBonus - 0.02f * ( data.getAccessoriesSize() - 1 ) );
-		float maxBonus = Config.Efficiency.RANGE.clamp( craftingMaxBonus + 0.07f * ( data.getAccessoriesSize() - 1 ) );
+		AccessoryHolder holder = data.getAccessory( 0 ).copy();
+		data.getCard( 0 ).apply( holder );
 
-		return AccessoryHolder.create( data.getAccessory( 0 ).getItem() ).setBonus( Range.of( minBonus, maxBonus ) ).getItemStack();
+		return holder.getItemStack();
 	}
 
 	@Override
@@ -53,6 +47,6 @@ public class CombineAccessoriesRecipe extends CustomRecipe {
 
 	@Override
 	public RecipeSerializer< ? > getSerializer() {
-		return MajruszsAccessories.COMBINE_ACCESSORIES_RECIPE.get();
+		return MajruszsAccessories.USE_CARD_RECIPE.get();
 	}
 }
