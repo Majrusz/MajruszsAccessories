@@ -138,6 +138,11 @@ jar {
     }
 }
 
+mixin {
+    add sourceSets.main, "${mod_id}.refmap.json"
+    config "${mod_id}-common.mixins.json"
+}
+
 processResources {
     from project(':common').sourceSets.main.resources
     filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {

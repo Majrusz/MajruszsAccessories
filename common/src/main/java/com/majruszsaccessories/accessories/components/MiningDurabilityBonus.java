@@ -2,6 +2,7 @@ package com.majruszsaccessories.accessories.components;
 
 import com.majruszlibrary.events.OnItemDamaged;
 import com.majruszlibrary.math.Range;
+import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
@@ -22,6 +23,7 @@ public class MiningDurabilityBonus extends BonusComponent< AccessoryItem > {
 		this.chance.set( bonus, Range.CHANCE );
 
 		OnItemDamaged.listen( this::decreaseDurabilityCost )
+			.addCondition( data->data.player != null )
 			.addCondition( CustomConditions.chance( this::getItem, data->data.player, holder->holder.apply( this.chance ) ) );
 
 		this.addTooltip( "majruszsaccessories.bonuses.free_durability_cost", TooltipHelper.asPercent( this.chance ) );
@@ -36,7 +38,7 @@ public class MiningDurabilityBonus extends BonusComponent< AccessoryItem > {
 	}
 
 	private void spawnEffects( OnItemDamaged data ) {
-		CustomConditions.getLastHolder()
+		AccessoryHolder.get( data.player )
 			.getParticleEmitter()
 			.count( 3 )
 			.sizeBased( data.player )

@@ -4,6 +4,7 @@ import com.majruszlibrary.entity.AttributeHandler;
 import com.majruszlibrary.events.OnAnimalTamed;
 import com.majruszlibrary.events.base.Condition;
 import com.majruszlibrary.math.Range;
+import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
@@ -45,7 +46,7 @@ public class TamingStrongerAnimals extends BonusComponent< AccessoryItem > {
 	}
 
 	private void applyBonuses( OnAnimalTamed data ) {
-		float bonus = CustomConditions.getLastHolder().apply( this.bonus );
+		float bonus = AccessoryHolder.get( data.tamer ).apply( this.bonus );
 		this.health.setValue( bonus ).apply( data.animal );
 		if( this.damage.hasAttribute( data.animal ) ) {
 			this.damage.setValue( bonus ).apply( data.animal );
@@ -59,7 +60,7 @@ public class TamingStrongerAnimals extends BonusComponent< AccessoryItem > {
 	}
 
 	private void spawnEffects( OnAnimalTamed data ) {
-		CustomConditions.getLastHolder()
+		AccessoryHolder.get( data.tamer )
 			.getParticleEmitter()
 			.count( 4 )
 			.sizeBased( data.animal )

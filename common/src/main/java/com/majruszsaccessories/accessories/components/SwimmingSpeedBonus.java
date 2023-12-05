@@ -3,6 +3,7 @@ package com.majruszsaccessories.accessories.components;
 import com.majruszlibrary.events.OnEntitySwimSpeedMultiplierGet;
 import com.majruszlibrary.math.Range;
 import com.majruszlibrary.time.TimeHelper;
+import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
@@ -33,14 +34,14 @@ public class SwimmingSpeedBonus extends BonusComponent< AccessoryItem > {
 	}
 
 	private void increaseSwimSpeed( OnEntitySwimSpeedMultiplierGet data ) {
-		data.multiplier *= 1.0f + CustomConditions.getLastHolder().apply( this.multiplier );
+		data.multiplier *= 1.0f + AccessoryHolder.get( data.entity ).apply( this.multiplier );
 		if( data.entity.isInWater() && data.getLevel() instanceof ServerLevel && TimeHelper.haveTicksPassed( 5 ) ) {
 			this.spawnEffects( data );
 		}
 	}
 
 	private void spawnEffects( OnEntitySwimSpeedMultiplierGet data ) {
-		CustomConditions.getLastHolder()
+		AccessoryHolder.get( data.entity )
 			.getParticleEmitter()
 			.count( 1 )
 			.sizeBased( data.entity )

@@ -21,7 +21,7 @@ public class EfficiencyBonus extends BonusComponent< BoosterItem > {
 		this.bonus.set( bonus, Range.of( 0.0f, 1.0f ) );
 
 		OnAccessoryExtraBonusGet.listen( this::increaseEfficiency )
-			.addCondition( data->data.holder.hasBooster( this.getItem() ) );
+			.addCondition( data->data.holder.has( this.getItem() ) );
 
 		this.addTooltip( "majruszsaccessories.boosters.efficiency_bonus", TooltipHelper.asBooster( this::getItem ), TooltipHelper.asFixedPercent( this.bonus ) );
 

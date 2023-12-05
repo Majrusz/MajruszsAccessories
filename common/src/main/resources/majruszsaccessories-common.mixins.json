@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "com.majruszsaccessories.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "minVersion": "0.8",
+  "refmap": "majruszsaccessories.refmap.json",
+  "client": [],
+  "mixins": [
+    "MixinLivingEntity"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

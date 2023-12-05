@@ -14,6 +14,7 @@ import com.majruszsaccessories.config.RangedInteger;
 import com.majruszsaccessories.contexts.OnAccessoryExtraBonusGet;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.items.BoosterItem;
+import com.majruszsaccessories.mixininterfaces.IMixinLivingEntity;
 import com.majruszsaccessories.particles.BonusParticleType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.resources.ResourceLocation;
@@ -32,7 +33,12 @@ public class AccessoryHolder {
 	final AccessoryItem item;
 	final Data data;
 
-	public static AccessoryHolder find( LivingEntity entity, Predicate< ItemStack > predicate ) {
+	public static AccessoryHolder get( LivingEntity entity ) {
+		return entity != null ? ( ( IMixinLivingEntity )entity ).majruszsaccessories$getAccessoryHolder() : new AccessoryHolder( ItemStack.EMPTY );
+	}
+
+	public static AccessoryHolder find( LivingEntity entity ) {
+		Predicate< ItemStack > predicate = itemStack->itemStack.getItem() instanceof AccessoryItem;
 		if( MajruszsAccessories.SLOT_INTEGRATION.isInstalled() ) {
 			return new AccessoryHolder( MajruszsAccessories.SLOT_INTEGRATION.find( entity, predicate ) );
 		} else {
@@ -43,22 +49,6 @@ public class AccessoryHolder {
 
 			return new AccessoryHolder( ItemStack.EMPTY );
 		}
-	}
-
-	public static AccessoryHolder find( LivingEntity entity, AccessoryItem item ) {
-		return AccessoryHolder.find( entity, itemStack->itemStack.is( item ) );
-	}
-
-	public static AccessoryHolder find( LivingEntity entity, BoosterItem item ) {
-		return AccessoryHolder.find( entity, itemStack->AccessoryHolder.create( itemStack ).hasBooster( item ) );
-	}
-
-	public static boolean hasAccessory( LivingEntity entity, AccessoryItem item ) {
-		return AccessoryHolder.find( entity, item ).isValid();
-	}
-
-	public static boolean hasBooster( LivingEntity entity, BoosterItem item ) {
-		return AccessoryHolder.find( entity, item ).isValid();
 	}
 
 	public static AccessoryHolder create( Item item ) {
@@ -208,6 +198,10 @@ public class AccessoryHolder {
 		return AccessoryHolder.getParticleEmitter( this.getBonus() );
 	}
 
+	public boolean is( AccessoryItem item ) {
+		return this.item == item;
+	}
+
 	public boolean isValid() {
 		return this.item != null;
 	}
@@ -224,11 +218,11 @@ public class AccessoryHolder {
 		return this.getBaseBonus() == Config.Efficiency.RANGE.to;
 	}
 
-	public boolean hasBooster( BoosterItem item ) {
+	public boolean has( BoosterItem item ) {
 		return this.data.boosters.stream().anyMatch( booster->booster.item == item );
 	}
 
-	public boolean hasBooster() {
+	public boolean hasAnyBooster() {
 		return !this.data.boosters.isEmpty();
 	}
 

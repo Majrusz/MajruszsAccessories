@@ -59,7 +59,7 @@ public class SleepingBonuses extends BonusComponent< AccessoryItem > {
 	}
 
 	private void applyBonuses( OnPlayerWakedUp data ) {
-		AccessoryHolder holder = CustomConditions.getLastHolder();
+		AccessoryHolder holder = AccessoryHolder.get( data.player );
 		int count = holder.apply( this.count );
 		int duration = TimeHelper.toTicks( holder.apply( this.duration ) );
 		this.getRandomMobEffects( data.player, count )
@@ -78,7 +78,7 @@ public class SleepingBonuses extends BonusComponent< AccessoryItem > {
 	}
 
 	private void spawnEffects( OnPlayerWakedUp data ) {
-		CustomConditions.getLastHolder()
+		AccessoryHolder.get( data.player )
 			.getParticleEmitter()
 			.count( 5 )
 			.position( data.player.position() )

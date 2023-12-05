@@ -16,6 +16,7 @@ import com.majruszlibrary.math.Range;
 import com.majruszlibrary.platform.Side;
 import com.majruszlibrary.text.TextHelper;
 import com.majruszsaccessories.MajruszsAccessories;
+import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
@@ -25,6 +26,7 @@ import com.majruszsaccessories.tooltip.ITooltipProvider;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.Optional;
@@ -54,7 +56,7 @@ public class MoreChestLoot extends BonusComponent< AccessoryItem > {
 
 	private void addExtraLoot( OnLootGenerated data ) {
 		ServerPlayer player = OnChestOpened.findPlayer( data ).orElseThrow();
-		float sizeMultiplier = 1.0f + CustomConditions.getLastHolder().apply( this.sizeMultiplier ) * MoreChestLoot.getDistanceBonus( player );
+		float sizeMultiplier = 1.0f + AccessoryHolder.get( player ).apply( this.sizeMultiplier ) * MoreChestLoot.getDistanceBonus( player );
 		boolean hasIncreasedLoot = false;
 		for( ItemStack itemStack : data.generatedLoot ) {
 			int count = Math.min( Random.round( sizeMultiplier * itemStack.getCount() ), itemStack.getMaxStackSize() );
@@ -63,12 +65,12 @@ public class MoreChestLoot extends BonusComponent< AccessoryItem > {
 		}
 
 		if( hasIncreasedLoot ) {
-			this.spawnEffects( data );
+			this.spawnEffects( data, player );
 		}
 	}
 
-	private void spawnEffects( OnLootGenerated data ) {
-		CustomConditions.getLastHolder()
+	private void spawnEffects( OnLootGenerated data, ServerPlayer player ) {
+		AccessoryHolder.get( player )
 			.getParticleEmitter()
 			.count( 24 )
 			.offset( ParticleEmitter.offset( 0.4f ) )

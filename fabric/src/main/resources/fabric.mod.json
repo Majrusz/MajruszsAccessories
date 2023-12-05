@@ -16,6 +16,9 @@
   "entrypoints": {
     "main": [ "com.${mod_id}.Initializer" ]
   },
+  "mixins": [
+    "${mod_id}-common.mixins.json"
+  ],
   "depends": {
     "fabric": "*",
     "minecraft": "${fabric_minecraft_version_range}",

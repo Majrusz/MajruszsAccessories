@@ -9,6 +9,7 @@ import com.majruszlibrary.events.base.Event;
 import com.majruszlibrary.item.LootHelper;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
+import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
@@ -61,7 +62,7 @@ public class MiningExtraItem extends BonusComponent< AccessoryItem > {
 	}
 
 	private void spawnEffects( OnLootGenerated data ) {
-		CustomConditions.getLastHolder()
+		AccessoryHolder.get( ( LivingEntity )data.entity )
 			.getParticleEmitter()
 			.count( 3 )
 			.offset( ParticleEmitter.offset( 0.2f ) )

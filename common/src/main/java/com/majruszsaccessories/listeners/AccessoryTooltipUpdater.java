@@ -78,7 +78,7 @@ public class AccessoryTooltipUpdater {
 	}
 
 	private ChatFormatting getUseFormatting( AccessoryHolder holder, @Nullable Player player ) {
-		if( player != null && AccessoryHolder.find( player, holder.getItem() ).getItemStack() == holder.getItemStack() ) {
+		if( player != null && AccessoryHolder.get( player ) == holder ) {
 			return ChatFormatting.GOLD;
 		} else {
 			return ChatFormatting.DARK_GRAY;

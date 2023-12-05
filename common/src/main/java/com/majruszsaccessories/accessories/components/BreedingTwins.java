@@ -3,6 +3,7 @@ package com.majruszsaccessories.accessories.components;
 import com.majruszlibrary.events.OnBabySpawned;
 import com.majruszlibrary.events.base.Condition;
 import com.majruszlibrary.math.Range;
+import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
@@ -47,7 +48,7 @@ public class BreedingTwins extends BonusComponent< AccessoryItem > {
 	}
 
 	private void spawnEffects( OnBabySpawned data, AgeableMob child ) {
-		CustomConditions.getLastHolder()
+		AccessoryHolder.get( data.player )
 			.getParticleEmitter()
 			.count( 4 )
 			.sizeBased( child )

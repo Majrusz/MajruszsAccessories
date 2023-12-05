@@ -5,6 +5,7 @@ import com.majruszlibrary.item.LootHelper;
 import com.majruszlibrary.level.LevelHelper;
 import com.majruszlibrary.math.AnyPos;
 import com.majruszlibrary.math.Range;
+import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
@@ -53,7 +54,7 @@ public class BrushingExtraItem extends BonusComponent< AccessoryItem > {
 	}
 
 	private void spawnEffects( OnItemBrushed data ) {
-		CustomConditions.getLastHolder()
+		AccessoryHolder.get( data.player )
 			.getParticleEmitter()
 			.count( 8 )
 			.position( AnyPos.from( data.blockEntity.getBlockPos() ).center().add( data.direction ).vec3() )

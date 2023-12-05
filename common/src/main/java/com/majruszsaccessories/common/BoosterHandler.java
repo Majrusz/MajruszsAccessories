@@ -17,7 +17,7 @@ public class BoosterHandler extends BonusHandler< BoosterItem > {
 		super( item, clazz, item.getId() );
 
 		OnAccessoryTooltip.listen( this::addTooltip )
-			.addCondition( data->data.holder.hasBooster( this.getItem() ) );
+			.addCondition( data->data.holder.has( this.getItem() ) );
 
 		OnBoosterTooltip.listen( this::addTooltip )
 			.addCondition( data->data.booster.equals( this.getItem() ) );

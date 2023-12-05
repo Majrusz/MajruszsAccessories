@@ -15,6 +15,7 @@ import com.majruszsaccessories.contexts.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
@@ -50,7 +51,8 @@ public class StrongerPotions extends BonusComponent< AccessoryItem > {
 	}
 
 	private void boostPotions( OnItemBrewed data ) {
-		AccessoryHolder holder = CustomConditions.getLastHolder();
+		Player player = LevelHelper.getNearestPlayer( data.level, data.blockPos, 10.0f );
+		AccessoryHolder holder = AccessoryHolder.get( player );
 		data.mapPotions( potions->{
 			float durationMultiplier = 1.0f - holder.apply( this.durationPenalty, -1.0f );
 			int extraAmplifier = holder.apply( this.amplifier );
@@ -73,11 +75,11 @@ public class StrongerPotions extends BonusComponent< AccessoryItem > {
 				} )
 				.toList();
 		} );
-		this.spawnEffects( data );
+		this.spawnEffects( data, player );
 	}
 
-	private void spawnEffects( OnItemBrewed data ) {
-		CustomConditions.getLastHolder()
+	private void spawnEffects( OnItemBrewed data, Player player ) {
+		AccessoryHolder.get( player )
 			.getParticleEmitter()
 			.count( 6 )
 			.position( AnyPos.from( data.blockPos ).center().vec3() )

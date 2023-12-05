@@ -5,6 +5,7 @@ import com.majruszlibrary.events.OnItemSwingDurationGet;
 import com.majruszlibrary.math.Random;
 import com.majruszlibrary.math.Range;
 import com.majruszlibrary.time.TimeHelper;
+import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
@@ -38,20 +39,20 @@ public class MiningSpeedBonus extends BonusComponent< AccessoryItem > {
 	}
 
 	private void increaseMineSpeed( OnBreakSpeedGet data ) {
-		data.speed += data.original * CustomConditions.getLastHolder().apply( this.speedMultiplier );
+		data.speed += data.original * AccessoryHolder.get( data.player ).apply( this.speedMultiplier );
 		if( data.getLevel() instanceof ServerLevel && TimeHelper.haveTicksPassed( 10 ) ) {
 			this.spawnEffects( data );
 		}
 	}
 
 	private void decreaseSwingDuration( OnItemSwingDurationGet data ) {
-		float bonus = CustomConditions.getLastHolder().apply( this.speedMultiplier );
+		float bonus = AccessoryHolder.get( data.entity ).apply( this.speedMultiplier );
 
 		data.duration -= Random.round( data.original * bonus / ( 1.0f + bonus ) );
 	}
 
 	private void spawnEffects( OnBreakSpeedGet data ) {
-		CustomConditions.getLastHolder()
+		AccessoryHolder.get( data.player )
 			.getParticleEmitter()
 			.count( 1 )
 			.sizeBased( data.player )

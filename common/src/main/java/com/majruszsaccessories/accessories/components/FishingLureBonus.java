@@ -5,6 +5,7 @@ import com.majruszlibrary.events.OnFishingTimeGet;
 import com.majruszlibrary.level.LevelHelper;
 import com.majruszlibrary.math.AnyPos;
 import com.majruszlibrary.math.Range;
+import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
@@ -35,14 +36,14 @@ public class FishingLureBonus extends BonusComponent< AccessoryItem > {
 	}
 
 	private void decreaseFishingTime( OnFishingTimeGet data ) {
-		data.time = Math.round( data.time * ( 1.0f - CustomConditions.getLastHolder().apply( this.multiplier ) ) );
+		data.time = Math.round( data.time * ( 1.0f - AccessoryHolder.get( data.player ).apply( this.multiplier ) ) );
 		this.spawnEffects( data );
 	}
 
 	private void spawnEffects( OnFishingTimeGet data ) {
 		BlockPos position = LevelHelper.getPositionOverFluid( data.getLevel(), data.hook.blockPosition() );
 
-		CustomConditions.getLastHolder()
+		AccessoryHolder.get( data.player )
 			.getParticleEmitter()
 			.count( 4 )
 			.offset( ParticleEmitter.offset( 0.125f ) )
