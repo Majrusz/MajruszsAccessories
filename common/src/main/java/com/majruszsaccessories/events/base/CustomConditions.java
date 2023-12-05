@@ -1,10 +1,10 @@
-package com.majruszsaccessories.contexts.base;
+package com.majruszsaccessories.events.base;
 
 import com.majruszlibrary.events.base.Condition;
 import com.majruszlibrary.events.base.Events;
 import com.majruszlibrary.math.Random;
 import com.majruszsaccessories.common.AccessoryHolder;
-import com.majruszsaccessories.contexts.OnAccessoryDropChanceGet;
+import com.majruszsaccessories.events.OnAccessoryDropChanceGet;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.items.BoosterItem;
 import net.minecraft.world.entity.Entity;

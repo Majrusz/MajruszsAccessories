@@ -5,7 +5,7 @@ import com.majruszlibrary.events.OnItemTooltip;
 import com.majruszlibrary.events.base.Condition;
 import com.majruszlibrary.events.base.Events;
 import com.majruszlibrary.text.TextHelper;
-import com.majruszsaccessories.contexts.OnBoosterTooltip;
+import com.majruszsaccessories.events.OnBoosterTooltip;
 import com.majruszsaccessories.items.BoosterItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

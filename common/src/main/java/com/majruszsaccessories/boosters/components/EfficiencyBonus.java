@@ -4,7 +4,7 @@ import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
-import com.majruszsaccessories.contexts.OnAccessoryExtraBonusGet;
+import com.majruszsaccessories.events.OnAccessoryExtraBonusGet;
 import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 

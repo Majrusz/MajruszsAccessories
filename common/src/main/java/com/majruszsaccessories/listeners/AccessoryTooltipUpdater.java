@@ -10,7 +10,7 @@ import com.majruszlibrary.text.TextHelper;
 import com.majruszlibrary.time.TimeHelper;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.common.AccessoryHolder;
-import com.majruszsaccessories.contexts.OnAccessoryTooltip;
+import com.majruszsaccessories.events.OnAccessoryTooltip;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import net.minecraft.ChatFormatting;

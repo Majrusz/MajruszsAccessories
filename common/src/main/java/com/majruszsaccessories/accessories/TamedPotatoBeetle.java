@@ -10,7 +10,7 @@ import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
-import com.majruszsaccessories.contexts.OnAccessoryDropChanceGet;
+import com.majruszsaccessories.events.OnAccessoryDropChanceGet;
 import com.majruszsaccessories.items.AccessoryItem;
 import net.minecraft.world.level.block.Blocks;
 

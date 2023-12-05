@@ -3,7 +3,7 @@ package com.majruszsaccessories.recipes;
 import com.majruszlibrary.events.base.Events;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.common.AccessoryHolder;
-import com.majruszsaccessories.contexts.OnBoosterCompatibilityGet;
+import com.majruszsaccessories.events.OnBoosterCompatibilityGet;
 import com.majruszsaccessories.items.BoosterItem;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;

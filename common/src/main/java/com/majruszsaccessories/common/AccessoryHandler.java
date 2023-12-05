@@ -6,7 +6,7 @@ import com.majruszlibrary.events.base.Priority;
 import com.majruszlibrary.registry.RegistryObject;
 import com.majruszlibrary.text.TextHelper;
 import com.majruszsaccessories.config.Config;
-import com.majruszsaccessories.contexts.OnAccessoryTooltip;
+import com.majruszsaccessories.events.OnAccessoryTooltip;
 import com.majruszsaccessories.items.AccessoryItem;
 import net.minecraft.ChatFormatting;
 

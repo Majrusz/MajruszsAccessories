@@ -11,7 +11,7 @@ import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.config.Config;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.config.RangedInteger;
-import com.majruszsaccessories.contexts.OnAccessoryExtraBonusGet;
+import com.majruszsaccessories.events.OnAccessoryExtraBonusGet;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.mixininterfaces.IMixinLivingEntity;
