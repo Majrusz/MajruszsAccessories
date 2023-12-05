@@ -7,7 +7,7 @@ import com.majruszsaccessories.config.Config;
 import com.majruszsaccessories.items.CardItem;
 import net.minecraft.ChatFormatting;
 
-public class RedrawCard extends CardItem {
+public class GamblingCard extends CardItem {
 	@Override
 	public void apply( AccessoryHolder holder ) {
 		holder.setBonus( Config.Efficiency.RANGE, AccessoryHolder.RandomType.NORMAL_DISTRIBUTION );

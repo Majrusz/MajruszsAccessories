@@ -1,4 +1,4 @@
-- added Redraw Card
+- added Gambling Card
 - added Reverse Card
 - removed Jadeite
 - optimized accessory checks

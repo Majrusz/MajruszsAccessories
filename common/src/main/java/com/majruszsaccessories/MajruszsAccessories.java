@@ -13,7 +13,7 @@ import com.majruszlibrary.registry.RegistryGroup;
 import com.majruszlibrary.registry.RegistryObject;
 import com.majruszsaccessories.accessories.components.MoreChestLoot;
 import com.majruszsaccessories.cards.ReverseCard;
-import com.majruszsaccessories.cards.RedrawCard;
+import com.majruszsaccessories.cards.GamblingCard;
 import com.majruszsaccessories.config.Config;
 import com.majruszsaccessories.integration.ISlotPlatform;
 import com.majruszsaccessories.items.*;
@@ -77,7 +77,7 @@ public class MajruszsAccessories {
 	public static final RegistryObject< BoosterItem > OWL_FEATHER = ITEMS.create( "owl_feather", BoosterItem.basic() );
 
 	// Items (Cards)
-	public static final RegistryObject< CardItem > REDRAW_CARD = ITEMS.create( "redraw_card", RedrawCard::new );
+	public static final RegistryObject< CardItem > GAMBLING_CARD = ITEMS.create( "gambling_card", GamblingCard::new );
 	public static final RegistryObject< CardItem > REVERSE_CARD = ITEMS.create( "reverse_card", ReverseCard::new );
 
 	// Items (Fake)

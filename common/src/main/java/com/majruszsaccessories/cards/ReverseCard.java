@@ -14,6 +14,6 @@ public class ReverseCard extends CardItem {
 
 	@Override
 	public void addTooltip( OnItemTooltip data ) {
-		data.components.add( TextHelper.translatable( "majruszsaccessories.cards.reverse" ).withStyle( ChatFormatting.GRAY ) );
+		data.components.add( TextHelper.translatable( "majruszsaccessories.cards.negate" ).withStyle( ChatFormatting.GRAY ) );
 	}
 }
