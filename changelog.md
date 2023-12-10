@@ -2,6 +2,7 @@
 - added Reverse Card
 - added new advancement for 69% efficiency bonus
 - added 25% chance for Swimmer Guide to spawn in buried treasures (suggested by @Ladocterus)
+- added Haste and Strength effects to Dream Catcher
 - removed Jadeite
 - reworked Wandering Trader trades for accessories and boosters
 - updated Chinese translation (thanks to @Fiocher)

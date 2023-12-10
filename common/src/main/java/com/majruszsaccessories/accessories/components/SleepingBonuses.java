@@ -30,7 +30,9 @@ public class SleepingBonuses extends BonusComponent< AccessoryItem > {
 		new EffectDef( MobEffects.ABSORPTION, 1 ),
 		new EffectDef( MobEffects.DAMAGE_RESISTANCE, 0 ),
 		new EffectDef( MobEffects.FIRE_RESISTANCE, 0 ),
-		new EffectDef( MobEffects.MOVEMENT_SPEED, 0 )
+		new EffectDef( MobEffects.MOVEMENT_SPEED, 0 ),
+		new EffectDef( MobEffects.DIG_SPEED, 0 ),
+		new EffectDef( MobEffects.DAMAGE_BOOST, 0 )
 	);
 
 	public static ISupplier< AccessoryItem > create( int count, int duration ) {
