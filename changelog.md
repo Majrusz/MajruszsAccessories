@@ -5,6 +5,7 @@
 - reworked Wandering Trader trades for accessories and boosters
 - updated Chinese translation (thanks to @Fiocher)
 - increased Tamed Potato Bettle drop chances from 0.2%/0.5% to 0.25%/0.5%
+- increased Lucky Ruck drop chance from 0.05% to 0.075%
 - optimized accessory checks
 - fixed compatibility crash with MineColonies (reported by @Ryus Lightworks)
 - fixed bug with Onyx not granting advancement

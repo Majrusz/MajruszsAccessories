@@ -23,7 +23,7 @@ public class LuckyRock extends AccessoryHandler {
 	}
 
 	static class MiningDropChance extends BonusComponent< AccessoryItem > {
-		float chance = 0.0005f;
+		float chance = 0.00075f;
 
 		public static ISupplier< AccessoryItem > create() {
 			return MiningDropChance::new;
