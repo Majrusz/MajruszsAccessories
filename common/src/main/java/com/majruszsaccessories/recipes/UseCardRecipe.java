@@ -30,6 +30,7 @@ public class UseCardRecipe extends CustomRecipe {
 		RecipeData data = RecipeData.build( container );
 
 		return data.getAccessoriesSize() == 1
+			&& data.getBoostersSize() == 0
 			&& data.getCardsSize() == 1;
 	}
 
