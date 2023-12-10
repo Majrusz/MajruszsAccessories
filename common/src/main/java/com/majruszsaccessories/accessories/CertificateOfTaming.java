@@ -20,7 +20,7 @@ public class CertificateOfTaming extends AccessoryHandler {
 
 		this.add( TamingStrongerAnimals.create( 0.2f ) )
 			.add( TamingDropChance.create() )
-			.add( TradeOffer.create( MajruszsAccessories.GAMBLING_CARD, 1 ) );
+			.add( TradeOffer.create( 1 ) );
 	}
 
 	static class TamingDropChance extends BonusComponent< AccessoryItem > {

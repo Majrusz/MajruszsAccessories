@@ -2,10 +2,9 @@ package com.majruszsaccessories.common.components;
 
 import com.majruszlibrary.events.OnWanderingTradesUpdated;
 import com.majruszlibrary.math.Random;
+import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
-import com.majruszsaccessories.items.AccessoryItem;
-import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.items.CardItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -13,7 +12,6 @@ import net.minecraft.world.item.trading.MerchantOffer;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class TradeOffer< Type extends Item > extends BonusComponent< Type > {
@@ -25,14 +23,14 @@ public class TradeOffer< Type extends Item > extends BonusComponent< Type > {
 		OnWanderingTradesUpdated.listen( TradeOffer::addTrades );
 	}
 
-	public static < Type extends Item > ISupplier< Type > create( Supplier< CardItem > card, int count ) {
-		return handler->new TradeOffer<>( handler, card, count );
+	public static < Type extends Item > ISupplier< Type > create( int count ) {
+		return handler->new TradeOffer<>( handler, count );
 	}
 
-	protected TradeOffer( BonusHandler< Type > handler, Supplier< CardItem > card, int count ) {
+	protected TradeOffer( BonusHandler< Type > handler, int count ) {
 		super( handler );
 
-		this.card = card;
+		this.card = ()->Random.next( List.of( MajruszsAccessories.GAMBLING_CARD, MajruszsAccessories.REMOVAL_CARD, MajruszsAccessories.REVERSE_CARD ) ).get();
 		this.count = count;
 
 		OFFERS.add( this );
@@ -48,11 +46,6 @@ public class TradeOffer< Type extends Item > extends BonusComponent< Type > {
 	}
 
 	private static void addTrades( OnWanderingTradesUpdated data ) {
-		data.offers.addAll( TradeOffer.getOffers( offer->offer.getItem() instanceof AccessoryItem, 3 ) );
-		data.offers.addAll( TradeOffer.getOffers( offer->offer.getItem() instanceof BoosterItem, 1 ) );
-	}
-
-	private static List< MerchantOffer > getOffers( Predicate< TradeOffer > predicate, int count ) {
-		return Random.next( OFFERS.stream().filter( predicate ).map( TradeOffer::toMerchantOffer ).toList(), count );
+		data.offers.addAll( Random.next( OFFERS.stream().map( TradeOffer::toMerchantOffer ).toList(), 5 ) );
 	}
 }

@@ -26,7 +26,7 @@ public class AnglerTrophy extends AccessoryHandler {
 
 		this.add( FishingLuckBonus.create( 3 ) )
 			.add( FishingDropChance.create( 0.01f ) )
-			.add( TradeOffer.create( MajruszsAccessories.GAMBLING_CARD, 1 ) );
+			.add( TradeOffer.create( 1 ) );
 	}
 
 	public static class FishingDropChance extends BonusComponent< AccessoryItem > {

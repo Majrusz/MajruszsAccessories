@@ -21,7 +21,7 @@ public class DreamCatcher extends AccessoryHandler {
 
 		this.add( SleepingBonuses.create( 1, 300 ) )
 			.add( SleepingDropChance.create() )
-			.add( TradeOffer.create( MajruszsAccessories.GAMBLING_CARD, 1 ) );
+			.add( TradeOffer.create( 1 ) );
 	}
 
 	static class SleepingDropChance extends BonusComponent< AccessoryItem > {

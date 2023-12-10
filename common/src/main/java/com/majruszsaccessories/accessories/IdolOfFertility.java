@@ -21,7 +21,7 @@ public class IdolOfFertility extends AccessoryHandler {
 
 		this.add( BreedingTwins.create( 0.25f ) )
 			.add( BreedingDropChance.create() )
-			.add( TradeOffer.create( MajruszsAccessories.GAMBLING_CARD, 1 ) );
+			.add( TradeOffer.create( 1 ) );
 	}
 
 	static class BreedingDropChance extends BonusComponent< AccessoryItem > {

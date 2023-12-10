@@ -20,7 +20,7 @@ public class MinerGuide extends AccessoryHandler {
 
 		this.add( MiningSpeedBonus.create( 0.1f ) )
 			.add( UndergroundChestDropChance.create() )
-			.add( TradeOffer.create( MajruszsAccessories.GAMBLING_CARD, 1 ) );
+			.add( TradeOffer.create( 1 ) );
 	}
 
 	static class UndergroundChestDropChance extends BonusComponent< AccessoryItem > {

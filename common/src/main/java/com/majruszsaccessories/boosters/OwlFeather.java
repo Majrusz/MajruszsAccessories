@@ -21,8 +21,7 @@ public class OwlFeather extends BoosterHandler {
 
 		this.add( ExperienceBonus.create( 0.15f ) )
 			.add( VexDropChance.create() )
-			.add( TradeOffer.create( MajruszsAccessories.REMOVAL_CARD, 1 ) )
-			.add( TradeOffer.create( MajruszsAccessories.REVERSE_CARD, 1 ) );
+			.add( TradeOffer.create( 1 ) );
 	}
 
 	static class VexDropChance extends BonusComponent< BoosterItem > {

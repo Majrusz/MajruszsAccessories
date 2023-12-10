@@ -19,7 +19,7 @@ public class AdventurerKit extends AccessoryHandler {
 
 		this.add( MoreChestLoot.create( 1.2f ) )
 			.add( AnyChestDropChance.create() )
-			.add( TradeOffer.create( MajruszsAccessories.GAMBLING_CARD, 1 ) );
+			.add( TradeOffer.create( 1 ) );
 	}
 
 	static class AnyChestDropChance extends BonusComponent< AccessoryItem > {

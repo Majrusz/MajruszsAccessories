@@ -26,7 +26,7 @@ public class AncientScarab extends AccessoryHandler {
 
 		this.add( BrushingExtraItem.create( 0.16f ) )
 			.add( SuspiciousBlocksDropChance.create() )
-			.add( TradeOffer.create( MajruszsAccessories.GAMBLING_CARD, 1 ) );
+			.add( TradeOffer.create( 1 ) );
 	}
 
 	static class SuspiciousBlocksDropChance extends BonusComponent< AccessoryItem > {

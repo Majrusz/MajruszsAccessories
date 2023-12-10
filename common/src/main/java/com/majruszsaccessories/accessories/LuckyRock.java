@@ -19,7 +19,7 @@ public class LuckyRock extends AccessoryHandler {
 
 		this.add( MiningExtraItem.create( 0.03f ) )
 			.add( MiningDropChance.create() )
-			.add( TradeOffer.create( MajruszsAccessories.GAMBLING_CARD, 1 ) );
+			.add( TradeOffer.create( 1 ) );
 	}
 
 	static class MiningDropChance extends BonusComponent< AccessoryItem > {

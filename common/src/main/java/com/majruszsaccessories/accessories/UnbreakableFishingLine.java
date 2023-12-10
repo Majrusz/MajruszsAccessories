@@ -14,6 +14,6 @@ public class UnbreakableFishingLine extends AccessoryHandler {
 		this.add( FishingLureBonus.create( 0.2f ) )
 			.add( AnglerTrophy.FishingDropChance.create( 0.005f ) )
 			.add( AnglerTrophy.FishDropChance.create( 0.005f ) )
-			.add( TradeOffer.create( MajruszsAccessories.GAMBLING_CARD, 1 ) );
+			.add( TradeOffer.create( 1 ) );
 	}
 }
