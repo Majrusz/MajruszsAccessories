@@ -30,7 +30,12 @@ public class TradeOffer< Type extends Item > extends BonusComponent< Type > {
 	protected TradeOffer( BonusHandler< Type > handler, int count ) {
 		super( handler );
 
-		this.card = ()->Random.next( List.of( MajruszsAccessories.GAMBLING_CARD, MajruszsAccessories.REMOVAL_CARD, MajruszsAccessories.REVERSE_CARD ) ).get();
+		this.card = ()->Random.next( List.of(
+			MajruszsAccessories.GAMBLING_CARD,
+			MajruszsAccessories.GAMBLING_CARD,
+			MajruszsAccessories.REMOVAL_CARD,
+			MajruszsAccessories.REVERSE_CARD
+		) ).get();
 		this.count = count;
 
 		OFFERS.add( this );
