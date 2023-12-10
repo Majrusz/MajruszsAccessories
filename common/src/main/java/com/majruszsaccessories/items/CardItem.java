@@ -12,7 +12,7 @@ public abstract class CardItem extends Item {
 	}
 
 	public CardItem() {
-		super( new Properties().rarity( Rarity.UNCOMMON ).stacksTo( 8 ) );
+		super( new Properties().rarity( Rarity.UNCOMMON ).stacksTo( 16 ) );
 	}
 
 	@Override
