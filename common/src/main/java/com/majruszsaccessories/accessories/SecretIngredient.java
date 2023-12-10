@@ -26,7 +26,7 @@ public class SecretIngredient extends AccessoryHandler {
 	}
 
 	static class BrewingDropChance extends BonusComponent< AccessoryItem > {
-		float chance = 0.0334f;
+		float chance = 0.02f;
 
 		public static ISupplier< AccessoryItem > create() {
 			return BrewingDropChance::new;
