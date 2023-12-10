@@ -21,7 +21,7 @@ public class Dice extends BoosterHandler {
 
 		this.add( AccessoryDropChance.create( 0.2f ) )
 			.add( GuardianDropChance.create() )
-			.add( TradeOffer.create( 1 ) );
+			.add( TradeOffer.create() );
 	}
 
 	static class GuardianDropChance extends BonusComponent< BoosterItem > {

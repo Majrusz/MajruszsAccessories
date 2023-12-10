@@ -21,7 +21,7 @@ public class TamedPotatoBeetle extends AccessoryHandler {
 
 		this.add( HarvestingDoubleCrops.create( 0.25f ) )
 			.add( HarvestingDropChance.create() )
-			.add( TradeOffer.create( 1 ) );
+			.add( TradeOffer.create() );
 	}
 
 	static class HarvestingDropChance extends BonusComponent< AccessoryItem > {

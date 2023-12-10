@@ -21,7 +21,7 @@ public class Onyx extends BoosterHandler {
 
 		this.add( EfficiencyBonus.create( 0.09f ) )
 			.add( WardenDropChance.create() )
-			.add( TradeOffer.create( 1 ) );
+			.add( TradeOffer.create() );
 	}
 
 	static class WardenDropChance extends BonusComponent< BoosterItem > {

@@ -22,7 +22,7 @@ public class ToolScraps extends AccessoryHandler {
 
 		this.add( MiningDurabilityBonus.create( 0.1f ) )
 			.add( MiningDropChance.create() )
-			.add( TradeOffer.create( 1 ) );
+			.add( TradeOffer.create() );
 	}
 
 	static class MiningDropChance extends BonusComponent< AccessoryItem > {

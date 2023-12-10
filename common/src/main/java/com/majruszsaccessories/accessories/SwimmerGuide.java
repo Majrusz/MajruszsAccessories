@@ -25,7 +25,7 @@ public class SwimmerGuide extends AccessoryHandler {
 		this.add( SwimmingSpeedBonus.create( 0.2f ) )
 			.add( UnderwaterChestDropChance.create() )
 			.add( BuriedTreasureDropChance.create() )
-			.add( TradeOffer.create( 1 ) );
+			.add( TradeOffer.create() );
 	}
 
 	static class UnderwaterChestDropChance extends BonusComponent< AccessoryItem > {

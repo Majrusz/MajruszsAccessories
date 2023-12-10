@@ -22,7 +22,7 @@ public class Horseshoe extends BoosterHandler {
 
 		this.add( LuckBonus.create( 1 ) )
 			.add( SkeletonHorsemanDropChance.create() )
-			.add( TradeOffer.create( 1 ) );
+			.add( TradeOffer.create() );
 	}
 
 	static class SkeletonHorsemanDropChance extends BonusComponent< BoosterItem > {

@@ -21,7 +21,7 @@ public class DiscountVoucher extends AccessoryHandler {
 
 		this.add( TradingDiscount.create( 0.12f ) )
 			.add( TradingDropChance.create() )
-			.add( TradeOffer.create( 1 ) );
+			.add( TradeOffer.create() );
 	}
 
 	static class TradingDropChance extends BonusComponent< AccessoryItem > {

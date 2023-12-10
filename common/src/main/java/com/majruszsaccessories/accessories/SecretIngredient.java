@@ -22,7 +22,7 @@ public class SecretIngredient extends AccessoryHandler {
 
 		this.add( StrongerPotions.create( 0.6f, 1 ) )
 			.add( BrewingDropChance.create() )
-			.add( TradeOffer.create( 1 ) );
+			.add( TradeOffer.create() );
 	}
 
 	static class BrewingDropChance extends BonusComponent< AccessoryItem > {

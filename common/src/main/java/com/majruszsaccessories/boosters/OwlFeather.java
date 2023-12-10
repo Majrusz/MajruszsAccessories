@@ -21,7 +21,7 @@ public class OwlFeather extends BoosterHandler {
 
 		this.add( ExperienceBonus.create( 0.15f ) )
 			.add( VexDropChance.create() )
-			.add( TradeOffer.create( 1 ) );
+			.add( TradeOffer.create() );
 	}
 
 	static class VexDropChance extends BonusComponent< BoosterItem > {

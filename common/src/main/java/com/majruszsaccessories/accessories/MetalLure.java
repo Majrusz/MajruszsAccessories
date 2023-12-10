@@ -13,6 +13,6 @@ public class MetalLure extends AccessoryHandler {
 
 		this.add( FishingExtraItems.create( 0.2f, 2 ) )
 			.add( AnglerTrophy.FishDropChance.create( 0.01f ) )
-			.add( TradeOffer.create( 1 ) );
+			.add( TradeOffer.create() );
 	}
 }
