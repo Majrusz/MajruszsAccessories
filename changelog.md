@@ -2,6 +2,7 @@
 - added Reverse Card
 - removed Jadeite
 - reworked Wandering Trader trades for accessories and boosters
+- updated Chinese translation (thanks to @Fiocher)
 - optimized accessory checks
 - fixed compatibility crash with MineColonies (reported by @Ryus Lightworks)
 - fixed bug with Onyx not granting advancement
