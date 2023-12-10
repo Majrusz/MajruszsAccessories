@@ -15,6 +15,7 @@ import com.majruszsaccessories.common.components.TradeOffer;
 import com.majruszsaccessories.events.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 
 @AutoInstance
 public class SwimmerGuide extends AccessoryHandler {
@@ -23,6 +24,7 @@ public class SwimmerGuide extends AccessoryHandler {
 
 		this.add( SwimmingSpeedBonus.create( 0.2f ) )
 			.add( UnderwaterChestDropChance.create() )
+			.add( BuriedTreasureDropChance.create() )
 			.add( TradeOffer.create( MajruszsAccessories.GAMBLING_CARD, 1 ) );
 	}
 
@@ -45,6 +47,27 @@ public class SwimmerGuide extends AccessoryHandler {
 
 			handler.getConfig()
 				.define( "underwater_chest_spawn_chance", Reader.number(), s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
+		}
+	}
+
+	static class BuriedTreasureDropChance extends BonusComponent< AccessoryItem > {
+		float chance = 0.25f;
+
+		public static ISupplier< AccessoryItem > create() {
+			return BuriedTreasureDropChance::new;
+		}
+
+		protected BuriedTreasureDropChance( BonusHandler< AccessoryItem > handler ) {
+			super( handler );
+
+			OnLootGenerated.listen( this::addToGeneratedLoot )
+				.addCondition( Condition.hasLevel() )
+				.addCondition( data->data.origin != null )
+				.addCondition( data->data.lootId.equals( BuiltInLootTables.BURIED_TREASURE ) )
+				.addCondition( CustomConditions.dropChance( s->this.chance, data->data.entity ) );
+
+			handler.getConfig()
+				.define( "buried_treasure_spawn_chance", Reader.number(), s->this.chance, ( s, v )->this.chance = Range.CHANCE.clamp( v ) );
 		}
 	}
 }
