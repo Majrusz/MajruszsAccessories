@@ -2,8 +2,7 @@
   "parent": "minecraft:adventure/root",
   "display": {
     "icon": {
-      "item": "majruszsaccessories:dice",
-      "nbt": "{Bonus:{Booster:\"any\"}}"
+      "item": "majruszsaccessories:dice"
     },
     "title": {
       "translate": "advancements.majruszsaccessories.booster_dropped.title"

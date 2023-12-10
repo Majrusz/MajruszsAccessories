@@ -2,8 +2,7 @@
   "parent": "majruszsaccessories:booster_dropped",
   "display": {
     "icon": {
-      "item": "majruszsaccessories:dice",
-      "nbt": "{Bonus:{Booster:\"any\"}}"
+      "item": "majruszsaccessories:dice"
     },
     "title": {
       "translate": "advancements.majruszsaccessories.booster_used.title"
