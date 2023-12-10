@@ -22,6 +22,7 @@ public class Horseshoe extends BoosterHandler {
 
 		this.add( LuckBonus.create( 1 ) )
 			.add( SkeletonHorsemanDropChance.create() )
+			.add( TradeOffer.create( MajruszsAccessories.REMOVAL_CARD, 1 ) )
 			.add( TradeOffer.create( MajruszsAccessories.REVERSE_CARD, 1 ) );
 	}
 
