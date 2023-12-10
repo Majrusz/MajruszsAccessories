@@ -8,4 +8,5 @@
 - fixed compatibility crash with MineColonies (reported by @Ryus Lightworks)
 - fixed bug with Onyx not granting advancement
 - fixed bug with current loot bonus displaying invalid value
+- fixed bug with Secret Ingredient not working properly with Splash Potions and Lingering Potions
 - fixed compatibility issue with accessories having range bonus after using crafting table

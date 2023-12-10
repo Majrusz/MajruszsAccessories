@@ -64,7 +64,7 @@ public class StrongerPotions extends BonusComponent< AccessoryItem > {
 						return itemStack;
 					}
 
-					ItemStack potion = new ItemStack( Items.POTION );
+					ItemStack potion = new ItemStack( itemStack.getItem() );
 					Serializables.write( new Data(), potion.getOrCreateTag() );
 
 					return PotionUtils.setCustomEffects( potion, PotionUtils.getMobEffects( itemStack )
