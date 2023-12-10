@@ -46,7 +46,7 @@ public class FishingExtraItems extends BonusComponent< AccessoryItem > {
 	private void addExtraFishes( OnFishingExtraItemsGet data ) {
 		int count = AccessoryHolder.get( data.player ).apply( this.count ) - 1;
 		for( int idx = 0; idx < count; ++idx ) {
-			data.extraItems.addAll( LootHelper.getLootTable( BuiltInLootTables.FISHING_FISH ).getRandomItems( LootHelper.toGiftParams( data.player ) ) );
+			data.extraItems.addAll( LootHelper.getLootTable( BuiltInLootTables.FISHING ).getRandomItems( LootHelper.toGiftParams( data.player ) ) );
 		}
 		this.spawnEffects( data );
 	}

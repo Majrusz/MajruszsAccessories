@@ -17,4 +17,5 @@
 - fixed bug with current loot bonus displaying invalid value
 - fixed bug with Secret Ingredient not working properly with Splash Potions and Lingering Potions
 - fixed bug with Certificate of Taming bonuses not being applied on children of boosted animals
+- fixed bug with Metal Lure extra items only being fishes
 - fixed compatibility issue with accessories having range bonus after using crafting table
