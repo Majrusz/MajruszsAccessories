@@ -3,7 +3,6 @@ package com.majruszsaccessories.cards;
 import com.majruszlibrary.events.OnItemTooltip;
 import com.majruszlibrary.text.TextHelper;
 import com.majruszsaccessories.common.AccessoryHolder;
-import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.items.CardItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.ItemStack;
@@ -14,7 +13,7 @@ public class RemovalCard extends CardItem {
 	@Override
 	public void apply( AccessoryHolder holder ) {
 		if( holder.hasAnyBooster() ) {
-			holder.removeLastBooster();
+			holder.removeBoosters();
 		}
 	}
 
@@ -24,9 +23,7 @@ public class RemovalCard extends CardItem {
 	}
 
 	@Override
-	public ItemStack getCraftingRemainder( AccessoryHolder holder ) {
-		List< BoosterItem > boosters = holder.getBoosters();
-
-		return !boosters.isEmpty() ? new ItemStack( boosters.get( boosters.size() - 1 ) ) : super.getCraftingRemainder( holder );
+	public List< ItemStack > getCraftingRemainder( AccessoryHolder holder ) {
+		return holder.getBoosters().stream().map( ItemStack::new ).toList();
 	}
 }

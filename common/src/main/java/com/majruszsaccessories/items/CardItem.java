@@ -6,6 +6,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 
+import java.util.List;
+
 public abstract class CardItem extends Item {
 	static {
 		OnItemTooltip.listen( CardItem::tryToAddTooltip );
@@ -24,8 +26,8 @@ public abstract class CardItem extends Item {
 
 	public abstract void addTooltip( OnItemTooltip data );
 
-	public ItemStack getCraftingRemainder( AccessoryHolder holder ) {
-		return ItemStack.EMPTY;
+	public List< ItemStack > getCraftingRemainder( AccessoryHolder holder ) {
+		return List.of();
 	}
 
 	private static void tryToAddTooltip( OnItemTooltip data ) {

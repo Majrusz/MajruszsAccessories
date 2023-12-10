@@ -2,7 +2,6 @@ package com.majruszsaccessories.recipes;
 
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.common.AccessoryHolder;
-import com.majruszsaccessories.items.AccessoryItem;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
@@ -14,6 +13,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.Level;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 public class UseCardRecipe extends CustomRecipe {
@@ -46,15 +46,13 @@ public class UseCardRecipe extends CustomRecipe {
 	@Override
 	public NonNullList< ItemStack > getRemainingItems( CraftingContainer container ) {
 		RecipeData data = RecipeData.build( container );
-		NonNullList< ItemStack > itemStacks = NonNullList.withSize( container.getContainerSize(), ItemStack.EMPTY );
+		NonNullList< ItemStack > remainingItems = NonNullList.withSize( container.getContainerSize(), ItemStack.EMPTY );
+		List< ItemStack > itemStacks = data.getCard( 0 ).getCraftingRemainder( data.getAccessory( 0 ) );
 		for( int idx = 0; idx < itemStacks.size(); ++idx ) {
-			if( container.getItem( idx ).getItem() instanceof AccessoryItem ) {
-				itemStacks.set( idx, data.getCard( 0 ).getCraftingRemainder( data.getAccessory( 0 ) ) );
-				break;
-			}
+			remainingItems.set( idx, itemStacks.get( idx ) );
 		}
 
-		return itemStacks;
+		return remainingItems;
 	}
 
 	@Override
