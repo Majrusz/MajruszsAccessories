@@ -2,6 +2,7 @@ package com.majruszsaccessories.accessories.components;
 
 import com.majruszlibrary.entity.AttributeHandler;
 import com.majruszlibrary.events.OnAnimalTamed;
+import com.majruszlibrary.events.OnBabySpawned;
 import com.majruszlibrary.events.base.Condition;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.common.AccessoryHolder;
@@ -11,6 +12,7 @@ import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.events.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.horse.Horse;
@@ -39,6 +41,10 @@ public class TamingStrongerAnimals extends BonusComponent< AccessoryItem > {
 			.addCondition( Condition.isLogicalServer() )
 			.addCondition( CustomConditions.hasAccessory( this::getItem, data->data.tamer ) );
 
+		OnBabySpawned.listen( this::applyBonuses )
+			.addCondition( Condition.isLogicalServer() )
+			.addCondition( data->this.hasModifier( data.parentA ) || this.hasModifier( data.parentB ) );
+
 		this.addTooltip( "majruszsaccessories.bonuses.animal_attributes", TooltipHelper.asPercent( this.bonus ) );
 
 		handler.getConfig()
@@ -46,17 +52,24 @@ public class TamingStrongerAnimals extends BonusComponent< AccessoryItem > {
 	}
 
 	private void applyBonuses( OnAnimalTamed data ) {
-		float bonus = AccessoryHolder.get( data.tamer ).apply( this.bonus );
-		this.health.setValue( bonus ).apply( data.animal );
-		if( this.damage.hasAttribute( data.animal ) ) {
-			this.damage.setValue( bonus ).apply( data.animal );
+		this.applyBonuses( AccessoryHolder.get( data.tamer ).apply( this.bonus ), data.animal );
+		this.spawnEffects( data );
+	}
+
+	private void applyBonuses( OnBabySpawned data ) {
+		this.applyBonuses( ( float )Math.max( this.getModifierValue( data.parentA ), this.getModifierValue( data.parentB ) ), data.child );
+	}
+
+	private void applyBonuses( float bonus, LivingEntity entity ) {
+		this.health.setValue( bonus ).apply( entity );
+		if( this.damage.hasAttribute( entity ) ) {
+			this.damage.setValue( bonus ).apply( entity );
 		}
-		if( data.animal instanceof Horse horse ) {
+		if( entity instanceof Horse horse ) {
 			this.jumpHeight.setValue( bonus ).apply( horse );
 			this.speed.setValue( bonus ).apply( horse );
 		}
-		data.animal.setHealth( data.animal.getMaxHealth() );
-		this.spawnEffects( data );
+		entity.setHealth( entity.getMaxHealth() );
 	}
 
 	private void spawnEffects( OnAnimalTamed data ) {
@@ -65,5 +78,13 @@ public class TamingStrongerAnimals extends BonusComponent< AccessoryItem > {
 			.count( 4 )
 			.sizeBased( data.animal )
 			.emit( data.getServerLevel() );
+	}
+
+	private double getModifierValue( LivingEntity entity ) {
+		return entity.getAttributes().getModifierValue( Attributes.MAX_HEALTH, this.health.getUUID() );
+	}
+
+	private boolean hasModifier( LivingEntity entity ) {
+		return entity.getAttributes().hasModifier( Attributes.MAX_HEALTH, this.health.getUUID() );
 	}
 }
