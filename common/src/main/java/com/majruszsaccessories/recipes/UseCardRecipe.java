@@ -2,6 +2,8 @@ package com.majruszsaccessories.recipes;
 
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.common.AccessoryHolder;
+import com.majruszsaccessories.items.AccessoryItem;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -38,6 +40,20 @@ public class UseCardRecipe extends CustomRecipe {
 		data.getCard( 0 ).apply( holder );
 
 		return holder.getItemStack();
+	}
+
+	@Override
+	public NonNullList< ItemStack > getRemainingItems( CraftingContainer container ) {
+		RecipeData data = RecipeData.build( container );
+		NonNullList< ItemStack > itemStacks = NonNullList.withSize( container.getContainerSize(), ItemStack.EMPTY );
+		for( int idx = 0; idx < itemStacks.size(); ++idx ) {
+			if( container.getItem( idx ).getItem() instanceof AccessoryItem ) {
+				itemStacks.set( idx, data.getCard( 0 ).getCraftingRemainder( data.getAccessory( 0 ) ) );
+				break;
+			}
+		}
+
+		return itemStacks;
 	}
 
 	@Override

@@ -24,6 +24,10 @@ public abstract class CardItem extends Item {
 
 	public abstract void addTooltip( OnItemTooltip data );
 
+	public ItemStack getCraftingRemainder( AccessoryHolder holder ) {
+		return ItemStack.EMPTY;
+	}
+
 	private static void tryToAddTooltip( OnItemTooltip data ) {
 		if( data.itemStack.getItem() instanceof CardItem card ) {
 			card.addTooltip( data );

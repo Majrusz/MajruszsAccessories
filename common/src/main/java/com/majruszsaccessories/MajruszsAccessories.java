@@ -13,6 +13,7 @@ import com.majruszlibrary.registry.RegistryGroup;
 import com.majruszlibrary.registry.RegistryObject;
 import com.majruszsaccessories.accessories.components.MoreChestLoot;
 import com.majruszsaccessories.cards.GamblingCard;
+import com.majruszsaccessories.cards.RemovalCard;
 import com.majruszsaccessories.cards.ReverseCard;
 import com.majruszsaccessories.config.Config;
 import com.majruszsaccessories.integration.ISlotPlatform;
@@ -81,6 +82,7 @@ public class MajruszsAccessories {
 
 	// Items (Cards)
 	public static final RegistryObject< CardItem > GAMBLING_CARD = ITEMS.create( "gambling_card", GamblingCard::new );
+	public static final RegistryObject< CardItem > REMOVAL_CARD = ITEMS.create( "removal_card", RemovalCard::new );
 	public static final RegistryObject< CardItem > REVERSE_CARD = ITEMS.create( "reverse_card", ReverseCard::new );
 
 	// Items (Fake)

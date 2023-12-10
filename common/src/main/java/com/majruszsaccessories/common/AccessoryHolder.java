@@ -164,6 +164,10 @@ public class AccessoryHolder {
 		return this.save( ()->this.data.boosters.add( new BoosterDef( item ) ) );
 	}
 
+	public AccessoryHolder removeLastBooster() {
+		return this.save( ()->this.data.boosters.remove( this.data.boosters.size() - 1 ) );
+	}
+
 	public float getBonus() {
 		return AccessoryHolder.round( this.getBaseBonus() + this.getExtraBonus() );
 	}
