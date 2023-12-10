@@ -4,6 +4,7 @@
 - removed Jadeite
 - reworked Wandering Trader trades for accessories and boosters
 - updated Chinese translation (thanks to @Fiocher)
+- increased Tamed Potato Bettle drop chances from 0.2%/0.5% to 0.25%/0.5%
 - optimized accessory checks
 - fixed compatibility crash with MineColonies (reported by @Ryus Lightworks)
 - fixed bug with Onyx not granting advancement

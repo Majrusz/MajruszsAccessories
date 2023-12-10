@@ -25,8 +25,8 @@ public class TamedPotatoBeetle extends AccessoryHandler {
 	}
 
 	static class HarvestingDropChance extends BonusComponent< AccessoryItem > {
-		float chance = 0.002f;
-		float potatoMultiplier = 2.5f;
+		float chance = 0.0025f;
+		float potatoMultiplier = 2.0f;
 
 		public static ISupplier< AccessoryItem > create() {
 			return HarvestingDropChance::new;
