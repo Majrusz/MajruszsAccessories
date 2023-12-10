@@ -1,3 +1,4 @@
+- added new item type `Card`, which applies one time effect on accessories
 - added Gambling Card
 - added Reverse Card
 - added Removal Card
