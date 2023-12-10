@@ -1,4 +1,4 @@
-package com.majruszsaccessories.contexts;
+package com.majruszsaccessories.events;
 
 import com.majruszlibrary.events.base.Event;
 import com.majruszlibrary.events.base.Events;

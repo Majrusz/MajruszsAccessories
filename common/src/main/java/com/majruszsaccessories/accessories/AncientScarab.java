@@ -7,11 +7,11 @@ import com.majruszlibrary.events.base.Condition;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.BrushingExtraItem;
-import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
-import com.majruszsaccessories.contexts.base.CustomConditions;
+import com.majruszsaccessories.common.components.TradeOffer;
+import com.majruszsaccessories.events.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -26,7 +26,7 @@ public class AncientScarab extends AccessoryHandler {
 
 		this.add( BrushingExtraItem.create( 0.16f ) )
 			.add( SuspiciousBlocksDropChance.create() )
-			.add( TradeOffer.create( 7 ) );
+			.add( TradeOffer.create() );
 	}
 
 	static class SuspiciousBlocksDropChance extends BonusComponent< AccessoryItem > {

@@ -6,11 +6,12 @@ import com.majruszlibrary.item.LootHelper;
 import com.majruszlibrary.level.LevelHelper;
 import com.majruszlibrary.math.AnyPos;
 import com.majruszlibrary.math.Range;
+import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.config.RangedInteger;
-import com.majruszsaccessories.contexts.base.CustomConditions;
+import com.majruszsaccessories.events.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import net.minecraft.core.BlockPos;
@@ -43,9 +44,9 @@ public class FishingExtraItems extends BonusComponent< AccessoryItem > {
 	}
 
 	private void addExtraFishes( OnFishingExtraItemsGet data ) {
-		int count = CustomConditions.getLastHolder().apply( this.count ) - 1;
+		int count = AccessoryHolder.get( data.player ).apply( this.count ) - 1;
 		for( int idx = 0; idx < count; ++idx ) {
-			data.extraItems.addAll( LootHelper.getLootTable( BuiltInLootTables.FISHING_FISH ).getRandomItems( LootHelper.toGiftParams( data.player ) ) );
+			data.extraItems.addAll( LootHelper.getLootTable( BuiltInLootTables.FISHING ).getRandomItems( LootHelper.toGiftParams( data.player ) ) );
 		}
 		this.spawnEffects( data );
 	}
@@ -53,7 +54,7 @@ public class FishingExtraItems extends BonusComponent< AccessoryItem > {
 	private void spawnEffects( OnFishingExtraItemsGet data ) {
 		BlockPos position = LevelHelper.getPositionOverFluid( data.getLevel(), data.hook.blockPosition() );
 
-		CustomConditions.getLastHolder()
+		AccessoryHolder.get( data.player )
 			.getParticleEmitter()
 			.count( 4 )
 			.offset( ParticleEmitter.offset( 0.125f ) )

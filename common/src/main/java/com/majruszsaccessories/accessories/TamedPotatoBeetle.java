@@ -6,11 +6,11 @@ import com.majruszlibrary.events.base.Events;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.HarvestingDoubleCrops;
-import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
-import com.majruszsaccessories.contexts.OnAccessoryDropChanceGet;
+import com.majruszsaccessories.common.components.TradeOffer;
+import com.majruszsaccessories.events.OnAccessoryDropChanceGet;
 import com.majruszsaccessories.items.AccessoryItem;
 import net.minecraft.world.level.block.Blocks;
 
@@ -21,12 +21,12 @@ public class TamedPotatoBeetle extends AccessoryHandler {
 
 		this.add( HarvestingDoubleCrops.create( 0.25f ) )
 			.add( HarvestingDropChance.create() )
-			.add( TradeOffer.create( 7 ) );
+			.add( TradeOffer.create() );
 	}
 
 	static class HarvestingDropChance extends BonusComponent< AccessoryItem > {
-		float chance = 0.002f;
-		float potatoMultiplier = 2.5f;
+		float chance = 0.0025f;
+		float potatoMultiplier = 2.0f;
 
 		public static ISupplier< AccessoryItem > create() {
 			return HarvestingDropChance::new;

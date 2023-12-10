@@ -11,13 +11,13 @@ import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.config.Config;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.config.RangedInteger;
-import com.majruszsaccessories.contexts.OnAccessoryExtraBonusGet;
+import com.majruszsaccessories.events.OnAccessoryExtraBonusGet;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.items.BoosterItem;
+import com.majruszsaccessories.mixininterfaces.IMixinLivingEntity;
 import com.majruszsaccessories.particles.BonusParticleType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -25,14 +25,21 @@ import net.minecraft.world.item.Rarity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class AccessoryHolder {
 	final ItemStack itemStack;
 	final AccessoryItem item;
 	final Data data;
 
-	public static AccessoryHolder find( LivingEntity entity, Predicate< ItemStack > predicate ) {
+	public static AccessoryHolder get( LivingEntity entity ) {
+		return entity != null ? ( ( IMixinLivingEntity )entity ).majruszsaccessories$getAccessoryHolder() : new AccessoryHolder( ItemStack.EMPTY );
+	}
+
+	public static AccessoryHolder find( LivingEntity entity ) {
+		Predicate< ItemStack > predicate = itemStack->itemStack.getItem() instanceof AccessoryItem;
 		if( MajruszsAccessories.SLOT_INTEGRATION.isInstalled() ) {
 			return new AccessoryHolder( MajruszsAccessories.SLOT_INTEGRATION.find( entity, predicate ) );
 		} else {
@@ -43,22 +50,6 @@ public class AccessoryHolder {
 
 			return new AccessoryHolder( ItemStack.EMPTY );
 		}
-	}
-
-	public static AccessoryHolder find( LivingEntity entity, AccessoryItem item ) {
-		return AccessoryHolder.find( entity, itemStack->itemStack.is( item ) );
-	}
-
-	public static AccessoryHolder find( LivingEntity entity, BoosterItem item ) {
-		return AccessoryHolder.find( entity, itemStack->AccessoryHolder.create( itemStack ).hasBooster( item ) );
-	}
-
-	public static boolean hasAccessory( LivingEntity entity, AccessoryItem item ) {
-		return AccessoryHolder.find( entity, item ).isValid();
-	}
-
-	public static boolean hasBooster( LivingEntity entity, BoosterItem item ) {
-		return AccessoryHolder.find( entity, item ).isValid();
 	}
 
 	public static AccessoryHolder create( Item item ) {
@@ -138,7 +129,7 @@ public class AccessoryHolder {
 
 	public AccessoryHolder setRandomBonus() {
 		if( this.hasBonusRangeDefined() ) {
-			return this.setBonus( Mth.lerp( Random.nextFloat( 0.0f, 1.0f ), this.data.range.from, this.data.range.to ) );
+			return this.setBonus( Optional.ofNullable( this.data.randomType ).orElse( RandomType.RANDOM ).get( this.data.range ) );
 		} else {
 			return this.setBonus( Config.Efficiency.getRandom() );
 		}
@@ -152,16 +143,29 @@ public class AccessoryHolder {
 		} );
 	}
 
-	public AccessoryHolder setBonus( Range< Float > bonus ) {
+	public AccessoryHolder setBonus( Range< Float > bonus, RandomType randomType ) {
 		if( ( bonus.to - bonus.from ) > 1e-5f ) {
-			return this.save( ()->this.data.range = Range.of( AccessoryHolder.round( bonus.from ), AccessoryHolder.round( bonus.to ) ) );
+			return this.save( ()->{
+				this.data.baseBonus = null;
+				this.data.extraBonus = null;
+				this.data.randomType = randomType;
+				this.data.range = Range.of( AccessoryHolder.round( bonus.from ), AccessoryHolder.round( bonus.to ) );
+			} );
 		} else {
 			return this.setBonus( bonus.from );
 		}
 	}
 
+	public AccessoryHolder setBonus( Range< Float > bonus ) {
+		return this.setBonus( bonus, null );
+	}
+
 	public AccessoryHolder addBooster( BoosterItem item ) {
 		return this.save( ()->this.data.boosters.add( new BoosterDef( item ) ) );
+	}
+
+	public AccessoryHolder removeBoosters() {
+		return this.save( ()->this.data.boosters.clear() );
 	}
 
 	public float getBonus() {
@@ -208,6 +212,10 @@ public class AccessoryHolder {
 		return AccessoryHolder.getParticleEmitter( this.getBonus() );
 	}
 
+	public boolean is( AccessoryItem item ) {
+		return this.item == item;
+	}
+
 	public boolean isValid() {
 		return this.item != null;
 	}
@@ -224,11 +232,11 @@ public class AccessoryHolder {
 		return this.getBaseBonus() == Config.Efficiency.RANGE.to;
 	}
 
-	public boolean hasBooster( BoosterItem item ) {
+	public boolean has( BoosterItem item ) {
 		return this.data.boosters.stream().anyMatch( booster->booster.item == item );
 	}
 
-	public boolean hasBooster() {
+	public boolean hasAnyBooster() {
 		return !this.data.boosters.isEmpty();
 	}
 
@@ -243,12 +251,28 @@ public class AccessoryHolder {
 		return Math.round( 100.0f * value ) / 100.0f;
 	}
 
+	public enum RandomType {
+		RANDOM( ()->Random.nextFloat( 0.0f, 1.0f ) ),
+		NORMAL_DISTRIBUTION( ()->Config.Efficiency.getGaussianRatio() );
+
+		private final Supplier< Float > ratio;
+
+		RandomType( Supplier< Float > ratio ) {
+			this.ratio = ratio;
+		}
+
+		float get( Range< Float > range ) {
+			return range.lerp( this.ratio.get() );
+		}
+	}
+
 	private static class Data {
 		static {
 			Serializables.get( Data.class )
 				.define( "Bonus", subconfig->{
 					subconfig.define( "Value", Reader.optional( Reader.number() ), s->s.baseBonus, ( s, v )->s.baseBonus = v );
 					subconfig.define( "ValueRange", Reader.optional( Reader.range( Reader.number() ) ), s->s.range, ( s, v )->s.range = v );
+					subconfig.define( "ValueRandomType", Reader.optional( Reader.enumeration( RandomType::values ) ), s->s.randomType, ( s, v )->s.randomType = v );
 					subconfig.define( "Boosters", Reader.list( Reader.custom( BoosterDef::new ) ), s->s.boosters, ( s, v )->s.boosters = v );
 				} );
 		}
@@ -256,11 +280,13 @@ public class AccessoryHolder {
 		Float baseBonus = null;
 		Float extraBonus = 0.0f;
 		Range< Float > range = null;
+		RandomType randomType = null;
 		List< BoosterDef > boosters = List.of();
 
 		public Data( Data data ) {
 			this.baseBonus = data.baseBonus;
 			this.range = data.range != null ? Range.of( data.range.from, data.range.to ) : null;
+			this.randomType = data.randomType;
 			this.boosters = new ArrayList<>( data.boosters );
 		}
 

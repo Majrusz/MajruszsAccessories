@@ -10,6 +10,7 @@ import com.majruszsaccessories.boosters.components.LuckBonus;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.common.BoosterHandler;
+import com.majruszsaccessories.common.components.TradeOffer;
 import com.majruszsaccessories.items.BoosterItem;
 import net.minecraft.world.entity.animal.horse.SkeletonHorse;
 import net.minecraft.world.entity.monster.Skeleton;
@@ -20,7 +21,8 @@ public class Horseshoe extends BoosterHandler {
 		super( MajruszsAccessories.HORSESHOE, Horseshoe.class );
 
 		this.add( LuckBonus.create( 1 ) )
-			.add( SkeletonHorsemanDropChance.create() );
+			.add( SkeletonHorsemanDropChance.create() )
+			.add( TradeOffer.create() );
 	}
 
 	static class SkeletonHorsemanDropChance extends BonusComponent< BoosterItem > {

@@ -4,7 +4,7 @@ import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
-import com.majruszsaccessories.contexts.OnAccessoryExtraBonusGet;
+import com.majruszsaccessories.events.OnAccessoryExtraBonusGet;
 import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 
@@ -21,7 +21,7 @@ public class EfficiencyBonus extends BonusComponent< BoosterItem > {
 		this.bonus.set( bonus, Range.of( 0.0f, 1.0f ) );
 
 		OnAccessoryExtraBonusGet.listen( this::increaseEfficiency )
-			.addCondition( data->data.holder.hasBooster( this.getItem() ) );
+			.addCondition( data->data.holder.has( this.getItem() ) );
 
 		this.addTooltip( "majruszsaccessories.boosters.efficiency_bonus", TooltipHelper.asBooster( this::getItem ), TooltipHelper.asFixedPercent( this.bonus ) );
 

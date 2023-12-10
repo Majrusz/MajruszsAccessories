@@ -37,8 +37,8 @@ public class LuckBonus extends BonusComponent< BoosterItem > {
 	}
 
 	private void updateLuck( OnPlayerTicked data ) {
-		AccessoryHolder holder = AccessoryHolder.find( data.player, this.getItem() );
-		int luck = holder.isValid() ? holder.apply( this.bonus ) : 0;
+		AccessoryHolder holder = AccessoryHolder.get( data.player );
+		int luck = holder.has( this.getItem() ) ? holder.apply( this.bonus ) : 0;
 
 		this.attribute.setValue( luck ).apply( data.player );
 	}

@@ -8,7 +8,6 @@ import com.majruszlibrary.events.OnGameInitialized;
 import com.majruszlibrary.item.ItemHelper;
 import com.majruszlibrary.math.Range;
 import com.majruszlibrary.registry.Registries;
-import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.config.Config;
 import com.majruszsaccessories.items.AccessoryItem;

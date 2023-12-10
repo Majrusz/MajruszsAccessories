@@ -4,8 +4,8 @@ import com.majruszlibrary.data.Serializables;
 import com.majruszlibrary.events.OnItemDecorationsRendered;
 import com.majruszlibrary.registry.RegistryObject;
 import com.majruszsaccessories.config.Config;
-import com.majruszsaccessories.contexts.OnAccessoryTooltip;
-import com.majruszsaccessories.contexts.OnBoosterTooltip;
+import com.majruszsaccessories.events.OnAccessoryTooltip;
+import com.majruszsaccessories.events.OnBoosterTooltip;
 import com.majruszsaccessories.items.BoosterItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.ItemStack;
@@ -17,7 +17,7 @@ public class BoosterHandler extends BonusHandler< BoosterItem > {
 		super( item, clazz, item.getId() );
 
 		OnAccessoryTooltip.listen( this::addTooltip )
-			.addCondition( data->data.holder.hasBooster( this.getItem() ) );
+			.addCondition( data->data.holder.has( this.getItem() ) );
 
 		OnBoosterTooltip.listen( this::addTooltip )
 			.addCondition( data->data.booster.equals( this.getItem() ) );

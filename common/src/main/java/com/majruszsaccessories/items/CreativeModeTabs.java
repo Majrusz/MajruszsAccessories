@@ -64,7 +64,9 @@ public class CreativeModeTabs {
 			MajruszsAccessories.ONYX,
 			MajruszsAccessories.HORSESHOE,
 			MajruszsAccessories.GOLDEN_HORSESHOE,
-			MajruszsAccessories.JADEITE
+			MajruszsAccessories.GAMBLING_CARD,
+			MajruszsAccessories.REMOVAL_CARD,
+			MajruszsAccessories.REVERSE_CARD
 		).map( item->new ItemStack( item.get() ) ).forEach( output::accept );
 	}
 }

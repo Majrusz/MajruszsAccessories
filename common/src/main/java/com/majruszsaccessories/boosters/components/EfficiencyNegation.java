@@ -2,7 +2,7 @@ package com.majruszsaccessories.boosters.components;
 
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
-import com.majruszsaccessories.contexts.OnAccessoryExtraBonusGet;
+import com.majruszsaccessories.events.OnAccessoryExtraBonusGet;
 import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 
@@ -15,7 +15,7 @@ public class EfficiencyNegation extends BonusComponent< BoosterItem > {
 		super( handler );
 
 		OnAccessoryExtraBonusGet.listen( this::negateEfficiency )
-			.addCondition( data->data.holder.hasBooster( this.getItem() ) );
+			.addCondition( data->data.holder.has( this.getItem() ) );
 
 		this.addTooltip( "majruszsaccessories.boosters.efficiency_negation", TooltipHelper.asBooster( this::getItem ) );
 	}

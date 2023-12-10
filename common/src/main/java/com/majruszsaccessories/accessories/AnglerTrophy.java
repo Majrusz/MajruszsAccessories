@@ -8,11 +8,11 @@ import com.majruszlibrary.math.Range;
 import com.majruszlibrary.registry.Registries;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.FishingLuckBonus;
-import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
-import com.majruszsaccessories.contexts.base.CustomConditions;
+import com.majruszsaccessories.common.components.TradeOffer;
+import com.majruszsaccessories.events.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import net.minecraft.resources.ResourceLocation;
 
@@ -26,7 +26,7 @@ public class AnglerTrophy extends AccessoryHandler {
 
 		this.add( FishingLuckBonus.create( 3 ) )
 			.add( FishingDropChance.create( 0.01f ) )
-			.add( TradeOffer.create( 7 ) );
+			.add( TradeOffer.create() );
 	}
 
 	public static class FishingDropChance extends BonusComponent< AccessoryItem > {

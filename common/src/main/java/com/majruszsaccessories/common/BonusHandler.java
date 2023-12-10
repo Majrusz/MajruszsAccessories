@@ -5,7 +5,7 @@ import com.majruszlibrary.data.SerializableClass;
 import com.majruszlibrary.data.Serializables;
 import com.majruszlibrary.events.OnItemDecorationsRendered;
 import com.majruszsaccessories.MajruszsAccessories;
-import com.majruszsaccessories.contexts.OnAccessoryTooltip;
+import com.majruszsaccessories.events.OnAccessoryTooltip;
 import com.majruszsaccessories.items.BoosterItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.Item;

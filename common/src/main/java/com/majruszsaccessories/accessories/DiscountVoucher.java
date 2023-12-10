@@ -6,12 +6,12 @@ import com.majruszlibrary.events.OnItemTraded;
 import com.majruszlibrary.math.AnyPos;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
-import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.accessories.components.TradingDiscount;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
-import com.majruszsaccessories.contexts.base.CustomConditions;
+import com.majruszsaccessories.common.components.TradeOffer;
+import com.majruszsaccessories.events.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 
 @AutoInstance
@@ -21,7 +21,7 @@ public class DiscountVoucher extends AccessoryHandler {
 
 		this.add( TradingDiscount.create( 0.12f ) )
 			.add( TradingDropChance.create() )
-			.add( TradeOffer.create( 7 ) );
+			.add( TradeOffer.create() );
 	}
 
 	static class TradingDropChance extends BonusComponent< AccessoryItem > {

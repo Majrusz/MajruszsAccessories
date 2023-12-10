@@ -2,8 +2,7 @@
   "parent": "minecraft:adventure/root",
   "display": {
     "icon": {
-      "item": "majruszsaccessories:dice",
-      "nbt": "{Bonus:{Booster:\"any\"}}"
+      "item": "majruszsaccessories:dice"
     },
     "title": {
       "translate": "advancements.majruszsaccessories.booster_dropped.title"
@@ -30,7 +29,8 @@
               "majruszsaccessories:golden_dice",
               "majruszsaccessories:owl_feather",
               "majruszsaccessories:horseshoe",
-              "majruszsaccessories:golden_horseshoe"
+              "majruszsaccessories:golden_horseshoe",
+              "majruszsaccessories:onyx"
             ]
           }
         ]

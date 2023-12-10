@@ -32,7 +32,8 @@ public class CombineAccessoriesRecipe extends CustomRecipe {
 		return data.getAccessoriesSize() > 1
 			&& data.hasIdenticalItemTypes()
 			&& data.getMaxBonus() < Config.Efficiency.RANGE.to
-			&& data.getBoostersSize() == 0;
+			&& data.getBoostersSize() == 0
+			&& data.getCardsSize() == 0;
 	}
 
 	@Override

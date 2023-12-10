@@ -5,10 +5,11 @@ import com.majruszlibrary.events.base.Condition;
 import com.majruszlibrary.events.base.Event;
 import com.majruszlibrary.level.BlockHelper;
 import com.majruszlibrary.math.Range;
+import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
-import com.majruszsaccessories.contexts.base.CustomConditions;
+import com.majruszsaccessories.events.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import net.minecraft.world.entity.LivingEntity;
@@ -43,7 +44,7 @@ public class HarvestingDoubleCrops extends BonusComponent< AccessoryItem > {
 	}
 
 	private void spawnEffects( OnLootGenerated data ) {
-		CustomConditions.getLastHolder()
+		AccessoryHolder.get( ( LivingEntity )data.entity )
 			.getParticleEmitter()
 			.count( 5 )
 			.position( data.origin )

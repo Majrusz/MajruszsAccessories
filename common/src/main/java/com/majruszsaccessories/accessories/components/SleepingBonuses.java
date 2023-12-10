@@ -11,7 +11,7 @@ import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedInteger;
-import com.majruszsaccessories.contexts.base.CustomConditions;
+import com.majruszsaccessories.events.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import net.minecraft.world.effect.MobEffect;
@@ -30,7 +30,9 @@ public class SleepingBonuses extends BonusComponent< AccessoryItem > {
 		new EffectDef( MobEffects.ABSORPTION, 1 ),
 		new EffectDef( MobEffects.DAMAGE_RESISTANCE, 0 ),
 		new EffectDef( MobEffects.FIRE_RESISTANCE, 0 ),
-		new EffectDef( MobEffects.MOVEMENT_SPEED, 0 )
+		new EffectDef( MobEffects.MOVEMENT_SPEED, 0 ),
+		new EffectDef( MobEffects.DIG_SPEED, 0 ),
+		new EffectDef( MobEffects.DAMAGE_BOOST, 0 )
 	);
 
 	public static ISupplier< AccessoryItem > create( int count, int duration ) {
@@ -59,7 +61,7 @@ public class SleepingBonuses extends BonusComponent< AccessoryItem > {
 	}
 
 	private void applyBonuses( OnPlayerWakedUp data ) {
-		AccessoryHolder holder = CustomConditions.getLastHolder();
+		AccessoryHolder holder = AccessoryHolder.get( data.player );
 		int count = holder.apply( this.count );
 		int duration = TimeHelper.toTicks( holder.apply( this.duration ) );
 		this.getRandomMobEffects( data.player, count )
@@ -78,7 +80,7 @@ public class SleepingBonuses extends BonusComponent< AccessoryItem > {
 	}
 
 	private void spawnEffects( OnPlayerWakedUp data ) {
-		CustomConditions.getLastHolder()
+		AccessoryHolder.get( data.player )
 			.getParticleEmitter()
 			.count( 5 )
 			.position( data.player.position() )

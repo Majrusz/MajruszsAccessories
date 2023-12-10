@@ -3,13 +3,14 @@ package com.majruszsaccessories.recipes;
 import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.items.BoosterItem;
+import com.majruszsaccessories.items.CardItem;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public record RecipeData( List< AccessoryHolder > accessories, List< BoosterItem > boosters ) {
+public record RecipeData( List< AccessoryHolder > accessories, List< BoosterItem > boosters, List< CardItem > cards ) {
 	public static RecipeData build( CraftingContainer container ) {
 		RecipeData data = new RecipeData();
 		for( int i = 0; i < container.getContainerSize(); ++i ) {
@@ -20,8 +21,10 @@ public record RecipeData( List< AccessoryHolder > accessories, List< BoosterItem
 
 			if( itemStack.getItem() instanceof AccessoryItem ) {
 				data.accessories.add( AccessoryHolder.create( itemStack ) );
-			} else if( itemStack.getItem() instanceof BoosterItem item ) {
-				data.boosters.add( item );
+			} else if( itemStack.getItem() instanceof BoosterItem booster ) {
+				data.boosters.add( booster );
+			} else if( itemStack.getItem() instanceof CardItem card ) {
+				data.cards.add( card );
 			} else {
 				return new RecipeData();
 			}
@@ -32,7 +35,7 @@ public record RecipeData( List< AccessoryHolder > accessories, List< BoosterItem
 	}
 
 	public RecipeData() {
-		this( new ArrayList<>(), new ArrayList<>() );
+		this( new ArrayList<>(), new ArrayList<>(), new ArrayList<>() );
 	}
 
 	public AccessoryHolder getAccessory( int idx ) {
@@ -41,6 +44,10 @@ public record RecipeData( List< AccessoryHolder > accessories, List< BoosterItem
 
 	public BoosterItem getBooster( int idx ) {
 		return this.boosters.get( idx );
+	}
+
+	public CardItem getCard( int idx ) {
+		return this.cards.get( idx );
 	}
 
 	float getStandardDeviation() {
@@ -70,6 +77,10 @@ public record RecipeData( List< AccessoryHolder > accessories, List< BoosterItem
 
 	int getBoostersSize() {
 		return this.boosters.size();
+	}
+
+	int getCardsSize() {
+		return this.cards.size();
 	}
 
 	boolean hasAccessory( AccessoryItem item ) {

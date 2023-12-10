@@ -10,6 +10,7 @@ import com.majruszsaccessories.boosters.components.EfficiencyBonus;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.common.BoosterHandler;
+import com.majruszsaccessories.common.components.TradeOffer;
 import com.majruszsaccessories.items.BoosterItem;
 import net.minecraft.world.entity.monster.warden.Warden;
 
@@ -19,7 +20,8 @@ public class Onyx extends BoosterHandler {
 		super( MajruszsAccessories.ONYX, Onyx.class );
 
 		this.add( EfficiencyBonus.create( 0.09f ) )
-			.add( WardenDropChance.create() );
+			.add( WardenDropChance.create() )
+			.add( TradeOffer.create() );
 	}
 
 	static class WardenDropChance extends BonusComponent< BoosterItem > {

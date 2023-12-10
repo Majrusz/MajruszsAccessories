@@ -7,11 +7,11 @@ import com.majruszlibrary.events.base.Condition;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.SleepingBonuses;
-import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
-import com.majruszsaccessories.contexts.base.CustomConditions;
+import com.majruszsaccessories.common.components.TradeOffer;
+import com.majruszsaccessories.events.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 
 @AutoInstance
@@ -21,7 +21,7 @@ public class DreamCatcher extends AccessoryHandler {
 
 		this.add( SleepingBonuses.create( 1, 300 ) )
 			.add( SleepingDropChance.create() )
-			.add( TradeOffer.create( 7 ) );
+			.add( TradeOffer.create() );
 	}
 
 	static class SleepingDropChance extends BonusComponent< AccessoryItem > {

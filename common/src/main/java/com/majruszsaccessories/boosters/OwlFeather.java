@@ -10,6 +10,7 @@ import com.majruszsaccessories.boosters.components.ExperienceBonus;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.common.BoosterHandler;
+import com.majruszsaccessories.common.components.TradeOffer;
 import com.majruszsaccessories.items.BoosterItem;
 import net.minecraft.world.entity.monster.Vex;
 
@@ -19,7 +20,8 @@ public class OwlFeather extends BoosterHandler {
 		super( MajruszsAccessories.OWL_FEATHER, OwlFeather.class );
 
 		this.add( ExperienceBonus.create( 0.15f ) )
-			.add( VexDropChance.create() );
+			.add( VexDropChance.create() )
+			.add( TradeOffer.create() );
 	}
 
 	static class VexDropChance extends BonusComponent< BoosterItem > {

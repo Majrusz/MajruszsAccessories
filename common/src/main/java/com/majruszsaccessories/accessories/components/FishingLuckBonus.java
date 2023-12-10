@@ -12,7 +12,7 @@ import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedInteger;
-import com.majruszsaccessories.contexts.base.CustomConditions;
+import com.majruszsaccessories.events.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import net.minecraft.core.BlockPos;
@@ -57,14 +57,14 @@ public class FishingLuckBonus extends BonusComponent< AccessoryItem > {
 			return 0;
 		}
 
-		AccessoryHolder holder = AccessoryHolder.find( player, this.getItem() );
-		return holder.isValid() ? holder.apply( this.luck ) : 0;
+		AccessoryHolder holder = AccessoryHolder.get( player );
+		return holder.is( this.getItem() ) ? holder.apply( this.luck ) : 0;
 	}
 
 	private void spawnEffects( OnItemFished data ) {
 		BlockPos position = LevelHelper.getPositionOverFluid( data.getLevel(), data.hook.blockPosition() );
 
-		CustomConditions.getLastHolder()
+		AccessoryHolder.get( data.player )
 			.getParticleEmitter()
 			.count( 4 )
 			.offset( ParticleEmitter.offset( 0.125f ) )

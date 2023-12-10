@@ -12,17 +12,18 @@ import com.majruszlibrary.registry.Custom;
 import com.majruszlibrary.registry.RegistryGroup;
 import com.majruszlibrary.registry.RegistryObject;
 import com.majruszsaccessories.accessories.components.MoreChestLoot;
+import com.majruszsaccessories.cards.GamblingCard;
+import com.majruszsaccessories.cards.RemovalCard;
+import com.majruszsaccessories.cards.ReverseCard;
 import com.majruszsaccessories.config.Config;
 import com.majruszsaccessories.integration.ISlotPlatform;
-import com.majruszsaccessories.items.AccessoryItem;
-import com.majruszsaccessories.items.BoosterItem;
-import com.majruszsaccessories.items.BoosterOverlay;
-import com.majruszsaccessories.items.CreativeModeTabs;
+import com.majruszsaccessories.items.*;
 import com.majruszsaccessories.particles.BonusParticle;
 import com.majruszsaccessories.particles.BonusParticleType;
 import com.majruszsaccessories.recipes.AccessoryRecipe;
-import com.majruszsaccessories.recipes.BoostAccessoriesRecipe;
+import com.majruszsaccessories.recipes.BoostAccessoryRecipe;
 import com.majruszsaccessories.recipes.CombineAccessoriesRecipe;
+import com.majruszsaccessories.recipes.UseCardRecipe;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -44,6 +45,9 @@ public class MajruszsAccessories {
 	public static final RegistryGroup< CreativeModeTab > CREATIVE_MODE_TABS = HELPER.create( BuiltInRegistries.CREATIVE_MODE_TAB );
 	public static final RegistryGroup< RecipeSerializer< ? > > RECIPES = HELPER.create( BuiltInRegistries.RECIPE_SERIALIZER );
 	public static final RegistryGroup< ParticleType< ? > > PARTICLES = HELPER.create( BuiltInRegistries.PARTICLE_TYPE );
+
+	// Network
+	public static final NetworkObject< MoreChestLoot.BonusInfo > MORE_CHEST_LOOT = HELPER.create( "more_chest_loot", MoreChestLoot.BonusInfo.class );
 
 	// Items (Accessories)
 	public static final RegistryObject< AccessoryItem > ADVENTURER_KIT = ITEMS.create( "adventurer_kit", AccessoryItem.tier1() );
@@ -73,9 +77,13 @@ public class MajruszsAccessories {
 	public static final RegistryObject< BoosterItem > GOLDEN_DICE = ITEMS.create( "golden_dice", BoosterItem.rare() );
 	public static final RegistryObject< BoosterItem > GOLDEN_HORSESHOE = ITEMS.create( "golden_horseshoe", BoosterItem.rare() );
 	public static final RegistryObject< BoosterItem > HORSESHOE = ITEMS.create( "horseshoe", BoosterItem.basic() );
-	public static final RegistryObject< BoosterItem > JADEITE = ITEMS.create( "jadeite", BoosterItem.basic() );
 	public static final RegistryObject< BoosterItem > ONYX = ITEMS.create( "onyx", BoosterItem.basic() );
 	public static final RegistryObject< BoosterItem > OWL_FEATHER = ITEMS.create( "owl_feather", BoosterItem.basic() );
+
+	// Items (Cards)
+	public static final RegistryObject< CardItem > GAMBLING_CARD = ITEMS.create( "gambling_card", GamblingCard::new );
+	public static final RegistryObject< CardItem > REMOVAL_CARD = ITEMS.create( "removal_card", RemovalCard::new );
+	public static final RegistryObject< CardItem > REVERSE_CARD = ITEMS.create( "reverse_card", ReverseCard::new );
 
 	// Items (Fake)
 	public static final RegistryObject< BoosterOverlay > BOOSTER_OVERLAY_SINGLE = ITEMS.create( "booster_overlay_single", BoosterOverlay::new );
@@ -84,17 +92,15 @@ public class MajruszsAccessories {
 
 	// Recipes
 	public static final RegistryObject< RecipeSerializer< ? > > ACCESSORY_RECIPE = RECIPES.create( "crafting_accessory", AccessoryRecipe.create() );
+	public static final RegistryObject< RecipeSerializer< ? > > BOOST_ACCESSORY_RECIPE = RECIPES.create( "crafting_boost_accessory", BoostAccessoryRecipe.create() );
 	public static final RegistryObject< RecipeSerializer< ? > > COMBINE_ACCESSORIES_RECIPE = RECIPES.create( "crafting_combine_accessories", CombineAccessoriesRecipe.create() );
-	public static final RegistryObject< RecipeSerializer< ? > > BOOST_ACCESSORIES_RECIPE = RECIPES.create( "crafting_boost_accessories", BoostAccessoriesRecipe.create() );
+	public static final RegistryObject< RecipeSerializer< ? > > USE_CARD_RECIPE = RECIPES.create( "crafting_use_card", UseCardRecipe.create() );
 
 	// Particles
 	public static final RegistryObject< BonusParticleType > BONUS_PARTICLE = PARTICLES.create( "bonus_normal", BonusParticleType::new );
 
 	// Creative Mode Tabs
 	public static final RegistryObject< CreativeModeTab > CREATIVE_MODE_TAB = CREATIVE_MODE_TABS.create( "primary", CreativeModeTabs.primary() );
-
-	// Network
-	public static final NetworkObject< MoreChestLoot.BonusInfo > MORE_CHEST_LOOT = HELPER.create( "more_chest_loot", MoreChestLoot.BonusInfo.class );
 
 	// Integration
 	public static final ISlotPlatform SLOT_INTEGRATION = Services.load( ISlotPlatform.class );

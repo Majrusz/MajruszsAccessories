@@ -3,10 +3,11 @@ package com.majruszsaccessories.accessories.components;
 import com.majruszlibrary.events.OnTradesUpdated;
 import com.majruszlibrary.math.Range;
 import com.majruszlibrary.platform.Side;
+import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
-import com.majruszsaccessories.contexts.base.CustomConditions;
+import com.majruszsaccessories.events.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import net.minecraft.world.item.trading.MerchantOffer;
@@ -33,7 +34,7 @@ public class TradingDiscount extends BonusComponent< AccessoryItem > {
 	}
 
 	private void decreasePrices( OnTradesUpdated data ) {
-		float discount = CustomConditions.getLastHolder().apply( this.multiplier );
+		float discount = AccessoryHolder.get( data.player ).apply( this.multiplier );
 		for( MerchantOffer offer : data.offers ) {
 			int price = offer.getBaseCostA().getCount();
 			float currentDiscount = ( float )offer.getSpecialPriceDiff() / price;
@@ -45,7 +46,7 @@ public class TradingDiscount extends BonusComponent< AccessoryItem > {
 	}
 
 	private void spawnEffects( OnTradesUpdated data ) {
-		CustomConditions.getLastHolder()
+		AccessoryHolder.get( data.player )
 			.getParticleEmitter()
 			.count( 6 )
 			.sizeBased( data.villager )

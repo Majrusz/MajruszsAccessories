@@ -3,8 +3,8 @@ package com.majruszsaccessories.accessories;
 import com.majruszlibrary.annotation.AutoInstance;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.accessories.components.FishingExtraItems;
-import com.majruszsaccessories.accessories.components.TradeOffer;
 import com.majruszsaccessories.common.AccessoryHandler;
+import com.majruszsaccessories.common.components.TradeOffer;
 
 @AutoInstance
 public class MetalLure extends AccessoryHandler {
@@ -13,6 +13,6 @@ public class MetalLure extends AccessoryHandler {
 
 		this.add( FishingExtraItems.create( 0.2f, 2 ) )
 			.add( AnglerTrophy.FishDropChance.create( 0.01f ) )
-			.add( TradeOffer.create( 7 ) );
+			.add( TradeOffer.create() );
 	}
 }
