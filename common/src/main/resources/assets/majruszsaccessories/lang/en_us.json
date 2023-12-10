@@ -91,9 +91,11 @@
   "advancements.majruszsaccessories.unbreakable_fishing_line.title": "Line Up For Fishes",
   "advancements.majruszsaccessories.unbreakable_fishing_line.description": "Acquire an Unbreakable Fishing Line",
   "advancements.majruszsaccessories.booster_dropped.title": "It Is Time For an Upgrade, Isn't It?",
-  "advancements.majruszsaccessories.booster_dropped.description": "Acquire Any Accessory Booster",
+  "advancements.majruszsaccessories.booster_dropped.description": "Acquire any Accessory Booster",
   "advancements.majruszsaccessories.booster_used.title": "What a Boost!",
-  "advancements.majruszsaccessories.booster_used.description": "Use Any Accessory Booster",
+  "advancements.majruszsaccessories.booster_used.description": "Use any Accessory Booster",
+  "advancements.majruszsaccessories.booster_nice.title": "Nice",
+  "advancements.majruszsaccessories.booster_nice.description": "Acquire 69% efficiency bonus on any Accessory",
   "trinkets.slot.legs.pocket": "Pocket",
   "curios.identifier.pocket": "Pocket"
 }

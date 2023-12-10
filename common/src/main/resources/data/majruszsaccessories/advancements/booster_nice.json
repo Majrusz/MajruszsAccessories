@@ -1,0 +1,35 @@
+{
+  "parent": "majruszsaccessories:booster_dropped",
+  "display": {
+    "icon": {
+      "item": "majruszsaccessories:onyx",
+      "nbt": "{Bonus:{Boosters:[\"any\"]}}"
+    },
+    "title": {
+      "translate": "advancements.majruszsaccessories.booster_nice.title"
+    },
+    "description": {
+      "translate": "advancements.majruszsaccessories.booster_nice.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "rewards": {
+    "experience": 100
+  },
+  "criteria": {
+    "booster_nice": {
+      "trigger": "majruszsaccessories:basic_trigger",
+      "conditions": {
+        "type": "booster_nice"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "booster_nice"
+    ]
+  ]
+}

@@ -7,11 +7,9 @@ import com.majruszlibrary.events.OnItemEquipped;
 import com.majruszlibrary.events.OnLootGenerated;
 import com.majruszlibrary.events.base.Condition;
 import com.majruszlibrary.events.base.Priority;
-import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.mixininterfaces.IMixinLivingEntity;
-import net.minecraft.server.level.ServerPlayer;
 
 @AutoInstance
 public class AccessoryObserver {
@@ -21,11 +19,11 @@ public class AccessoryObserver {
 			.priority( Priority.LOW );
 
 		OnLootGenerated.listen( this::tryToGiveRandomBonus )
-			.priority( Priority.LOWEST );
+			.priority( Priority.LOW );
 
 		OnItemCrafted.listen( this::tryToGiveRandomBonus )
 			.addCondition( Condition.isLogicalServer() )
-			.priority( Priority.LOWEST );
+			.priority( Priority.LOW );
 
 		OnEntityTicked.listen( this::updateHolder );
 	}
@@ -51,9 +49,6 @@ public class AccessoryObserver {
 		AccessoryHolder holder = AccessoryHolder.create( data.itemStack );
 		if( holder.hasBonusRangeDefined() && !holder.hasBonusDefined() ) {
 			holder.setRandomBonus();
-		}
-		if( holder.hasAnyBooster() ) {
-			MajruszsAccessories.HELPER.triggerAchievement( ( ServerPlayer )data.player, "booster_used" );
 		}
 	}
 

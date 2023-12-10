@@ -1,5 +1,6 @@
 - added Gambling Card
 - added Reverse Card
+- added new advancement for 69% efficiency bonus
 - removed Jadeite
 - reworked Wandering Trader trades for accessories and boosters
 - updated Chinese translation (thanks to @Fiocher)
