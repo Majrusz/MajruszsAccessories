@@ -55,7 +55,7 @@ public class MiningExtraItem extends BonusComponent< AccessoryItem > {
 
 	private void addExtraLoot( OnLootGenerated data ) {
 		LivingEntity entity = ( LivingEntity )data.entity;
-		ResourceLocation id = this.lootIds.get( entity.level().dimension().location().toString() );
+		ResourceLocation id = this.lootIds.get( entity.getLevel().dimension().location().toString() );
 
 		data.generatedLoot.addAll( LootHelper.getLootTable( id ).getRandomItems( LootHelper.toGiftParams( entity ) ) );
 		this.spawnEffects( data );

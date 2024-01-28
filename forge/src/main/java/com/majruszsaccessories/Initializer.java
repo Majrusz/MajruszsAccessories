@@ -1,6 +1,9 @@
 package com.majruszsaccessories;
 
+import com.majruszlibrary.item.CreativeModeTabHelper;
+import com.majruszsaccessories.items.CreativeModeTabs;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
@@ -15,6 +18,8 @@ public class Initializer {
 		MinecraftForge.EVENT_BUS.register( this );
 
 		FMLJavaModLoadingContext.get().getModEventBus().addListener( Initializer::onEnqueueIMC );
+		FMLJavaModLoadingContext.get().getModEventBus().addListener( Initializer::registerTabs );
+		CreativeModeTabHelper.createItemIconReplacer( CreativeModeTabs::getPrimaryIcons, CreativeModeTabs.PRIMARY );
 	}
 
 	private static void onEnqueueIMC( InterModEnqueueEvent event ) {
@@ -27,5 +32,12 @@ public class Initializer {
 			.icon( MajruszsAccessories.POCKET_SLOT_TEXTURE )
 			.build()
 		);
+	}
+
+	private static void registerTabs( CreativeModeTabEvent.Register event ) {
+		event.registerCreativeModeTab( MajruszsAccessories.HELPER.getLocation( "primary" ), builder->{
+			builder.title( CreativeModeTabs.PRIMARY )
+				.displayItems( ( features, entries )->CreativeModeTabs.definePrimaryItems( entries::accept ) );
+		} );
 	}
 }

@@ -42,7 +42,6 @@ public class MajruszsAccessories {
 
 	// Registry Groups
 	public static final RegistryGroup< Item > ITEMS = HELPER.create( BuiltInRegistries.ITEM );
-	public static final RegistryGroup< CreativeModeTab > CREATIVE_MODE_TABS = HELPER.create( BuiltInRegistries.CREATIVE_MODE_TAB );
 	public static final RegistryGroup< RecipeSerializer< ? > > RECIPES = HELPER.create( BuiltInRegistries.RECIPE_SERIALIZER );
 	public static final RegistryGroup< ParticleType< ? > > PARTICLES = HELPER.create( BuiltInRegistries.PARTICLE_TYPE );
 
@@ -52,7 +51,6 @@ public class MajruszsAccessories {
 	// Items (Accessories)
 	public static final RegistryObject< AccessoryItem > ADVENTURER_KIT = ITEMS.create( "adventurer_kit", AccessoryItem.tier1() );
 	public static final RegistryObject< AccessoryItem > ADVENTURER_RUNE = ITEMS.create( "adventurer_rune", AccessoryItem.tier2() );
-	public static final RegistryObject< AccessoryItem > ANCIENT_SCARAB = ITEMS.create( "ancient_scarab", AccessoryItem.tier1() );
 	public static final RegistryObject< AccessoryItem > ANGLER_RUNE = ITEMS.create( "angler_rune", AccessoryItem.tier2() );
 	public static final RegistryObject< AccessoryItem > ANGLER_TROPHY = ITEMS.create( "angler_trophy", AccessoryItem.tier1() );
 	public static final RegistryObject< AccessoryItem > CERTIFICATE_OF_TAMING = ITEMS.create( "certificate_of_taming", AccessoryItem.tier1() );
@@ -98,9 +96,6 @@ public class MajruszsAccessories {
 
 	// Particles
 	public static final RegistryObject< BonusParticleType > BONUS_PARTICLE = PARTICLES.create( "bonus_normal", BonusParticleType::new );
-
-	// Creative Mode Tabs
-	public static final RegistryObject< CreativeModeTab > CREATIVE_MODE_TAB = CREATIVE_MODE_TABS.create( "primary", CreativeModeTabs.primary() );
 
 	// Integration
 	public static final ISlotPlatform SLOT_INTEGRATION = Services.load( ISlotPlatform.class );

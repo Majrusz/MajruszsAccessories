@@ -11,7 +11,6 @@ public class SoulOfMinecraft extends AccessoryHandler {
 		super( MajruszsAccessories.SOUL_OF_MINECRAFT, SoulOfMinecraft.class );
 
 		this.add( MoreChestLoot.create( 1.8f ) )
-			.add( BrushingExtraItem.create( 0.24f ) )
 			.add( SwimmingSpeedBonus.create( 0.3f ) )
 			.add( FishingLuckBonus.create( 4 ) )
 			.add( FishingLureBonus.create( 0.3f ) )

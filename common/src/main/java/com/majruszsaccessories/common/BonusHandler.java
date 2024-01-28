@@ -70,7 +70,7 @@ public class BonusHandler< Type extends Item > {
 	protected void addBoosterIcon( OnItemDecorationsRendered data ) {
 		ItemStack overlay = BonusHandler.getOverlay( data.itemStack );
 		if( !overlay.isEmpty() ) {
-			data.gui.renderItem( overlay, data.x, data.y );
+			data.gui.renderGuiItem( data.poseStack, overlay, data.x, data.y );
 		}
 	}
 
