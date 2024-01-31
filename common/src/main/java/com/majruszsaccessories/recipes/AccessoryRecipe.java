@@ -14,7 +14,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
@@ -32,7 +31,7 @@ public class AccessoryRecipe extends CustomRecipe {
 	}
 
 	public AccessoryRecipe( ResourceLocation id, AccessoryItem result, List< AccessoryItem > ingredients ) {
-		super( id, CraftingBookCategory.EQUIPMENT );
+		super( id );
 
 		this.result = result;
 		this.ingredients = ingredients;
@@ -49,7 +48,7 @@ public class AccessoryRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public ItemStack assemble( CraftingContainer container, RegistryAccess registryAccess ) {
+	public ItemStack assemble( CraftingContainer container ) {
 		RecipeData data = RecipeData.build( container );
 		float average = data.getAverageBonus();
 		float std = data.getStandardDeviation();

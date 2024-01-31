@@ -24,8 +24,8 @@ import com.majruszsaccessories.recipes.AccessoryRecipe;
 import com.majruszsaccessories.recipes.BoostAccessoryRecipe;
 import com.majruszsaccessories.recipes.CombineAccessoriesRecipe;
 import com.majruszsaccessories.recipes.UseCardRecipe;
+import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -41,9 +41,9 @@ public class MajruszsAccessories {
 	}
 
 	// Registry Groups
-	public static final RegistryGroup< Item > ITEMS = HELPER.create( BuiltInRegistries.ITEM );
-	public static final RegistryGroup< RecipeSerializer< ? > > RECIPES = HELPER.create( BuiltInRegistries.RECIPE_SERIALIZER );
-	public static final RegistryGroup< ParticleType< ? > > PARTICLES = HELPER.create( BuiltInRegistries.PARTICLE_TYPE );
+	public static final RegistryGroup< Item > ITEMS = HELPER.create( Registry.ITEM );
+	public static final RegistryGroup< RecipeSerializer< ? > > RECIPES = HELPER.create( Registry.RECIPE_SERIALIZER );
+	public static final RegistryGroup< ParticleType< ? > > PARTICLES = HELPER.create( Registry.PARTICLE_TYPE );
 
 	// Network
 	public static final NetworkObject< MoreChestLoot.BonusInfo > MORE_CHEST_LOOT = HELPER.create( "more_chest_loot", MoreChestLoot.BonusInfo.class );

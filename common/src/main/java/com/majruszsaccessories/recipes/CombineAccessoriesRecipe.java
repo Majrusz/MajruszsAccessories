@@ -8,21 +8,20 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 
 import java.util.function.Supplier;
 
 public class CombineAccessoriesRecipe extends CustomRecipe {
 	public static Supplier< RecipeSerializer< ? > > create() {
-		return ()->new SimpleCraftingRecipeSerializer<>( CombineAccessoriesRecipe::new );
+		return ()->new SimpleRecipeSerializer<>( CombineAccessoriesRecipe::new );
 	}
 
-	public CombineAccessoriesRecipe( ResourceLocation id, CraftingBookCategory category ) {
-		super( id, category );
+	public CombineAccessoriesRecipe( ResourceLocation id ) {
+		super( id );
 	}
 
 	@Override
@@ -37,7 +36,7 @@ public class CombineAccessoriesRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public ItemStack assemble( CraftingContainer container, RegistryAccess registryAccess ) {
+	public ItemStack assemble( CraftingContainer container ) {
 		RecipeData data = RecipeData.build( container );
 		float craftingMaxBonus = data.getMaxBonus();
 		float minBonus = Config.Efficiency.RANGE.clamp( craftingMaxBonus - 0.02f * ( data.getAccessoriesSize() - 1 ) );

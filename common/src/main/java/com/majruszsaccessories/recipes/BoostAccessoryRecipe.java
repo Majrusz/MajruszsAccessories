@@ -9,10 +9,9 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
@@ -21,11 +20,11 @@ import java.util.function.Supplier;
 
 public class BoostAccessoryRecipe extends CustomRecipe {
 	public static Supplier< RecipeSerializer< ? > > create() {
-		return ()->new SimpleCraftingRecipeSerializer<>( BoostAccessoryRecipe::new );
+		return ()->new SimpleRecipeSerializer<>( BoostAccessoryRecipe::new );
 	}
 
-	public BoostAccessoryRecipe( ResourceLocation id, CraftingBookCategory category ) {
-		super( id, category );
+	public BoostAccessoryRecipe( ResourceLocation id ) {
+		super( id );
 	}
 
 	@Override
@@ -43,7 +42,7 @@ public class BoostAccessoryRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public ItemStack assemble( CraftingContainer container, RegistryAccess registryAccess ) {
+	public ItemStack assemble( CraftingContainer container ) {
 		RecipeData data = RecipeData.build( container );
 		AccessoryHolder holder = data.getAccessory( 0 ).copy();
 		data.boosters().forEach( holder::addBooster );
