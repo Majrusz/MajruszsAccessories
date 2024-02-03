@@ -3,4 +3,5 @@
 - changed fishing luck bonus from an integer to a floating point number
 - removed unused code
 - increased Angler Rune luck bonus from 3 to 3.5
+- decreased Dice and Golden Dice bonuses from 20%/40% to 15%/30%
 - fixed bug with Horseshoe luck bonus being affected by efficiency bonus
