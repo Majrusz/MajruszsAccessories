@@ -12,6 +12,7 @@ import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.common.AccessoryHolders;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
+import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.config.RangedInteger;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
@@ -22,17 +23,17 @@ import net.minecraft.world.entity.player.Player;
 
 public class FishingLuckBonus extends BonusComponent< AccessoryItem > {
 	final AttributeHandler attribute;
-	RangedInteger luck = new RangedInteger().id( "bonus" ).maxRange( Range.of( 1, 100 ) );
+	RangedFloat luck = new RangedFloat().id( "bonus" ).maxRange( Range.of( 0.0f, 100.0f ) );
 
-	public static ISupplier< AccessoryItem > create( int luck ) {
+	public static ISupplier< AccessoryItem > create( float luck ) {
 		return handler->new FishingLuckBonus( handler, luck );
 	}
 
-	protected FishingLuckBonus( BonusHandler< AccessoryItem > handler, int luck ) {
+	protected FishingLuckBonus( BonusHandler< AccessoryItem > handler, float luck ) {
 		super( handler );
 
 		this.attribute = new AttributeHandler( "%s_fishing_luck_bonus".formatted( handler.getId() ), ()->Attributes.LUCK, AttributeModifier.Operation.ADDITION );
-		this.luck.set( luck, Range.of( 1, 10 ) );
+		this.luck.set( luck, Range.of( 0.0f, 10.0f ) );
 
 		OnPlayerTicked.listen( this::updateLuck )
 			.addCondition( Condition.isLogicalServer() )
@@ -51,13 +52,13 @@ public class FishingLuckBonus extends BonusComponent< AccessoryItem > {
 		this.attribute.setValue( this.getLuck( data.player ) ).apply( data.player );
 	}
 
-	private int getLuck( Player player ) {
+	private float getLuck( Player player ) {
 		if( player.fishing == null ) {
-			return 0;
+			return 0.0f;
 		}
 
 		AccessoryHolder holder = AccessoryHolders.get( player ).get( this::getItem );
-		return holder.isValid() ? holder.apply( this.luck ) : 0;
+		return holder.isValid() ? holder.apply( this.luck ) : 0.0f;
 	}
 
 	private void spawnEffects( OnItemFished data ) {
