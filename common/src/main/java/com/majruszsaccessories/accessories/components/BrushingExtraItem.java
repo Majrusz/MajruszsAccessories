@@ -41,7 +41,7 @@ public class BrushingExtraItem extends BonusComponent< AccessoryItem > {
 
 	private void addExtraLoot( OnItemBrushed data ) {
 		AccessoryHolder holder = AccessoryHolders.get( data.player ).get( this::getItem );
-		if( !Random.check( holder.apply( this.chance ) ) ) {
+		if( !holder.isValid() || !Random.check( holder.apply( this.chance ) ) ) {
 			return;
 		}
 

@@ -55,7 +55,7 @@ public class MiningExtraItem extends BonusComponent< AccessoryItem > {
 
 	private void addExtraLoot( OnLootGenerated data ) {
 		AccessoryHolder holder = AccessoryHolders.get( ( LivingEntity )data.entity ).get( this::getItem );
-		if( !Random.check( holder.apply( this.chance ) ) ) {
+		if( !holder.isValid() || !Random.check( holder.apply( this.chance ) ) ) {
 			return;
 		}
 
