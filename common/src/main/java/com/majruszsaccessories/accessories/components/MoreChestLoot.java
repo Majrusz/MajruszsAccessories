@@ -17,10 +17,10 @@ import com.majruszlibrary.platform.Side;
 import com.majruszlibrary.text.TextHelper;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.common.AccessoryHolder;
+import com.majruszsaccessories.common.AccessoryHolders;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
-import com.majruszsaccessories.events.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.ITooltipProvider;
 import com.majruszsaccessories.tooltip.TooltipHelper;
@@ -44,8 +44,7 @@ public class MoreChestLoot extends BonusComponent< AccessoryItem > {
 
 		this.sizeMultiplier.set( sizeMultiplier, Range.of( 0.0f, 10.0f ) );
 
-		OnChestOpened.listen( this::addExtraLoot )
-			.addCondition( CustomConditions.hasAccessory( this::getItem, data->OnChestOpened.findPlayer( data ).orElse( null ) ) );
+		OnChestOpened.listen( this::addExtraLoot );
 
 		this.addTooltip( "majruszsaccessories.bonuses.more_chest_loot", this.getPerPercentInfo(), this.getPercentInfo(), this.getCurrentInfo() );
 
@@ -54,8 +53,17 @@ public class MoreChestLoot extends BonusComponent< AccessoryItem > {
 	}
 
 	private void addExtraLoot( OnLootGenerated data ) {
-		ServerPlayer player = OnChestOpened.findPlayer( data ).orElseThrow();
-		float sizeMultiplier = 1.0f + AccessoryHolder.get( player ).apply( this.sizeMultiplier ) * MoreChestLoot.getDistanceBonus( player );
+		ServerPlayer player = OnChestOpened.findPlayer( data ).orElse( null );
+		if( player == null ) {
+			return;
+		}
+
+		AccessoryHolder holder = AccessoryHolders.get( player ).get( this::getItem );
+		if( !holder.isValid() ) {
+			return;
+		}
+
+		float sizeMultiplier = 1.0f + holder.apply( this.sizeMultiplier ) * MoreChestLoot.getDistanceBonus( player );
 		boolean hasIncreasedLoot = false;
 		for( ItemStack itemStack : data.generatedLoot ) {
 			int count = Math.min( Random.round( sizeMultiplier * itemStack.getCount() ), itemStack.getMaxStackSize() );
@@ -64,13 +72,12 @@ public class MoreChestLoot extends BonusComponent< AccessoryItem > {
 		}
 
 		if( hasIncreasedLoot ) {
-			this.spawnEffects( data, player );
+			this.spawnEffects( data, holder );
 		}
 	}
 
-	private void spawnEffects( OnLootGenerated data, ServerPlayer player ) {
-		AccessoryHolder.get( player )
-			.getParticleEmitter()
+	private void spawnEffects( OnLootGenerated data, AccessoryHolder holder ) {
+		holder.getParticleEmitter()
 			.count( 24 )
 			.offset( ParticleEmitter.offset( 0.4f ) )
 			.position( data.origin )

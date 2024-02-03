@@ -7,6 +7,7 @@ import net.minecraft.util.Tuple;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -17,15 +18,12 @@ public class SlotFabric implements ISlotPlatform {
 	}
 
 	@Override
-	public ItemStack find( LivingEntity entity, Predicate< ItemStack > predicate ) {
+	public List< ItemStack > find( LivingEntity entity, Predicate< ItemStack > predicate ) {
 		Optional< TrinketComponent > component = TrinketsApi.getTrinketComponent( entity );
 		if( component.isPresent() ) {
-			Optional< ItemStack > itemStack = component.get().getEquipped( predicate ).stream().map( Tuple::getB ).findFirst();
-			if( itemStack.isPresent() ) {
-				return itemStack.get();
-			}
+			return component.get().getEquipped( predicate ).stream().map( Tuple::getB ).toList();
 		}
 
-		return ItemStack.EMPTY;
+		return List.of();
 	}
 }

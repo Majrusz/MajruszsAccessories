@@ -8,6 +8,7 @@ import com.majruszlibrary.events.OnLootGenerated;
 import com.majruszlibrary.events.base.Condition;
 import com.majruszlibrary.events.base.Priority;
 import com.majruszsaccessories.common.AccessoryHolder;
+import com.majruszsaccessories.common.AccessoryHolders;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.mixininterfaces.IMixinLivingEntity;
 
@@ -53,6 +54,6 @@ public class AccessoryObserver {
 	}
 
 	private void updateHolder( OnEntityTicked data ) {
-		( ( IMixinLivingEntity )data.entity ).majruszsaccessories$setAccessoryHolder( AccessoryHolder.find( data.entity ) );
+		( ( IMixinLivingEntity )data.entity ).majruszsaccessories$setAccessoryHolders( AccessoryHolders.find( data.entity ) );
 	}
 }

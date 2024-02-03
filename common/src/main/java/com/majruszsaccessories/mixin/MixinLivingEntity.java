@@ -1,22 +1,20 @@
 package com.majruszsaccessories.mixin;
 
-import com.majruszsaccessories.common.AccessoryHolder;
+import com.majruszsaccessories.common.AccessoryHolders;
 import com.majruszsaccessories.mixininterfaces.IMixinLivingEntity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin( LivingEntity.class )
 public abstract class MixinLivingEntity implements IMixinLivingEntity {
-	AccessoryHolder majruszsaccessories$accessoryHolder = AccessoryHolder.create( ItemStack.EMPTY );
+	AccessoryHolders majruszsaccessories$accessoryHolders = AccessoryHolders.EMPTY;
 
-	@Override
-	public void majruszsaccessories$setAccessoryHolder( AccessoryHolder holder ) {
-		this.majruszsaccessories$accessoryHolder = holder;
+	public void majruszsaccessories$setAccessoryHolders( AccessoryHolders holders ) {
+		this.majruszsaccessories$accessoryHolders = holders;
 	}
 
 	@Override
-	public AccessoryHolder majruszsaccessories$getAccessoryHolder() {
-		return this.majruszsaccessories$accessoryHolder;
+	public AccessoryHolders majruszsaccessories$getAccessoryHolders() {
+		return this.majruszsaccessories$accessoryHolders;
 	}
 }

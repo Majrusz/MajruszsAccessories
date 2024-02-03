@@ -4,12 +4,13 @@ import com.majruszlibrary.events.OnLootGenerated;
 import com.majruszlibrary.events.base.Condition;
 import com.majruszlibrary.events.base.Event;
 import com.majruszlibrary.level.BlockHelper;
+import com.majruszlibrary.math.Random;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.common.AccessoryHolder;
+import com.majruszsaccessories.common.AccessoryHolders;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
-import com.majruszsaccessories.events.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import net.minecraft.world.entity.LivingEntity;
@@ -29,8 +30,7 @@ public class HarvestingDoubleCrops extends BonusComponent< AccessoryItem > {
 
 		this.chance.set( chance, Range.CHANCE );
 
-		OnCropHarvested.listen( this::doubleLoot )
-			.addCondition( CustomConditions.chance( this::getItem, data->( LivingEntity )data.entity, holder->holder.apply( this.chance ) ) );
+		OnCropHarvested.listen( this::doubleLoot );
 
 		this.addTooltip( "majruszsaccessories.bonuses.double_crops", TooltipHelper.asPercent( this.chance ) );
 
@@ -39,13 +39,17 @@ public class HarvestingDoubleCrops extends BonusComponent< AccessoryItem > {
 	}
 
 	private void doubleLoot( OnLootGenerated data ) {
+		AccessoryHolder holder = AccessoryHolders.get( ( LivingEntity )data.entity ).get( this::getItem );
+		if( !Random.check( holder.apply( this.chance ) ) ) {
+			return;
+		}
+
 		data.generatedLoot.addAll( new ArrayList<>( data.generatedLoot ) );
-		this.spawnEffects( data );
+		this.spawnEffects( data, holder );
 	}
 
-	private void spawnEffects( OnLootGenerated data ) {
-		AccessoryHolder.get( ( LivingEntity )data.entity )
-			.getParticleEmitter()
+	private void spawnEffects( OnLootGenerated data, AccessoryHolder holder ) {
+		holder.getParticleEmitter()
 			.count( 5 )
 			.position( data.origin )
 			.emit( data.getServerLevel() );

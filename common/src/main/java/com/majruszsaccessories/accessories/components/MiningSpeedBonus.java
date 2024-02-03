@@ -6,10 +6,10 @@ import com.majruszlibrary.math.Random;
 import com.majruszlibrary.math.Range;
 import com.majruszlibrary.time.TimeHelper;
 import com.majruszsaccessories.common.AccessoryHolder;
+import com.majruszsaccessories.common.AccessoryHolders;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
-import com.majruszsaccessories.events.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import net.minecraft.server.level.ServerLevel;
@@ -26,11 +26,9 @@ public class MiningSpeedBonus extends BonusComponent< AccessoryItem > {
 
 		this.speedMultiplier.set( bonus, Range.of( 0.0f, 10.0f ) );
 
-		OnBreakSpeedGet.listen( this::increaseMineSpeed )
-			.addCondition( CustomConditions.hasAccessory( this::getItem, data->data.player ) );
+		OnBreakSpeedGet.listen( this::increaseMineSpeed );
 
-		OnItemSwingDurationGet.listen( this::decreaseSwingDuration )
-			.addCondition( CustomConditions.hasAccessory( this::getItem, data->data.entity ) );
+		OnItemSwingDurationGet.listen( this::decreaseSwingDuration );
 
 		this.addTooltip( "majruszsaccessories.bonuses.mine_bonus", TooltipHelper.asPercent( this.speedMultiplier ) );
 
@@ -39,21 +37,29 @@ public class MiningSpeedBonus extends BonusComponent< AccessoryItem > {
 	}
 
 	private void increaseMineSpeed( OnBreakSpeedGet data ) {
-		data.speed += data.original * AccessoryHolder.get( data.player ).apply( this.speedMultiplier );
+		AccessoryHolder holder = AccessoryHolders.get( data.player ).get( this::getItem );
+		if( !holder.isValid() ) {
+			return;
+		}
+
+		data.speed += data.original * holder.apply( this.speedMultiplier );
 		if( data.getLevel() instanceof ServerLevel && TimeHelper.haveTicksPassed( 10 ) ) {
-			this.spawnEffects( data );
+			this.spawnEffects( data, holder );
 		}
 	}
 
 	private void decreaseSwingDuration( OnItemSwingDurationGet data ) {
-		float bonus = AccessoryHolder.get( data.entity ).apply( this.speedMultiplier );
+		AccessoryHolder holder = AccessoryHolders.get( data.entity ).get( this::getItem );
+		if( !holder.isValid() ) {
+			return;
+		}
 
+		float bonus = holder.apply( this.speedMultiplier );
 		data.duration -= Random.round( data.original * bonus / ( 1.0f + bonus ) );
 	}
 
-	private void spawnEffects( OnBreakSpeedGet data ) {
-		AccessoryHolder.get( data.player )
-			.getParticleEmitter()
+	private void spawnEffects( OnBreakSpeedGet data, AccessoryHolder holder ) {
+		holder.getParticleEmitter()
 			.count( 1 )
 			.sizeBased( data.player )
 			.emit( data.getServerLevel() );

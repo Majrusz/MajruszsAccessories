@@ -1,0 +1,4 @@
+- added extra Pocket slot for Trinkets and Curios API
+- added support for multiple accessories
+- removed unused code
+- fixed bug with Horseshoe luck bonus being affected by efficiency bonus

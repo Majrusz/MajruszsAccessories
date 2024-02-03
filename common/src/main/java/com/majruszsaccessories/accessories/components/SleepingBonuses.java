@@ -8,10 +8,10 @@ import com.majruszlibrary.math.Random;
 import com.majruszlibrary.math.Range;
 import com.majruszlibrary.time.TimeHelper;
 import com.majruszsaccessories.common.AccessoryHolder;
+import com.majruszsaccessories.common.AccessoryHolders;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedInteger;
-import com.majruszsaccessories.events.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import net.minecraft.world.effect.MobEffect;
@@ -47,8 +47,7 @@ public class SleepingBonuses extends BonusComponent< AccessoryItem > {
 
 		OnPlayerWakedUp.listen( this::applyBonuses )
 			.addCondition( Condition.isLogicalServer() )
-			.addCondition( data->!data.wasSleepStoppedManually )
-			.addCondition( CustomConditions.hasAccessory( this::getItem, data->data.player ) );
+			.addCondition( data->!data.wasSleepStoppedManually );
 
 		this.addTooltip( "majruszsaccessories.bonuses.sleep_bonuses", TooltipHelper.asValue( this.count ), TooltipHelper.asValue( this.duration ) );
 
@@ -61,13 +60,16 @@ public class SleepingBonuses extends BonusComponent< AccessoryItem > {
 	}
 
 	private void applyBonuses( OnPlayerWakedUp data ) {
-		AccessoryHolder holder = AccessoryHolder.get( data.player );
+		AccessoryHolder holder = AccessoryHolders.get( data.player ).get( this::getItem );
+		if( !holder.isValid() ) {
+			return;
+		}
+
 		int count = holder.apply( this.count );
 		int duration = TimeHelper.toTicks( holder.apply( this.duration ) );
 		this.getRandomMobEffects( data.player, count )
 			.forEach( effect->data.player.addEffect( new MobEffectInstance( effect.effect, duration, effect.amplifier ) ) );
-
-		this.spawnEffects( data );
+		this.spawnEffects( data, holder );
 	}
 
 	private List< EffectDef > getRandomMobEffects( Player player, int count ) {
@@ -79,9 +81,8 @@ public class SleepingBonuses extends BonusComponent< AccessoryItem > {
 		return Random.next( missingEffects, count );
 	}
 
-	private void spawnEffects( OnPlayerWakedUp data ) {
-		AccessoryHolder.get( data.player )
-			.getParticleEmitter()
+	private void spawnEffects( OnPlayerWakedUp data, AccessoryHolder holder ) {
+		holder.getParticleEmitter()
 			.count( 5 )
 			.position( data.player.position() )
 			.emit( data.getServerLevel() );

@@ -9,10 +9,10 @@ import com.majruszlibrary.level.LevelHelper;
 import com.majruszlibrary.math.AnyPos;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.common.AccessoryHolder;
+import com.majruszsaccessories.common.AccessoryHolders;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedInteger;
-import com.majruszsaccessories.events.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import net.minecraft.core.BlockPos;
@@ -39,8 +39,7 @@ public class FishingLuckBonus extends BonusComponent< AccessoryItem > {
 			.addCondition( Condition.cooldown( 4 ) );
 
 		OnItemFished.listen( this::spawnEffects )
-			.addCondition( Condition.isLogicalServer() )
-			.addCondition( CustomConditions.hasAccessory( this::getItem, data->data.player ) );
+			.addCondition( Condition.isLogicalServer() );
 
 		this.addTooltip( "majruszsaccessories.bonuses.fishing_luck", TooltipHelper.asValue( this.luck ) );
 
@@ -57,15 +56,18 @@ public class FishingLuckBonus extends BonusComponent< AccessoryItem > {
 			return 0;
 		}
 
-		AccessoryHolder holder = AccessoryHolder.get( player );
-		return holder.is( this.getItem() ) ? holder.apply( this.luck ) : 0;
+		AccessoryHolder holder = AccessoryHolders.get( player ).get( this::getItem );
+		return holder.isValid() ? holder.apply( this.luck ) : 0;
 	}
 
 	private void spawnEffects( OnItemFished data ) {
-		BlockPos position = LevelHelper.getPositionOverFluid( data.getLevel(), data.hook.blockPosition() );
+		AccessoryHolder holder = AccessoryHolders.get( data.player ).get( this::getItem );
+		if( !holder.isValid() ) {
+			return;
+		}
 
-		AccessoryHolder.get( data.player )
-			.getParticleEmitter()
+		BlockPos position = LevelHelper.getPositionOverFluid( data.getLevel(), data.hook.blockPosition() );
+		holder.getParticleEmitter()
 			.count( 4 )
 			.offset( ParticleEmitter.offset( 0.125f ) )
 			.position( AnyPos.from( data.hook.getX(), position.getY() + 0.25, data.hook.getZ() ).vec3() )

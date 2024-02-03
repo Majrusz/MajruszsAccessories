@@ -7,17 +7,16 @@ import com.majruszlibrary.level.LevelHelper;
 import com.majruszlibrary.math.AnyPos;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.common.AccessoryHolder;
+import com.majruszsaccessories.common.AccessoryHolders;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.config.RangedInteger;
-import com.majruszsaccessories.events.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
 
 import java.util.List;
@@ -37,7 +36,6 @@ public class StrongerPotions extends BonusComponent< AccessoryItem > {
 		this.amplifier.set( amplifier, Range.of( 1, 10 ) );
 
 		OnItemBrewed.listen( this::boostPotions )
-			.addCondition( CustomConditions.hasAccessory( this::getItem, data->LevelHelper.getNearestPlayer( data.level, data.blockPos, 10.0f ) ) )
 			.addCondition( data->data.items.subList( 0, 3 ).stream().anyMatch( itemStack->!PotionUtils.getMobEffects( itemStack ).isEmpty() ) );
 
 		this.addTooltip( "majruszsaccessories.bonuses.potion_amplifier", TooltipHelper.asValue( this.amplifier ) );
@@ -52,7 +50,11 @@ public class StrongerPotions extends BonusComponent< AccessoryItem > {
 
 	private void boostPotions( OnItemBrewed data ) {
 		Player player = LevelHelper.getNearestPlayer( data.level, data.blockPos, 10.0f );
-		AccessoryHolder holder = AccessoryHolder.get( player );
+		AccessoryHolder holder = AccessoryHolders.get( player ).get( this::getItem );
+		if( !holder.isValid() ) {
+			return;
+		}
+
 		data.mapPotions( potions->{
 			float durationMultiplier = 1.0f - holder.apply( this.durationPenalty, -1.0f );
 			int extraAmplifier = holder.apply( this.amplifier );
@@ -75,12 +77,11 @@ public class StrongerPotions extends BonusComponent< AccessoryItem > {
 				} )
 				.toList();
 		} );
-		this.spawnEffects( data, player );
+		this.spawnEffects( data, holder );
 	}
 
-	private void spawnEffects( OnItemBrewed data, Player player ) {
-		AccessoryHolder.get( player )
-			.getParticleEmitter()
+	private void spawnEffects( OnItemBrewed data, AccessoryHolder holder ) {
+		holder.getParticleEmitter()
 			.count( 6 )
 			.position( AnyPos.from( data.blockPos ).center().vec3() )
 			.emit( data.getServerLevel() );

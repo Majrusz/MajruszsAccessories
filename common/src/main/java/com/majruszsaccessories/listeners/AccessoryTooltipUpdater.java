@@ -10,6 +10,7 @@ import com.majruszlibrary.text.TextHelper;
 import com.majruszlibrary.time.TimeHelper;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.common.AccessoryHolder;
+import com.majruszsaccessories.common.AccessoryHolders;
 import com.majruszsaccessories.events.OnAccessoryTooltip;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
@@ -78,7 +79,7 @@ public class AccessoryTooltipUpdater {
 	}
 
 	private ChatFormatting getUseFormatting( AccessoryHolder holder, @Nullable Player player ) {
-		if( player != null && AccessoryHolder.get( player ) == holder ) {
+		if( player != null && AccessoryHolders.get( player ).get( holder::getItem ) == holder ) {
 			return ChatFormatting.GOLD;
 		} else {
 			return ChatFormatting.DARK_GRAY;

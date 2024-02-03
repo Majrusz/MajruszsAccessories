@@ -4,7 +4,7 @@ import com.majruszlibrary.entity.AttributeHandler;
 import com.majruszlibrary.events.OnPlayerTicked;
 import com.majruszlibrary.events.base.Condition;
 import com.majruszlibrary.math.Range;
-import com.majruszsaccessories.common.AccessoryHolder;
+import com.majruszsaccessories.common.AccessoryHolders;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedInteger;
@@ -37,9 +37,6 @@ public class LuckBonus extends BonusComponent< BoosterItem > {
 	}
 
 	private void updateLuck( OnPlayerTicked data ) {
-		AccessoryHolder holder = AccessoryHolder.get( data.player );
-		int luck = holder.has( this.getItem() ) ? holder.apply( this.bonus ) : 0;
-
-		this.attribute.setValue( luck ).apply( data.player );
+		this.attribute.setValue( this.bonus.get() * AccessoryHolders.get( data.player ).getBoostersCount( this::getItem ) ).apply( data.player );
 	}
 }

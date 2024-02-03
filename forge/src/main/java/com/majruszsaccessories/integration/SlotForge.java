@@ -6,7 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
 
-import java.util.Optional;
+import java.util.List;
 import java.util.function.Predicate;
 
 public class SlotForge implements ISlotPlatform {
@@ -16,12 +16,7 @@ public class SlotForge implements ISlotPlatform {
 	}
 
 	@Override
-	public ItemStack find( LivingEntity entity, Predicate< ItemStack > predicate ) {
-		Optional< SlotResult > slotResult = CuriosApi.getCuriosHelper().findFirstCurio( entity, predicate );
-		if( slotResult.isPresent() ) {
-			return slotResult.get().stack();
-		}
-
-		return ItemStack.EMPTY;
+	public List< ItemStack > find( LivingEntity entity, Predicate< ItemStack > predicate ) {
+		return CuriosApi.getCuriosHelper().findCurios( entity, predicate ).stream().map( SlotResult::stack ).toList();
 	}
 }

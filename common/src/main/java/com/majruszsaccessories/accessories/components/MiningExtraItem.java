@@ -7,13 +7,14 @@ import com.majruszlibrary.events.OnLootGenerated;
 import com.majruszlibrary.events.base.Condition;
 import com.majruszlibrary.events.base.Event;
 import com.majruszlibrary.item.LootHelper;
+import com.majruszlibrary.math.Random;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.common.AccessoryHolder;
+import com.majruszsaccessories.common.AccessoryHolders;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
-import com.majruszsaccessories.events.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import net.minecraft.resources.ResourceLocation;
@@ -41,8 +42,7 @@ public class MiningExtraItem extends BonusComponent< AccessoryItem > {
 
 		this.chance.set( chance, Range.CHANCE );
 
-		OnStoneMined.listen( this::addExtraLoot )
-			.addCondition( CustomConditions.chance( this::getItem, data->( LivingEntity )data.entity, holder->holder.apply( this.chance ) ) );
+		OnStoneMined.listen( this::addExtraLoot );
 
 		this.addTooltip( "majruszsaccessories.bonuses.extra_stone_loot", TooltipHelper.asPercent( this.chance ) );
 
@@ -54,16 +54,20 @@ public class MiningExtraItem extends BonusComponent< AccessoryItem > {
 	}
 
 	private void addExtraLoot( OnLootGenerated data ) {
+		AccessoryHolder holder = AccessoryHolders.get( ( LivingEntity )data.entity ).get( this::getItem );
+		if( !Random.check( holder.apply( this.chance ) ) ) {
+			return;
+		}
+
 		LivingEntity entity = ( LivingEntity )data.entity;
 		ResourceLocation id = this.lootIds.get( entity.level().dimension().location().toString() );
 
 		data.generatedLoot.addAll( LootHelper.getLootTable( id ).getRandomItems( LootHelper.toGiftParams( entity ) ) );
-		this.spawnEffects( data );
+		this.spawnEffects( data, holder );
 	}
 
-	private void spawnEffects( OnLootGenerated data ) {
-		AccessoryHolder.get( ( LivingEntity )data.entity )
-			.getParticleEmitter()
+	private void spawnEffects( OnLootGenerated data, AccessoryHolder holder ) {
+		holder.getParticleEmitter()
 			.count( 3 )
 			.offset( ParticleEmitter.offset( 0.2f ) )
 			.position( data.origin )
