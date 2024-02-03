@@ -20,7 +20,7 @@ public class Horseshoe extends BoosterHandler {
 	public Horseshoe() {
 		super( MajruszsAccessories.HORSESHOE, Horseshoe.class );
 
-		this.add( LuckBonus.create( 0.75f ) )
+		this.add( LuckBonus.create( 1.0f ) )
 			.add( SkeletonHorsemanDropChance.create() )
 			.add( TradeOffer.create() );
 	}

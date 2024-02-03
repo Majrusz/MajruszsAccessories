@@ -19,7 +19,7 @@ public class Dice extends BoosterHandler {
 	public Dice() {
 		super( MajruszsAccessories.DICE, Dice.class );
 
-		this.add( AccessoryDropChance.create( 0.15f ) )
+		this.add( AccessoryDropChance.create( 0.2f ) )
 			.add( GuardianDropChance.create() )
 			.add( TradeOffer.create() );
 	}
