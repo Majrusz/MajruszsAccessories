@@ -11,7 +11,7 @@ public class GoldenHorseshoe extends BoosterHandler {
 	public GoldenHorseshoe() {
 		super( MajruszsAccessories.GOLDEN_HORSESHOE, GoldenHorseshoe.class );
 
-		this.add( LuckBonus.create( 2 ) )
+		this.add( LuckBonus.create( 1.5f ) )
 			.add( BoosterIncompatibility.create( MajruszsAccessories.HORSESHOE ) );
 	}
 }

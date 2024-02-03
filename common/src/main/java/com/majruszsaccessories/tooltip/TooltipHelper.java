@@ -37,6 +37,10 @@ public class TooltipHelper {
 		return new IntegerTooltip( value ).bonusMultiplier( 0 );
 	}
 
+	public static FloatTooltip asFixedValue( RangedFloat value ) {
+		return new FloatTooltip( value ).bonusMultiplier( 0 );
+	}
+
 	public static PercentTooltip asPercent( RangedFloat value ) {
 		return new PercentTooltip( value );
 	}
