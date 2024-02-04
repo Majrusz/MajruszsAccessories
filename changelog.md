@@ -5,4 +5,5 @@
 - increased Angler Rune luck bonus from 3 to 3.5
 - decreased Golden Dice bonus from 40% to 30%
 - decreased Golden Horseshoe bonus from +2 to +1.5
+- optimized performance
 - fixed bug with Horseshoe luck bonus being affected by efficiency bonus

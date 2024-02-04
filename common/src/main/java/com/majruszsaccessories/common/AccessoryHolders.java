@@ -49,6 +49,6 @@ public class AccessoryHolders {
 	}
 
 	private AccessoryHolders( List< ItemStack > itemStacks ) {
-		this.holders = itemStacks.stream().map( AccessoryHolder::create ).toList();
+		this.holders = itemStacks.stream().map( AccessoryHolder::getOrCreate ).toList();
 	}
 }

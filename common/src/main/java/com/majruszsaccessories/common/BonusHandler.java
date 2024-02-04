@@ -79,7 +79,7 @@ public class BonusHandler< Type extends Item > {
 			return new ItemStack( MajruszsAccessories.BOOSTER_OVERLAY_SINGLE.get() );
 		}
 
-		AccessoryHolder holder = AccessoryHolder.create( itemStack );
+		AccessoryHolder holder = AccessoryHolder.getOrCreate( itemStack );
 		return switch( holder.getBoosters().size() ) {
 			case 1 -> new ItemStack( MajruszsAccessories.BOOSTER_OVERLAY_SINGLE.get() );
 			case 2 -> new ItemStack( MajruszsAccessories.BOOSTER_OVERLAY_DOUBLE.get() );

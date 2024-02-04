@@ -13,6 +13,7 @@ import com.majruszsaccessories.config.RangedInteger;
 import com.majruszsaccessories.events.OnAccessoryExtraBonusGet;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.items.BoosterItem;
+import com.majruszsaccessories.mixininterfaces.IMixinItemStack;
 import com.majruszsaccessories.particles.BonusParticleType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.resources.ResourceLocation;
@@ -37,6 +38,10 @@ public class AccessoryHolder {
 
 	public static AccessoryHolder create( ItemStack itemStack ) {
 		return new AccessoryHolder( itemStack );
+	}
+
+	public static AccessoryHolder getOrCreate( ItemStack itemStack ) {
+		return ( ( IMixinItemStack )( Object )itemStack ).majruszsaccessories$getOrCreateAccessoryHolder();
 	}
 
 	public static int apply( float bonus, RangedInteger value, int multiplier ) {
@@ -80,6 +85,8 @@ public class AccessoryHolder {
 		this.item = itemStack.getItem() instanceof AccessoryItem item ? item : null;
 		this.data = data;
 		this.data.extraBonus = AccessoryHolder.round( Events.dispatch( new OnAccessoryExtraBonusGet( this ) ).bonus );
+
+		( ( IMixinItemStack )( Object )itemStack ).majruszsaccessories$setAccessoryHolder( this );
 	}
 
 	private AccessoryHolder( ItemStack itemStack ) {

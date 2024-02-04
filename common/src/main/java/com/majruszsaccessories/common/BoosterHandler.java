@@ -8,7 +8,6 @@ import com.majruszsaccessories.events.OnAccessoryTooltip;
 import com.majruszsaccessories.events.OnBoosterTooltip;
 import com.majruszsaccessories.items.BoosterItem;
 import net.minecraft.ChatFormatting;
-import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
@@ -33,7 +32,7 @@ public class BoosterHandler extends BonusHandler< BoosterItem > {
 		this.components.stream()
 			.map( BonusComponent::getTooltipProviders )
 			.flatMap( List::stream )
-			.map( provider->provider.getTooltip( AccessoryHolder.create( ItemStack.EMPTY ) ) )
+			.map( provider->provider.getTooltip( AccessoryHolder.EMPTY ) )
 			.map( component->component.withStyle( ChatFormatting.GRAY ) )
 			.forEach( data.components::add );
 	}

@@ -33,7 +33,7 @@ public class AccessoryTooltipUpdater {
 	}
 
 	private void addTooltip( OnItemTooltip data ) {
-		AccessoryHolder holder = AccessoryHolder.create( data.itemStack );
+		AccessoryHolder holder = AccessoryHolder.getOrCreate( data.itemStack );
 		if( holder.hasBonusRangeDefined() && !holder.hasBonusDefined() ) {
 			data.components.addAll( this.buildBonusRangeInfo( holder ) );
 		} else {

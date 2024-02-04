@@ -30,12 +30,12 @@ public class AccessoryItem extends Item {
 
 	@Override
 	public boolean isFoil( ItemStack itemStack ) {
-		return AccessoryHolder.create( itemStack ).hasMaxBonus();
+		return AccessoryHolder.getOrCreate( itemStack ).hasMaxBonus();
 	}
 
 	@Override
 	public Rarity getRarity( ItemStack itemStack ) {
-		return AccessoryHolder.create( itemStack ).getRarity();
+		return AccessoryHolder.getOrCreate( itemStack ).getRarity();
 	}
 
 	public int getBoosterSlotsCount() {

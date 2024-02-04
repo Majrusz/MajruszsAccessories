@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 public abstract class MixinLivingEntity implements IMixinLivingEntity {
 	AccessoryHolders majruszsaccessories$accessoryHolders = AccessoryHolders.EMPTY;
 
+	@Override
 	public void majruszsaccessories$setAccessoryHolders( AccessoryHolders holders ) {
 		this.majruszsaccessories$accessoryHolders = holders;
 	}

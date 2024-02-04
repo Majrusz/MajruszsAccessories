@@ -13,7 +13,6 @@ import com.majruszsaccessories.common.AccessoryHolders;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
-import com.majruszsaccessories.config.RangedInteger;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import net.minecraft.core.BlockPos;

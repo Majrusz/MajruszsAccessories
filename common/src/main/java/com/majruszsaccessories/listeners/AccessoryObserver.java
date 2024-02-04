@@ -31,15 +31,15 @@ public class AccessoryObserver {
 
 	private void tryToGiveRandomBonus( OnItemEquipped data ) {
 		// compatibility fix for mods that modify crafting behaviour etc.
-		AccessoryHolder holder = AccessoryHolder.create( data.to );
+		AccessoryHolder holder = AccessoryHolder.getOrCreate( data.to );
 		if( holder.isValid() && !holder.hasBonusDefined() ) {
 			holder.setRandomBonus();
 		}
 	}
 
 	private void tryToGiveRandomBonus( OnLootGenerated data ) {
-		data.generatedLoot.forEach( itemStack->{
-			AccessoryHolder holder = AccessoryHolder.create( itemStack );
+		data.generatedLoot.stream().filter( itemStack->itemStack.getItem() instanceof AccessoryItem ).forEach( itemStack->{
+			AccessoryHolder holder = AccessoryHolder.getOrCreate( itemStack );
 			if( holder.isValid() && !holder.hasBonusDefined() ) {
 				holder.setRandomBonus();
 			}
@@ -47,7 +47,7 @@ public class AccessoryObserver {
 	}
 
 	private void tryToGiveRandomBonus( OnItemCrafted data ) {
-		AccessoryHolder holder = AccessoryHolder.create( data.itemStack );
+		AccessoryHolder holder = AccessoryHolder.getOrCreate( data.itemStack );
 		if( holder.hasBonusRangeDefined() && !holder.hasBonusDefined() ) {
 			holder.setRandomBonus();
 		}
