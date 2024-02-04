@@ -5,6 +5,7 @@ import com.majruszlibrary.data.Reader;
 import com.majruszlibrary.events.OnAnimalTamed;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
+import com.majruszsaccessories.accessories.components.AccessoryIncompatibility;
 import com.majruszsaccessories.accessories.components.TamingStrongerAnimals;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
@@ -20,7 +21,9 @@ public class CertificateOfTaming extends AccessoryHandler {
 
 		this.add( TamingStrongerAnimals.create( 0.2f ) )
 			.add( TamingDropChance.create() )
-			.add( TradeOffer.create() );
+			.add( TradeOffer.create() )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.NATURE_RUNE ) )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.SOUL_OF_MINECRAFT ) );
 	}
 
 	static class TamingDropChance extends BonusComponent< AccessoryItem > {

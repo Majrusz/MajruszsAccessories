@@ -5,6 +5,7 @@ import com.majruszlibrary.data.Reader;
 import com.majruszlibrary.events.base.Events;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
+import com.majruszsaccessories.accessories.components.AccessoryIncompatibility;
 import com.majruszsaccessories.accessories.components.HarvestingDoubleCrops;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
@@ -21,7 +22,9 @@ public class TamedPotatoBeetle extends AccessoryHandler {
 
 		this.add( HarvestingDoubleCrops.create( 0.25f ) )
 			.add( HarvestingDropChance.create() )
-			.add( TradeOffer.create() );
+			.add( TradeOffer.create() )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.NATURE_RUNE ) )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.SOUL_OF_MINECRAFT ) );
 	}
 
 	static class HarvestingDropChance extends BonusComponent< AccessoryItem > {

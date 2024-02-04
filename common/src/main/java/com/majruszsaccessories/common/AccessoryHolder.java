@@ -193,6 +193,10 @@ public class AccessoryHolder {
 		return Math.max( this.item.getBoosterSlotsCount() - this.data.boosters.size(), 0 );
 	}
 
+	public int getTier() {
+		return this.item.getTier();
+	}
+
 	public ChatFormatting getBonusFormatting() {
 		return AccessoryHolder.getBonusFormatting( this.getBonus() );
 	}

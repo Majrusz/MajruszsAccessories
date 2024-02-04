@@ -2,6 +2,7 @@ package com.majruszsaccessories.accessories;
 
 import com.majruszlibrary.annotation.AutoInstance;
 import com.majruszsaccessories.MajruszsAccessories;
+import com.majruszsaccessories.accessories.components.AccessoryIncompatibility;
 import com.majruszsaccessories.accessories.components.BreedingTwins;
 import com.majruszsaccessories.accessories.components.HarvestingDoubleCrops;
 import com.majruszsaccessories.accessories.components.TamingStrongerAnimals;
@@ -14,6 +15,7 @@ public class NatureRune extends AccessoryHandler {
 
 		this.add( TamingStrongerAnimals.create( 0.25f ) )
 			.add( BreedingTwins.create( 0.3f ) )
-			.add( HarvestingDoubleCrops.create( 0.3f ) );
+			.add( HarvestingDoubleCrops.create( 0.3f ) )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.SOUL_OF_MINECRAFT ) );
 	}
 }

@@ -1,6 +1,8 @@
 package com.majruszsaccessories.common;
 
+import com.majruszlibrary.events.base.Events;
 import com.majruszsaccessories.MajruszsAccessories;
+import com.majruszsaccessories.events.OnAccessoryCompatibilityGet;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.items.BoosterItem;
 import com.majruszsaccessories.mixininterfaces.IMixinLivingEntity;
@@ -53,6 +55,18 @@ public class AccessoryHolders {
 	}
 
 	private AccessoryHolders( List< ItemStack > itemStacks ) {
-		this.holders = itemStacks.stream().map( AccessoryHolder::getOrCreate ).toList();
+		this.holders = itemStacks.stream()
+			.map( AccessoryHolder::getOrCreate )
+			.sorted( ( a, b )->-Float.compare( a.getBonus(), b.getBonus() ) )
+			.sorted( ( a, b )->-Float.compare( a.getTier(), b.getTier() ) )
+			.toList();
+
+		for( int i = 0; i < this.holders.size(); ++i ) {
+			for( int j = i + 1; j < this.holders.size(); ++j ) {
+				if( Events.dispatch( new OnAccessoryCompatibilityGet( this.holders.get( i ).item, this.holders.get( j ).item ) ).areIncompatible() ) {
+					this.holders.get( j ).disableBonus();
+				}
+			}
+		}
 	}
 }

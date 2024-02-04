@@ -4,6 +4,7 @@ import com.majruszlibrary.annotation.AutoInstance;
 import com.majruszlibrary.data.Reader;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
+import com.majruszsaccessories.accessories.components.AccessoryIncompatibility;
 import com.majruszsaccessories.accessories.components.MoreChestLoot;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
@@ -19,7 +20,9 @@ public class AdventurerKit extends AccessoryHandler {
 
 		this.add( MoreChestLoot.create( 1.2f ) )
 			.add( AnyChestDropChance.create() )
-			.add( TradeOffer.create() );
+			.add( TradeOffer.create() )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.ADVENTURER_RUNE ) )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.SOUL_OF_MINECRAFT ) );
 	}
 
 	static class AnyChestDropChance extends BonusComponent< AccessoryItem > {

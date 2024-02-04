@@ -6,6 +6,7 @@ import com.majruszlibrary.events.OnPlayerWakedUp;
 import com.majruszlibrary.events.base.Condition;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
+import com.majruszsaccessories.accessories.components.AccessoryIncompatibility;
 import com.majruszsaccessories.accessories.components.SleepingBonuses;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
@@ -21,7 +22,9 @@ public class DreamCatcher extends AccessoryHandler {
 
 		this.add( SleepingBonuses.create( 1, 300 ) )
 			.add( SleepingDropChance.create() )
-			.add( TradeOffer.create() );
+			.add( TradeOffer.create() )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.HOUSEHOLD_RUNE ) )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.SOUL_OF_MINECRAFT ) );
 	}
 
 	static class SleepingDropChance extends BonusComponent< AccessoryItem > {
