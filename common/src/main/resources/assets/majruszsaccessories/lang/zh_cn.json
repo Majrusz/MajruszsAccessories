@@ -92,6 +92,8 @@
   "advancements.majruszsaccessories.booster_dropped.description": "获得任意饰品配件",
   "advancements.majruszsaccessories.booster_used.title": "强大的助力！",
   "advancements.majruszsaccessories.booster_used.description": "使用任意饰品配件",
-  "trinkets.slot.legs.pocket": "口袋",
-  "curios.identifier.pocket": "口袋"
+  "trinkets.slot.legs.pocket_left": "口袋",
+  "trinkets.slot.legs.pocket_right": "口袋",
+  "curios.identifier.pocket_left": "口袋",
+  "curios.identifier.pocket_right": "口袋"
 }

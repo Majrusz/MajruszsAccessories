@@ -98,6 +98,8 @@
   "advancements.majruszsaccessories.booster_used.description": "Użyj dowolny wzmacniacz akcesoriów",
   "advancements.majruszsaccessories.booster_nice.title": "Nice",
   "advancements.majruszsaccessories.booster_nice.description": "Zdobądź 69% bonusu wydajności na dowolnym z akcesoriów",
-  "trinkets.slot.legs.pocket": "Kieszeń",
-  "curios.identifier.pocket": "Kieszeń"
+  "trinkets.slot.legs.pocket_left": "Kieszeń",
+  "trinkets.slot.legs.pocket_right": "Kieszeń",
+  "curios.identifier.pocket_left": "Kieszeń",
+  "curios.identifier.pocket_right": "Kieszeń"
 }
