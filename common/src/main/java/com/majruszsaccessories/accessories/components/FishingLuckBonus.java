@@ -57,12 +57,12 @@ public class FishingLuckBonus extends BonusComponent< AccessoryItem > {
 		}
 
 		AccessoryHolder holder = AccessoryHolders.get( player ).get( this::getItem );
-		return holder.isValid() ? holder.apply( this.luck ) : 0.0f;
+		return holder.isValid() && !holder.isBonusDisabled() ? holder.apply( this.luck ) : 0.0f;
 	}
 
 	private void spawnEffects( OnItemFished data ) {
 		AccessoryHolder holder = AccessoryHolders.get( data.player ).get( this::getItem );
-		if( !holder.isValid() ) {
+		if( !holder.isValid() || holder.isBonusDisabled() ) {
 			return;
 		}
 

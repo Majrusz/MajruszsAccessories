@@ -38,7 +38,7 @@ public class MiningSpeedBonus extends BonusComponent< AccessoryItem > {
 
 	private void increaseMineSpeed( OnBreakSpeedGet data ) {
 		AccessoryHolder holder = AccessoryHolders.get( data.player ).get( this::getItem );
-		if( !holder.isValid() ) {
+		if( !holder.isValid() || holder.isBonusDisabled() ) {
 			return;
 		}
 
@@ -50,7 +50,7 @@ public class MiningSpeedBonus extends BonusComponent< AccessoryItem > {
 
 	private void decreaseSwingDuration( OnItemSwingDurationGet data ) {
 		AccessoryHolder holder = AccessoryHolders.get( data.entity ).get( this::getItem );
-		if( !holder.isValid() ) {
+		if( !holder.isValid() || holder.isBonusDisabled() ) {
 			return;
 		}
 

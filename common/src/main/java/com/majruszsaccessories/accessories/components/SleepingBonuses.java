@@ -61,7 +61,7 @@ public class SleepingBonuses extends BonusComponent< AccessoryItem > {
 
 	private void applyBonuses( OnPlayerWakedUp data ) {
 		AccessoryHolder holder = AccessoryHolders.get( data.player ).get( this::getItem );
-		if( !holder.isValid() ) {
+		if( !holder.isValid() || holder.isBonusDisabled() ) {
 			return;
 		}
 

@@ -34,7 +34,7 @@ public class MiningDurabilityBonus extends BonusComponent< AccessoryItem > {
 
 	private void decreaseDurabilityCost( OnItemDamaged data ) {
 		AccessoryHolder holder = AccessoryHolders.get( data.player ).get( this::getItem );
-		if( !holder.isValid() || !Random.check( holder.apply( this.chance ) ) ) {
+		if( !holder.isValid() || holder.isBonusDisabled() || !Random.check( holder.apply( this.chance ) ) ) {
 			return;
 		}
 

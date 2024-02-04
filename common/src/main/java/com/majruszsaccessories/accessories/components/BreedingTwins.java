@@ -40,7 +40,7 @@ public class BreedingTwins extends BonusComponent< AccessoryItem > {
 
 	private void spawnTwins( OnBabySpawned data ) {
 		AccessoryHolder holder = AccessoryHolders.get( data.player ).get( this::getItem );
-		if( !holder.isValid() || !Random.check( holder.apply( this.chance ) ) ) {
+		if( !holder.isValid() || holder.isBonusDisabled() || !Random.check( holder.apply( this.chance ) ) ) {
 			return;
 		}
 

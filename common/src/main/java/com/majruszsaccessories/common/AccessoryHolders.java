@@ -44,6 +44,10 @@ public class AccessoryHolders {
 		return AccessoryHolder.EMPTY;
 	}
 
+	public List< AccessoryHolder > get() {
+		return this.holders;
+	}
+
 	public int getBoostersCount( Supplier< BoosterItem > item ) {
 		return ( int )this.holders.stream().filter( holder->holder.has( item.get() ) ).count();
 	}

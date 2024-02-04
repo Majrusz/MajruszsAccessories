@@ -40,7 +40,7 @@ public class HarvestingDoubleCrops extends BonusComponent< AccessoryItem > {
 
 	private void doubleLoot( OnLootGenerated data ) {
 		AccessoryHolder holder = AccessoryHolders.get( ( LivingEntity )data.entity ).get( this::getItem );
-		if( !holder.isValid() || !Random.check( holder.apply( this.chance ) ) ) {
+		if( !holder.isValid() || holder.isBonusDisabled() || !Random.check( holder.apply( this.chance ) ) ) {
 			return;
 		}
 

@@ -52,7 +52,7 @@ public class TamingStrongerAnimals extends BonusComponent< AccessoryItem > {
 
 	private void applyBonuses( OnAnimalTamed data ) {
 		AccessoryHolder holder = AccessoryHolders.get( data.tamer ).get( this::getItem );
-		if( !holder.isValid() ) {
+		if( !holder.isValid() || holder.isBonusDisabled() ) {
 			return;
 		}
 

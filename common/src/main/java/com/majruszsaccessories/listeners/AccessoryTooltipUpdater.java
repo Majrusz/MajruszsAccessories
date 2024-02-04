@@ -22,6 +22,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @AutoInstance
 public class AccessoryTooltipUpdater {
@@ -33,7 +34,11 @@ public class AccessoryTooltipUpdater {
 	}
 
 	private void addTooltip( OnItemTooltip data ) {
-		AccessoryHolder holder = AccessoryHolder.getOrCreate( data.itemStack );
+		AccessoryHolder holder = Optional.ofNullable( data.player )
+			.map( player->AccessoryHolders.find( player ).get().stream().filter( subholder->subholder.getItemStack() == data.itemStack ).findFirst() )
+			.flatMap( subholder->subholder )
+			.orElse( AccessoryHolder.create( data.itemStack ) );
+
 		if( holder.hasBonusRangeDefined() && !holder.hasBonusDefined() ) {
 			data.components.addAll( this.buildBonusRangeInfo( holder ) );
 		} else {

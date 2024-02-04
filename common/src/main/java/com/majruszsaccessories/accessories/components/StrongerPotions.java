@@ -51,7 +51,7 @@ public class StrongerPotions extends BonusComponent< AccessoryItem > {
 	private void boostPotions( OnItemBrewed data ) {
 		Player player = LevelHelper.getNearestPlayer( data.level, data.blockPos, 10.0f );
 		AccessoryHolder holder = AccessoryHolders.get( player ).get( this::getItem );
-		if( !holder.isValid() ) {
+		if( !holder.isValid() || holder.isBonusDisabled() ) {
 			return;
 		}
 

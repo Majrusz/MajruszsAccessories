@@ -31,6 +31,7 @@ public class AccessoryHolder {
 	final ItemStack itemStack;
 	final AccessoryItem item;
 	final Data data;
+	boolean isBonusDisabled = false;
 
 	public static AccessoryHolder create( Item item ) {
 		return new AccessoryHolder( new ItemStack( item ) );
@@ -154,6 +155,12 @@ public class AccessoryHolder {
 		return this.save( ()->this.data.boosters.clear() );
 	}
 
+	public AccessoryHolder disableBonus() {
+		this.isBonusDisabled = true;
+
+		return this;
+	}
+
 	public float getBonus() {
 		return AccessoryHolder.round( this.getBaseBonus() + this.getExtraBonus() );
 	}
@@ -204,6 +211,10 @@ public class AccessoryHolder {
 
 	public boolean isValid() {
 		return this.item != null;
+	}
+
+	public boolean isBonusDisabled() {
+		return this.isBonusDisabled;
 	}
 
 	public boolean hasBonusDefined() {

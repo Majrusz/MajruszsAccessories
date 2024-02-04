@@ -59,7 +59,7 @@ public class MoreChestLoot extends BonusComponent< AccessoryItem > {
 		}
 
 		AccessoryHolder holder = AccessoryHolders.get( player ).get( this::getItem );
-		if( !holder.isValid() ) {
+		if( !holder.isValid() || holder.isBonusDisabled() ) {
 			return;
 		}
 

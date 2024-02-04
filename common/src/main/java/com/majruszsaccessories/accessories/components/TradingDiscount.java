@@ -34,7 +34,7 @@ public class TradingDiscount extends BonusComponent< AccessoryItem > {
 
 	private void decreasePrices( OnTradesUpdated data ) {
 		AccessoryHolder holder = AccessoryHolders.get( data.player ).get( this::getItem );
-		if( !holder.isValid() ) {
+		if( !holder.isValid() || holder.isBonusDisabled() ) {
 			return;
 		}
 

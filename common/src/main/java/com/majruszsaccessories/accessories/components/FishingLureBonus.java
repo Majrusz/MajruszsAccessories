@@ -36,7 +36,7 @@ public class FishingLureBonus extends BonusComponent< AccessoryItem > {
 
 	private void decreaseFishingTime( OnFishingTimeGet data ) {
 		AccessoryHolder holder = AccessoryHolders.get( data.player ).get( this::getItem );
-		if( !holder.isValid() ) {
+		if( !holder.isValid() || holder.isBonusDisabled() ) {
 			return;
 		}
 
