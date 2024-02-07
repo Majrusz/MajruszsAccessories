@@ -5,6 +5,7 @@ import com.majruszlibrary.data.Reader;
 import com.majruszlibrary.events.OnLootGenerated;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
+import com.majruszsaccessories.accessories.components.AccessoryIncompatibility;
 import com.majruszsaccessories.accessories.components.MiningSpeedBonus;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
@@ -20,7 +21,9 @@ public class MinerGuide extends AccessoryHandler {
 
 		this.add( MiningSpeedBonus.create( 0.1f ) )
 			.add( UndergroundChestDropChance.create() )
-			.add( TradeOffer.create() );
+			.add( TradeOffer.create() )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.MINER_RUNE ) )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.SOUL_OF_MINECRAFT ) );
 	}
 
 	static class UndergroundChestDropChance extends BonusComponent< AccessoryItem > {

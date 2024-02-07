@@ -16,7 +16,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +54,7 @@ public class SpawnAccessoryCommand {
 		for( Entity entity : entities ) {
 			if( entity instanceof Player player ) {
 				for( int i = 0; i < count; ++i ) {
-					AccessoryHolder holder = AccessoryHolder.create( new ItemStack( item ) );
+					AccessoryHolder holder = AccessoryHolder.create( item );
 					holder.setBonus( bonus.orElseGet( Config.Efficiency::getRandom ) );
 
 					ItemHelper.giveToPlayer( holder.getItemStack(), player );

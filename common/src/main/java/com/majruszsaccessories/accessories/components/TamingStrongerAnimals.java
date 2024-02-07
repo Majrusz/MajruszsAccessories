@@ -6,10 +6,10 @@ import com.majruszlibrary.events.OnBabySpawned;
 import com.majruszlibrary.events.base.Condition;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.common.AccessoryHolder;
+import com.majruszsaccessories.common.AccessoryHolders;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
-import com.majruszsaccessories.events.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import net.minecraft.world.entity.LivingEntity;
@@ -38,8 +38,7 @@ public class TamingStrongerAnimals extends BonusComponent< AccessoryItem > {
 		this.bonus.set( bonus, Range.of( 0.0f, 1.0f ) );
 
 		OnAnimalTamed.listen( this::applyBonuses )
-			.addCondition( Condition.isLogicalServer() )
-			.addCondition( CustomConditions.hasAccessory( this::getItem, data->data.tamer ) );
+			.addCondition( Condition.isLogicalServer() );
 
 		OnBabySpawned.listen( this::applyBonuses )
 			.addCondition( Condition.isLogicalServer() )
@@ -52,8 +51,13 @@ public class TamingStrongerAnimals extends BonusComponent< AccessoryItem > {
 	}
 
 	private void applyBonuses( OnAnimalTamed data ) {
-		this.applyBonuses( AccessoryHolder.get( data.tamer ).apply( this.bonus ), data.animal );
-		this.spawnEffects( data );
+		AccessoryHolder holder = AccessoryHolders.get( data.tamer ).get( this::getItem );
+		if( !holder.isValid() || holder.isBonusDisabled() ) {
+			return;
+		}
+
+		this.applyBonuses( holder.apply( this.bonus ), data.animal );
+		this.spawnEffects( data, holder );
 	}
 
 	private void applyBonuses( OnBabySpawned data ) {
@@ -72,9 +76,8 @@ public class TamingStrongerAnimals extends BonusComponent< AccessoryItem > {
 		entity.setHealth( entity.getMaxHealth() );
 	}
 
-	private void spawnEffects( OnAnimalTamed data ) {
-		AccessoryHolder.get( data.tamer )
-			.getParticleEmitter()
+	private void spawnEffects( OnAnimalTamed data, AccessoryHolder holder ) {
+		holder.getParticleEmitter()
 			.count( 4 )
 			.sizeBased( data.animal )
 			.emit( data.getServerLevel() );

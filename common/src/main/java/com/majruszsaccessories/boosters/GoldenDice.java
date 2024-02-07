@@ -11,7 +11,7 @@ public class GoldenDice extends BoosterHandler {
 	public GoldenDice() {
 		super( MajruszsAccessories.GOLDEN_DICE, GoldenDice.class );
 
-		this.add( AccessoryDropChance.create( 0.4f ) )
+		this.add( AccessoryDropChance.create( 0.3f ) )
 			.add( BoosterIncompatibility.create( MajruszsAccessories.DICE ) );
 	}
 }

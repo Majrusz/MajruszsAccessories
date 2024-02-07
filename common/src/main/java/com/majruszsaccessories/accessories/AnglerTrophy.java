@@ -7,6 +7,7 @@ import com.majruszlibrary.events.OnLootGenerated;
 import com.majruszlibrary.math.Range;
 import com.majruszlibrary.registry.Registries;
 import com.majruszsaccessories.MajruszsAccessories;
+import com.majruszsaccessories.accessories.components.AccessoryIncompatibility;
 import com.majruszsaccessories.accessories.components.FishingLuckBonus;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
@@ -24,9 +25,11 @@ public class AnglerTrophy extends AccessoryHandler {
 	public AnglerTrophy() {
 		super( MajruszsAccessories.ANGLER_TROPHY, AnglerTrophy.class );
 
-		this.add( FishingLuckBonus.create( 3 ) )
+		this.add( FishingLuckBonus.create( 3.0f ) )
 			.add( FishingDropChance.create( 0.01f ) )
-			.add( TradeOffer.create() );
+			.add( TradeOffer.create() )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.ANGLER_RUNE ) )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.SOUL_OF_MINECRAFT ) );
 	}
 
 	public static class FishingDropChance extends BonusComponent< AccessoryItem > {

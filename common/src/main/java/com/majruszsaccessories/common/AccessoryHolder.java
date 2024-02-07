@@ -7,18 +7,16 @@ import com.majruszlibrary.events.base.Events;
 import com.majruszlibrary.math.Random;
 import com.majruszlibrary.math.Range;
 import com.majruszlibrary.registry.Registries;
-import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.config.Config;
 import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.config.RangedInteger;
 import com.majruszsaccessories.events.OnAccessoryExtraBonusGet;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.items.BoosterItem;
-import com.majruszsaccessories.mixininterfaces.IMixinLivingEntity;
+import com.majruszsaccessories.mixininterfaces.IMixinItemStack;
 import com.majruszsaccessories.particles.BonusParticleType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
@@ -26,31 +24,14 @@ import net.minecraft.world.item.Rarity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class AccessoryHolder {
+	public static final AccessoryHolder EMPTY = new AccessoryHolder( ItemStack.EMPTY );
 	final ItemStack itemStack;
 	final AccessoryItem item;
 	final Data data;
-
-	public static AccessoryHolder get( LivingEntity entity ) {
-		return entity != null ? ( ( IMixinLivingEntity )entity ).majruszsaccessories$getAccessoryHolder() : new AccessoryHolder( ItemStack.EMPTY );
-	}
-
-	public static AccessoryHolder find( LivingEntity entity ) {
-		Predicate< ItemStack > predicate = itemStack->itemStack.getItem() instanceof AccessoryItem;
-		if( MajruszsAccessories.SLOT_INTEGRATION.isInstalled() ) {
-			return new AccessoryHolder( MajruszsAccessories.SLOT_INTEGRATION.find( entity, predicate ) );
-		} else {
-			ItemStack itemStack = entity.getOffhandItem();
-			if( predicate.test( itemStack ) ) {
-				return new AccessoryHolder( itemStack );
-			}
-
-			return new AccessoryHolder( ItemStack.EMPTY );
-		}
-	}
+	boolean isBonusDisabled = false;
 
 	public static AccessoryHolder create( Item item ) {
 		return new AccessoryHolder( new ItemStack( item ) );
@@ -58,6 +39,10 @@ public class AccessoryHolder {
 
 	public static AccessoryHolder create( ItemStack itemStack ) {
 		return new AccessoryHolder( itemStack );
+	}
+
+	public static AccessoryHolder getOrCreate( ItemStack itemStack ) {
+		return ( ( IMixinItemStack )( Object )itemStack ).majruszsaccessories$getOrCreateAccessoryHolder();
 	}
 
 	public static int apply( float bonus, RangedInteger value, int multiplier ) {
@@ -101,6 +86,8 @@ public class AccessoryHolder {
 		this.item = itemStack.getItem() instanceof AccessoryItem item ? item : null;
 		this.data = data;
 		this.data.extraBonus = AccessoryHolder.round( Events.dispatch( new OnAccessoryExtraBonusGet( this ) ).bonus );
+
+		( ( IMixinItemStack )( Object )itemStack ).majruszsaccessories$setAccessoryHolder( this );
 	}
 
 	private AccessoryHolder( ItemStack itemStack ) {
@@ -168,6 +155,12 @@ public class AccessoryHolder {
 		return this.save( ()->this.data.boosters.clear() );
 	}
 
+	public AccessoryHolder disableBonus() {
+		this.isBonusDisabled = true;
+
+		return this;
+	}
+
 	public float getBonus() {
 		return AccessoryHolder.round( this.getBaseBonus() + this.getExtraBonus() );
 	}
@@ -200,6 +193,10 @@ public class AccessoryHolder {
 		return Math.max( this.item.getBoosterSlotsCount() - this.data.boosters.size(), 0 );
 	}
 
+	public int getTier() {
+		return this.item.getTier();
+	}
+
 	public ChatFormatting getBonusFormatting() {
 		return AccessoryHolder.getBonusFormatting( this.getBonus() );
 	}
@@ -218,6 +215,10 @@ public class AccessoryHolder {
 
 	public boolean isValid() {
 		return this.item != null;
+	}
+
+	public boolean isBonusDisabled() {
+		return this.isBonusDisabled;
 	}
 
 	public boolean hasBonusDefined() {

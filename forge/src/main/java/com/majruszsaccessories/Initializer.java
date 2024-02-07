@@ -47,7 +47,12 @@ public class Initializer {
 			return;
 		}
 
-		InterModComms.sendTo( MajruszsAccessories.MOD_ID, CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, ()->new SlotTypeMessage.Builder( "pocket" )
+		InterModComms.sendTo( MajruszsAccessories.MOD_ID, CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, ()->new SlotTypeMessage.Builder( "pocket_left" )
+			.priority( 220 )
+			.icon( MajruszsAccessories.POCKET_SLOT_TEXTURE )
+			.build()
+		);
+		InterModComms.sendTo( MajruszsAccessories.MOD_ID, CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, ()->new SlotTypeMessage.Builder( "pocket_right" )
 			.priority( 220 )
 			.icon( MajruszsAccessories.POCKET_SLOT_TEXTURE )
 			.build()

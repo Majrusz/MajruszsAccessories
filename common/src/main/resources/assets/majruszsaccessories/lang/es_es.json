@@ -37,5 +37,8 @@
   "advancements.majruszsaccessories.white_flag.description": "Consigue una Bandera Blanca",
   "advancements.majruszsaccessories.overworld_rune.title": "La superficie no secretos",
   "advancements.majruszsaccessories.overworld_rune.description": "Consigue una Runa de la superficie",
-  "curios.identifier.pocket": "Bolsillo"
+  "trinkets.slot.legs.pocket_left": "Bolsillo",
+  "trinkets.slot.legs.pocket_right": "Bolsillo",
+  "curios.identifier.pocket_left": "Bolsillo",
+  "curios.identifier.pocket_right": "Bolsillo"
 }

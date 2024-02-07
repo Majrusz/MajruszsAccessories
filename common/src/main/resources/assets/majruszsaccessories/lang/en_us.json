@@ -98,6 +98,8 @@
   "advancements.majruszsaccessories.booster_used.description": "Use any Accessory Booster",
   "advancements.majruszsaccessories.booster_nice.title": "Nice",
   "advancements.majruszsaccessories.booster_nice.description": "Acquire 69% efficiency bonus on any Accessory",
-  "trinkets.slot.legs.pocket": "Pocket",
-  "curios.identifier.pocket": "Pocket"
+  "trinkets.slot.legs.pocket_left": "Left Pocket",
+  "trinkets.slot.legs.pocket_right": "Right Pocket",
+  "curios.identifier.pocket_left": "Left Pocket",
+  "curios.identifier.pocket_right": "Right Pocket"
 }

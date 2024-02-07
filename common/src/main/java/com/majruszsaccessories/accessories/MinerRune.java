@@ -2,6 +2,7 @@ package com.majruszsaccessories.accessories;
 
 import com.majruszlibrary.annotation.AutoInstance;
 import com.majruszsaccessories.MajruszsAccessories;
+import com.majruszsaccessories.accessories.components.AccessoryIncompatibility;
 import com.majruszsaccessories.accessories.components.MiningDurabilityBonus;
 import com.majruszsaccessories.accessories.components.MiningExtraItem;
 import com.majruszsaccessories.accessories.components.MiningSpeedBonus;
@@ -14,6 +15,7 @@ public class MinerRune extends AccessoryHandler {
 
 		this.add( MiningExtraItem.create( 0.04f ) )
 			.add( MiningSpeedBonus.create( 0.12f ) )
-			.add( MiningDurabilityBonus.create( 0.12f ) );
+			.add( MiningDurabilityBonus.create( 0.12f ) )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.SOUL_OF_MINECRAFT ) );
 	}
 }

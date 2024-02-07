@@ -6,6 +6,7 @@ import com.majruszlibrary.events.OnBabySpawned;
 import com.majruszlibrary.events.base.Condition;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
+import com.majruszsaccessories.accessories.components.AccessoryIncompatibility;
 import com.majruszsaccessories.accessories.components.BreedingTwins;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
@@ -21,7 +22,9 @@ public class IdolOfFertility extends AccessoryHandler {
 
 		this.add( BreedingTwins.create( 0.25f ) )
 			.add( BreedingDropChance.create() )
-			.add( TradeOffer.create() );
+			.add( TradeOffer.create() )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.NATURE_RUNE ) )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.SOUL_OF_MINECRAFT ) );
 	}
 
 	static class BreedingDropChance extends BonusComponent< AccessoryItem > {

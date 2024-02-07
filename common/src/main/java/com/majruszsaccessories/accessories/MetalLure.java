@@ -2,6 +2,7 @@ package com.majruszsaccessories.accessories;
 
 import com.majruszlibrary.annotation.AutoInstance;
 import com.majruszsaccessories.MajruszsAccessories;
+import com.majruszsaccessories.accessories.components.AccessoryIncompatibility;
 import com.majruszsaccessories.accessories.components.FishingExtraItems;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.components.TradeOffer;
@@ -13,6 +14,8 @@ public class MetalLure extends AccessoryHandler {
 
 		this.add( FishingExtraItems.create( 0.2f, 2 ) )
 			.add( AnglerTrophy.FishDropChance.create( 0.01f ) )
-			.add( TradeOffer.create() );
+			.add( TradeOffer.create() )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.ANGLER_RUNE ) )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.SOUL_OF_MINECRAFT ) );
 	}
 }

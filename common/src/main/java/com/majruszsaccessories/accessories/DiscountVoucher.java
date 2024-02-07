@@ -6,6 +6,7 @@ import com.majruszlibrary.events.OnItemTraded;
 import com.majruszlibrary.math.AnyPos;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
+import com.majruszsaccessories.accessories.components.AccessoryIncompatibility;
 import com.majruszsaccessories.accessories.components.TradingDiscount;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
@@ -21,7 +22,9 @@ public class DiscountVoucher extends AccessoryHandler {
 
 		this.add( TradingDiscount.create( 0.12f ) )
 			.add( TradingDropChance.create() )
-			.add( TradeOffer.create() );
+			.add( TradeOffer.create() )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.HOUSEHOLD_RUNE ) )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.SOUL_OF_MINECRAFT ) );
 	}
 
 	static class TradingDropChance extends BonusComponent< AccessoryItem > {
