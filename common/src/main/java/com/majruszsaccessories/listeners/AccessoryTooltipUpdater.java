@@ -10,6 +10,7 @@ import com.majruszlibrary.text.TextHelper;
 import com.majruszlibrary.time.TimeHelper;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.common.AccessoryHolder;
+import com.majruszsaccessories.common.AccessoryHolders;
 import com.majruszsaccessories.events.OnAccessoryTooltip;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
@@ -21,6 +22,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @AutoInstance
 public class AccessoryTooltipUpdater {
@@ -32,7 +34,11 @@ public class AccessoryTooltipUpdater {
 	}
 
 	private void addTooltip( OnItemTooltip data ) {
-		AccessoryHolder holder = AccessoryHolder.create( data.itemStack );
+		AccessoryHolder holder = Optional.ofNullable( data.player )
+			.map( player->AccessoryHolders.find( player ).get().stream().filter( subholder->subholder.getItemStack() == data.itemStack ).findFirst() )
+			.flatMap( subholder->subholder )
+			.orElse( AccessoryHolder.create( data.itemStack ) );
+
 		if( holder.hasBonusRangeDefined() && !holder.hasBonusDefined() ) {
 			data.components.addAll( this.buildBonusRangeInfo( holder ) );
 		} else {
@@ -78,7 +84,7 @@ public class AccessoryTooltipUpdater {
 	}
 
 	private ChatFormatting getUseFormatting( AccessoryHolder holder, @Nullable Player player ) {
-		if( player != null && AccessoryHolder.get( player ) == holder ) {
+		if( player != null && AccessoryHolders.get( player ).get( holder::getItem ) == holder ) {
 			return ChatFormatting.GOLD;
 		} else {
 			return ChatFormatting.DARK_GRAY;

@@ -6,6 +6,7 @@ import com.majruszlibrary.events.OnLootGenerated;
 import com.majruszlibrary.events.base.Condition;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
+import com.majruszsaccessories.accessories.components.AccessoryIncompatibility;
 import com.majruszsaccessories.accessories.components.BrushingExtraItem;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
@@ -26,7 +27,9 @@ public class AncientScarab extends AccessoryHandler {
 
 		this.add( BrushingExtraItem.create( 0.16f ) )
 			.add( SuspiciousBlocksDropChance.create() )
-			.add( TradeOffer.create() );
+			.add( TradeOffer.create() )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.ADVENTURER_RUNE ) )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.SOUL_OF_MINECRAFT ) );
 	}
 
 	static class SuspiciousBlocksDropChance extends BonusComponent< AccessoryItem > {

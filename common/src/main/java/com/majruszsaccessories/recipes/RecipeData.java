@@ -20,7 +20,7 @@ public record RecipeData( List< AccessoryHolder > accessories, List< BoosterItem
 			}
 
 			if( itemStack.getItem() instanceof AccessoryItem ) {
-				data.accessories.add( AccessoryHolder.create( itemStack ) );
+				data.accessories.add( AccessoryHolder.getOrCreate( itemStack ) );
 			} else if( itemStack.getItem() instanceof BoosterItem booster ) {
 				data.boosters.add( booster );
 			} else if( itemStack.getItem() instanceof CardItem card ) {

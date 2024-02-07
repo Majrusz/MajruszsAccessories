@@ -1,6 +1,5 @@
 package com.majruszsaccessories.boosters.components;
 
-import com.majruszlibrary.events.base.Condition;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.events.OnBoosterCompatibilityGet;
@@ -17,13 +16,9 @@ public class BoosterIncompatibility extends BonusComponent< BoosterItem > {
 		super( handler );
 
 		OnBoosterCompatibilityGet.listen( OnBoosterCompatibilityGet::makeIncompatible )
-			.addCondition( this.matches( booster ) );
-	}
-
-	private Condition< OnBoosterCompatibilityGet > matches( Supplier< BoosterItem > booster ) {
-		return Condition.predicate( data->{
-			return data.a.equals( this.getItem() ) && data.b.equals( booster.get() )
-				|| data.a.equals( booster.get() ) && data.b.equals( this.getItem() );
-		} );
+			.addCondition( data->{
+				return data.a.equals( this.getItem() ) && data.b.equals( booster.get() )
+					|| data.a.equals( booster.get() ) && data.b.equals( this.getItem() );
+			} );
 	}
 }

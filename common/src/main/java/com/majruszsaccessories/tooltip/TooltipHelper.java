@@ -29,16 +29,24 @@ public class TooltipHelper {
 		return new IntegerTooltip( value );
 	}
 
+	public static FloatTooltip asValue( RangedFloat value ) {
+		return new FloatTooltip( value );
+	}
+
 	public static IntegerTooltip asFixedValue( RangedInteger value ) {
 		return new IntegerTooltip( value ).bonusMultiplier( 0 );
 	}
 
-	public static FloatTooltip asPercent( RangedFloat value ) {
-		return new FloatTooltip( value );
+	public static FloatTooltip asFixedValue( RangedFloat value ) {
+		return new FloatTooltip( value ).bonusMultiplier( 0 );
 	}
 
-	public static FloatTooltip asFixedPercent( RangedFloat value ) {
-		return new FloatTooltip( value ).bonusMultiplier( 0.0f );
+	public static PercentTooltip asPercent( RangedFloat value ) {
+		return new PercentTooltip( value );
+	}
+
+	public static PercentTooltip asFixedPercent( RangedFloat value ) {
+		return new PercentTooltip( value ).bonusMultiplier( 0.0f );
 	}
 
 	public static ITooltipProvider asBooster( Supplier< BoosterItem > item ) {
@@ -152,6 +160,75 @@ public class TooltipHelper {
 			float defaultValue = this.value.get() * this.valueMultiplier;
 			float diff = bonusValue - defaultValue;
 
+			return TextHelper.literal( TextHelper.minPrecision( bonusValue, this.scale ) )
+				.withStyle( Math.abs( diff ) >= this.diffMargin ? holder.getBonusFormatting() : DEFAULT_FORMAT );
+		}
+
+		@Override
+		public MutableComponent getDetailedTooltip( AccessoryHolder holder ) {
+			float bonusValue = holder.apply( this.value, this.bonusMultiplier ) * this.valueMultiplier;
+			float defaultValue = this.value.get() * this.valueMultiplier;
+			float diff = bonusValue - defaultValue;
+			MutableComponent component = Math.abs( diff ) >= this.diffMargin ? TextHelper.literal( TextHelper.signed( diff, this.scale ) ) : TextHelper.literal( "" );
+
+			return TooltipHelper.asFormula( TextHelper.minPrecision( defaultValue, this.scale ), component.withStyle( holder.getBonusFormatting() ) );
+		}
+
+		@Override
+		public MutableComponent getRangeTooltip( AccessoryHolder holder ) {
+			Range< Float > range = holder.getBonusRange();
+			float minValue = AccessoryHolder.apply( range.from, this.value, this.bonusMultiplier ) * this.valueMultiplier;
+			float maxValue = AccessoryHolder.apply( range.to, this.value, this.bonusMultiplier ) * this.valueMultiplier;
+			MutableComponent minComponent = TextHelper.literal( TextHelper.minPrecision( minValue, this.scale ) )
+				.withStyle( AccessoryHolder.getBonusFormatting( range.from ) );
+
+			if( Math.abs( maxValue - minValue ) >= this.diffMargin ) {
+				return TooltipHelper.asRange(
+					minComponent,
+					TextHelper.literal( TextHelper.minPrecision( maxValue, this.scale ) ).withStyle( AccessoryHolder.getBonusFormatting( range.to ) )
+				);
+			} else {
+				return minComponent;
+			}
+		}
+
+		public FloatTooltip bonusMultiplier( float multiplier ) {
+			this.bonusMultiplier = multiplier;
+
+			return this;
+		}
+
+		public FloatTooltip valueMultiplier( float multiplier ) {
+			this.valueMultiplier = multiplier;
+
+			return this;
+		}
+
+		public FloatTooltip scale( int scale ) {
+			this.scale = scale;
+			this.diffMargin = ( float )Math.pow( 0.1, scale + 2 );
+
+			return this;
+		}
+	}
+
+	public static class PercentTooltip implements ITooltipProvider {
+		private final RangedFloat value;
+		private float bonusMultiplier = 1.0f;
+		private float valueMultiplier = 1.0f;
+		private float diffMargin = 0.001f;
+		private int scale = 2;
+
+		PercentTooltip( RangedFloat value ) {
+			this.value = value;
+		}
+
+		@Override
+		public MutableComponent getTooltip( AccessoryHolder holder ) {
+			float bonusValue = holder.apply( this.value, this.bonusMultiplier ) * this.valueMultiplier;
+			float defaultValue = this.value.get() * this.valueMultiplier;
+			float diff = bonusValue - defaultValue;
+
 			return TextHelper.literal( TextHelper.percent( bonusValue, this.scale ) )
 				.withStyle( Math.abs( diff ) >= this.diffMargin ? holder.getBonusFormatting() : DEFAULT_FORMAT );
 		}
@@ -184,19 +261,19 @@ public class TooltipHelper {
 			}
 		}
 
-		public FloatTooltip bonusMultiplier( float multiplier ) {
+		public PercentTooltip bonusMultiplier( float multiplier ) {
 			this.bonusMultiplier = multiplier;
 
 			return this;
 		}
 
-		public FloatTooltip valueMultiplier( float multiplier ) {
+		public PercentTooltip valueMultiplier( float multiplier ) {
 			this.valueMultiplier = multiplier;
 
 			return this;
 		}
 
-		public FloatTooltip scale( int scale ) {
+		public PercentTooltip scale( int scale ) {
 			this.scale = scale;
 			this.diffMargin = ( float )Math.pow( 0.1, scale + 2 );
 

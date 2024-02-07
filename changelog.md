@@ -1,21 +1,9 @@
-- added new item type `Card`, which applies one time effect on accessories
-- added Gambling Card
-- added Reverse Card
-- added Removal Card
-- added new advancement for 69% efficiency bonus
-- added 25% chance for Swimmer Guide to spawn in buried treasures (suggested by @Ladocterus)
-- added Haste and Strength effects to Dream Catcher
-- removed Jadeite
-- reworked Wandering Trader trades for accessories and boosters
-- updated Chinese translation (thanks to @Fiocher)
-- increased Tamed Potato Bettle drop chances from 0.2%/0.5% to 0.25%/0.5%
-- increased Lucky Ruck drop chance from 0.05% to 0.075%
-- decreased Secret Ingredient drop chance from 3.34% to 2%
-- optimized accessory checks
-- fixed compatibility crash with MineColonies (reported by @Ryus Lightworks)
-- fixed bug with Onyx not granting advancement
-- fixed bug with current loot bonus displaying invalid value
-- fixed bug with Secret Ingredient not working properly with Splash Potions and Lingering Potions
-- fixed bug with Certificate of Taming bonuses not being applied on children of boosted animals
-- fixed bug with Metal Lure extra items only being fishes
-- fixed compatibility issue with accessories having range bonus after using crafting table
+- added extra Pocket slot for Trinkets and Curios API
+- added support for multiple accessories
+- changed fishing luck bonus from an integer to a floating point number
+- removed unused code
+- increased Angler Rune luck bonus from 3 to 3.5
+- decreased Golden Dice bonus from 40% to 30%
+- decreased Golden Horseshoe bonus from +2 to +1.5
+- optimized performance
+- fixed bug with Horseshoe luck bonus being affected by efficiency bonus

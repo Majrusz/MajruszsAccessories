@@ -4,10 +4,10 @@ import com.majruszlibrary.events.OnEntitySwimSpeedMultiplierGet;
 import com.majruszlibrary.math.Range;
 import com.majruszlibrary.time.TimeHelper;
 import com.majruszsaccessories.common.AccessoryHolder;
+import com.majruszsaccessories.common.AccessoryHolders;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
-import com.majruszsaccessories.events.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import net.minecraft.server.level.ServerLevel;
@@ -24,8 +24,7 @@ public class SwimmingSpeedBonus extends BonusComponent< AccessoryItem > {
 
 		this.multiplier.set( bonus, Range.of( 0.0f, 10.0f ) );
 
-		OnEntitySwimSpeedMultiplierGet.listen( this::increaseSwimSpeed )
-			.addCondition( CustomConditions.hasAccessory( this::getItem, data->data.entity ) );
+		OnEntitySwimSpeedMultiplierGet.listen( this::increaseSwimSpeed );
 
 		this.addTooltip( "majruszsaccessories.bonuses.swim_bonus", TooltipHelper.asPercent( this.multiplier ) );
 
@@ -34,15 +33,19 @@ public class SwimmingSpeedBonus extends BonusComponent< AccessoryItem > {
 	}
 
 	private void increaseSwimSpeed( OnEntitySwimSpeedMultiplierGet data ) {
-		data.multiplier *= 1.0f + AccessoryHolder.get( data.entity ).apply( this.multiplier );
+		AccessoryHolder holder = AccessoryHolders.get( data.entity ).get( this::getItem );
+		if( !holder.isValid() || holder.isBonusDisabled() ) {
+			return;
+		}
+
+		data.multiplier *= 1.0f + holder.apply( this.multiplier );
 		if( data.entity.isInWater() && data.getLevel() instanceof ServerLevel && TimeHelper.haveTicksPassed( 5 ) ) {
-			this.spawnEffects( data );
+			this.spawnEffects( data, holder );
 		}
 	}
 
-	private void spawnEffects( OnEntitySwimSpeedMultiplierGet data ) {
-		AccessoryHolder.get( data.entity )
-			.getParticleEmitter()
+	private void spawnEffects( OnEntitySwimSpeedMultiplierGet data, AccessoryHolder holder ) {
+		holder.getParticleEmitter()
 			.count( 1 )
 			.sizeBased( data.entity )
 			.emit( data.getServerLevel() );

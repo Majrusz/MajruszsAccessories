@@ -4,6 +4,7 @@ import com.majruszlibrary.annotation.AutoInstance;
 import com.majruszlibrary.data.Reader;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
+import com.majruszsaccessories.accessories.components.AccessoryIncompatibility;
 import com.majruszsaccessories.accessories.components.MiningExtraItem;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
@@ -19,7 +20,9 @@ public class LuckyRock extends AccessoryHandler {
 
 		this.add( MiningExtraItem.create( 0.03f ) )
 			.add( MiningDropChance.create() )
-			.add( TradeOffer.create() );
+			.add( TradeOffer.create() )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.MINER_RUNE ) )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.SOUL_OF_MINECRAFT ) );
 	}
 
 	static class MiningDropChance extends BonusComponent< AccessoryItem > {

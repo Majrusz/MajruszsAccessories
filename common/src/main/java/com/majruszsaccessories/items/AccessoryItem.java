@@ -8,6 +8,7 @@ import net.minecraft.world.item.Rarity;
 import java.util.function.Supplier;
 
 public class AccessoryItem extends Item {
+	private final int tier;
 	private final int boosterSlotsCount;
 
 	public static Supplier< AccessoryItem > tier1() {
@@ -22,20 +23,25 @@ public class AccessoryItem extends Item {
 		return ()->new AccessoryItem( 3 );
 	}
 
-	protected AccessoryItem( int boosterSlotsCount ) {
+	protected AccessoryItem( int tier ) {
 		super( new Properties().stacksTo( 1 ) );
 
-		this.boosterSlotsCount = boosterSlotsCount;
+		this.tier = tier;
+		this.boosterSlotsCount = tier;
 	}
 
 	@Override
 	public boolean isFoil( ItemStack itemStack ) {
-		return AccessoryHolder.create( itemStack ).hasMaxBonus();
+		return AccessoryHolder.getOrCreate( itemStack ).hasMaxBonus();
 	}
 
 	@Override
 	public Rarity getRarity( ItemStack itemStack ) {
-		return AccessoryHolder.create( itemStack ).getRarity();
+		return AccessoryHolder.getOrCreate( itemStack ).getRarity();
+	}
+
+	public int getTier() {
+		return this.tier;
 	}
 
 	public int getBoosterSlotsCount() {

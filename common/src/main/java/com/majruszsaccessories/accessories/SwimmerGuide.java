@@ -7,6 +7,7 @@ import com.majruszlibrary.events.base.Condition;
 import com.majruszlibrary.level.BlockHelper;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
+import com.majruszsaccessories.accessories.components.AccessoryIncompatibility;
 import com.majruszsaccessories.accessories.components.SwimmingSpeedBonus;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
@@ -25,7 +26,9 @@ public class SwimmerGuide extends AccessoryHandler {
 		this.add( SwimmingSpeedBonus.create( 0.2f ) )
 			.add( UnderwaterChestDropChance.create() )
 			.add( BuriedTreasureDropChance.create() )
-			.add( TradeOffer.create() );
+			.add( TradeOffer.create() )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.ADVENTURER_RUNE ) )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.SOUL_OF_MINECRAFT ) );
 	}
 
 	static class UnderwaterChestDropChance extends BonusComponent< AccessoryItem > {

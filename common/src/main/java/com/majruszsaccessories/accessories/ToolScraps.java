@@ -7,6 +7,7 @@ import com.majruszlibrary.events.base.Priority;
 import com.majruszlibrary.math.AnyPos;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.MajruszsAccessories;
+import com.majruszsaccessories.accessories.components.AccessoryIncompatibility;
 import com.majruszsaccessories.accessories.components.MiningDurabilityBonus;
 import com.majruszsaccessories.common.AccessoryHandler;
 import com.majruszsaccessories.common.BonusComponent;
@@ -22,7 +23,9 @@ public class ToolScraps extends AccessoryHandler {
 
 		this.add( MiningDurabilityBonus.create( 0.1f ) )
 			.add( MiningDropChance.create() )
-			.add( TradeOffer.create() );
+			.add( TradeOffer.create() )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.MINER_RUNE ) )
+			.add( AccessoryIncompatibility.create( MajruszsAccessories.SOUL_OF_MINECRAFT ) );
 	}
 
 	static class MiningDropChance extends BonusComponent< AccessoryItem > {

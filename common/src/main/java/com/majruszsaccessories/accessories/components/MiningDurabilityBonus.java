@@ -1,12 +1,13 @@
 package com.majruszsaccessories.accessories.components;
 
 import com.majruszlibrary.events.OnItemDamaged;
+import com.majruszlibrary.math.Random;
 import com.majruszlibrary.math.Range;
 import com.majruszsaccessories.common.AccessoryHolder;
+import com.majruszsaccessories.common.AccessoryHolders;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
-import com.majruszsaccessories.events.base.CustomConditions;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 
@@ -23,8 +24,7 @@ public class MiningDurabilityBonus extends BonusComponent< AccessoryItem > {
 		this.chance.set( bonus, Range.CHANCE );
 
 		OnItemDamaged.listen( this::decreaseDurabilityCost )
-			.addCondition( data->data.player != null )
-			.addCondition( CustomConditions.chance( this::getItem, data->data.player, holder->holder.apply( this.chance ) ) );
+			.addCondition( data->data.player != null );
 
 		this.addTooltip( "majruszsaccessories.bonuses.free_durability_cost", TooltipHelper.asPercent( this.chance ) );
 
@@ -33,13 +33,17 @@ public class MiningDurabilityBonus extends BonusComponent< AccessoryItem > {
 	}
 
 	private void decreaseDurabilityCost( OnItemDamaged data ) {
+		AccessoryHolder holder = AccessoryHolders.get( data.player ).get( this::getItem );
+		if( !holder.isValid() || holder.isBonusDisabled() || !Random.check( holder.apply( this.chance ) ) ) {
+			return;
+		}
+
 		data.damage = 0;
-		this.spawnEffects( data );
+		this.spawnEffects( data, holder );
 	}
 
-	private void spawnEffects( OnItemDamaged data ) {
-		AccessoryHolder.get( data.player )
-			.getParticleEmitter()
+	private void spawnEffects( OnItemDamaged data, AccessoryHolder holder ) {
+		holder.getParticleEmitter()
 			.count( 3 )
 			.sizeBased( data.player )
 			.emit( data.getServerLevel() );

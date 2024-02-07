@@ -4,10 +4,13 @@ import com.majruszlibrary.client.ClientHelper;
 import com.majruszlibrary.data.SerializableClass;
 import com.majruszlibrary.data.Serializables;
 import com.majruszlibrary.events.OnItemDecorationsRendered;
+import com.majruszlibrary.text.TextHelper;
 import com.majruszsaccessories.MajruszsAccessories;
 import com.majruszsaccessories.events.OnAccessoryTooltip;
+import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.items.BoosterItem;
 import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
@@ -63,7 +66,13 @@ public class BonusHandler< Type extends Item > {
 					return provider.getTooltip( data.holder );
 				}
 			} )
-			.map( component->component.withStyle( ChatFormatting.GRAY ) )
+			.map( component->{
+				if( data.holder.isBonusDisabled() && this.item.get() instanceof AccessoryItem ) {
+					return TextHelper.literal( component.getString() ).withStyle( ChatFormatting.DARK_GRAY, ChatFormatting.STRIKETHROUGH );
+				} else {
+					return component.withStyle( ChatFormatting.GRAY );
+				}
+			} )
 			.forEach( data.components::add );
 	}
 
@@ -79,7 +88,7 @@ public class BonusHandler< Type extends Item > {
 			return new ItemStack( MajruszsAccessories.BOOSTER_OVERLAY_SINGLE.get() );
 		}
 
-		AccessoryHolder holder = AccessoryHolder.create( itemStack );
+		AccessoryHolder holder = AccessoryHolder.getOrCreate( itemStack );
 		return switch( holder.getBoosters().size() ) {
 			case 1 -> new ItemStack( MajruszsAccessories.BOOSTER_OVERLAY_SINGLE.get() );
 			case 2 -> new ItemStack( MajruszsAccessories.BOOSTER_OVERLAY_DOUBLE.get() );

@@ -1,9 +1,9 @@
 package com.majruszsaccessories.mixininterfaces;
 
-import com.majruszsaccessories.common.AccessoryHolder;
+import com.majruszsaccessories.common.AccessoryHolders;
 
 public interface IMixinLivingEntity {
-	void majruszsaccessories$setAccessoryHolder( AccessoryHolder holder );
+	void majruszsaccessories$setAccessoryHolders( AccessoryHolders holders );
 
-	AccessoryHolder majruszsaccessories$getAccessoryHolder();
+	AccessoryHolders majruszsaccessories$getAccessoryHolders();
 }

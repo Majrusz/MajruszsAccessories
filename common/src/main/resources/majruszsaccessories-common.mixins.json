@@ -6,6 +6,7 @@
   "refmap": "majruszsaccessories.refmap.json",
   "client": [],
   "mixins": [
+    "MixinItemStack",
     "MixinLivingEntity"
   ],
   "injectors": {

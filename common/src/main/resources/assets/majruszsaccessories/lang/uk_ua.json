@@ -52,5 +52,8 @@
   "advancements.majruszsaccessories.booster_dropped.description": "Здобудьте будь-який аксесуарний покращувач",
   "advancements.majruszsaccessories.booster_used.title": "Що за покращення!",
   "advancements.majruszsaccessories.booster_used.description": "Використайте будь-який аксесуарний покращувач",
-  "curios.identifier.pocket": "Кишеня"
+  "trinkets.slot.legs.pocket_left": "Кишеня",
+  "trinkets.slot.legs.pocket_right": "Кишеня",
+  "curios.identifier.pocket_left": "Кишеня",
+  "curios.identifier.pocket_right": "Кишеня"
 }
