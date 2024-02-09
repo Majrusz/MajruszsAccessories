@@ -113,7 +113,7 @@ public class TooltipHelper {
 
 		@Override
 		public MutableComponent getRangeTooltip( AccessoryHolder holder ) {
-			Range< Float > range = holder.getBonusRange();
+			Range< Float > range = holder.getClampedBonusRange();
 			int minValue = AccessoryHolder.apply( range.from, this.value, this.bonusMultiplier ) * this.valueMultiplier;
 			int maxValue = AccessoryHolder.apply( range.to, this.value, this.bonusMultiplier ) * this.valueMultiplier;
 			int defaultValue = this.value.get() * this.valueMultiplier;
@@ -176,7 +176,7 @@ public class TooltipHelper {
 
 		@Override
 		public MutableComponent getRangeTooltip( AccessoryHolder holder ) {
-			Range< Float > range = holder.getBonusRange();
+			Range< Float > range = holder.getClampedBonusRange();
 			float minValue = AccessoryHolder.apply( range.from, this.value, this.bonusMultiplier ) * this.valueMultiplier;
 			float maxValue = AccessoryHolder.apply( range.to, this.value, this.bonusMultiplier ) * this.valueMultiplier;
 			MutableComponent minComponent = TextHelper.literal( TextHelper.minPrecision( minValue, this.scale ) )
@@ -245,7 +245,7 @@ public class TooltipHelper {
 
 		@Override
 		public MutableComponent getRangeTooltip( AccessoryHolder holder ) {
-			Range< Float > range = holder.getBonusRange();
+			Range< Float > range = holder.getClampedBonusRange();
 			float minValue = AccessoryHolder.apply( range.from, this.value, this.bonusMultiplier ) * this.valueMultiplier;
 			float maxValue = AccessoryHolder.apply( range.to, this.value, this.bonusMultiplier ) * this.valueMultiplier;
 			MutableComponent minComponent = TextHelper.literal( TextHelper.percent( minValue, this.scale ) )

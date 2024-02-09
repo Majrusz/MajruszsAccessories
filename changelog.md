@@ -1,1 +1,2 @@
 - increased Metal Lure drop chance from 1% to 1.5%
+- fixed bug with 60% efficiency bonus being much harder to obtain when combining accessories (reported by @Ladocterus)

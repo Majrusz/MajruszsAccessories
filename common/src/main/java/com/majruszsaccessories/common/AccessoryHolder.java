@@ -116,7 +116,9 @@ public class AccessoryHolder {
 
 	public AccessoryHolder setRandomBonus() {
 		if( this.hasBonusRangeDefined() ) {
-			return this.setBonus( Optional.ofNullable( this.data.randomType ).orElse( RandomType.RANDOM ).get( this.data.range ) );
+			float bonus = Optional.ofNullable( this.data.randomType ).orElse( RandomType.RANDOM ).get( this.data.range );
+
+			return this.setBonus( Config.Efficiency.RANGE.clamp( bonus ) );
 		} else {
 			return this.setBonus( Config.Efficiency.getRandom() );
 		}
@@ -175,6 +177,10 @@ public class AccessoryHolder {
 
 	public Range< Float > getBonusRange() {
 		return this.data.range;
+	}
+
+	public Range< Float > getClampedBonusRange() {
+		return Config.Efficiency.RANGE.clamp( this.data.range );
 	}
 
 	public ItemStack getItemStack() {
