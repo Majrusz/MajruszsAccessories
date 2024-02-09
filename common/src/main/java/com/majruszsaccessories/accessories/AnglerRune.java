@@ -13,7 +13,7 @@ public class AnglerRune extends AccessoryHandler {
 	public AnglerRune() {
 		super( MajruszsAccessories.ANGLER_RUNE, AnglerRune.class );
 
-		this.add( FishingLuckBonus.create( 3.5f ) )
+		this.add( FishingLuckBonus.create( 3.0f ) )
 			.add( FishingLureBonus.create( 0.25f ) )
 			.add( FishingExtraItems.create( 0.25f, 3 ) )
 			.add( AccessoryIncompatibility.create( MajruszsAccessories.SOUL_OF_MINECRAFT ) );

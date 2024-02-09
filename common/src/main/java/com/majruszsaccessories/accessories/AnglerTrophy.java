@@ -25,7 +25,7 @@ public class AnglerTrophy extends AccessoryHandler {
 	public AnglerTrophy() {
 		super( MajruszsAccessories.ANGLER_TROPHY, AnglerTrophy.class );
 
-		this.add( FishingLuckBonus.create( 3.0f ) )
+		this.add( FishingLuckBonus.create( 2.5f ) )
 			.add( FishingDropChance.create( 0.01f ) )
 			.add( TradeOffer.create() )
 			.add( AccessoryIncompatibility.create( MajruszsAccessories.ANGLER_RUNE ) )

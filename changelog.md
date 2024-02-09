@@ -1,3 +1,6 @@
 - increased Metal Lure drop chance from 1% to 1.5%
 - increased compatibility for Ancient Scarab with suspicious sand/gravel from other mods
+- decreased fishing luck bonus from 3 to 2.5 for Angler Trophy
+- decreased fishing luck bonus from 3.5 to 3 for Angler Rune
+- decreased fishing luck bonus from 4 to 3.5 for Soul of Minecraft
 - fixed bug with 60% efficiency bonus being much harder to obtain when combining accessories (reported by @Ladocterus)
