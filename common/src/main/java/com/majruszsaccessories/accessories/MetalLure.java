@@ -13,7 +13,7 @@ public class MetalLure extends AccessoryHandler {
 		super( MajruszsAccessories.METAL_LURE, MetalLure.class );
 
 		this.add( FishingExtraItems.create( 0.2f, 2 ) )
-			.add( AnglerTrophy.FishDropChance.create( 0.01f ) )
+			.add( AnglerTrophy.FishDropChance.create( 0.015f ) )
 			.add( TradeOffer.create() )
 			.add( AccessoryIncompatibility.create( MajruszsAccessories.ANGLER_RUNE ) )
 			.add( AccessoryIncompatibility.create( MajruszsAccessories.SOUL_OF_MINECRAFT ) );

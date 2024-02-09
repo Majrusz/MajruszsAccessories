@@ -1,0 +1,1 @@
+- increased Metal Lure drop chance from 1% to 1.5%
