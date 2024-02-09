@@ -12,6 +12,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.function.Supplier;
 
 public class TooltipHelper {
@@ -148,6 +150,7 @@ public class TooltipHelper {
 		private float bonusMultiplier = 1.0f;
 		private float valueMultiplier = 1.0f;
 		private float diffMargin = 0.001f;
+		private boolean isScaledOnlyOnDetailed = false;
 		private int scale = 2;
 
 		FloatTooltip( RangedFloat value ) {
@@ -156,11 +159,12 @@ public class TooltipHelper {
 
 		@Override
 		public MutableComponent getTooltip( AccessoryHolder holder ) {
-			float bonusValue = holder.apply( this.value, this.bonusMultiplier ) * this.valueMultiplier;
-			float defaultValue = this.value.get() * this.valueMultiplier;
+			int scale = this.isScaledOnlyOnDetailed ? 0 : this.scale;
+			float bonusValue = FloatTooltip.getScaled( holder.apply( this.value, this.bonusMultiplier ) * this.valueMultiplier, scale );
+			float defaultValue = FloatTooltip.getScaled( this.value.get() * this.valueMultiplier, scale );
 			float diff = bonusValue - defaultValue;
 
-			return TextHelper.literal( TextHelper.minPrecision( bonusValue, this.scale ) )
+			return TextHelper.literal( TextHelper.minPrecision( bonusValue, scale ) )
 				.withStyle( Math.abs( diff ) >= this.diffMargin ? holder.getBonusFormatting() : DEFAULT_FORMAT );
 		}
 
@@ -177,16 +181,18 @@ public class TooltipHelper {
 		@Override
 		public MutableComponent getRangeTooltip( AccessoryHolder holder ) {
 			Range< Float > range = holder.getClampedBonusRange();
-			float minValue = AccessoryHolder.apply( range.from, this.value, this.bonusMultiplier ) * this.valueMultiplier;
-			float maxValue = AccessoryHolder.apply( range.to, this.value, this.bonusMultiplier ) * this.valueMultiplier;
+			int scale = this.isScaledOnlyOnDetailed ? 0 : this.scale;
+			float minValue = FloatTooltip.getScaled( AccessoryHolder.apply( range.from, this.value, this.bonusMultiplier ) * this.valueMultiplier, scale );
+			float maxValue = FloatTooltip.getScaled( AccessoryHolder.apply( range.to, this.value, this.bonusMultiplier ) * this.valueMultiplier, scale );
+			float defaultValue = FloatTooltip.getScaled( this.value.get() * this.valueMultiplier, scale );
 			MutableComponent minComponent = TextHelper.literal( TextHelper.minPrecision( minValue, this.scale ) )
-				.withStyle( AccessoryHolder.getBonusFormatting( range.from ) );
+				.withStyle( Math.abs( minValue - defaultValue ) >= this.diffMargin ? AccessoryHolder.getBonusFormatting( range.from ) : DEFAULT_FORMAT );
 
 			if( Math.abs( maxValue - minValue ) >= this.diffMargin ) {
-				return TooltipHelper.asRange(
-					minComponent,
-					TextHelper.literal( TextHelper.minPrecision( maxValue, this.scale ) ).withStyle( AccessoryHolder.getBonusFormatting( range.to ) )
-				);
+				MutableComponent maxComponent = TextHelper.literal( TextHelper.minPrecision( maxValue, this.scale ) )
+					.withStyle( Math.abs( maxValue - defaultValue ) >= this.diffMargin ? AccessoryHolder.getBonusFormatting( range.to ) : DEFAULT_FORMAT );
+
+				return TooltipHelper.asRange( minComponent, maxComponent );
 			} else {
 				return minComponent;
 			}
@@ -209,6 +215,16 @@ public class TooltipHelper {
 			this.diffMargin = ( float )Math.pow( 0.1, scale + 2 );
 
 			return this;
+		}
+
+		public FloatTooltip scaleOnlyOnDetailed() {
+			this.isScaledOnlyOnDetailed = true;
+
+			return this;
+		}
+
+		private static float getScaled( float value, int scale ) {
+			return new BigDecimal( value ).setScale( scale, RoundingMode.HALF_EVEN ).stripTrailingZeros().floatValue();
 		}
 	}
 
