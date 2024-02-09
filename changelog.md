@@ -1,2 +1,3 @@
 - increased Metal Lure drop chance from 1% to 1.5%
+- increased compatibility for Ancient Scarab with suspicious sand/gravel from other mods
 - fixed bug with 60% efficiency bonus being much harder to obtain when combining accessories (reported by @Ladocterus)
