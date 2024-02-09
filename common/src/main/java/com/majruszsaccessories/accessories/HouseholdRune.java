@@ -14,7 +14,7 @@ public class HouseholdRune extends AccessoryHandler {
 		super( MajruszsAccessories.HOUSEHOLD_RUNE, HouseholdRune.class );
 
 		this.add( TradingDiscount.create( 0.15f ) )
-			.add( SleepingBonuses.create( 1, 360 ) )
+			.add( SleepingBonuses.create( 1.2f, 360 ) )
 			.add( StrongerPotions.create( 0.5f, 1 ) )
 			.add( AccessoryIncompatibility.create( MajruszsAccessories.SOUL_OF_MINECRAFT ) );
 	}
