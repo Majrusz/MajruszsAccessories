@@ -1,9 +1,0 @@
-- added extra Pocket slot for Trinkets and Curios API
-- added support for multiple accessories
-- changed fishing luck bonus from an integer to a floating point number
-- removed unused code
-- increased Angler Rune luck bonus from 3 to 3.5
-- decreased Golden Dice bonus from 40% to 30%
-- decreased Golden Horseshoe bonus from +2 to +1.5
-- optimized performance
-- fixed bug with Horseshoe luck bonus being affected by efficiency bonus
