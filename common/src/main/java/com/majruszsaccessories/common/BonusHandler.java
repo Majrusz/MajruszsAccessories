@@ -58,7 +58,7 @@ public class BonusHandler< Type extends Item > {
 			.map( BonusComponent::getTooltipProviders )
 			.flatMap( List::stream )
 			.map( provider->{
-				if( data.holder.hasBonusRangeDefined() ) {
+				if( data.holder.hasBonusRangeDefined() && !data.holder.hasBonusDefined() ) {
 					return provider.getRangeTooltip( data.holder );
 				} else if( ClientHelper.isShiftDown() ) {
 					return provider.getDetailedTooltip( data.holder );
