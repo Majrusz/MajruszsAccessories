@@ -15,7 +15,7 @@ public class SoulOfMinecraft extends AccessoryHandler {
 			.add( SwimmingSpeedBonus.create( 0.3f ) )
 			.add( FishingLuckBonus.create( 3.5f ) )
 			.add( FishingLureBonus.create( 0.3f ) )
-			.add( FishingExtraItems.create( 0.3f, 4 ) )
+			.add( FishingExtraTreasure.create( 0.07f ) )
 			.add( TradingDiscount.create( 0.18f ) )
 			.add( SleepingBonuses.create( 1.4f, 420 ) )
 			.add( StrongerPotions.create( 0.4f, 1.4f ) )

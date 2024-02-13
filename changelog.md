@@ -1,4 +1,5 @@
 - reworked Gambling Card effect
+- reworked Metal Lure effect
 - increased Metal Lure drop chance from 1% to 1.5%
 - increased sleeping effects count from 1 to 1.2 for Household Rune
 - increased extra potion amplifier from 1 to 1.2 for Household Rune
