@@ -10,7 +10,11 @@ import net.minecraft.ChatFormatting;
 public class GamblingCard extends CardItem {
 	@Override
 	public void apply( AccessoryHolder holder ) {
-		holder.setBonus( Config.Efficiency.RANGE, AccessoryHolder.RandomType.NORMAL_DISTRIBUTION );
+		if( holder.hasBonusRangeDefined() ) {
+			holder.removeBonus();
+		} else {
+			holder.setBonus( Config.Efficiency.RANGE, AccessoryHolder.RandomType.NORMAL_DISTRIBUTION );
+		}
 	}
 
 	@Override
