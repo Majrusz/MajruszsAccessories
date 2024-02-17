@@ -12,47 +12,38 @@ import com.majruszsaccessories.common.AccessoryHolders;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
 import com.majruszsaccessories.config.RangedFloat;
-import com.majruszsaccessories.config.RangedInteger;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 
-public class FishingExtraItems extends BonusComponent< AccessoryItem > {
+public class FishingExtraTreasure extends BonusComponent< AccessoryItem > {
 	RangedFloat chance = new RangedFloat().id( "chance" ).maxRange( Range.CHANCE );
-	RangedInteger count = new RangedInteger().id( "count" ).maxRange( Range.of( 2, 10 ) );
 
-	public static ISupplier< AccessoryItem > create( float chance, int count ) {
-		return handler->new FishingExtraItems( handler, chance, count );
+	public static ISupplier< AccessoryItem > create( float chance ) {
+		return handler->new FishingExtraTreasure( handler, chance );
 	}
 
-	protected FishingExtraItems( BonusHandler< AccessoryItem > handler, float chance, int count ) {
+	protected FishingExtraTreasure( BonusHandler< AccessoryItem > handler, float chance ) {
 		super( handler );
 
 		this.chance.set( chance, Range.CHANCE );
-		this.count.set( count, Range.of( 2, 100 ) );
 
-		OnFishingExtraItemsGet.listen( this::addExtraFishes );
+		OnFishingExtraItemsGet.listen( this::addExtraTreasure );
 
-		this.addTooltip( "majruszsaccessories.bonuses.extra_fishing_items", TooltipHelper.asPercent( this.chance ), TooltipHelper.asValue( this.count ) );
+		this.addTooltip( "majruszsaccessories.bonuses.extra_fishing_treasure", TooltipHelper.asPercent( this.chance ) );
 
 		handler.getConfig()
-			.define( "extra_fishing_item", subconfig->{
-				this.chance.define( subconfig );
-				this.count.define( subconfig );
-			} );
+			.define( "extra_fishing_treasure", this.chance::define );
 	}
 
-	private void addExtraFishes( OnFishingExtraItemsGet data ) {
+	private void addExtraTreasure( OnFishingExtraItemsGet data ) {
 		AccessoryHolder holder = AccessoryHolders.get( data.player ).get( this::getItem );
 		if( !holder.isValid() || holder.isBonusDisabled() || !Random.check( holder.apply( this.chance ) ) ) {
 			return;
 		}
 
-		int count = holder.apply( this.count ) - 1;
-		for( int idx = 0; idx < count; ++idx ) {
-			data.extraItems.addAll( LootHelper.getLootTable( BuiltInLootTables.FISHING ).getRandomItems( LootHelper.toGiftParams( data.player ) ) );
-		}
+		data.extraItems.addAll( LootHelper.getLootTable( BuiltInLootTables.FISHING_TREASURE ).getRandomItems( LootHelper.toGiftParams( data.player ) ) );
 		this.spawnEffects( data, holder );
 	}
 

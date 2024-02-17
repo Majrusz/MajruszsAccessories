@@ -23,22 +23,22 @@ import java.util.List;
 
 public class StrongerPotions extends BonusComponent< AccessoryItem > {
 	RangedFloat durationPenalty = new RangedFloat().id( "duration_penalty" ).maxRange( Range.of( 0.0f, 1.0f ) );
-	RangedInteger amplifier = new RangedInteger().id( "amplifier" ).maxRange( Range.of( 1, 20 ) );
+	RangedFloat amplifier = new RangedFloat().id( "amplifier" ).maxRange( Range.of( 1.0f, 20.0f ) );
 
-	public static ISupplier< AccessoryItem > create( float durationPenalty, int amplifier ) {
+	public static ISupplier< AccessoryItem > create( float durationPenalty, float amplifier ) {
 		return handler->new StrongerPotions( handler, durationPenalty, amplifier );
 	}
 
-	protected StrongerPotions( BonusHandler< AccessoryItem > handler, float durationPenalty, int amplifier ) {
+	protected StrongerPotions( BonusHandler< AccessoryItem > handler, float durationPenalty, float amplifier ) {
 		super( handler );
 
 		this.durationPenalty.set( durationPenalty, Range.of( 0.0f, 1.0f ) );
-		this.amplifier.set( amplifier, Range.of( 1, 10 ) );
+		this.amplifier.set( amplifier, Range.of( 1.0f, 10.0f ) );
 
 		OnItemBrewed.listen( this::boostPotions )
 			.addCondition( data->data.items.subList( 0, 3 ).stream().anyMatch( itemStack->!PotionUtils.getMobEffects( itemStack ).isEmpty() ) );
 
-		this.addTooltip( "majruszsaccessories.bonuses.potion_amplifier", TooltipHelper.asValue( this.amplifier ) );
+		this.addTooltip( "majruszsaccessories.bonuses.potion_amplifier", TooltipHelper.asValue( this.amplifier ).scaleOnlyOnDetailed() );
 		this.addTooltip( "majruszsaccessories.bonuses.potion_duration", TooltipHelper.asPercent( this.durationPenalty ).bonusMultiplier( -1.0f ) );
 
 		handler.getConfig()
@@ -57,7 +57,7 @@ public class StrongerPotions extends BonusComponent< AccessoryItem > {
 
 		data.mapPotions( potions->{
 			float durationMultiplier = 1.0f - holder.apply( this.durationPenalty, -1.0f );
-			int extraAmplifier = holder.apply( this.amplifier );
+			int extraAmplifier = Math.round( holder.apply( this.amplifier ) );
 
 			return potions.stream()
 				.map( itemStack->{

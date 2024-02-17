@@ -116,7 +116,9 @@ public class AccessoryHolder {
 
 	public AccessoryHolder setRandomBonus() {
 		if( this.hasBonusRangeDefined() ) {
-			return this.setBonus( Optional.ofNullable( this.data.randomType ).orElse( RandomType.RANDOM ).get( this.data.range ) );
+			float bonus = Optional.ofNullable( this.data.randomType ).orElse( RandomType.RANDOM ).get( this.data.range );
+
+			return this.setBonus( Config.Efficiency.RANGE.clamp( bonus ) );
 		} else {
 			return this.setBonus( Config.Efficiency.getRandom() );
 		}
@@ -126,7 +128,6 @@ public class AccessoryHolder {
 		return this.save( ()->{
 			this.data.baseBonus = AccessoryHolder.round( bonus );
 			this.data.extraBonus = AccessoryHolder.round( Events.dispatch( new OnAccessoryExtraBonusGet( this ) ).bonus );
-			this.data.range = null;
 		} );
 	}
 
@@ -149,6 +150,13 @@ public class AccessoryHolder {
 
 	public AccessoryHolder addBooster( BoosterItem item ) {
 		return this.save( ()->this.data.boosters.add( new BoosterDef( item ) ) );
+	}
+
+	public AccessoryHolder removeBonus() {
+		return this.save( ()->{
+			this.data.baseBonus = null;
+			this.data.extraBonus = null;
+		} );
 	}
 
 	public AccessoryHolder removeBoosters() {
@@ -175,6 +183,10 @@ public class AccessoryHolder {
 
 	public Range< Float > getBonusRange() {
 		return this.data.range;
+	}
+
+	public Range< Float > getClampedBonusRange() {
+		return Config.Efficiency.RANGE.clamp( this.data.range );
 	}
 
 	public ItemStack getItemStack() {

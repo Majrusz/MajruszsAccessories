@@ -51,7 +51,7 @@
   "majruszsaccessories.bonuses.extra_archaeology_item": "Daje %1$s szansy na dodatkowy przedmiot z archeologii.",
   "majruszsaccessories.bonuses.mine_bonus": "Zwiększa prędkość kopania o %1$s.",
   "majruszsaccessories.bonuses.swim_bonus": "Zwiększa prędkość pływania o %1$s.",
-  "majruszsaccessories.bonuses.extra_fishing_items": "Daje %1$s szansy na zdobycie %2$s przedmiotów podczas łowienia.",
+  "majruszsaccessories.bonuses.extra_fishing_treasure": "Daje %1$s szansy na zdobycie dodatkowego skarbu podczas łowienia.",
   "majruszsaccessories.bonuses.trading_discount": "Zmniejsza koszty wymiany o %1$s podczas handlu.",
   "majruszsaccessories.bonuses.free_durability_cost": "Daje %1$s szansy na niestracenie punktów wytrzymałości podczas używania przedmiotów.",
   "majruszsaccessories.bonuses.sleep_bonuses": "Daje %1$s efekt(y/ów) %2$s na sekund po przebudzeniu.",

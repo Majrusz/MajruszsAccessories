@@ -49,7 +49,7 @@ public class AccessoryTooltipUpdater {
 	}
 
 	private List< Component > buildBonusRangeInfo( AccessoryHolder holder ) {
-		Range< Float > range = holder.getBonusRange();
+		Range< Float > range = holder.getClampedBonusRange();
 		Component min = TextHelper.literal( TextHelper.signedPercent( range.from ) ).withStyle( AccessoryHolder.getBonusFormatting( range.from ) );
 		Component max = TextHelper.literal( TextHelper.signedPercent( range.to ) ).withStyle( AccessoryHolder.getBonusFormatting( range.to ) );
 

@@ -40,8 +40,8 @@ public class CombineAccessoriesRecipe extends CustomRecipe {
 	public ItemStack assemble( CraftingContainer container, RegistryAccess registryAccess ) {
 		RecipeData data = RecipeData.build( container );
 		float craftingMaxBonus = data.getMaxBonus();
-		float minBonus = Config.Efficiency.RANGE.clamp( craftingMaxBonus - 0.02f * ( data.getAccessoriesSize() - 1 ) );
-		float maxBonus = Config.Efficiency.RANGE.clamp( craftingMaxBonus + 0.07f * ( data.getAccessoriesSize() - 1 ) );
+		float minBonus = craftingMaxBonus - 0.02f * ( data.getAccessoriesSize() - 1 );
+		float maxBonus = craftingMaxBonus + 0.07f * ( data.getAccessoriesSize() - 1 );
 
 		return AccessoryHolder.create( data.getAccessory( 0 ).getItem() ).setBonus( Range.of( minBonus, maxBonus ) ).getItemStack();
 	}

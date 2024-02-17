@@ -51,7 +51,7 @@
   "majruszsaccessories.bonuses.extra_archaeology_item": "Gives %1$s chance for extra item when brushing.",
   "majruszsaccessories.bonuses.mine_bonus": "Increases mine speed by %1$s.",
   "majruszsaccessories.bonuses.swim_bonus": "Increases swim speed by %1$s.",
-  "majruszsaccessories.bonuses.extra_fishing_items": "Gives %1$s chance to catch %2$s items when fishing.",
+  "majruszsaccessories.bonuses.extra_fishing_treasure": "Gives %1$s chance for extra treasure when fishing.",
   "majruszsaccessories.bonuses.trading_discount": "Decreases item prices by %1$s when trading.",
   "majruszsaccessories.bonuses.free_durability_cost": "Gives %1$s chance to not lose durability when using items.",
   "majruszsaccessories.bonuses.sleep_bonuses": "Gives %1$s random effect(s) for %2$s seconds when waking up.",

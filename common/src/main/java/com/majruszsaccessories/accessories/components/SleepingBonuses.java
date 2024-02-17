@@ -11,6 +11,7 @@ import com.majruszsaccessories.common.AccessoryHolder;
 import com.majruszsaccessories.common.AccessoryHolders;
 import com.majruszsaccessories.common.BonusComponent;
 import com.majruszsaccessories.common.BonusHandler;
+import com.majruszsaccessories.config.RangedFloat;
 import com.majruszsaccessories.config.RangedInteger;
 import com.majruszsaccessories.items.AccessoryItem;
 import com.majruszsaccessories.tooltip.TooltipHelper;
@@ -22,7 +23,7 @@ import net.minecraft.world.entity.player.Player;
 import java.util.List;
 
 public class SleepingBonuses extends BonusComponent< AccessoryItem > {
-	RangedInteger count = new RangedInteger().id( "count" ).maxRange( Range.of( 1, 100 ) );
+	RangedFloat count = new RangedFloat().id( "count" ).maxRange( Range.of( 1.0f, 100.0f ) );
 	RangedInteger duration = new RangedInteger().id( "duration" ).maxRange( Range.of( 1, 10000 ) );
 	List< EffectDef > effects = List.of(
 		new EffectDef( MobEffects.REGENERATION, 0 ),
@@ -35,21 +36,21 @@ public class SleepingBonuses extends BonusComponent< AccessoryItem > {
 		new EffectDef( MobEffects.DAMAGE_BOOST, 0 )
 	);
 
-	public static ISupplier< AccessoryItem > create( int count, int duration ) {
+	public static ISupplier< AccessoryItem > create( float count, int duration ) {
 		return handler->new SleepingBonuses( handler, count, duration );
 	}
 
-	protected SleepingBonuses( BonusHandler< AccessoryItem > handler, int count, int duration ) {
+	protected SleepingBonuses( BonusHandler< AccessoryItem > handler, float count, int duration ) {
 		super( handler );
 
-		this.count.set( count, Range.of( 1, 10 ) );
+		this.count.set( count, Range.of( 1.0f, 10.0f ) );
 		this.duration.set( duration, Range.of( 1, 10000 ) );
 
 		OnPlayerWakedUp.listen( this::applyBonuses )
 			.addCondition( Condition.isLogicalServer() )
 			.addCondition( data->!data.wasSleepStoppedManually );
 
-		this.addTooltip( "majruszsaccessories.bonuses.sleep_bonuses", TooltipHelper.asValue( this.count ), TooltipHelper.asValue( this.duration ) );
+		this.addTooltip( "majruszsaccessories.bonuses.sleep_bonuses", TooltipHelper.asValue( this.count ).scaleOnlyOnDetailed(), TooltipHelper.asValue( this.duration ) );
 
 		handler.getConfig()
 			.define( "sleep_bonuses", subconfig->{
@@ -65,7 +66,7 @@ public class SleepingBonuses extends BonusComponent< AccessoryItem > {
 			return;
 		}
 
-		int count = holder.apply( this.count );
+		int count = Math.round( holder.apply( this.count ) );
 		int duration = TimeHelper.toTicks( holder.apply( this.duration ) );
 		this.getRandomMobEffects( data.player, count )
 			.forEach( effect->data.player.addEffect( new MobEffectInstance( effect.effect, duration, effect.amplifier ) ) );

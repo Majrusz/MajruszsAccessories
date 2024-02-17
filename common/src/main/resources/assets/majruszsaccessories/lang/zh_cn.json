@@ -49,7 +49,6 @@
   "majruszsaccessories.bonuses.extra_archaeology_item": "对可疑的方块使用刷子时有%1$s概率获得额外物品",
   "majruszsaccessories.bonuses.mine_bonus": "提高%1$s采集速度",
   "majruszsaccessories.bonuses.swim_bonus": "提高%1$s游泳速度",
-  "majruszsaccessories.bonuses.extra_fishing_items": "垂钓时有%1$s概率钓到%2$s件物品",
   "majruszsaccessories.bonuses.trading_discount": "交易时降低%1$s物品价格",
   "majruszsaccessories.bonuses.free_durability_cost": "使用物品时有%1$s概率不消耗耐久值",
   "majruszsaccessories.bonuses.sleep_bonuses": "醒来时给予%1$s个随机效果，持续%2$s秒",
