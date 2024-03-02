@@ -1,0 +1,1 @@
+- added Japanese translation (thanks to @もふざとう)
