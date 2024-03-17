@@ -80,7 +80,7 @@ public class BonusHandler< Type extends Item > {
 		ItemStack overlay = BonusHandler.getOverlay( data.itemStack );
 		if( !overlay.isEmpty() ) {
 			float blitOffset = data.gui.blitOffset;
-			data.gui.blitOffset = 200.0f;
+			data.gui.blitOffset += 50.0f;
 			data.gui.renderGuiItem( overlay, data.x, data.y );
 			data.gui.blitOffset = blitOffset;
 		}

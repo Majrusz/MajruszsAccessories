@@ -1,2 +1,1 @@
-- backported mod to 1.19.2
-- fixed missing pocket texture (reported by @SiverDX)
+- fixed compatibility render issue with EMI (reported by @SiverDX)
