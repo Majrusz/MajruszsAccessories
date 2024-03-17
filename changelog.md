@@ -1,1 +1,2 @@
 - fixed compatibility render issue with EMI (reported by @SiverDX)
+- fixed compatibility bug with all accessories not being accessible through search bar in creative mode menu (reported by @katubug, @Emmulah, @SiverDX)

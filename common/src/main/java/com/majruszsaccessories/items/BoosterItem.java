@@ -1,5 +1,6 @@
 package com.majruszsaccessories.items;
 
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
@@ -18,7 +19,7 @@ public class BoosterItem extends Item {
 	}
 
 	private BoosterItem( Rarity rarity ) {
-		super( new Properties().stacksTo( 1 ) );
+		super( new Properties().stacksTo( 1 ).tab( CreativeModeTab.TAB_SEARCH ) );
 
 		this.rarity = rarity;
 	}

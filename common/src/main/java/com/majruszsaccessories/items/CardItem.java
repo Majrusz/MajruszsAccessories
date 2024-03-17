@@ -2,6 +2,7 @@ package com.majruszsaccessories.items;
 
 import com.majruszlibrary.events.OnItemTooltip;
 import com.majruszsaccessories.common.AccessoryHolder;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
@@ -14,7 +15,7 @@ public abstract class CardItem extends Item {
 	}
 
 	public CardItem() {
-		super( new Properties().rarity( Rarity.UNCOMMON ).stacksTo( 16 ) );
+		super( new Properties().rarity( Rarity.UNCOMMON ).stacksTo( 16 ).tab( CreativeModeTab.TAB_SEARCH ) );
 	}
 
 	@Override
